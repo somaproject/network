@@ -266,14 +266,15 @@ begin
     clkio_bufg : BUFG port map (
     		I => clkio_to_bufg,
 			O => clkio); 
-
+																									
 
     clk_dll : CLKDLL port map (
     		CLKIN => CLKIN,
 			CLKFB => clk,
 			RST => RESET,
 			CLK0 => clk_to_bufg, 
-			CLKDV => open);
+			CLKDV => open, 
+			CLK90 => MCLK);
 
     clk_bufg : BUFG port map (
     		I => clk_to_bufg,
@@ -291,7 +292,7 @@ begin
     		I => clkrx_to_bufg,
 			O => clkrx); 
 
-    MCLK <= clk;  
+
 	 
 	 slowclock: clockenable port map (
 	 			CLK => clk,

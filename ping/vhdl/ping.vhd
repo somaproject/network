@@ -10,13 +10,25 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity ping is
     Port ( CLKIN : in std_logic;
+	 		  IFCLK : in std_logic; 
 	 		  RESET : in std_logic; 
            CLKOUT : out std_logic;
            DIN : in std_logic_vector(15 downto 0);
            DINEN : in std_logic;
            NEXTFRAME : out std_logic;
            DOUT : out std_logic_vector(15 downto 0);
-           NEWFRAME : out std_logic);
+           NEWFRAME : out std_logic;
+			  SCLK : out std_logic; 
+			  SIN : out std_logic; 
+			  SOUT : in std_logic; 
+			  SCS : out std_logic;
+			  DATA : inout std_logic_vector(15 downto 0); 
+			  ADDR : in std_logic_vector(7 downto 0); 
+			  RW : in std_logic; 
+			  CMD : in std_logic;
+			  SAMPLE : out std_logic;  
+			  DONE : out std_logic
+			  );
 end ping;
 
 architecture Behavioral of ping is
@@ -71,6 +83,23 @@ architecture Behavioral of ping is
 	           WE : in std_logic;
 	           ADDR : in std_logic_vector(10 downto 0));
 	end component;
+
+	component NICserial is
+	    Port ( IFCLK : in std_logic;
+		 		  RESET : in std_logic; 
+	           SCLK : out std_logic;
+	           SCS : out std_logic;
+	           SIN : out std_logic;
+	           SOUT : in std_logic;
+				  DATA : inout std_logic_vector(15 downto 0); 
+				  ADDR : in std_logic_vector(7 downto 0); 
+				  RW : in std_logic; 
+				  CMD : in std_logic;
+				  SAMPLE : out std_logic;  
+				  DONE : out std_logic);
+	end component;
+
+
 begin
 
 	ram0 : rambuffer port map (
@@ -88,6 +117,20 @@ begin
 			DOUT => bufout1,
 			WE => we1,
 			ADDR => a1); 
+
+	serialio: NICserial port map (	
+			IFCLK => IFCLK,
+			RESET => RESET,
+			SCLK => SCLK,
+			SCS => SCS,
+			SIN => SIN,
+			SOUT => SOUT,
+			DATA => DATA,
+			ADDR => ADDR,
+			RW => RW,
+			CMD => CMD,
+			SAMPLE => SAMPLE,
+			DONE => DONE); 
 
 
 	-- making clocks

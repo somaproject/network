@@ -247,6 +247,8 @@ So now all those things that write the FIFO (i.e. anything with *INPUT) has a FI
 
 There is lots of pipelining in here :)
 
+
+
 ----------------------------------------------------------------------------
 Management Inteface
 ----------------------------------------------------------------------------
@@ -292,13 +294,13 @@ This interface is basically FSM-free. We sample the incoming clock and try and d
 
 All data is sent MSB first
 
-So, in a somewhat interesting turn of events, we're going to downclock this entire section to 125 MHz/4 == 32 MHz, or a nice cool 32 ns period, which should be much more usable. We can do this due to the MAD clkdlls and internal clock buffers we've got on this Spartan-IIE. Take that, Altera. 
+At some point in the past I thought that we could use multiple clkdlls and BUFGs to run this at a divided clock. But, unforutnately, that isn't possible because it appears that there are placement issues due to the way the PCB is layed out. This means that the solution will involve a slowed clock-enable and a multi-cycle timing constraint. 
 
-The clocks will of course be synchronized, meaning that a lot of concerns about timing and whatnot are eliminated.
+So, now the relevant error signals set a SR flip-flop that then increments the counter on the next cycle. 
 
-CLKSL is CLK / 4
+We need to enable autonegotation, as 1000mbit manual mode isn't actually supported by the IEEE spec (from NS DP83865 Data sheet).
 
-For our PHY, I think we should disable autonegotiatio and enable 1000mbit operation on startup, full duplex of course. 
+
 
 For MII interface portion: 
    The MDCCNT line is a 6 -bit counter whose top bit is used as the (registerd) MDC clock,a nd which is enabled by MDCEN. At 33 MHz, this is a .5 MHz clock, which is nice. a delta detector is placed on this signal to generate a clken when the MDC transitions from high to low. This will, in part, drive the FSM. SHIFTEN is derived the same way, but is high on the rising edge of the clock. 
@@ -424,8 +426,6 @@ I just don't understand what's left to be wrong. Going to try tying the JTAG pin
 IT WORKS! IT WORKS IT WORKS !!!!!!!!!!!!!!!!
 
 You need to clear the "isolate" bit in PHY register zero. 
-
-
 
 Attempts to debug why we can't read the actual packets...
 

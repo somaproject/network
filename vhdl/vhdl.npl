@@ -5,7 +5,7 @@ DESIGN vhdl
 DEVFAM spartan2e
 DEVFAMTIME 0
 DEVICE xc2s200e
-DEVICETIME 1067389623
+DEVICETIME 1068758066
 DEVPKG pq208
 DEVPKGTIME 1065491267
 DEVSPEED -6
@@ -68,7 +68,8 @@ DEPASSOC rxinput_fifo rxinput_fifo.ucf
 DEPASSOC control control.ucf
 DEPASSOC testsuite testsuite.ucf
 [Normal]
-p_ModelSimSimRunTime_tb=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064439070, 100ms
+mpprPARiterations=xstvhd, spartan2e, VHDL.t_mppr, 1068774665, 10
+p_ModelSimSimRunTime_tb=xstvhd, spartan2e, VHDL Test Bench.t_MSimulatePostPlace&RouteVhdlModel, 1064439070, 100ms
 p_PostMapSimModelName=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1065570070, network_PR
 p_PostParSimModelName=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1067543028, testsuite_PR
 p_PostXlateSimModelName=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1067543028, testsuite_PR
@@ -76,25 +77,31 @@ p_SimModelGtsPortName=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1065562750, RE
 p_SimModelRetainHierarchy=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1067543145, False
 p_SimModelSelOutBehav=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1065568345, True
 p_SimModelTarget=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1065562750, Modelsim_VHDL
-p_SimUseCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, False
+p_SimUseCustom_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064942493, False
 p_xstEquivRegRemoval=xstvhd, spartan2e, VHDL.t_synthesize, 1067741688, False
 p_xstPackIORegister=xstvhd, spartan2e, VHDL.t_synthesize, 1065491837, Yes
+p_xstUseSynthConstFile=xstvhd, spartan2e, VHDL.t_synthesize, 1068754069, False
 xilxBitgCfg_GenOpt_ASCIIFile=xstvhd, spartan2e, Implementation.t_bitFile, 1067537310, True
-xilxMapAllowLogicOpt=xstvhd, spartan2e, VHDL.t_map, 1068580303, True
-xilxMapCoverMode=xstvhd, spartan2e, VHDL.t_map, 1064958980, Balanced
-xilxMapPackfactor=xstvhd, spartan2e, VHDL.t_map, 1064958980, 100
-xilxMapReportDetail=xstvhd, spartan2e, VHDL.t_map, 1067550771, True
-xilxMapTimingDrivenPacking=xstvhd, spartan2e, VHDL.t_map, 1068604523, False
+xilxMapAllowLogicOpt=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1068756040, True
+xilxMapCoverMode=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1068755569, Speed
+xilxMapPackfactor=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064958980, 100
+xilxMapReportDetail=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1067550771, True
+xilxMapTimingDrivenPacking=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1068749439, False
 xilxNgdbldNTType=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064958659, On
-xilxNgdbldPresHierarchy=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1065013129, False
+xilxNgdbldPresHierarchy=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1068755053, False
 xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_par, 1068654366, High
-xilxPARextraEffortLevel=xstvhd, spartan2e, VHDL.t_par, 1064958980, None
-xilxPostTrceUncovPath=xstvhd, spartan2e, VHDL.t_postRouteTrce, 1068655023, 0
+xilxPARextraEffortLevel=xstvhd, spartan2e, VHDL.t_par, 1068774187, Normal
+xilxPARplacerEffortLevel=xstvhd, spartan2e, VHDL.t_par, 1068774187, High
+xilxPARrouterEffortLevel=xstvhd, spartan2e, VHDL.t_par, 1068774187, High
+xilxPostTrceUncovPath=xstvhd, spartan2e, VHDL.t_postRouteTrce, 1068659666,
 xilxSynthKeepHierarchy=xstvhd, spartan2e, VHDL.t_synthesize, 1065203996, Yes
-xilxSynthMaxFanout=xstvhd, spartan2e, VHDL.t_synthesize, 1068648535, 200
-_SynthFsmEncode=xstvhd, spartan2e, VHDL.t_synthesize, 1065530004, Auto
+xilxSynthMaxFanout=xstvhd, spartan2e, VHDL.t_synthesize, 1068757878, 140
+_SynthFsmEncode=xstvhd, spartan2e, VHDL.t_synthesize, 1068773523, One-Hot
+_SynthOpt=xstvhd, spartan2e, VHDL.t_synthesize, 1068773523, Area
 _SynthOptEffort=xstvhd, spartan2e, VHDL.t_synthesize, 1064934786, High
-_VhdlSimCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
-_VhdlSimDo_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, True
+_VhdlSimCustom_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
+_VhdlSimDo_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064942493, True
+[STATUS-ALL]
+network.twrFile=WARNINGS,1068774594
 [STRATEGY-LIST]
 Normal=True

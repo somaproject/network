@@ -21,6 +21,7 @@ GENERATEDSIMULATIONMODELTIME 0
 SOURCE ping.vhd
 SOURCE rambuffer.vhd
 STIMULUS ping_test.tbw
+SOURCE serial.vhd
 DEPASSOC ping ping.ucf
 [STRATEGY-LIST]
 Normal=True

@@ -97,11 +97,7 @@ int main (int argc, char **argv) {
   file.read((data + 12), len);
   file.close(); 
 
-  // set protocol type
-  data[12] = 0x01;
-  data[13] = 0x01; 
-
-
+ 
   
   // put in mac addressess
   for(int i = 0; i < 6; i++) {

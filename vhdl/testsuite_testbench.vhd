@@ -51,16 +51,21 @@ ARCHITECTURE behavior OF testsuite_testbench IS
 		LED1000 : OUT std_logic;
 		LEDDPX : OUT std_logic;
 		PHYRESET : OUT std_logic;
-		SOUT : OUT std_logic
+		SOUT : OUT std_logic;			
+	   MACADDR : in std_logic_vector(7 downto 0);
+	   MACDATA : out std_logic_vector(15 downto 0);
+	   IFCLK : in std_logic;
+	   NEXTF : in std_logic;
+	   TESTOUT : out std_logic 
 		);
 	END COMPONENT;
 
 	SIGNAL CLKIN :  std_logic := '0';
 	SIGNAL RESET :  std_logic := '1';
-	SIGNAL RX_DV :  std_logic;
-	SIGNAL RX_ER :  std_logic;
-	SIGNAL RXD :  std_logic_vector(7 downto 0);
-	SIGNAL RX_CLK :  std_logic;
+	SIGNAL RX_DV :  std_logic := '0';
+	SIGNAL RX_ER :  std_logic := '0';
+	SIGNAL RXD :  std_logic_vector(7 downto 0) := (others => '0');
+	SIGNAL RX_CLK :  std_logic := '0';
 	SIGNAL TXD :  std_logic_vector(7 downto 0);
 	SIGNAL TX_EN :  std_logic;
 	SIGNAL GTX_CLK :  std_logic;
@@ -88,6 +93,11 @@ ARCHITECTURE behavior OF testsuite_testbench IS
 	SIGNAL SIN :  std_logic;
 	SIGNAL SOUT :  std_logic;
 	SIGNAL SCS :  std_logic;
+	SIGNAL MACADDR : std_logic_vector(7 downto 0) := (others => '0');
+	SIGNAL MACDATA : std_logic_vector(15 downto 0);
+	SIGNAL IFCLK : std_logic := '0';
+	SIGNAL NEXTF : std_logic := '0';
+	SIGNAL TESTOUT : std_logic; 
 
 	signal sram_save : std_logic := '0'; 
 
@@ -156,11 +166,18 @@ BEGIN
 		SCLK => SCLK,
 		SIN => SIN,
 		SOUT => SOUT,
-		SCS => SCS
+		SCS => SCS,
+		MACADDR => MACADDR,
+		MACDATA => MACDATA,
+		IFCLK => IFCLK,
+		NEXTF => NEXTF,
+		TESTOUT => TESTOUT
 	);
 
-	reset <= '0' after 40 ns;
-	CLKIN <= not CLKIN after 4 ns; 
+	reset <= '0' after 100 ns;
+	CLKIN <= not CLKIN after 4 ns;
+	IFCLK <= not IFCLK after 15 ns;
+	RX_CLK <= not RX_CLK after 4 ns;  
 
 -- *** Test Bench - User Defined Section ***
    tb : PROCESS
@@ -170,6 +187,8 @@ BEGIN
 -- *** End Test Bench - User Defined Section ***
 
 
+	macaddr <= "00000001" after 1 us; 
+	RX_DV <= '1' after 10 us, '0' after 20 us; 
 	MDIO <= 'L'; 
 	serialtest: process(CLKIN) is
 	begin

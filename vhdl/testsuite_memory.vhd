@@ -33,10 +33,9 @@ begin
 			if CLKEN1 = '1' then
 				addrcnt <= addrcnt + 1;  
 				datacnt <= datacnt + 1; 
-				dataw1 <= datacnt;
+				dataw1 <= datacnt(31 downto 5) & datacnt(4 downto 0); 
 				addrcntl <= addrcnt; 
 			end if; 
-			
 
 			if CLKEN2 = '1' then
 			   addrcntll <= addrcntl;
@@ -45,10 +44,10 @@ begin
 				else
 					llerr <= '1';
 				end if;
-			dataw2 <= dataw1;
-			dataw3 <= dataw2;
-			dataw4 <= dataw3;
-			dataw5 <= dataw4; 
+				dataw2 <= dataw1;
+				dataw3 <= dataw2;
+				dataw4 <= dataw3;
+				dataw5 <= dataw4; 
 			end if; 
 
 			lerr <= llerr;
@@ -57,7 +56,7 @@ begin
 		end if ;
 	end process main; 
 
-	MD <= datacnt; 
+	MD <= datacnt(31 downto 5) &  datacnt(4 downto 0);  						 
 	MAD <= addrcnt;
 	MAQ <= addrcntll; 
 

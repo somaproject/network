@@ -117,9 +117,9 @@ begin
 	ramaddrin <= '0' & addr; 
 	ramclk: process(RX_CLK, RESET) is
 	begin
-		if RESET = '1' then
-			cs <= none;
-		else
+		--if RESET = '1' then
+		--	cs <= none;
+		--else
 			if rising_edge(RX_CLK) then
 				cs <= ns; 
 
@@ -135,9 +135,9 @@ begin
 
 
 				nextfl <= NEXTF; 
-				TESTOUT <= ramwe; 
+				TESTOUT <= RX_DV; 
 			end if; 
-		end if; 
+		--end if; 
 	end process ramclk; 
 
 

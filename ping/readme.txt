@@ -15,4 +15,8 @@ For TX: we wait until the SWAPB state is hit, and then we clock out the bytes, b
 
 The ICMP checksum makes things slightly more complicated, unfortunately. Since we're simply swapping the IP header addresses, it's not going to change the IP header checksum. However, the ICMP checksum will change by changing the type field from 08 to 00. Thus, we must have the approrpiate word be complemented, subtract 0800, and then recomplement the result. 
 
-No, we're not updating the TTL. 
+No, we're not updating the TTL. Deal. 
+
+We're implementing the serial interface from the protointerface's vhdl set, "nicserial". This way we can actually _turn on_ the PHY. It would be even cooler if we could  somehow set ping to generate broadcast ping packets or something, but baah, that's probably asking too much. 
+
+
