@@ -1,7 +1,7 @@
 Okay, this is a generic readme file full of notes and things I have left to do on this design. It's like a pre-changelog, i.e. as things are done here they should be checked in and added to the changelog. This is mainly a collection of notes for this particular section. 
 
-To-do: byte order in memory -- how are we handling this??
 
+To-do: byte order in memory -- how are we handling this??
 
 General Ethernet Notes:
 transmit preamble (10101010) 7 times, LSB (leftmost bit) sent first
