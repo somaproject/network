@@ -18,10 +18,10 @@ entity RXinput_memio is
            MA : out std_logic_vector(15 downto 0);
 		 MD : out std_logic_vector(31 downto 0); 
            BPOUT : out std_logic_vector(15 downto 0);
-           CRCERR : out std_logic;
-           OFERR : out std_logic;
-           PHYERR : out std_logic;
-		 FIFOW_ERR : out std_logic;
+           RXCRCERR : out std_logic;
+           RXOFERR : out std_logic;
+           RXPHYERR : out std_logic;
+		 RXFIFOWERR : out std_logic;
 		 FIFOFULL : in std_logic; 
            RXF : out std_logic);
 end RXinput_memio;
@@ -154,7 +154,7 @@ begin
 			if newf = '1' then
 			   crcl <= (others => '1');
 			else
-			   if brdy = '1' then 
+			   if brdy = '1' and ce = '1' then 
 			      crcl <= crc;
 			   end if; 
 		     end if; 
@@ -170,34 +170,43 @@ begin
 		     end if; 	
 			
 			-- error reporting:
-			if cs = errchk then
-			   if endbyte(2 downto 0) = "101" then
-			      PHYERR <= '1';
-			   else
-			   	 PHYERR <= '0';
-			   end if; 
-			    
-			   if endbyte(2 downto 0) = "110" then
-			      OFERR <= '1'; 
-			   else
-			      OFERR <= '0'; 
-			   end if; 
-			else 
-			   OFERR <= '0';
-			   PHYERR <= '0';
-			end if;
-			
+			if endbyte(2 downto 0) = "101" and cs = errchk then
+			   RXPHYERR <= '1';
+			else
+			   RXPHYERR <= '0';
+			end if; 
+		    	
+			if endbyte(2 downto 0) = "110" and cs = errchk then
+			   RXOFERR <= '1'; 
+			else
+			   RXOFERR <= '0'; 
+			end if; 
+		
+		     -- because of the 32-bit wide comparison with
+			-- CRC, this is really pipelined. 
+			-- but we only get a CRC error when it would be
+			-- a valid frame except for a bad CRC. 
 			if crcll = CRCCONST then
 				crcequal <= '1'; 
 			else
 				crcequal <= '0';
 			end if;
 			  
-			if crcequal = '0' and cs = errchk then
-			   CRCERR <= '1';
+			if crcequal = '0' and cs = errchk and 
+				endbyte(2) = '0' then
+			   RXCRCERR <= '1';
 		     else
-			   CRCERR <= '0';
+			   RXCRCERR <= '0';
 			end if;
+
+			-- fifo full error : otherwise, its a
+			-- great frame, we just can't write it. 
+			if cs = errchk and crcequal = '1' and 
+			   endbyte(2) = '0' and FIFOFULL = '1' then
+			   RXFIFOWERR <= '1';
+			else
+			   RXFIFOWERR <= '0';
+			end if; 	
 			 
 			lbpout <= bp;
 			lbpout2 <= lbpout;
@@ -234,7 +243,6 @@ begin
 			 ce <= '1'; 
 			 newf <= '1';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 if INVALID = '0' and DATA = "11010101" and ENDF = '0' then
 			    ns <= byte0;
   			 else
@@ -245,7 +253,6 @@ begin
 			 ce <= '1'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 if INVALID = '0' then
 			    if ENDF = '0' then
 			       ns <= byte1;
@@ -260,7 +267,6 @@ begin
 			 ce <= '1'; 
 			 newf <= '0'; 
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 if INVALID = '0' then
 			    if ENDF = '0' then
 			       ns <= byte2;
@@ -275,7 +281,6 @@ begin
 			 ce <= '1'; 
 			 newf <= '0'; 
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 if INVALID = '0' then
 			    if ENDF = '0' then
 			       ns <= byte3;
@@ -290,7 +295,6 @@ begin
 			 ce <= '1'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 if INVALID = '0' then
 			    if ENDF = '0' then
 			       ns <= byte0;
@@ -305,78 +309,65 @@ begin
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 ns <= memwait2; 
 	      when memwait2 => 
 		      men <= '0'; 
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 ns <= memwait3; 
 	      when memwait3 => 
 		      men <= '1'; 
 			 ce <= '0'; 
 			 newf <= '0'; 
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 ns <= wait0; 
 	      when wait0 => 
 		      men <= '1'; 
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
 			 ns <= errchk; 
 	      when errchk => 
 		      men <= '1'; 
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';
-			 if fifofulll = '1' then 
-			 	ns <= pktabort; 
+			 if fifofulll = '0' and endbyte(2) = '0' and 
+			 	crcll = CRCCONST then 
+				ns <= wait1; 
 			 else 
-				 if endbyte(2) = '0' then -- and crcll = CRCCONST then
-				    ns <= wait1;
-				 else
-				    ns <= none; 
-				 end if;
+				 ns <= pktabort; 
 			 end if;  
 	      when wait1 => 
 		      men <= '0'; 
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0'; 
 			 ns <= incbp; 
 	      when incbp => 
 		      men <= '1'; 
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '1';
-			 FIFOW_ERR <= '0';
 			 ns <= writebp; 
 	      when pktabort => 
 		      men <= '1'; 
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0'; 
 			 ns <= none; 
 	      when writebp => 
 		      men <= '1'; 
 			 ce <= '0'; 
 			 newf <= '0';
-			 wbp <= '0';
-			 FIFOW_ERR <= '0';  
+			 wbp <= '0'; 
 			 ns <= none; 
 	      when others => 
 		      men <= '0'; 
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';  
 			 ns <= none; 
 	 end case; 
 

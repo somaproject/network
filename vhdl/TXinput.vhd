@@ -19,7 +19,7 @@ entity TXinput is
            MA : out std_logic_vector(15 downto 0);
 		 FIFOFULL : in std_logic; 
            BPOUT : out std_logic_vector(15 downto 0);
-		 FIFOW_ERR : out std_logic; 
+		 TXFIFOWERR : out std_logic; 
            DONE : out std_logic);
 end TXinput;
 
@@ -188,7 +188,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			if den = '1' and newfint = '1' then
 				ns <= newf;
 			else
@@ -202,7 +202,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			ns <= low_w;
 	 	when low_w => 
 			dlen <= '1';
@@ -212,7 +212,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			if den = '1' then
 				ns <= low;
 			else
@@ -226,7 +226,7 @@ begin
 			bpen <= '0';
 			cpen <= '1';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			if cnt =0 or cnt = 65535 then --i.e. 0 or -1
 				ns <= waitlow;
 			else
@@ -240,7 +240,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			if den = '1'  then
 				ns <= high;
 			else
@@ -254,7 +254,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			if  cnt =0 or cnt = 65535 then --i.e. 0 or -1
 				ns <= pktdone1;
 			else
@@ -268,7 +268,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			ns <= lowmemw;
 	 	when lowmemw => 
 			dlen <= '0';
@@ -278,7 +278,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			ns <= pktdone1;
 	 	when pktdone1 => 
 			dlen <= '0';
@@ -288,7 +288,7 @@ begin
 			bpen <= '0';
 			cpen <= '1';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			if fifofulll = '1' then
 			   ns <= pktabort;
 			else
@@ -302,7 +302,7 @@ begin
 			bpen <= '1';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			ns <= pktdone3;
 	 	when pktabort => 
 			dlen <= '0';
@@ -312,7 +312,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '1';
+			TXFIFOWERR <= '1';
 			ns <= none;
 	 	when pktdone3 => 
 			dlen <= '0';
@@ -322,7 +322,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '1';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			ns <= none;
 	 	when others => 
 			dlen <= '0';
@@ -332,7 +332,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			FIFOW_ERR <= '0';
+			TXFIFOWERR <= '0';
 			ns <= none;	
 	end case; 
 													

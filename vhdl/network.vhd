@@ -51,8 +51,8 @@ architecture Behavioral of network is
 	       std_logic_vector(16 downto 0) :=	(others => '0');
 
 	-- error and status signals
-	signal crcerr, rxinput_oferr, phyerr, rxf, frametx, 
-	        txi_mwen, txfifow_err, rxfifow_err :
+	signal rxcrcerr, rxoferr, rxphyerr, rxf, txf, 
+	        txi_mwen, txfifowerr, rxfifowerr :
 				std_logic := '0';
 
 	-- base pointers 
@@ -104,10 +104,10 @@ architecture Behavioral of network is
 	           MD : out std_logic_vector(31 downto 0);
 	           MA : out std_logic_vector(15 downto 0);
 	           BPOUT : out std_logic_vector(15 downto 0);
-	           CRCERR : out std_logic;
-	           OFERR : out std_logic;
-	           PHYERR : out std_logic;
-			 FIFOW_ERR : out std_logic;
+	           RXCRCERR : out std_logic;
+	           RXOFERR : out std_logic;
+	           RXPHYERR : out std_logic;
+			 RXFIFOWERR : out std_logic;
 			 FIFOFULL : in std_logic; 
 	           RXF : out std_logic);
 	end component;
@@ -134,7 +134,7 @@ architecture Behavioral of network is
 	           BPIN : in std_logic_vector(15 downto 0);
 	           TXD : out std_logic_vector(7 downto 0);
 	           TXEN : out std_logic;
-			 FRAMETX: out std_logic;
+			 TXF: out std_logic;
 		      FBBP: out std_logic_vector(15 downto 0); 
 	           CLKEN : in std_logic;
 			 GTX_CLK : out std_logic);
@@ -151,7 +151,7 @@ architecture Behavioral of network is
 	           MA : out std_logic_vector(15 downto 0);
 	           BPOUT : out std_logic_vector(15 downto 0);
 			 FIFOFULL : in std_logic;
-			 FIFOW_ERR : out std_logic;
+			 TXFIFOWERR : out std_logic;
 	           DONE : out std_logic);
 	end component;
 
@@ -235,11 +235,11 @@ begin
 			  MD => d1,
 			  MA => addr1,
 			  BPOUT => rxbp,
-			  CRCERR => crcerr,
-			  OFERR => rxinput_oferr,
-			  PHYERR => phyerr,
+			  RXCRCERR => rxcrcerr,
+			  RXOFERR => rxoferr,
+			  RXPHYERR => rxphyerr,
 			  FIFOFULL => rxfifofull,
-			  FIFOW_ERR => rxfifow_err,
+			  RXFIFOWERR => rxfifowerr,
 			  RXF => rxf);
    rx_output : rxoutput port map (
    			  CLK => clk,
@@ -262,7 +262,7 @@ begin
 			  BPIN => txbp,
 			  TXD => TXD,
 			  TXEN => TX_EN,
-			  FRAMETX => frametx,
+			  TXF => txf,
 			  FBBP => txfbbp, 
 			  CLKEN => clken2, 
 			  GTX_CLK => GTX_CLK);
@@ -277,7 +277,7 @@ begin
 			  MD => d4,
 			  BPOUT => txbp,
 			  FIFOFULL => txfifofull,
-			  FIFOW_ERR => txfifow_err,
+			  TXFIFOWERR => txfifowerr,
 			  DONE => open);
 
    tx_fifocheck: FIFOcheck port map(

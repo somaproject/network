@@ -16,7 +16,7 @@ entity TXoutput is
            BPIN : in std_logic_vector(15 downto 0);
            TXD : out std_logic_vector(7 downto 0);
            TXEN : out std_logic;
-		 FRAMETX: out std_logic;
+		 TXF: out std_logic;
 		 FBBP: out std_logic_vector(15 downto 0);  
            CLKEN : in std_logic;
 		 GTX_CLK : out std_logic);
@@ -79,9 +79,9 @@ begin
     GTX_CLK <= clk;
 
 
-    --frametx goes high when a packet is being sent, and
+    --TXF goes high when a packet is being sent, and
     -- is used both for TX LED and the indicator counter
-    FRAMETX <= ltxen2; 
+    TXF <= ltxen3 and not ltxen2; 
 
 
     clock: process(CLK, RESET) is

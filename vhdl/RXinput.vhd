@@ -18,10 +18,10 @@ entity RXinput is
            MD : out std_logic_vector(31 downto 0);
            MA : out std_logic_vector(15 downto 0);
            BPOUT : out std_logic_vector(15 downto 0);
-           CRCERR : out std_logic;
-           OFERR : out std_logic;
-           PHYERR : out std_logic;
-		 FIFOW_ERR : out std_logic;
+           RXCRCERR : out std_logic;
+           RXOFERR : out std_logic;
+           RXPHYERR : out std_logic;
+		 RXFIFOWERR : out std_logic;
 		 FIFOFULL : in std_logic; 
            RXF : out std_logic);
 end  RXinput;
@@ -63,10 +63,10 @@ architecture Behavioral of RXinput is
 	           MA : out std_logic_vector(15 downto 0);
 			 MD : out std_logic_vector(31 downto 0); 
 	           BPOUT : out std_logic_vector(15 downto 0);
-	           CRCERR : out std_logic;
-	           OFERR : out std_logic;
-	           PHYERR : out std_logic;
-		 	 FIFOW_ERR : out std_logic;
+	           RXCRCERR : out std_logic;
+	           RXOFERR : out std_logic;
+	           RXPHYERR : out std_logic;
+		 	 RXFIFOWERR : out std_logic;
 		 	 FIFOFULL : in std_logic; 
 	           RXF : out std_logic);
 	end component;
@@ -107,11 +107,11 @@ begin
 		 MA => MA,
 		 MD => MD,
 		 BPOUT => BPOUT,
-		 CRCERR => CRCERR,
-		 OFERR => OFERR,
-		 PHYERR => PHYERR,
+		 RXCRCERR => RXCRCERR,
+		 RXOFERR => RXOFERR,
+		 RXPHYERR => RXPHYERR,
 		 FIFOFULL => FIFOFULL,
-		 FIFOW_ERR => FIFOW_ERR,
+		 RXFIFOWERR => RXFIFOWERR,
 		 RXF => RXF); 
 
     fifo: RXinput_fifo port map (
