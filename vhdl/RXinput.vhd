@@ -37,16 +37,8 @@ architecture Behavioral of RXinput is
    signal fifoin: std_logic_vector(7 downto 0) := (others => '0');
 
    -- mmio signals
-   signal ceout, endf, empty : std_logic := '0';
+   signal ce, endf, invalid : std_logic := '0';
    signal data : std_logic_vector(7 downto 0) := (others => '0');
-
-   -- data signals
-   signal fifodin, fifodout : std_logic_vector(15 downto 0) :=
-   			(others => '0');
-   signal nearf: std_logic := '0';
-   signal wr_count : std_logic_vector(1 downto 0) := 
-   			(others => '0'); 
-
 
 	component RXinput_GMII is
 	    Port ( RX_CLK : in std_logic;
@@ -56,15 +48,15 @@ architecture Behavioral of RXinput is
 	           INCE : out std_logic;
 	           ENDFIN : out std_logic;
 	           FIFOIN : out std_logic_vector(7 downto 0);
-	           RX_NEARF: in std_logic);
+	           RX_NEARF : in std_logic);
 	end component;
 
 	component RXinput_memio is
 	    Port ( CLK : in std_logic;
 	    		 RESET : in std_logic;
-	           CEOUT : out std_logic;
+	           CE : out std_logic;
 	           ENDF : in std_logic;
-	           EMPTY : in std_logic;
+	           INVALID : in std_logic;
 	           DATA : in std_logic_vector(7 downto 0);
 	           MA : out std_logic_vector(15 downto 0);
 			 MD : out std_logic_vector(31 downto 0); 
@@ -74,63 +66,62 @@ architecture Behavioral of RXinput is
 	           PHYERR : out std_logic;
 	           RXF : out std_logic);
 	end component;
-	component async_fifo IS
-		port (
-		din: IN std_logic_VECTOR(15 downto 0);
-		wr_en: IN std_logic;
-		wr_clk: IN std_logic;
-		rd_en: IN std_logic;
-		rd_clk: IN std_logic;
-		ainit: IN std_logic;
-		dout: OUT std_logic_VECTOR(15 downto 0);
-		full: OUT std_logic;
-		empty: OUT std_logic;
-		wr_count: OUT std_logic_VECTOR(1 downto 0));
-	END component;
+
+	component RXinput_fifo is
+	    Port ( RX_CLK : in std_logic;
+	    		 RESET : in std_logic; 
+	           ENDFIN : in std_logic;
+	           DIN : in std_logic_vector(7 downto 0);
+	           NEARF : out std_logic;
+	           CEIN : in std_logic;
+	           CLK : in std_logic;
+	           CE : in std_logic;
+	           DATA : out std_logic_vector(7 downto 0);
+	           ENDF : out std_logic;
+	           INVALID : out std_logic);
+	end component;
 
 begin
-   GMII : RXinput_GMII port map (
-   		RX_CLK => RX_CLK,
-		RX_DV => RX_DV,
-		RX_ER => RX_ER,
-		RXD => RXD,
-		INCE => ince,
-		ENDFIN => endfin,
-		FIFOIN => fifoin,
-		RX_NEARF => rx_nearf);
 
-   memio : RXinput_memio port map (
-   		CLK => CLK,
-		RESET => RESET,
-		CEOUT => ceout,
-		ENDF => endf,
-		EMPTY => empty,
-		DATA => data,
-		MA => MA,
-		MD => MD,
-		BPOUT => BPOUT,
-		CRCERR => CRCERR,
-		OFERR => OFERR,
-		PHYERR => PHYERR,
-		RXF => RXF); 
-   fifo : async_fifo port map (
-   		din => fifodin,
-		wr_en => ince,
-		wr_clk => RX_CLK,
-		rd_en => ceout,
-		rd_clk => CLK,
-		ainit => RESET, 
-		dout => fifodout,
-		full => open,
-		empty => empty, 
-		wr_count => wr_count);
+     GMII: RXinput_GMII port map (
+		 RX_CLK => RX_CLK,
+		 RX_DV => RX_DV,
+		 RX_ER => RX_ER,
+		 RXD => RXD,
+		 INCE => ince, 
+		 ENDFIN => endfin,
+		 FIFOIN => fifoin,
+		 RX_NEARF => rx_nearf);
+     
+    memio: RXinput_memio port map (
+    		 CLK => CLK,
+		 RESET => RESET,
+		 CE => ce,
+		 ENDF => endf, 
+		 INVALID => invalid,
+		 DATA => data, 
+		 MA => MA,
+		 MD => MD,
+		 BPOUT => BPOUT,
+		 CRCERR => CRCERR,
+		 OFERR => OFERR,
+		 PHYERR => PHYERR,
+		 RXF => RXF); 
+
+    fifo: RXinput_fifo port map (
+    		 RX_CLK => RX_CLK,
+		 RESET => RESET, 
+		 ENDFIN => endfin,
+		 DIN => fifoin,
+		 NEARF => rx_nearf,
+		 CEIN => ince, 
+		 CLK => CLK,
+		 CE => ce,
+		 DATA => data,
+		 ENDF => endf, 
+		 INVALID => invalid);
 
 
-    fifodin <= "0000000" & endfin & fifoin;
-    endf <= fifodout(8);
-    data <= fifodout(7 downto 0);
-    
-    rx_nearf <= '1' when wr_count = "10" else '0';
 
 
 end Behavioral;
