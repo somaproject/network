@@ -91,7 +91,7 @@ ARCHITECTURE behavior OF testsuite_testbench IS
 
 	signal sram_save : std_logic := '0'; 
 
-
+	signal counter : integer := 0; 
 	component test_NoBLSRAM is
 	    Generic (  FILEIN : string := "SRAM_in.dat"; 
 	    				FILEOUT : string := "SRAM_out.dat";
@@ -169,6 +169,30 @@ BEGIN
    END PROCESS;
 -- *** End Test Bench - User Defined Section ***
 
+	serialtest: process(CLKIN) is
+	begin
+		if rising_edge(CLKIN) then 
+			counter <= counter + 1; 
+			if counter mod 50 = 0  and not (counter mod 100 = 0) then
+				sclk <= '1';
+			elsif counter mod 100 = 0 then
+				sclk <= '0';
+			end if; 
+			if counter = 0 then
+				scs <= '1';
+				sin <= '0';
+			elsif counter = 4000 - 10 then 
+				scs <= '0';
+			elsif counter = 9000 - 10 then
+				scs <= '1';
+			end if; 
 
+			if counter = 14000 - 10 then 
+				scs <= '0';
+			elsif counter = 19000 - 10 then
+				scs <= '1';
+			end if; 
+		end if; 
+	end process serialtest; 
 
 END;

@@ -88,7 +88,7 @@ architecture Behavioral of control is
    signal lrxbcast, lrxmcast, lrxucast: std_logic := '0';
    signal lrxallf : std_logic := '1';
 
-   signal phyrstcnt : integer := 0; 
+   signal phyrstcnt : integer := 2000; 
 
 
 	-- phy status components
@@ -286,11 +286,11 @@ begin
 		    -- mac address parts
 		    if addr(4 downto 0) = "11101" and rw = '1' and
 		    	  sclkdeltal = '1' then 
-			  lmacaddr(15 downto 0) <= din(15 downto 0);
+			  		lmacaddr(15 downto 0) <= din(15 downto 0);
 		    end if; 
 		    if addr(4 downto 0) = "11110" and rw = '1' and
 		    	  sclkdeltal = '1' then 
-			  lmacaddr(31 downto 16) <= din(15 downto 0);
+			  	lmacaddr(31 downto 16) <= din(15 downto 0);
 		    end if; 
 		    if addr(4 downto 0) = "11111" and rw = '1' and
 		    	  sclkdeltal = '1' then 
@@ -300,7 +300,7 @@ begin
 		    -- phy reset
 				if din(0) = '1' and addr(4 downto 0) = "00001" and 
 	   			rw = '1' and sclkdeltal = '1' then
-					phyrstcnt <= 255;
+					phyrstcnt <= 2000;
 		    	else
 		    		if phyrstcnt >0 then
 		    			phyrstcnt <= phyrstcnt - 1;
@@ -364,12 +364,13 @@ begin
 
    -- address decoding!!
    addr_mux : process(addr, rxcrcerr_cntl, rxoferr_cntl, 
-   				  rxphyerr_cntl, txfifowerr_cntl,
+   				  rxphyerr_cntl, txfifowerr_cntl, lmacaddr,
 				  rxfifowerr_cntl, txf_cntl, rxf_cntl, phystat, phyaddr, phydi, phydo) is
    begin
 		case addr(5 downto 0) is
 			when "000000" => doutmux <= X"01234567"; 
-			when "000010" => doutmux <= phystat;
+	 		when "000010" => doutmux <= phystat;
+			when "000011" => doutmux <= X"89ABCDEF";
 			when "001000" => doutmux <= phyaddr; 
 			when "001001" => doutmux <= phydi;
 			when "001010" => doutmux <= phydo; 
@@ -380,9 +381,13 @@ begin
 			when "010101" => doutmux <= rxphyerr_cntl; 
 			when "010110" => doutmux <= rxoferr_cntl; 
 			when "010111" => doutmux <= rxcrcerr_cntl;
+			when "011101" => doutmux <= X"0000" & lmacaddr(15 downto 0);
+			when "011110" => doutmux <= X"0000" & lmacaddr(31 downto 16);
+			when "011111" => doutmux <= X"0000" & lmacaddr(47 downto 32);
 			when others =>  doutmux <= (others => '0');
 		end case;  
 	end process addr_mux; 
+
 
    counters: process(CLK) is
    begin

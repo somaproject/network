@@ -160,7 +160,7 @@ architecture Behavioral of testsuite is
 	end component;
 begin
 
-	 MOE <= '0'; 
+	 MOE <= '1'; 
 
 	 -- random LED flashing:
 	 flash: process(CLK) is
@@ -206,14 +206,7 @@ begin
 			  CLKEN4 => clken4);
 
 	 -- ledrx
-	 process(CLK) is
-	 	variable lrx : std_logic := '0'; 
-	 begin
-	 	if rising_edge(CLK) then
-			lrx := RX_DV;
-			LEDRX <= lrx; 
-		end if; 
-	 end process; 
+
     clk_dll : CLKDLL generic map (
 	 		clkdv_divide => 8.0)
 			port map (
@@ -221,25 +214,27 @@ begin
 			CLKFB => clk,
 			RST => RESET,
 			CLK0 => clk_to_bufg, 
-			CLKDV => clksl,
+			CLKDV => clksl_to_bufg,
 			CLK270 => MCLK);
 
     clk_bufg : BUFG port map (
     		I => clk_to_bufg,
 			O => clk); 
-
+    clk_slowbufg : BUFG port map (
+    		I => clksl_to_bufg,
+			O => clksl); 
  
 
 
 
 
 	mac_control: control port map (
-				CLK => clk,
+				CLK => clksl,
 				RESET => RESET,
 				CLKSL => clksl,
-				SCLK => '0',
+				SCLK => SCLK,
 				SCS => SCS, 
-				SIN => '0',
+				SIN => SIN,
 				SOUT => SOUT, 
 				LEDACT => open,
 				LEDTX => LEDTX,
@@ -301,5 +296,17 @@ begin
  
 	 
 		TX_EN <= tx_en_out; 
-		GTX_CLK <= clk; 			 
+		GTX_CLK <= clk; 
+	process(RX_CLK) is
+	begin 
+	   if rising_edge(RX_CLK) then
+			if RX_DV = '1' or RXD = "00000000" or RX_ER = '1' then
+				LEDRX <= '1';
+			else
+				LEDRX <= '0';
+			end if;
+		end if;
+	end process; 			 
+
+
 end Behavioral;

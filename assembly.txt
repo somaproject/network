@@ -13,3 +13,6 @@ digikey: FPGA,
 samples: PHY from NS, voltage reg from TI, RJ-45s from molex
 
 Oscillator TS pin is actually an OE pin. Corrected in PCB, sch, and cut trace with xacto on the PCBs i have. 
+
+Soldered on the PHY correctly, as indicated by getting good clock out of the clock out pin. 
+

@@ -406,5 +406,9 @@ begin
 				MACADDR => macaddr,
 				MDIO => MDIO,
 				MDC => MDC); 
+	RX_CLK <= 'Z';
+	RX_DV <= 'Z';
+	RXD <= (others => 'Z');
+	RX_ER <= 'Z';
 		  	
 end Behavioral;

@@ -30,6 +30,9 @@ architecture Behavioral of PHYstatus is
 	signal addrl, miiaddr : std_logic_vector(4 downto 0) := (others => '0');
 	signal rwl, miirw : std_logic := '0';
 
+	 
+
+
 	signal din, dout : std_logic_vector(15 downto 0) := (others => '0');
 
 	signal phyaddrdone, phyaddrws : std_logic := '0';

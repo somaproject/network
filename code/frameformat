@@ -59,6 +59,43 @@ if($ARGV[0] eq "-toGMII") {
 
 	
     }
+} elsif ($ARGV[0] eq "-ram8") {
+    # format for inclusion in the INITs for a byte-wide block ram
+    while(<STDIN>){
+	my $frame = $_;
+	/frame (\d+) (\d+) (\d+) (\d+) (\d+)/;
+	my $len = $1; 
+	my $nosfs = $3; 
+	my $sfslen = $4; 
+	my $phyerr = $5; 
+	
+	# figure out where, after SFS, the data is
+	
+	# haha, we basically need to reverse the order here... 
+	    
+	my $outstring = ""; 
+	my $totalstring = ""; 
+	my $i = 0; 
+	print "\n"; 
+	while(/(\w+)/g) {
+	    if (($i > 6  ) && 
+		($i < ($len +6))) {
+		$outstring = $1 . $outstring;
+		
+		if ((($i-(6))  % 32) == 0) {
+		    $totalstring .= "$outstring\n" ;
+		    $outstring = ""; 
+		}
+	    }
+	    $i++; 
+	}
+	
+	$totalstring .= "$outstring\n"; 
+
+	print "$totalstring\n"; 
+
+	
+    }
 }
 
 

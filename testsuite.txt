@@ -79,3 +79,8 @@ So, for some fucked-up reason, the tardo memory-test appears to work correctly. 
   The CLK270 needs to drive the memory.  
 
 Ram apears to work... we'll see... 
+
+3 Nov 2003. 
+  Well, now the RAM doesn't appear to be working, but fuck it, I don't care at the moment, I want to know what's wrong with the PHY. All the options point to us trying to develop a serial interface, even though I _really really_ don't want to screw with the GPIF stuff at the moment. Oh well, maybe I can make an easy hack interface or something. 
+  Punting ram for a while, setting OE\ high.  
+
