@@ -28,45 +28,50 @@ MODULE RXinput_memio.vhd
 MODSTYLE rxinput_memio Normal
 MODULE CRC_combtest.vhd
 MODSTYLE crc_combtest Normal
-MODULE RXinput.vhd
-MODSTYLE rxinput Normal
-MODULE TXinput.vhd
-MODSTYLE txinput Normal
-MODULE async_fifo.xco
-MODSTYLE async_fifo Normal
-MODULE RXoutput.vhd
-MODSTYLE rxoutput Normal
-MODULE TXoutput.vhd
-MODSTYLE txoutput Normal
-MODULE crc_combinational.vhd
-MODSTYLE crc_combinational Normal
-MODULE rxinput_fifocontrol.vhd
-MODSTYLE rxinput_fifocontrol Normal
 MODULE memory.vhd
 MODSTYLE memory Normal
 MODULE network.vhd
 MODSTYLE network Normal
+MODULE async_fifo.xco
+MODSTYLE async_fifo Normal
 MODULE FIFOcheck.vhd
 MODSTYLE fifocheck Normal
+MODULE crc_combinational.vhd
+MODSTYLE crc_combinational Normal
+MODULE RXinput.vhd
+MODSTYLE rxinput Normal
+MODULE TXinput.vhd
+MODSTYLE txinput Normal
+MODULE RXoutput.vhd
+MODSTYLE rxoutput Normal
+MODULE TXoutput.vhd
+MODSTYLE txoutput Normal
+MODULE rxinput_fifocontrol.vhd
+MODSTYLE rxinput_fifocontrol Normal
 MODULE RXinput_GMII.vhd
 MODSTYLE rxinput_gmii Normal
 MODULE RXinput_fifo.vhd
 MODSTYLE rxinput_fifo Normal
 MODULE test_NoBLSRAM.vhd
 MODSTYLE test_noblsram Normal
+MODULE control.vhd
+MODSTYLE control Normal
 DEPASSOC rxinput_fifocontrol txinput_fifocontrol.ucf Normal
-DEPASSOC rxoutput rxoutput.ucf Normal
 DEPASSOC network network.ucf Normal
+DEPASSOC rxoutput rxoutput.ucf Normal
 DEPASSOC rxinput_gmii RXinput_GMII.ucf Normal
 DEPASSOC rxinput_memio RXinput_memio.ucf Normal
+DEPASSOC control control.ucf SYSTEM
 DEPASSOC txoutput TXoutput.ucf Normal
 DEPASSOC rxinput RXinput.ucf Normal
-DEPASSOC rxinput_fifo rxinput_fifo.ucf Normal
-DEPASSOC memory memory.ucf Normal
 DEPASSOC txinput TXinput.ucf Normal
+DEPASSOC memory memory.ucf Normal
+DEPASSOC rxinput_fifo rxinput_fifo.ucf Normal
 [Normal]
 p_ModelSimSimRunTime_tb=xstvhd, spartan2e, Module VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064439070, 100ms
 p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1062287314, Yes
 xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_par, 1062367111, High
+[STATUS-ALL]
+control.ngcFile=WARNINGS,1064542539
 [STRATEGY-LIST]
 Normal=True
