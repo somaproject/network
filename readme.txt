@@ -173,6 +173,7 @@ what if FIFO_FULL signal disabled INCing the MAC and disabled writing the FIFO..
 
 So, we're going to have a FIFO_full and a FIFO_NEARFULL signal. FIFO_FULL will put the FSM into a nop mode, and it will only return to clocking in bytes when FIFO_NEARFULL goes back to 0. 
 
+testing: the input pattern here is so complicated, and I'm so impatient, that I'm just going to code up the main system and deal with this later. 
 
 
 
