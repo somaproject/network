@@ -222,7 +222,7 @@ BEGIN
 					gmii_verify_ack <= '0';
 				elsif txenl = '1' and txen = '0' then
 				     if txerrors = 0 then
-						report "Successfully read the entire frame";
+						  
 					else
 						report "There was an error reading this frame";
 					end if;  
