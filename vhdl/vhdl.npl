@@ -64,6 +64,12 @@ DEPASSOC rxinput_fifo rxinput_fifo.ucf
 DEPASSOC control control.ucf
 [Normal]
 p_ModelSimSimRunTime_tb=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064439070, 100ms
+p_PostMapSimModelName=xstvhd, spartan3, VHDL.t_postMapSimModel, 1065570070, network_PR
+p_PostParSimModelName=xstvhd, spartan3, VHDL.t_postParSimModel, 1065563489, network_PR
+p_PostXlateSimModelName=xstvhd, spartan3, VHDL.t_postXlateSimModel, 1065570070, network_PR
+p_SimModelGtsPortName=xstvhd, spartan3, VHDL.t_postMapSimModel, 1065562750, RESET
+p_SimModelSelOutBehav=xstvhd, spartan3, VHDL.t_postMapSimModel, 1065568345, True
+p_SimModelTarget=xstvhd, spartan3, VHDL.t_postMapSimModel, 1065562750, Modelsim_VHDL
 p_SimUseCustom_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064942493, False
 p_xstPackIORegister=xstvhd, spartan3, Schematic.t_synthesize, 1065491837, Yes
 xilxMapAllowLogicOpt=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1065450154, True
@@ -80,5 +86,9 @@ _SynthFsmEncode=xstvhd, spartan3, Schematic.t_synthesize, 1065530004, Auto
 _SynthOptEffort=xstvhd, spartan3, Schematic.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064942493, True
+[STATUS-ALL]
+control.ngcFile=WARNINGS,1065648560
+network.ngdFile=WARNINGS,1065562763
+network.postXlateVHDLSimModel=WARNINGS,1065570074
 [STRATEGY-LIST]
 Normal=True

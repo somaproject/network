@@ -25,22 +25,37 @@ for ($x=0; $x <= $packetnum-1; $x++) {
     my $pktlen =  int(rand($max_pktlen - $min_pktlen)+$min_pktlen);
     print $pktlen; 
     for($i=0; $i < $pktlen; $i++) {
-	if(($i % 16 )== 0) {
-	    print "\n";
-	}
-	
+
+	my $randnum = int(rand(256)); 
+
 	if($x < 6) { 
 	    if($packettype eq "a") {
-		$randnum = sprintf("%2.2x", int(rand(256))); 	
-	    } else {]
-		$randnum = substring($MACADDR, $x*3, 2); 
+		$data .= sprintf("%c", $randnum); 
+	    } else {
+		$data .= hex(substring($MACADDR, $x*3, 2)); 
 	    }
 	} else {
-	    $randnum = sprintf("%2.2x", int(rand(256))); 	
+	    $data .= $randnnum; 
 	}
-	print "$randnum ";
     }
-    print "\n";
+
+    # now $data contrains the byte string n packets long
+    
+    # calculate the CRC
+    # add it to the data
+    $data .= "0000"; 
+    $pktlen += 4; 
+
+
+    # now we add an fcs, perhaps
+    if($fcs_errors) {
+	$fcs = int(rand(10)); 
+	if ($fcs > 1) {
+	    
+	}
+
+    print "FRAME $pktlen \n";
+    $randnum .= sprintf("%2.2x", int(rand(256))); 	
+    $pktlen +=4; 
     
 }
-

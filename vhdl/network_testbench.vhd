@@ -206,6 +206,11 @@ BEGIN
    
    reset <= '0' after 200 ns; 
 
+	SCLK <= 'L';
+	SIN <= 'L'; 
+	SCS <= 'H'; 
+
+	MDIO <= 'H';
 
 -- *** Test Bench - User Defined Section ***
    tb : PROCESS
@@ -320,6 +325,9 @@ BEGIN
 
 	end if; 
    end process io_input_raw;
+
+
+	
 
    io_input_frame : process is
       

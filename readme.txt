@@ -327,8 +327,6 @@ MAC booting, etc. via the stupid physical layer I2C interface thing
 Testing modes... 
    Something that just spits out 1024-byte frames to a given MAC
    
-Uhh, did we want to do any sort of MAC address filtering? 
-
 ----------------------------------------------------------------------------
 Overview notes
 ----------------------------------------------------------------------------
@@ -346,5 +344,26 @@ Switching to Molex, series 71660/71661
 15-92-1468 vertical receptical connector, 68-pin
 for the dev board
 87552-0681 right-angle recepticale connector, 68 pin (samples from molex)
+
+
+--------------------------------------------------------------------------
+Simulation testing, etc. 
+--------------------------------------------------------------------------
+Right now, 20 us into the simulation using any of the physical ones,
+we start getting XXXX propagation errors. Disabling global X propagation
+didn't turn it off. Uggh. This suggests (drumroll) that maybe the problem
+isn't wrt setup/hold times?
+
+New, be-all-end-all test vector setup: -- test all proper functioning of the system:
+
+Things to care about:
+MAC address filtering
+CRC error rejection
+encoding of data
+serial interface
+MII interface...
+different clocks
+receive 300 1024-byte packets, and see if we get an expected number of RXFIFOW errors. 
+Add in some PHY errors, some CRC errors
 
 
