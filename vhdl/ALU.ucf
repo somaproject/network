@@ -1,0 +1,1 @@
+TIMESPEC "TS_P2P" = FROM "PADS" TO "PADS" 10 ns;
