@@ -72,6 +72,8 @@ NEWFRAME is kept high for the entire transmission duration of a frame, which is 
 
 We read in n bytes, based on what the header says, and westop reading once we've gotten that many bytes. 
 
+the input 16-bit interface always has the first byte on the wire placed, well, first. That is, for a signal Data[15:0], the byte DATA[15:8] was transmitted BEFORE the byte DATA[7:0]
+
 Since the input clock is on the order of 60 MHz or less, we use a system like that outlined to work across async boundaries. 
 
 Test:

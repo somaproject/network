@@ -167,19 +167,19 @@ begin
 			menl <= men; 
 			
 			-- byte data
-			if cs = byte0 then
+			if cs = byte1 then
 			   dout(7 downto 0) <= data;
 			end if; 
 
-			if cs = byte1 then
+			if cs = byte0 then
 			   dout(15 downto 8) <= data;
 			end if; 
 
-			if cs = byte2 then
+			if cs = byte3 then
 			   dout(23 downto 16) <= data;
 			end if; 
 
-			if cs = byte3 then
+			if cs = byte2 then
 			   dout(31 downto 24) <= data;
 			end if; 
 
