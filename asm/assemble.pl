@@ -13,7 +13,7 @@ my %registers = ('r0', 0, 'r1', 1,'r2', 2, 'r3', 3,
 	      'r4', 4, 'r5', 5, 'r6', 6, 'r7', 7,
 	      'r8', 8, 'r9', 9, 'r10', 10, 'r11', 11); 
 $registers{'rzero'} = 0x20; 
-
+$registers{'rmd'} = 0x22;
 # our program counter
 my $pc = 0; 
 
@@ -47,15 +47,23 @@ while(<SOURCE>) {
 	if($1 eq "andc") { $iw = andc($2, $3, $4) ;};    
 	if($1 eq "orc")  { $iw = orc($2, $3, $4) ;};    
 
+	# unary ops
+	if($1 eq "not") { $iw = not_op($2, $3) ;};    
+	if($1 eq "swap") { $iw = swap($2, $3) ;};    
+
 	# jumps
 	if($1 eq "jump") { $iw = jump($2)}; 
 	if($1 eq "jumpnz") { $iw = jumpnz($2)}; 
+
+	#memw
+	if($1 eq "memw") { $iw = memw($2, $3)};
 
 	#sugar
 	if($1 eq "nop") { $iw = nop();}; 
 	if($1 eq "mov") { $iw = mov($2, $3); };
 	if($1 eq "movc") { $iw = movc($2, $3); };
-	
+
+       
 	
 
 	chomp; 
@@ -83,13 +91,19 @@ foreach $label (sort keys %labels) {
 # now we go through and substitute, compress
 
 
+my $outputfilename;
+$filename =~ /\/*(\w+)\.asm/;
+open OUTPUT, ">$1.hex" || die "Can't open output $1.hex\n"; 
+
 while($asmtext =~ /([10]+)(.+)/g) {
     my $decimal = pack('B32', $1);
     my $iwhex =  unpack('H8', $decimal);
 
     print "$iwhex $2\n";
+    print OUTPUT "$iwhex $2\n";
 }
-#print $asmtext; 
+
+close OUTPUT; 
 
 
 
@@ -140,6 +154,7 @@ sub and_op {
 
 }
 
+
 sub or_op {
     my ( $Ra, $Rb, $Rc) = @_;
     my $iw; #create instruction word. 
@@ -164,7 +179,7 @@ sub addc {
     $iw .= sprintf("%.6b", $registers{$Rc});
     $iw .= sprintf("%.6b", $registers{$Rb});
     $iw .= const_to_bin($val); 
-
+    #print $iw; 
     $val <= 65535 or die ("$val is too big!");    
 
     $pc++; 
@@ -219,6 +234,35 @@ sub orc {
     return $iw;
 }
 
+sub not_op {
+    my ( $Rb, $Rc) = @_;
+    my $iw; #create instruction word. 
+    #print "Rb: $Rb  Rc: $Rc\n";
+    $iw .= "1000"; #opcode
+    $iw .= sprintf("%.6b", $registers{$Rc});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .=  "1000000000000000";
+    #print $iw; 
+    $pc++; 
+    return $iw; 
+
+}
+
+sub swap {
+    my ( $Rb, $Rc) = @_;
+    my $iw; #create instruction word. 
+    #print "Rb: $Rb  Rc: $Rc\n";
+    $iw .= "1000"; #opcode
+    $iw .= sprintf("%.6b", $registers{$Rc});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .=  "1010000000000000";
+    #print $iw; 
+    $pc++; 
+    return $iw; 
+
+}
+
+
 sub mov {
     # syntactic sugar
     my ( $Ra, $Rb) = @_;
@@ -262,6 +306,25 @@ sub jumpnz{
 
     return $iw; 
 }
+
+
+sub memw{
+    my ( $Ra, $Rb) = @_;
+    my $iw; #create instruction word. 
+    #print "Ra: $Ra  Rb: $Rb  Rc: $Rc\n";
+    $iw .= "1100"; #opcode
+    $iw .= sprintf("%.6b", $registers{'rzero'});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .= sprintf("%.6b", $registers{$Ra});
+    $iw .=  "0000000000";
+    
+    $pc++; 
+    return $iw; 
+
+}
+
+
+
 
 sub const_to_bin {
     my ($val) = @_;

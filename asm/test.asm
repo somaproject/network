@@ -1,13 +1,13 @@
 	nop	
 	nop
 	nop
-	movc(20, r1)		;
-	movc(0, r0)
-main:
-	addc(1, r0, r0)		;
-	subc(1, r1, r1)
-	jumpnz(main)		;
-	mov(r0, r0)
-	mov(r0, r0)
+	movc(0x01, r0)		;
+	not(r0, r1)
+	swap(r0, r2)
+	nop
+	nop
+	movc(0x1000, r1)
+	movc(0xbeef, rmd)	;
+	memw(r0, r1)		;
 	nop
 	nop
