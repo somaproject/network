@@ -21,8 +21,8 @@ entity RXinput is
            RXCRCERR : out std_logic;
            RXOFERR : out std_logic;
            RXPHYERR : out std_logic;
-		 RXFIFOWERR : out std_logic;
-		 FIFOFULL : in std_logic; 
+		 	  RXFIFOWERR : out std_logic;
+		     FIFOFULL : in std_logic; 
            RXF : out std_logic);
 end  RXinput;
 

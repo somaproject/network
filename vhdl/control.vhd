@@ -94,6 +94,12 @@ architecture Behavioral of control is
 	signal phyaddr, phydi, phydo, phystat
 			 : std_logic_vector(31 downto 0) := (others => '0');
 
+	-- led counters
+
+	signal txf_cross, ledtx_rst : std_logic := '0';
+	signal ledtx_cnt : std_logic_vector(11 downto 0) := (others => '0');
+	signal rxf_cross, ledrx_rst : std_logic := '0';
+	signal ledrx_cnt : std_logic_vector(11 downto 0) := (others => '0');
 
 	component PHYstatus is
 	    Port ( CLK : in std_logic;
@@ -283,18 +289,53 @@ begin
 	    end if; 
 
 	    -- phy reset
-   	    if din(0) = '1' and 
-   			(addr(4 downto 0) = "00001") and 
+			if din(0) = '1' and addr(4 downto 0) = "00001" and 
    			rw = '1' and sclkdeltal = '1' then
-			phyrstcnt <= 255;
-	    else
+				phyrstcnt <= 255;
+	    	else
 	    		if phyrstcnt >0 then
-	    		    phyrstcnt <= phyrstcnt - 1;
-			    PHYRESET <= '0';  
-			else
-				PHYRESET <= '1';
-			end if; 	
+	    			phyrstcnt <= phyrstcnt - 1;
+			    	PHYRESET <= '0';  
+				else
+					PHYRESET <= '1';
+				end if; 	
+			end if; 
+
+
+		-- LEDS
+		LED1000 <= phystat(4) and (not phystat(3));
+		LED100 <= phystat(3) and (not phystat(4));
+		LEDDPX <= phystat(1);
+		LEDACT <= phystat(2); 
+
+		ledtx_rst <= txf_cross; 
+		if ledtx_rst = '1' then
+			ledtx_cnt <= X"FFF";
+		else
+			if not ledtx_cnt = X"000" then
+				ledtx_cnt <= ledtx_cnt - 1;
+			end if;
 		end if; 
+		if ledtx_cnt = X"000" then
+			LEDTX <= '0';
+		else
+			LEDTX <= '1';
+		end if;  					  	
+
+		ledrx_rst <= rxf_cross; 
+		if ledrx_rst = '1' then
+			ledrx_cnt <= X"FFF";
+		else
+			if not ledrx_cnt = X"000" then
+				ledrx_cnt <= ledrx_cnt - 1;
+			end if;
+		end if; 
+
+		if ledrx_cnt = X"000" then
+			LEDRX <= '0';
+		else
+			LEDRX <= '1';
+		end if;  					  	
 
 	end if; 
    end process slow_clock; 
@@ -398,6 +439,10 @@ begin
 	   RXMCAST <= lrxmcast;
 	   RXUCAST <= lrxucast;
 	   MACADDR <= lmacaddr; 
+
+		-- LED-based clock transfer
+		txf_cross <= TXF;
+		rxf_cross <= RXF; 
 
 	end if; 
    end process counters; 

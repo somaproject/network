@@ -124,13 +124,16 @@ begin
 
 
 
+		
+				
+
 			end if;
 		end if; 
 	end process clock; 
 
 
-	miiaddr <= "01111" when miisel = 0 else
-				  "10001" when miisel = 1 else
+	miiaddr <= "10001" when miisel = 0 else
+				  "01111" when miisel = 1 else
 				  addrl;
 	miirw <= '0' when miisel = 0 else
 				  '0' when miisel = 1 else

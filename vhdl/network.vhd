@@ -28,14 +28,27 @@ entity network is
            DOUTEN : out std_logic;
            NEWFRAME : in std_logic;
            DIN : in std_logic_vector(15 downto 0);
-           DINEN : in std_logic);
+           DINEN : in std_logic;
+			  MDIO : inout std_logic;
+			  MDC : out std_logic;
+			  LEDACT : out std_logic;
+			  LEDTX : out std_logic;
+			  LEDRX : out std_logic;
+			  LED100 : out std_logic;
+			  LED1000 : out std_logic;
+			  LEDDPX : out std_logic; 
+			  PHYRESET : out std_logic;
+			  SCLK : in std_logic;
+			  SIN : in std_logic;
+			  SOUT : out std_logic; 
+			  SCS : in std_logic );
 end network;
 
 architecture Behavioral of network is
 
 
 	-- clock and timing signals
-	signal clk, clkio: std_logic := '0';
+	signal clk, clkio, clksl: std_logic := '0';
 	signal clk_to_bufg, clkio_to_bufg : std_logic := '0';
 
      signal clken1, clken2, clken3, clken4 : std_logic := '0';
@@ -64,6 +77,9 @@ architecture Behavioral of network is
 	-- fifo control
 	signal txfifofull, rxfifofull : std_logic := '0';
 
+	-- mac address filtering
+	signal rxmcast, rxbcast, rxucast : std_logic := '0';
+	signal macaddr : std_logic_vector(47 downto 0) := (others => '0');
 
 	component memory is
 	    Port ( CLK : in std_logic;
@@ -162,6 +178,35 @@ architecture Behavioral of network is
 	           FIFOFULL : out std_logic);
 	end component;
 
+	component control is
+	    Port (	CLK : in std_logic;
+		 			RESET : in std_logic;
+					CLKSL : in std_logic; 
+					SCLK : in std_logic;
+					SCS : in std_logic;
+					SIN : in std_logic;
+					SOUT : out std_logic;
+					LEDACT : out std_logic;
+					LEDTX : out std_logic;
+					LEDRX : out std_logic;
+					LED100 : out std_logic;
+					LED1000 : out std_logic;
+					LEDDPX : out std_logic;
+					PHYRESET: out std_logic; 
+					TXF : in std_logic;
+					RXF : in std_logic;
+					TXFIFOWERR : in std_logic;
+					RXFIFOWERR : in std_logic;
+					RXPHYERR : in std_logic;
+					RXOFERR : in std_logic;
+					RXCRCERR : in std_logic;
+					RXBCAST : out std_logic;
+					RXMCAST : out std_logic;
+					RXUCAST : out std_logic;
+					MACADDR : out std_logic_vector(47 downto 0);
+					MDIO : inout std_logic;
+					MDC : out std_logic);
+	end component;
 
 	component CLKDLL
 	      port (CLKIN, CLKFB, RST : in STD_LOGIC;
@@ -171,6 +216,7 @@ architecture Behavioral of network is
 	component BUFG
 	      port (I : in STD_LOGIC; O : out std_logic);
 	end component;
+
 
 
 begin
@@ -296,6 +342,33 @@ begin
 			  BP => rxbp,
 			  FBBP => rxfbbp);
 
-			  
-			  	
+	mac_control: control port map (
+				CLK => clk,
+				RESET => RESET,
+				CLKSL => clksl,
+				SCLK => SCLK,
+				SCS => SCS, 
+				SIN => SIN,
+				SOUT => SOUT, 
+				LEDACT => LEDACT,
+				LEDTX => LEDTX,
+				LEDRX => LEDRX,
+				LED100 => LED100,
+				LED1000 => LED1000,
+				LEDDPX => LEDDPX,
+				PHYRESET => PHYRESET,
+				TXF => txf,
+				RXF => rxf,
+				TXFIFOWERR => txfifowerr,
+				RXFIFOWERR => rxfifowerr,
+				RXPHYERR => rxphyerr,
+		 		RXOFERR => rxoferr,
+				RXCRCERR => rxcrcerr,
+				RXBCAST => rxbcast,
+				RXMCAST => rxmcast,
+				RXUCAST => rxucast,
+				MACADDR => macaddr,
+				MDIO => MDIO,
+				MDC => MDC); 
+		  	
 end Behavioral;

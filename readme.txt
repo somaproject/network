@@ -298,6 +298,9 @@ For controlling the MII interface portion:
     
     
 
+For 100, 1000, DPX: we get those LEDs from the relevant status lights in the PHYSTAT register
+
+TXF, RXF : driven by counters, which are reset to FOO and coutdown to 0. LEDTX, LEDRX are off when those counters are zero. 
 
 Thing
 ============================================================================
