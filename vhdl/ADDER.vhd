@@ -14,22 +14,28 @@ entity ADDER is
            Y : out std_logic_vector(15 downto 0);
 			  OP: in std_logic; 
            CIN : in std_logic;
-           COUT : out std_logic;
-           OFL : out std_logic);
+           COUT : out std_logic);
 end ADDER;
 
 architecture Behavioral of ADDER is
 -- basic adder, so we can mess with the syntax such that the 
 -- synthesizer inferrs it to be small. 
-
+	signal Atmp, Btmp, Ytmp: std_logic_vector(16 downto 0); 
 begin
 	adding: process(A,B,OP, CIN) is
 	begin
+
+		Atmp <= '0' & A;
+		Btmp <= '0' & B;
+		  
 		if OP = '0' then 
-			Y <= A + B + CIN;
+			Ytmp <= Atmp + Btmp + CIN;
 		else 
-			Y <= A + (not B ) + CIN;
+			Ytmp <= Atmp + (not Btmp ) + CIN;
 		end if; 
+
+		COUT <= Ytmp(16);
+		Y <= Ytmp(15 downto 0);	 
 
 
 	end process adding; 

@@ -12,14 +12,13 @@ entity instructions is
     Port ( CLK : in std_logic;
            CLKEN : in std_logic;
            ID : out std_logic_vector(31 downto 0);
-           JTYPE : in std_logic;
            Z : in std_logic;
-           DATAW : in std_logic_vector(15 downto 0);
-           ADDRW : in std_logic_vector(8 downto 0);
+           IMDIN : in std_logic_vector(15 downto 0);
+           IMADDRW : in std_logic_vector(8 downto 0);
 			  RESET : in std_logic;
 			  IMSEL : out std_logic;
 			  AF : out std_logic_vector(2 downto 0); 
-           WE : in std_logic);
+           IMWE : in std_logic);
 end instructions;
 
 architecture Behavioral of instructions is
@@ -34,7 +33,9 @@ architecture Behavioral of instructions is
 
 	signal addrr, pcin, pcout : std_logic_vector(7 downto 0) := "00000000";
 	signal dout : std_logic_vector(31 downto 0) := (others => '0');
-	signal pcmux, pcsel: std_logic; 
+	signal pcmux, pcsel, jtype : std_logic; 
+	signal afsrc: std_logic; 
+	signal caf : std_logic_vector(2 downto 0);
 
 	component RAMB4_S8_S16
 	  generic (
@@ -79,7 +80,7 @@ begin
 	PC: process (CLK, CLKEN, PCSEL, JTYPE, Z, pcout, pcmux, dout, addrr, pcin) is
 	begin
 	 	-- PC multiplexor control
-		pcmux <= PCSEL AND (JTYPE OR Z);
+		pcmux <= pcsel AND (jtype OR Z);
 		if pcmux = '0' then
 			addrr <= pcout;
 		else
@@ -103,11 +104,17 @@ begin
 	IMSEL <= DOUT(28);
 	AFSRC <= '1' when DOUT(31 downto 28) = "1000" else
 				'0';
-	PCSEL <= '1' when DOUT(31 downto 28) = "1001" else
-				'0'; 	 
-	process(ID) is
+	pcsel <= '1' when DOUT(31 downto 28) = "1001" else
+				'0'; 
+	jtype <= DOUT(16);
+	 
+
+	AF <= CAF when AFSRC = '0' else
+			DOUT(15 downto 13);
+
+	process(DOUT) is
 	begin
-		case ID(31 downto 28) is
+		case DOUT(31 downto 28) is
 			when "0000" => CAF <= "000";
 			when "0001" => CAF <= "001";
 			when "0010" => CAF <= "010";
@@ -151,17 +158,17 @@ begin
 	       INIT_0F => X"0000000000000000000000000000000000000000000000000000000000000000"
 			 ) 
 	  port map (
-	  		  DIA  => DATAW(15 downto 8),
+	  		  DIA  => IMDIN(15 downto 8),
 	        DIB  => "0000000000000000",
 	        ENA  => '1',
 	        ENB  => CLKEN,
-	        WEA  => WE,
+	        WEA  => IMWE,
 	        WEB  => '0',
 	        RSTA   => RESET,
 	        RSTB   => RESET,
 	        CLKA => CLK,
 	        CLKB => CLK,
-	        ADDRA => ADDRW,
+	        ADDRA => IMADDRW,
 	        ADDRB => ADDRR,
 	        DOA   => open, 
 	        DOB   => DOUT(31 downto 16) 
@@ -188,17 +195,17 @@ begin
 	       INIT_0F => X"0000000000000000000000000000000000000000000000000000000000000000"
 			 ) 
 	  port map (
-	  		  DIA  => DATAW(7 downto 0),
+	  		  DIA  => IMDIN(7 downto 0),
 	        DIB  => "0000000000000000",
 	        ENA  => '1',
 	        ENB  => CLKEN,
-	        WEA  => WE,
+	        WEA  => IMWE,
 	        WEB  => '0',
 	        RSTA   => RESET,
 	        RSTB   => RESET,
 	        CLKA => CLK,
 	        CLKB => CLK,
-	        ADDRA => ADDRW,
+	        ADDRA => IMADDRW,
 	        ADDRB => ADDRR,
 	        DOA   => open, 
 	        DOB   => DOUT(15 downto 0) 

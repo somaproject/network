@@ -34,7 +34,14 @@ architecture Behavioral of ALU is
 
 	signal adderout, logicout, shiftout, Yint: std_logic_vector(15 downto 0);
 
-	
+	component ADDER is
+    Port ( A : in std_logic_vector(15 downto 0);
+           B : in std_logic_vector(15 downto 0);
+           Y : out std_logic_vector(15 downto 0);
+			  OP: in std_logic; 
+           CIN : in std_logic;
+           COUT : out std_logic);
+    end component;
 		  
 
 begin
@@ -43,16 +50,18 @@ begin
 	N <= '1' when Yint(15) = '1' else '0'; 
 
 
+	-- instantiate the actual adder
+	adder_inst: ADDER port map (
+					A => A,
+					B => B,
+					Y => adderout,
+					OP => AF(0),
+					CIN => CIN,
+					COUT => COUT);  
 
    main: process(A, B, AF, CIN) is
 	begin
 	-- new approach: do three things, only care about output on one of them.
-
-		if AF(0) = '0' then
-			adderout <= A + B + CIN;
-		else 
-			adderout <= A - B + CIN; 
-		end if;
 
 		
 		

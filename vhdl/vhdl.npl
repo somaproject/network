@@ -3,11 +3,11 @@ JDF F
 PROJECT vhdl
 DESIGN vhdl Normal
 DEVFAM spartan2e
-DEVFAMTIME 1048998089
+DEVFAMTIME 0
 DEVICE xc2s50e
-DEVICETIME 1048997532
-DEVPKG tq144
-DEVPKGTIME 1048998089
+DEVICETIME 1049068086
+DEVPKG pq208
+DEVPKGTIME 1049067627
 DEVSPEED -6
 DEVSPEEDTIME 1048997863
 FLOW XST VHDL
@@ -31,6 +31,7 @@ MODULE mt55l128l32p.vhd
 MODSTYLE mt55l128l32p Normal
 MODULE ADDER.vhd
 MODSTYLE adder Normal
+DEPASSOC cpu CPU.ucf SYSTEM
 DEPASSOC regfile regfile.ucf Normal
 DEPASSOC instructions instructions.ucf SYSTEM
 DEPASSOC alu_plus_regfile test.ucf SYSTEM
@@ -40,7 +41,7 @@ xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1048998394, Norma
 xilxSynthKeepHierarchy=xstvhd, spartan2e, VHDL.t_synthesize, 1048835002, True
 _SynthOptEffort=xstvhd, spartan2e, VHDL.t_synthesize, 1048985872, High
 [STATUS-ALL]
-alu.ngcFile=WARNINGS,1049063986
-mt55l128l32p.ngcFile=ERRORS,1049063986
+cpu.ncdFile=WARNINGS,1049068432
+cpu.twrFile=WARNINGS,1049068432
 [STRATEGY-LIST]
 Normal=True

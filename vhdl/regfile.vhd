@@ -35,7 +35,7 @@ use UNISIM.VComponents.all;
  process (clk) 
  begin 
  	if (clk'event and clk = '1') then  
- 		if (we = '1') then 
+ 		if (we = '1' and CLKEN = '1') then 
  			RAM(conv_integer(ADDRW)) <= DATAW; 
  		end if; 
  	end if; 
