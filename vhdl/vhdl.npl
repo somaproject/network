@@ -1,0 +1,20 @@
+JDF F
+// Created by Project Navigator ver 1.0
+PROJECT vhdl
+DESIGN vhdl Normal
+DEVFAM spartan2e
+DEVFAMTIME 0
+DEVICE xc2s50e
+DEVICETIME 0
+DEVPKG pq208
+DEVPKGTIME 1060536737
+DEVSPEED -6
+DEVSPEEDTIME 0
+FLOW XST VHDL
+FLOWTIME 0
+STIMULUS TXinput_test.tbw Normal
+MODULE TXinput.vhd
+MODSTYLE txinput Normal
+DEPASSOC txinput TXinput.ucf SYSTEM
+[STRATEGY-LIST]
+Normal=True
