@@ -6,7 +6,7 @@ C:/xilinx/bin/nt/trce.exe -quiet -e 3 -l 3 -xml cpu cpu.ncd -o cpu.twr cpu.pcf
 
 Design file:              cpu.ncd
 Physical constraint file: cpu.pcf
-Device,speed:             xc2s50e,-6 (PRODUCTION 1.16 2002-11-01)
+Device,speed:             xc2s150e,-6 (PRODUCTION 1.16 2002-11-01)
 Report level:             error report
 
 Environment Variable      Effect 
@@ -16,10 +16,10 @@ NONE                      No environment variables were set
 
 
 ================================================================================
-Timing constraint: TS_CLK_FULL = PERIOD TIMEGRP "CLK_GRP"  28 nS   HIGH 50.000000 % ;
+Timing constraint: TS_CLK_FULL = PERIOD TIMEGRP "CLK_GRP"  27 nS   HIGH 50.000000 % ;
 
  103825 items analyzed, 0 timing errors detected.
- Minimum period is  28.000ns.
+ Minimum period is  26.711ns.
 --------------------------------------------------------------------------------
 
 
@@ -35,7 +35,7 @@ Clock to Setup on destination clock clk
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clk            |   28.000|         |         |         |
+clk            |   26.711|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
@@ -44,12 +44,12 @@ Timing summary:
 
 Timing errors: 0  Score: 0
 
-Constraints cover 103825 paths, 0 nets, and 2658 connections (98.7% coverage)
+Constraints cover 103825 paths, 0 nets, and 2644 connections (98.7% coverage)
 
 Design statistics:
-   Minimum period:  28.000ns (Maximum frequency:  35.714MHz)
+   Minimum period:  26.711ns (Maximum frequency:  37.438MHz)
 
 
-Analysis completed Mon Mar 31 17:42:06 2003
+Analysis completed Fri Apr 04 15:01:52 2003
 --------------------------------------------------------------------------------
 

@@ -15,7 +15,11 @@ entity CPU is
            IMADDRW : in std_logic_vector(8 downto 0);
 			  RESET : in std_logic;
            IMWE : in std_logic;
-           YOUT : out std_logic_vector(31 downto 0));
+           YOUT : out std_logic_vector(31 downto 0);
+			  MD: out std_logic_vector(31 downto 0);
+			  MQ : in std_logic_vector(31 downto 0);
+			  MWE : out std_logic			  
+			  );
 end CPU;
 
 architecture Behavioral of CPU is
@@ -31,6 +35,7 @@ architecture Behavioral of CPU is
 	signal af: std_logic_vector(2 downto 0) := "000"; 
 	signal ra, rb, rc : std_logic_vector(5 downto 0) := (others=> '0'); -- renamed lines of id
 	signal dataa, datab, a, b, y: std_logic_vector(31 downto 0)  := (others=> '0');
+	signal mdql : std_logic;
 
 
 -- ALU component definition
@@ -53,7 +58,9 @@ architecture Behavioral of CPU is
 	           IMADDRW : in std_logic_vector(8 downto 0);
 				  RESET : in std_logic;
 				  IMSEL : out std_logic;
-				  AF : out std_logic_vector(2 downto 0); 
+				  AF : out std_logic_vector(2 downto 0);
+				  MWE : out std_logic;
+				  MDQL : out std_logic;  
 	           IMWE : in std_logic);
 	end component;
 
@@ -75,6 +82,9 @@ architecture Behavioral of CPU is
 	           CLKEN : in std_logic;
 	           Y : in std_logic_vector(31 downto 0);
 	           SFROUT : out std_logic_vector(31 downto 0);
+			 	  MDD: out std_logic_vector(31 downto 0);
+			 	  MDQ: in std_logic_vector(31 downto 0);
+			     MDQL: in std_logic; 
 	           Rb : in std_logic_vector(5 downto 0));
 	end component;
 begin
@@ -98,6 +108,8 @@ begin
 				RESET => RESET,
 				IMSEL => imsel,
 				AF => af,
+				MDQL => mdql,
+				MWE => mwe, 
 				IMWE => IMWE);
 
 	-- instantiate register file:
@@ -131,6 +143,9 @@ begin
 				CLKEN => CLKEN, 
 				Y => y,
 				SFROUT => sfrout,
+				MDD => MD,
+				MDQ => MQ,
+				MDQL => mdql,
 				Rb => rb);
 		  	
 	-- combinational selection of inputs for ALU

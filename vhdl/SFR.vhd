@@ -13,6 +13,11 @@ entity SFR is
            CLKEN : in std_logic;
            Y : in std_logic_vector(31 downto 0);
            SFROUT : out std_logic_vector(31 downto 0);
+			  -- memory read/write associated signals:
+			  MDD: out std_logic_vector(31 downto 0);
+			  MDQ: in std_logic_vector(31 downto 0);
+			  MDQL: in std_logic; 	
+
            Rb : in std_logic_vector(5 downto 0));
 end SFR;
 
@@ -28,6 +33,11 @@ architecture Behavioral of SFR is
 -- word at a time. 
 -- 
 
+-- memory-data related registers
+	 signal MDOUT, MDIN : std_logic_vector(31 downto 0);
+	 signal MDQL1, MDQL2 : std_logic := '0';
+
+
 begin
 
    SFR_input: process(CLK, CLKEN, Y, Rb) is
@@ -37,6 +47,8 @@ begin
 				case Rb is 
 					when "100000" => 
 						Null;	-- zero register, obviously don't store value. 
+					when "100010" => 
+						MDOUT <= Y; 
 					when others =>
 						Null; 
 				end case;
@@ -50,10 +62,28 @@ begin
 		case Rb is
 			when "100000" =>
 				SFROUT <= (others => '0');
+			when "100010" =>
+				SFROUT <= MDIN;
 			when others =>
 				SFROUT <= (others => '0');
 		end case;
 	end process SFR_output; 
 
+	-- happy memory-related processes:
+	mem_process: process(CLK, CLKEN, MDQ, MDQL, MDQL1, MDQL2) is
+	begin
+		 if rising_edge(CLK) then
+		 	if CLKEN = '1' then
+				MDQL1 <= MDQL;
+				MDQL2 <= MDQL1;
+				if MDQL2	= '1' then
+					MDIN <= MDQ;
+				end if; 
+			end if;
+		end if;
 
+
+
+
+	end process mem_process; 
 end Behavioral;

@@ -18,7 +18,10 @@ entity instructions is
 			  RESET : in std_logic;
 			  IMSEL : out std_logic;
 			  AF : out std_logic_vector(2 downto 0); 
-           IMWE : in std_logic);
+           IMWE : in std_logic;
+			  MWE : out std_logic;
+			  MDQL : out std_logic  
+			  );
 end instructions;
 
 architecture Behavioral of instructions is
@@ -90,12 +93,10 @@ begin
 		pcin <= addrr + 1;
 
 		if rising_edge(CLK) then
-			if CLKEN = '1' then
-				if RESET = '1' then 
+			if RESET = '1' then 
 				     pcout <= (others => '0');
-				else
-					pcout <= pcin;
-				end if; 
+			elsif CLKEN = '1' then
+						pcout <= pcin;
 			end if;
 		end if; 
 	end process PC; 
@@ -111,6 +112,15 @@ begin
 
 	AF <= CAF when AFSRC = '0' else
 			DOUT(15 downto 13);
+
+  -- memory latch decoding
+	MWE <= '0' when DOUT(31 downto 29) = "110" else
+			 '1';
+	MDQL <= '0' when DOUT(31 downto 29) = "101" else
+			 '1';
+
+
+
 
 	process(DOUT) is
 	begin
