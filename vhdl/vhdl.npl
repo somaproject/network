@@ -15,6 +15,13 @@ FLOWTIME 0
 STIMULUS TXinput_test.tbw Normal
 MODULE TXinput.vhd
 MODSTYLE txinput Normal
-DEPASSOC txinput TXinput.ucf SYSTEM
+MODULE TXoutput.vhd
+MODSTYLE txoutput Normal
+MODULE crc_combinational.vhd
+MODSTYLE crc_combinational Normal
+DEPASSOC txoutput TXoutput.ucf SYSTEM
+DEPASSOC txinput TXinput.ucf Normal
+[STATUS-ALL]
+txoutput.ncdFile=WARNINGS,1061753736
 [STRATEGY-LIST]
 Normal=True
