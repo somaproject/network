@@ -63,6 +63,7 @@ ADDRL is there so that the decsiion to start sending a packet (addrl=BPL) has an
 
 TXF : frame was successfully transmitted. high on the falling-low transition of TXEN. 
 
+3 oct 2003: BCNTL pipeline created to solve some timing issues. 
 
 ----------------------------------------------------------------------
 TX INPUT
@@ -175,7 +176,7 @@ To avoid writing the 4 checksum bytes, we simply subtract 1 from the BP when we 
 
 3 October 2003: It's really hard to synthesize using ISE 6 with the damn CRC. So I'm going to try and pipeline the inputs and insert an extra receive state. 
 
-We've created CRCRST, CRCEN as registered signals for the CRCL register. Go pipelining!
+We've created CRCRST, CRCEN as registered signals for the CRCL register. Go pipelining! We're also using CRCEQUAL to check . This requires us adding two states to our fsm. 
 
 
 

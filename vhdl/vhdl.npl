@@ -71,11 +71,12 @@ xilxNgdbldNTType=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064958659
 xilxNgdbldPresHierarchy=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1065013129, False
 xilxPAReffortLevel=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064934766, High
 xilxPARextraEffortLevel=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064958980, None
-xilxSynthKeepHierarchy=xstvhd, spartan3, Schematic.t_synthesize, 1064964592, Soft
+xilxSynthKeepHierarchy=xstvhd, spartan3, Schematic.t_synthesize, 1065203996, Yes
+_SynthFsmEncode=xstvhd, spartan3, Schematic.t_synthesize, 1065197905, One-Hot
 _SynthOptEffort=xstvhd, spartan3, Schematic.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, True
 [STATUS-ALL]
-control.twrFile=WARNINGS,1065187532
+network.twrFile=WARNINGS,1065210453
 [STRATEGY-LIST]
 Normal=True

@@ -30,7 +30,7 @@ architecture Behavioral of TXoutput is
 			integer range 0 to 3 := 0; 
 
 	-- byte counter
-	signal bcnt: std_logic_vector(15 downto 0) := (others => '0');
+	signal bcnt, bcntl: std_logic_vector(15 downto 0) := (others => '0');
 	signal decbcnt, ldbcnt : std_logic := '0';
 
 	-- addr :
@@ -101,6 +101,8 @@ begin
 		    	  bcnt <= bcnt - 1;
 		    end if; 
 			
+			 bcntl <= bcnt; 
+
 		    -- addr counter
 		    if addrinc = '1' then
 		    	  addr <= addr + 1;
@@ -166,7 +168,7 @@ begin
 
 
 
-   fsm: process(cs, ns, CLKEN, addr, bpl, bcnt, addrl) is 
+   fsm: process(cs, ns, CLKEN, addr, bpl, bcnt, addrl, bcntl) is 
    begin
    	   case cs is 
 	   	 when none => 
@@ -273,7 +275,7 @@ begin
 			 ltxen <= '1';
 			 ns <= databyte0;   
 	   	 when databyte0 => 
-		 	 if bcnt > "0000000000001000" then
+		 	 if bcntl > "0000000000001000" then
 			    addrinc <= '1'; 
 			 else
 			    addrinc <= '0';
