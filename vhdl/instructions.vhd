@@ -83,7 +83,7 @@ begin
 	PC: process (CLK, CLKEN, PCSEL, JTYPE, Z, pcout, pcmux, dout, addrr, pcin) is
 	begin
 	 	-- PC multiplexor control
-		pcmux <= pcsel AND (jtype OR Z);
+		pcmux <= pcsel AND ( jtype OR (not Z));
 		if pcmux = '0' then
 			addrr <= pcout;
 		else

@@ -46,7 +46,6 @@ architecture Behavioral of CPU is
 	           AF : in std_logic_vector(2 downto 0);
 	           Z : out std_logic;
 	           N : out std_logic;
-	           CIN : in std_logic;
 	           COUT : out std_logic);
 	end component;
 	component instructions is
@@ -133,7 +132,6 @@ begin
 				AF => af, 
 				z => zout,
 				n => nout,
-				cin => c,
 				cout => cout);
 
 
@@ -167,7 +165,7 @@ begin
 		-- latch bits for flags;
 		if rising_edge(CLK) then
 			if clken = '1' then
-				if reset = '0' then
+				if reset = '1' then
 					z <= '0';
 					n <= '0';
 					c <= '0';

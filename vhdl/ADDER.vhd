@@ -12,8 +12,7 @@ entity ADDER is
     Port ( A : in std_logic_vector(31 downto 0) := "00000000000000000000000000000000" ;
            B : in std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
            Y : out std_logic_vector(31 downto 0);
-			  OP: in std_logic; 
-           CIN : in std_logic := '0';
+			  OP: in std_logic;
            COUT : out std_logic);
 end ADDER;
 
@@ -22,16 +21,16 @@ architecture Behavioral of ADDER is
 -- synthesizer inferrs it to be small. 
 	signal Atmp, Btmp, Ytmp: std_logic_vector(32 downto 0) := "000000000000000000000000000000000"; 
 begin
-	adding: process(A,B,OP, CIN, Atmp, Btmp, Ytmp) is
+	adding: process(A,B,OP, Atmp, Btmp, Ytmp) is
 	begin
 
 		Atmp <= '0' & A;
 		Btmp <= '0' & B;
 		  
 		if OP = '0' then 
-			Ytmp <= Atmp + Btmp + CIN;
+			Ytmp <= Atmp + Btmp;
 		else 
-			Ytmp <= Atmp + (not Btmp ) + CIN;
+			Ytmp <= Btmp + (not Atmp ) + 1;
 		end if; 
 
 		COUT <= Ytmp(32);

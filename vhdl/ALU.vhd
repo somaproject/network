@@ -15,7 +15,6 @@ entity ALU is
            AF : in std_logic_vector(2 downto 0) := "000";
            Z : out std_logic;
            N : out std_logic;
-           CIN : in std_logic;
            COUT : out std_logic);
 end ALU;
 
@@ -39,7 +38,6 @@ architecture Behavioral of ALU is
            B : in std_logic_vector(31 downto 0);
            Y : out std_logic_vector(31 downto 0);
 			  OP: in std_logic; 
-           CIN : in std_logic;
            COUT : out std_logic);
     end component;
 		  
@@ -56,10 +54,9 @@ begin
 					B => B,
 					Y => adderout,
 					OP => AF(0),
-					CIN => CIN,
 					COUT => COUT);  
 
-   main: process(A, B, AF, CIN, adderout, logicout, shiftout, Yint) is
+   main: process(A, B, AF, adderout, logicout, shiftout, Yint) is
 	begin
 	-- new approach: do three things, only care about output on one of them.
 
