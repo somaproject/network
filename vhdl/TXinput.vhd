@@ -81,9 +81,9 @@ begin
    	 if rising_edge(CLKIO) then
 	     enable <= not enable; 
 
-		dinl <= DIN;
+		--dinl <= DIN;
 
-		newframel <= NEWFRAME;
+		--newframel <= NEWFRAME;
 	 end if; 
    end process clock_external; 
 
@@ -126,7 +126,9 @@ begin
 		MA <= (others => '0');
 	else
 		if rising_edge(CLK) then
+			dinl <= DIN;
 
+		   newframel <= NEWFRAME;
 			cs <= ns;
 
 			-- enable code
@@ -134,7 +136,7 @@ begin
 
 			-- data latching
 			if den = '1' and (cs = none or dlen = '1') then
-				dl <= dinint;	
+				dl` <= dinint;	
 			end if; 
 
 			if den = '1' and dhen = '1' then

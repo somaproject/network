@@ -586,3 +586,29 @@ Alas, that hasnot appeared to have cured my ills
 
 
 My solution to test? Have the TX send the output and have the RX compare it against an input. The way we'll actually do this is using an LFSR. 
+
+6 Jan 2004
+Of course, the LFSR approach wasn't working. Oh well. How can we figure out whether or not this is an IO SI problem or a RAM problem?
+
+We receive over the net:
+
+0000  ff ff ff ff ff ff 00 1f  eb f8 8b e3 48 00 45 50   ........ ....H.EP
+0010  00 54 40 00 40 00 58 01  d9 fe c0 a8 00 11 1f 12   .T@.@.X. ........
+0020  13 d2 9b c0 a8 08 ff e8  00 e4 5e 26 58 78 bf fb   ........ ..^&Xx..
+0030  ba ba 7f af 56 0f 08 08  0b 0e 0f 0c 1d 1e 16 15   ....V... ........
+0040  1e 1f 1a 19 1e 1f 1e 1d  3e 3f 22 21 26 27 26 25   ........ >?"!&'&%
+0050  2e 2f 2a 29 2e 2f 2e 2d  3e 3f 32 31 36 37 36 35   ./*)./.- >?216765
+
+and the dump shows:
+
+00000 : 000000fe ffffffff 001fffff 8be3ebf8 45504800 40000054 58014000 c0a8d9fe 
+00008 : 1f120011 9bc013d2 ffe8a808 5e2600e4 bffb5878 7fafbaba 0808560f 0f0c0b0e 
+00010 : 16151d1e 1a191e1f 1e1d1e1f 22213e3f 26252627 2a292e2f 2e2d2e2f 32313e3f 
+00018 : 36353637 00003637 00000000 00000000 00000000 00000000 00000000 00000000 
+
+
+which strongly suggests that every byte in the dump matches every byte in the tx!
+what could this mean? that there are fundamental read errors?
+
+I don't understand -- some bytes go across okay, some live in much pain. 
+I think i will work on something else for the time being. 

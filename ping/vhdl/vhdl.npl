@@ -29,5 +29,8 @@ DEPASSOC outping outping.ucf
 [Normal]
 xilxBitgCfg_GenOpt_ASCIIFile=xstvhd, spartan2e, Implementation.t_bitFile, 1068819097, True
 xilxMapAllowLogicOpt=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1068937080, True
+[STATUS-ALL]
+outping.ngcFile=WARNINGS,1073407373
+outping.ngdFile=WARNINGS,1073407380
 [STRATEGY-LIST]
 Normal=True

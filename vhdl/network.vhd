@@ -423,7 +423,7 @@ begin
 			  GTX_CLK => open);
    tx_input: txinput port map (
    			  CLK => clk,
-			  CLKIO => clkio180,
+			  CLKIO => clkio,
 			  RESET => reset, 
 			  DIN => DIN,
 			  NEWFRAME => NEWFRAME,

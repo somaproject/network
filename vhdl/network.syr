@@ -1,10 +1,10 @@
 Release 6.1.03i - xst G.26
 Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to __projnav
-CPU : 0.00 / 0.21 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 0.00 s
  
 --> Parameter xsthdpdir set to ./xst
-CPU : 0.00 / 0.21 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 0.00 s
  
 --> Reading design: network.prj
 
@@ -119,7 +119,7 @@ Architecture behavioral of Entity rxoutput is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/TXoutput.vhd in Library work.
 Architecture behavioral of Entity txoutput is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/TXinput.vhd in Library work.
-Architecture behavioral of Entity txinput is up to date.
+Entity <txinput> (Architecture <behavioral>) compiled.
 Compiling vhdl file C:/desktop/network/vhdl/FIFOcheck.vhd in Library work.
 Architecture behavioral of Entity fifocheck is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/control.vhd in Library work.
@@ -660,7 +660,7 @@ WARNING:Xst:1780 - Signal <nenable> is never used or assigned.
     Found 16-bit register for signal <MA>.
     Found 1-bit register for signal <MWEN>.
     Found 32-bit register for signal <MD>.
-    Found 16-bit subtractor for signal <$n0042> created at line 149.
+    Found 16-bit subtractor for signal <$n0042> created at line 151.
     Found 16-bit up counter for signal <addr>.
     Found 16-bit register for signal <bp>.
     Found 16-bit register for signal <CNT>.
@@ -878,6 +878,7 @@ WARNING:Xst:646 - Signal <clk270> is assigned but never used.
 WARNING:Xst:646 - Signal <clken4> is assigned but never used.
 WARNING:Xst:646 - Signal <txinmwen> is assigned but never used.
 WARNING:Xst:1780 - Signal <txi_mwen> is never used or assigned.
+WARNING:Xst:646 - Signal <clkio180> is assigned but never used.
 WARNING:Xst:646 - Signal <addr3ext> is assigned but never used.
 Unit <network> synthesized.
 
@@ -2410,11 +2411,11 @@ Cell Usage :
 #      VCC                         : 14
 #      XORCY                       : 525
 # FlipFlops/Latches                : 2400
-#      FD                          : 244
+#      FD                          : 227
 #      FDC                         : 120
 #      FDCE                        : 246
 #      FDCPE                       : 32
-#      FDE                         : 1435
+#      FDE                         : 1452
 #      FDP                         : 7
 #      FDPE                        : 67
 #      FDR                         : 13
@@ -2465,11 +2466,10 @@ Clock Information:
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
 RX_CLK                             | clkrx_dll:CLK0         | 90    |
-CLKIN                              | clk_dll:CLK0           | 2278  |
+CLKIN                              | clk_dll:CLK0           | 2295  |
 rx_input/fifo/fifo/GND:G           | NONE                   | 2     |
-CLKIOIN                            | clkio_dll:CLK0         | 56    |
+CLKIOIN                            | clkio_dll:CLK0         | 57    |
 rx_output/fifo/GND:G               | NONE                   | 2     |
-CLKIOIN                            | clkio_dll:CLK180       | 18    |
 -----------------------------------+------------------------+-------+
 
 Timing Summary:
@@ -2517,10 +2517,10 @@ Delay:               14.914ns (Levels of Logic = 6)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDE:C->Q             17   0.992   2.850  addr_1 (addr_1)
-     LUT2_D:I1->O         16   0.468   2.800  Ker557871 (N55789)
+     LUT2_D:I1->O         16   0.468   2.800  Ker557951 (N55797)
      LUT4_D:I3->O         16   0.468   2.800  _n00941 (_n0094)
      LUT4:I2->O            1   0.468   0.920  Mmux__n0018_Result<14>66 (CHOICE3070)
-     LUT3:I2->O            1   0.468   0.920  Mmux__n0018_Result<14>101_SW0 (N86573)
+     LUT3:I2->O            1   0.468   0.920  Mmux__n0018_Result<14>101_SW0 (N86581)
      LUT4_L:I3->LO         1   0.468   0.100  Mmux__n0018_Result<14>101 (CHOICE3080)
      LUT4_L:I2->LO         1   0.468   0.000  Mmux__n0018_Result<14>137 (_n0018<14>)
      FDE:D                     0.724          dout_14
@@ -2583,7 +2583,7 @@ Offset:              21.513ns (Levels of Logic = 6)
      BUF:I->O            137   0.468   5.500  RESET_1 (RESET_1)
      begin scope: 'memio'
      begin scope: 'addrchk'
-     LUT1:I0->O           69   0.468   4.225  maceq_N54191 (maceq_N5419)
+     LUT1:I0->O           69   0.468   4.225  maceq_N54231 (maceq_N5423)
      FDE:CE                    0.687          maceq_0
     ----------------------------------------
     Total                     21.513ns (2.888ns logic, 18.625ns route)
@@ -2619,14 +2619,14 @@ Offset:              19.448ns (Levels of Logic = 11)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDCE:C->Q             5   0.992   1.720  cs_FFd4 (cs_FFd4)
-     LUT3:I1->O            7   0.468   1.950  Ker444891 (N44491)
+     LUT3:I1->O            7   0.468   1.950  Ker444971 (N44499)
      LUT4:I3->O            1   0.468   0.920  miiaddr<3>1 (miiaddr<3>)
      begin scope: 'MII_Interface'
      LUT4:I0->O            1   0.468   0.920  sout361 (CHOICE1064)
      LUT4:I3->O            1   0.468   0.920  sout365 (CHOICE1065)
      LUT4:I0->O            1   0.468   0.920  sout442 (CHOICE1081)
      LUT3:I0->O            1   0.468   0.920  sout472 (CHOICE1083)
-     LUT3:I2->O            1   0.468   0.920  sout498_SW0 (N86607)
+     LUT3:I2->O            1   0.468   0.920  sout498_SW0 (N86615)
      LUT4:I3->O            1   0.468   0.920  sout498 (sout)
      IOBUF:I->IO               4.602          iobuffer (MDIO)
      end scope: 'MII_Interface'
@@ -2655,7 +2655,7 @@ Offset:              6.514ns (Levels of Logic = 2)
                                        (85.9% logic, 14.1% route)
 
 =========================================================================
-CPU : 67.95 / 68.37 s | Elapsed : 68.00 / 69.00 s
+CPU : 68.58 / 68.99 s | Elapsed : 69.00 / 69.00 s
  
 --> 
 
