@@ -1,18 +1,13 @@
-nop
-movc(0x01, r0) 		; comment
-movc(0x02, r1)		; comment two
-add(r0, r1, r2)		; comment three
-nop
-nop
-nop
-nop
-nop
-nop
-movc(40, r5)
-movc(60, r6)
-add(r5, r6, r10)
-addc(100, r10, r10)
-sub(r10, r10, r10)
-nop
-nop	
-
+	nop	
+	nop
+	nop
+	movc(20, r1)		;
+	movc(0, r0)
+main:
+	addc(1, r0, r0)		;
+	subc(1, r1, r1)
+	jumpnz(main)		;
+	mov(r0, r0)
+	mov(r0, r0)
+	nop
+	nop
