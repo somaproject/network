@@ -339,3 +339,12 @@ Net result is network.vhd
 
 We need feedback signals so that the *inputs don't overwrite the fifo, but this is difficult to implement. Since our buffer size is 256 kB, and we'd like to allow for a maximum frame size of 16384 bytes, or 16 frames of this size in the buffer. Wow, suddenly that doesn't seem like so much. Anyway, we're going to kill two of those such that we can implement the following overflow protection scheme:
 
+Connector notes:
+Switching to Molex, series 71660/71661
+
+71161-2068 right-angle plug connector, 68-connector
+15-92-1468 vertical receptical connector, 68-pin
+for the dev board
+87552-0681 right-angle recepticale connector, 68 pin (samples from molex)
+
+

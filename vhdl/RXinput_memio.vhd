@@ -279,7 +279,7 @@ begin
     
 
     fsm : process(CS, NS, ENDF, INVALID, CRCLl, 
-	 					endbyte, data, fifofulll, destok) is
+	 					endbyte, data, fifofulll, destok, crcequal) is
     begin
        case cs is
 	      when none => 

@@ -4,8 +4,8 @@ PROJECT vhdl
 DESIGN vhdl
 DEVFAM spartan2e
 DEVFAMTIME 1065153079
-DEVICE xc2s200e
-DEVICETIME 1065491267
+DEVICE xc2s300e
+DEVICETIME 1065538540
 DEVPKG pq208
 DEVPKGTIME 1065491267
 DEVSPEED -6
@@ -70,13 +70,13 @@ xilxMapAllowLogicOpt=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 106545
 xilxMapCoverMode=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064958980, Balanced
 xilxMapPackfactor=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064958980, 100
 xilxMapReportDetail=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1065491866, False
-xilxMapTimingDrivenPacking=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1065408105, False
+xilxMapTimingDrivenPacking=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1065532355, False
 xilxNgdbldNTType=xstvhd, spartan2e, VHDL.t_ngdbuild, 1064958659, On
 xilxNgdbldPresHierarchy=xstvhd, spartan2e, VHDL.t_ngdbuild, 1065013129, False
 xilxPAReffortLevel=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064934766, High
 xilxPARextraEffortLevel=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064958980, None
 xilxSynthKeepHierarchy=xstvhd, spartan3, Schematic.t_synthesize, 1065203996, Yes
-_SynthFsmEncode=xstvhd, spartan3, Schematic.t_synthesize, 1065197905, One-Hot
+_SynthFsmEncode=xstvhd, spartan3, Schematic.t_synthesize, 1065530004, Auto
 _SynthOptEffort=xstvhd, spartan3, Schematic.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064942493, True

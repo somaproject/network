@@ -48,9 +48,9 @@ architecture Behavioral of network is
 
 
 	-- clock and timing signals
-	signal clk, clkio, clksl: std_logic := '0';
+	signal clk, clkio, clksl, clkrx: std_logic := '0';
 	signal clk_to_bufg, clkio_to_bufg, clksl_to_bufg,
-			clksl_fb: std_logic := '0';
+			clksl_fb, clkrx_to_bufg: std_logic := '0';
 
      signal clken1, clken2, clken3, clken4 : std_logic := '0';
 	
@@ -260,7 +260,20 @@ begin
     		I => clk_to_bufg,
 			O => clk); 
 
-    
+    -- receive in clock
+    clkrx_dll : CLKDLL generic map (
+	 		clkdv_divide => 4.0)
+			port map (
+    		CLKIN => RX_CLK,
+			CLKFB => clkrx,
+			RST => RESET,
+			CLKDV => open,
+			CLK0 => clkrx_to_bufg);
+
+    clkrx_bufg : BUFG port map (
+    		I => clkrx_to_bufg,
+			O => clkrx); 
+
      
     memcontroller: memory port map (
     			  CLK => clk,
@@ -290,7 +303,7 @@ begin
 			  CLKEN3 => clken3,
 			  CLKEN4 => clken4);
     rx_input: rxinput port map (
-    	 	  RX_CLK => RX_CLK,
+    	 	  RX_CLK => clkrx,
 			  CLK => clk,
 			  RESET => RESET,
 			  RX_DV => RX_DV,
