@@ -150,9 +150,9 @@ BEGIN
 
 -- SYSTEM CLOCKS
 --  Here's where we define our clocks;
-   clkin <= not clkin after 8 ns;
-   rx_clk <= not rx_clk after 8.0 ns; 
-   clkioin <= not clkioin after 17 ns; 
+   clkin <= not clkin after 4 ns;
+   rx_clk <= not rx_clk after 4.0 ns; 
+   clkioin <= not clkioin after 12 ns; 
    
    reset <= '0' after 10 ns; 
 

@@ -21,6 +21,7 @@ entity control is
            LED100 : out std_logic;
            LED1000 : out std_logic;
            LEDDPX : out std_logic;
+		 PHYRESET: out std_logic; 
            TXF : in std_logic;
            RXF : in std_logic;
            TXFIFOWERR : in std_logic;
@@ -50,24 +51,24 @@ architecture Behavioral of control is
    signal sclkl, sclkll, lsclkdelta, sclkdelta, sclkdeltal,
    		sclkdeltall, sclkdeltalll :
    		std_logic := '0';
-   signal bitcnt : std_logic_vector(4 downto 0) := (others => '0');
+   signal bitcnt : std_logic_vector(5 downto 0) := (others => '0');
    signal scsl, scsll, scslll : std_logic := '0';
 
    -- data signals
    signal sinl, sinll, sinlll : std_logic := '0'; 
    signal addr, addrl
    		 : std_logic_vector(7 downto 0) := (others => '0');
-   signal din, dout : std_logic_vector(15 downto 0) := (others => '0');
+   signal din, dout : std_logic_vector(31 downto 0) := (others => '0');
 
    signal rw : std_logic := '0';
 
    -- counters
    signal txf_cnt, rxf_cnt, txfifowerr_cnt, rxfifowerr_cnt,
    		rxphyerr_cnt, rxoferr_cnt, rxcrcerr_cnt :
-		std_logic_vector(15 downto 0) := (others => '0');
+		std_logic_vector(31 downto 0) := (others => '0');
    signal txf_cntl, rxf_cntl, txfifowerr_cntl, rxfifowerr_cntl,
    		rxphyerr_cntl, rxoferr_cntl, rxcrcerr_cntl :
-		std_logic_vector(15 downto 0) := (others => '0');
+		std_logic_vector(31 downto 0) := (others => '0');
 
    signal txf_rst, rxf_rst, txfifowerr_rst, rxfifowerr_rst,
    		rxphyerr_rst, rxoferr_rst, rxcrcerr_rst :
@@ -76,11 +77,13 @@ architecture Behavioral of control is
 
    -- muxing...
    signal doutmux, doutmuxl
-   		 : std_logic_vector(15 downto 0) := (others => '0');
+   		 : std_logic_vector(31 downto 0) := (others => '0');
 
    -- MAC-related address and packet descriptions
    signal lmacaddr : std_logic_vector(47 downto 0) := (others => '0');
    signal lrxbcast, lrxmcast, lrxucast : std_logic := '0';
+
+   signal phyrstcnt : integer := 0; 
 
 
 
@@ -107,12 +110,12 @@ begin
 	    sinlll <= sinll;
 
 	    -- dout
-	    SOUT <= dout(15); 
+	    SOUT <= dout(31); 
 
 
 
 	    if scslll = '1' then
-	    	   bitcnt <= "00000";
+	    	   bitcnt <= "000000";
 	    else
 	        if sclkdelta = '1' then 
 		      bitcnt <= bitcnt + 1;
@@ -126,7 +129,7 @@ begin
 
 	    -- data in register
 	    if sclkdelta = '1' and bitcnt > 7 then
-	    	  din <= din(14 downto 0) & sinlll;
+	    	  din <= din(30 downto 0) & sinlll;
 	    end if; 
 
 
@@ -135,7 +138,7 @@ begin
 		  dout <= doutmux; 
 	    else
 	       if sclkdelta = '1' and bitcnt > 7 and rw = '0' then
-			dout <= dout(14 downto 0)  & '0'; 
+			dout <= dout(30 downto 0)  & '0'; 
 		  end if; 
 	    end if;
 	    
@@ -218,16 +221,30 @@ begin
 	    -- mac address parts
 	    if addr(4 downto 0) = "11101" and rw = '1' and
 	    	  sclkdeltal = '1' then 
-		  lmacaddr(15 downto 0) <= din;
+		  lmacaddr(15 downto 0) <= din(15 downto 0);
 	    end if; 
 	    if addr(4 downto 0) = "11110" and rw = '1' and
 	    	  sclkdeltal = '1' then 
-		  lmacaddr(31 downto 16) <= din;
+		  lmacaddr(31 downto 16) <= din(15 downto 0);
 	    end if; 
 	    if addr(4 downto 0) = "11111" and rw = '1' and
 	    	  sclkdeltal = '1' then 
-		  lmacaddr(47 downto 32) <= din;
+		  lmacaddr(47 downto 32) <= din(15 downto 0);
 	    end if; 
+
+	    -- phy reset
+   	    if din(0) = '1' and 
+   			(addr(4 downto 0) = "00001") and 
+   			rw = '1' and sclkdeltal = '1' then
+			phyrstcnt <= 255;
+	    else
+	    		if phyrstcnt >0 then
+	    		    phyrstcnt <= phyrstcnt - 1;
+			    PHYRESET <= '0';  
+			else
+				PHYRESET <= '1';
+			end if; 	
+		end if; 
 
 	end if; 
    end process slow_clock; 
@@ -236,7 +253,7 @@ begin
    lsclkdelta <= (not sclkll) and (sclkl);
    rw <= addr(7); 
    
-    
+
    -- address decoding!!
    addr_mux : process(addr, rxcrcerr_cntl, rxoferr_cntl, 
    				  rxphyerr_cntl, txfifowerr_cntl,
