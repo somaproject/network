@@ -8,8 +8,8 @@ DEVICE xc2s50e
 DEVICETIME 0
 DEVPKG pq208
 DEVPKGTIME 1060536737
-DEVSPEED -6
-DEVSPEEDTIME 1062285456
+DEVSPEED -7
+DEVSPEEDTIME 1062636012
 FLOW XST VHDL
 FLOWTIME 0
 STIMULUS TXout_testbench.vhd Normal
@@ -48,8 +48,5 @@ DEPASSOC txinput TXinput.ucf Normal
 p_ModelSimSimRunTime_tb=xstvhd, spartan2e, Module VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1061769469, 10000ns
 p_xstPackIORegister=xstvhd, spartan2e, VHDL.t_synthesize, 1062287314, Yes
 xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_par, 1062367111, High
-[STATUS-ALL]
-rxinput.ngcFile=WARNINGS,1062635866
-rxinput.ngdFile=WARNINGS,1062635866
 [STRATEGY-LIST]
 Normal=True

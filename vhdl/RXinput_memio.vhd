@@ -35,22 +35,22 @@ architecture Behavioral of RXinput_memio is
    signal mnewf, brdy : std_logic := '0';
 
    -- byte counter
-   signal bcnt : std_logic_vector(15 downto 0) := (others => '0');
+   signal bcnt, bcntl : std_logic_vector(15 downto 0) := (others => '0');
    
    -- crc signals
    signal crc, crcl: std_logic_vector(31 downto 0) := 
    				 (others => '0');
    
    -- memory:
-   signal bp, macnt, lma : std_logic_vector(15 downto 0) :=
+   signal bp, macnt, lma, bpl : std_logic_vector(15 downto 0) :=
    					  (others => '0');
 
-   signal men, menl, mendelta, wbp, newf: std_logic := '0';
+   signal men, menl, mendelta, wbp, wbpl, newf, bpen: std_logic := '0';
 
    -- fsms:
    type states is (none, byte0, byte1, byte2, byte3, memwait1,
    			    memwait2, memwait3, wait0, wait1, wait2, errchk,
-			    writebp);
+			    incbp, writebp);
    signal cs, ns : states := none;  
    
 	 component crc_combinational is
@@ -77,11 +77,25 @@ begin
 			
 			-- memory signals
 			if wbp = '1' then
-			   bp <= macnt;
-			end if; 
-			
+
+			   bpl <= bp; 
+			   bcntl <= bcnt; 
+			end if;
+			 
 			MA <= lma;
 			MD <= lmd;
+
+			if bpen = '1' then
+			   bp <= macnt;
+
+			end if; 			
+			bpen <= wbp; 
+							
+			if mendelta = '1' then
+				doutl <= dout;
+				wbpl <= wbp; 
+
+			end if; 
 			
 			if newf = '1' then
 			   macnt <= bp;
@@ -111,7 +125,7 @@ begin
 			end if; 
 
 			if mendelta = '1' then
-			   doutl <= dout; 
+			   
 			end if; 
 			
 			
@@ -139,10 +153,10 @@ begin
 
     -- memory combinational
     mendelta <= men and (not menl); 
-    lma <= bp when wbp = '1' else macnt; 
-
+    lma <= bpl when wbpl = '1' else macnt; 
+    
     -- data combinational 
-    lmd <= doutl when wbp = '0' else ("0000000000000000" & bcnt); 
+    lmd <= doutl when wbpl = '0' else ("0000000000000000" & bcntl); 
 
     brdy <= not(ENDF or INVALID);
 
@@ -240,25 +254,26 @@ begin
 			 CE <= '0'; 
 			 newf <= '0';
 			 wbp <= '0'; 
-			 ns <= wait1; 
-	      when wait1 => 
-		      men <= '1'; 
-			 CE <= '0'; 
-			 newf <= '0';
-			 wbp <= '0'; 
 			 ns <= errchk; 
 	      when errchk => 
 		      men <= '1'; 
 			 CE <= '0'; 
 			 newf <= '0';
 			 wbp <= '0'; 
-			 if DATA(2) = '0' and CRCL = X"00000000" then
-			    ns <= wait2;
+			 if DATA(2) = '0' then --and CRCL = X"00000000" then
+			    ns <= wait1;
 			 else
 			    ns <= none; 
 			 end if; 
-	      when wait2 => 
+	      when wait1 => 
 		      men <= '0'; 
+			 CE <= '0'; 
+			 newf <= '0';
+			 wbp <= '0'; 
+			 ns <= incbp; 
+
+	      when incbp => 
+		      men <= '1'; 
 			 CE <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';

@@ -131,6 +131,9 @@ This allows multiple things. First, it allows us to have MEN=1 in BYTE0 and not 
 
 Second, by keeping MEN high at the end of a cycle (through NONE), we prevent the first BYTE0 of actually causing a memory write. This guarantees that previous MA/MD (from writing the BP for the last frame) will be stable for 4 ticks, guaranteeing their validity. 
 
+4 Sept 2003: Memio bugs fixed by throwing extra registers at problem. Behavioral simulation appears to work. 
+
+
 Because timing is so tight with the fifo (what were you thinking, xilinx?) we're going to have to graft on some logic to deal. 
 
 I've called it the RX Input FIFO interface, or RXinput_FifoIO.vhd. It's a little bit complicated, but basically you use the existence of the invalid bit to let you graft onto the fIFO some registering logic. 
