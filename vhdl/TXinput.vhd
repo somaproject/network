@@ -136,7 +136,7 @@ begin
 
 			-- data latching
 			if den = '1' and (cs = none or dlen = '1') then
-				dl` <= dinint;	
+				dl <= dinint;	
 			end if; 
 
 			if den = '1' and dhen = '1' then

@@ -111,7 +111,6 @@ _SynthOptEffort=xstvhd, spartan2e, Schematic.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, True
 [STATUS-ALL]
-testsuite.ngcFile=WARNINGS,1071874652
-testsuite.ngdFile=WARNINGS,1071874702
+network.twrFile=WARNINGS,1088690888
 [STRATEGY-LIST]
 Normal=True

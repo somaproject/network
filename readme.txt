@@ -614,3 +614,46 @@ I don't understand -- some bytes go across okay, some live in much pain.
 I think i will work on something else for the time being. 
 
 
+2 July 2004: Convert to Spartan-3
+Okay, today we try and move to a spartan-3, in an attempt to reduce part count and fix some signal integrity errors we've been having. 
+
+Notes: 
+Do we want to have flash eeprom we can program for booting? 
+Make sure to use current-limiting/pullup resistors on the configuration pins!!
+
+We just can't spare the pins for DCM on the memory, data interfaces. 
+
+There are a -ton- of clocks here. In particular, we get to worry about... 
+IOCLK : Bus clock, between 0 an 60 MHz
+RXCLK : input clock from PHY
+GTX_CLK : output clock to TX interface of PHY
+MEMCLK : output clock to memory interface
+CLKIN : input 125 MHz clock. 
+
+So, it would be nice to have the input clock be a 25 MHz clock that we 5x with a DCM. Do we really need separate pins for GTK_CLK and MEMCLK? What if we want to independently adjust the phases of the outputs? 
+
+Now, the memory section is really tempermental, so I can understand wanting to control it with its own DCM. 
+
+But really, the other parts should be able to deal pretty well with just the normal clock configurations.
+
+Can / should we try to de-skew the memory interface? 
+
+Wow, so, umm, the damn PHY wants 1.8 V. That sucks. 
+
+Power/ component... the PHY only claims "typically less than 1 W" which I'm going to assume is "300 mA on each interface, max"
+
+
+
+2.5 V:
+   VCCAUX 
+   AVDD on PHY, which is level-sensitivee
+1.8 V: 
+
+
+   
+73601 
+73618
+73625
+
+but, drat, none in the 1.8V category
+

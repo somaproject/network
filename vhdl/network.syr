@@ -1,10 +1,10 @@
-Release 6.1.03i - xst G.26
-Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
+Release 6.2.03i - xst G.31a
+Copyright (c) 1995-2004 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to __projnav
-CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.61 s | Elapsed : 0.00 / 1.00 s
  
 --> Parameter xsthdpdir set to ./xst
-CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.61 s | Elapsed : 0.00 / 1.00 s
  
 --> Reading design: network.prj
 
@@ -13,8 +13,8 @@ TABLE OF CONTENTS
   2) HDL Compilation
   3) HDL Analysis
   4) HDL Synthesis
-     4.1) HDL Synthesis Report
   5) Advanced HDL Synthesis
+     5.1) HDL Synthesis Report
   6) Low Level Synthesis
   7) Final Report
      7.1) Device utilization summary
@@ -83,6 +83,7 @@ Read Cores                         : YES
 cross_clock_analysis               : NO
 verilog2001                        : YES
 Optimize Instantiated Primitives   : NO
+tristate2logic                     : No
 
 =========================================================================
 
@@ -90,69 +91,71 @@ Optimize Instantiated Primitives   : NO
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
-Compiling vhdl file C:/desktop/network/vhdl/MII.vhd in Library work.
-Architecture behavioral of Entity mii is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/rxinput_fifocontrol.vhd in Library work.
-Architecture behavioral of Entity rxinput_fifocontrol is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/crc_combinational.vhd in Library work.
-Architecture behavioral of Entity crc_combinational is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/RXinput_addrchk.vhd in Library work.
-Architecture behavioral of Entity rxinput_addrchk is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/PHYstatus.vhd in Library work.
-Architecture behavioral of Entity phystatus is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/RXinput_GMII.vhd in Library work.
-Architecture behavioral of Entity rxinput_gmii is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/RXinput_memio.vhd in Library work.
-Architecture behavioral of Entity rxinput_memio is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/RXinput_fifo.vhd in Library work.
-Architecture behavioral of Entity rxinput_fifo is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/memdebug.vhd in Library work.
-Architecture behavioral of Entity memdebug is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/clockenable.vhd in Library work.
-Architecture behavioral of Entity clockenable is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/memory.vhd in Library work.
-Architecture behavioral of Entity memory is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/RXinput.vhd in Library work.
-Architecture behavioral of Entity rxinput is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/RXoutput.vhd in Library work.
-Architecture behavioral of Entity rxoutput is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/TXoutput.vhd in Library work.
-Architecture behavioral of Entity txoutput is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/TXinput.vhd in Library work.
-Entity <txinput> (Architecture <behavioral>) compiled.
-Compiling vhdl file C:/desktop/network/vhdl/FIFOcheck.vhd in Library work.
-Architecture behavioral of Entity fifocheck is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/control.vhd in Library work.
-Architecture behavioral of Entity control is up to date.
-Compiling vhdl file C:/desktop/network/vhdl/network.vhd in Library work.
-Entity <network> (Architecture <behavioral>) compiled.
+WARNING:HDLParsers:3481 - No primary, secondary unit in the file E:\desktop\network\vhdl/rxoutput_async_fifo.vhd. Ignore this file from project file network_vhdl.prj.
+WARNING:HDLParsers:3481 - No primary, secondary unit in the file E:\desktop\network\vhdl/async_fifo.vhd. Ignore this file from project file network_vhdl.prj.
+Compiling vhdl file E:/desktop/network/vhdl/MII.vhd in Library work.
+Entity <MII> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/rxinput_fifocontrol.vhd in Library work.
+Entity <rxinput_fifocontrol> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/crc_combinational.vhd in Library work.
+Entity <crc_combinational> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/RXinput_addrchk.vhd in Library work.
+Entity <RXinput_addrchk> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/PHYstatus.vhd in Library work.
+Entity <PHYstatus> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/RXinput_GMII.vhd in Library work.
+Entity <RXinput_GMII> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/RXinput_memio.vhd in Library work.
+Entity <RXinput_memio> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/RXinput_fifo.vhd in Library work.
+Entity <RXinput_fifo> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/memdebug.vhd in Library work.
+Entity <memdebug> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/clockenable.vhd in Library work.
+Entity <clockenable> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/memory.vhd in Library work.
+Entity <memory> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/RXinput.vhd in Library work.
+Entity <RXinput> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/RXoutput.vhd in Library work.
+Entity <RXoutput> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/TXoutput.vhd in Library work.
+Entity <TXoutput> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/TXinput.vhd in Library work.
+Entity <TXinput> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/FIFOcheck.vhd in Library work.
+Entity <FIFOcheck> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/control.vhd in Library work.
+Entity <control> (Architecture <Behavioral>) compiled.
+Compiling vhdl file E:/desktop/network/vhdl/network.vhd in Library work.
+Entity <network> (Architecture <Behavioral>) compiled.
 
 =========================================================================
 *                            HDL Analysis                               *
 =========================================================================
-Analyzing Entity <network> (Architecture <behavioral>).
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK90' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK270' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 290: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 298: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 303: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 313: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK90' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK180' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK270' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 318: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 325: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 412: Unconnected output port 'GTX_CLK' of component 'TXoutput'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 424: Unconnected output port 'DONE' of component 'TXinput'.
+Analyzing Entity <network> (Architecture <Behavioral>).
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK90' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK270' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 290: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 298: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 303: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 313: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK90' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK180' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK270' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 318: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 325: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 412: Unconnected output port 'GTX_CLK' of component 'TXoutput'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 424: Unconnected output port 'DONE' of component 'TXinput'.
 Entity <network> analyzed. Unit <network> generated.
 
 Analyzing Entity <memdebug> (Architecture <behavioral>).
@@ -163,38 +166,38 @@ Entity <clockenable> analyzed. Unit <clockenable> generated.
 
 Analyzing Entity <memory> (Architecture <behavioral>).
     Set user-defined property "IOB =  true" for signal <ts>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
 Entity <memory> analyzed. Unit <memory> generated.
 
 Analyzing Entity <RXinput> (Architecture <behavioral>).
@@ -213,49 +216,49 @@ Analyzing Entity <RXinput_addrchk> (Architecture <behavioral>).
 Entity <RXinput_addrchk> analyzed. Unit <RXinput_addrchk> generated.
 
 Analyzing Entity <RXinput_fifo> (Architecture <behavioral>).
-WARNING:Xst:753 - C:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Unconnected output port 'full' of component 'async_fifo'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Unconnected output port 'empty' of component 'async_fifo'.
-WARNING:Xst:766 - C:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Generating a Black Box for component <async_fifo>.
+WARNING:Xst:753 - E:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Unconnected output port 'full' of component 'async_fifo'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Unconnected output port 'empty' of component 'async_fifo'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Generating a Black Box for component <async_fifo>.
 Entity <RXinput_fifo> analyzed. Unit <RXinput_fifo> generated.
 
 Analyzing Entity <rxinput_fifocontrol> (Architecture <behavioral>).
 Entity <rxinput_fifocontrol> analyzed. Unit <rxinput_fifocontrol> generated.
 
 Analyzing Entity <RXoutput> (Architecture <behavioral>).
-WARNING:Xst:766 - C:/desktop/network/vhdl/RXoutput.vhd line 79: Generating a Black Box for component <rxoutput_async_fifo>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/RXoutput.vhd line 79: Generating a Black Box for component <rxoutput_async_fifo>.
 Entity <RXoutput> analyzed. Unit <RXoutput> generated.
 
 Analyzing Entity <TXoutput> (Architecture <behavioral>).
-WARNING:Xst:819 - C:/desktop/network/vhdl/TXoutput.vhd line 177: The following signals are missing in the process sensitivity list:
+WARNING:Xst:819 - E:/desktop/network/vhdl/TXoutput.vhd line 177: The following signals are missing in the process sensitivity list:
    bcntlgt10.
 Entity <TXoutput> analyzed. Unit <TXoutput> generated.
 
 Analyzing Entity <TXinput> (Architecture <behavioral>).
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 90: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 98: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 90: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 98: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
 Entity <TXinput> analyzed. Unit <TXinput> generated.
 
 Analyzing Entity <FIFOcheck> (Architecture <behavioral>).
 Entity <FIFOcheck> analyzed. Unit <FIFOcheck> generated.
 
 Analyzing Entity <control> (Architecture <behavioral>).
-WARNING:Xst:819 - C:/desktop/network/vhdl/control.vhd line 409: The following signals are missing in the process sensitivity list:
+WARNING:Xst:819 - E:/desktop/network/vhdl/control.vhd line 409: The following signals are missing in the process sensitivity list:
    rxbpl, rxfbbpl, txbpl, txfbbpl.
 Entity <control> analyzed. Unit <control> generated.
 
@@ -263,7 +266,7 @@ Analyzing Entity <PHYstatus> (Architecture <behavioral>).
 Entity <PHYstatus> analyzed. Unit <PHYstatus> generated.
 
 Analyzing Entity <MII> (Architecture <behavioral>).
-WARNING:Xst:766 - C:/desktop/network/vhdl/MII.vhd line 95: Generating a Black Box for component <IOBUF>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/MII.vhd line 95: Generating a Black Box for component <IOBUF>.
 Entity <MII> analyzed. Unit <MII> generated.
 
 
@@ -272,7 +275,7 @@ Entity <MII> analyzed. Unit <MII> generated.
 =========================================================================
 
 Synthesizing Unit <MII>.
-    Related source file is C:/desktop/network/vhdl/MII.vhd.
+    Related source file is E:/desktop/network/vhdl/MII.vhd.
 WARNING:Xst:646 - Signal <shiften> is assigned but never used.
     Found finite state machine <FSM_0> for signal <cs>.
     -----------------------------------------------------------------------
@@ -306,7 +309,7 @@ Unit <MII> synthesized.
 
 
 Synthesizing Unit <PHYstatus>.
-    Related source file is C:/desktop/network/vhdl/PHYstatus.vhd.
+    Related source file is E:/desktop/network/vhdl/PHYstatus.vhd.
 WARNING:Xst:1780 - Signal <counter> is never used or assigned.
     Found finite state machine <FSM_1> for signal <cs>.
     -----------------------------------------------------------------------
@@ -338,7 +341,7 @@ Unit <PHYstatus> synthesized.
 
 
 Synthesizing Unit <rxinput_fifocontrol>.
-    Related source file is C:/desktop/network/vhdl/rxinput_fifocontrol.vhd.
+    Related source file is E:/desktop/network/vhdl/rxinput_fifocontrol.vhd.
     Found finite state machine <FSM_2> for signal <cs>.
     -----------------------------------------------------------------------
     | States             | 4                                              |
@@ -371,7 +374,7 @@ Unit <rxinput_fifocontrol> synthesized.
 
 
 Synthesizing Unit <RXinput_addrchk>.
-    Related source file is C:/desktop/network/vhdl/RXinput_addrchk.vhd.
+    Related source file is E:/desktop/network/vhdl/RXinput_addrchk.vhd.
 WARNING:Xst:646 - Signal <mcast<5:1>> is assigned but never used.
     Found finite state machine <FSM_3> for signal <cs>.
     -----------------------------------------------------------------------
@@ -414,7 +417,7 @@ Unit <RXinput_addrchk> synthesized.
 
 
 Synthesizing Unit <crc_combinational>.
-    Related source file is C:/desktop/network/vhdl/crc_combinational.vhd.
+    Related source file is E:/desktop/network/vhdl/crc_combinational.vhd.
     Found 1-bit xor3 for signal <CO<31>>.
     Found 1-bit xor4 for signal <CO<30>>.
     Found 2-bit xor5 for signal <CO<29:28>>.
@@ -458,13 +461,13 @@ Unit <crc_combinational> synthesized.
 
 
 Synthesizing Unit <RXinput_fifo>.
-    Related source file is C:/desktop/network/vhdl/RXinput_fifo.vhd.
+    Related source file is E:/desktop/network/vhdl/RXinput_fifo.vhd.
 WARNING:Xst:646 - Signal <fifodout<15:9>> is assigned but never used.
 Unit <RXinput_fifo> synthesized.
 
 
 Synthesizing Unit <RXinput_memio>.
-    Related source file is C:/desktop/network/vhdl/RXinput_memio.vhd.
+    Related source file is E:/desktop/network/vhdl/RXinput_memio.vhd.
 WARNING:Xst:646 - Signal <endbyte<7:3>> is assigned but never used.
 WARNING:Xst:1780 - Signal <lbpout5> is never used or assigned.
 WARNING:Xst:1780 - Signal <bcnten> is never used or assigned.
@@ -524,7 +527,7 @@ Unit <RXinput_memio> synthesized.
 
 
 Synthesizing Unit <RXinput_GMII>.
-    Related source file is C:/desktop/network/vhdl/RXinput_GMII.vhd.
+    Related source file is E:/desktop/network/vhdl/RXinput_GMII.vhd.
     Found 1-bit register for signal <ENDFIN>.
     Found 1-bit register for signal <INCE>.
     Found 8-bit register for signal <FIFOIN>.
@@ -540,7 +543,7 @@ Unit <RXinput_GMII> synthesized.
 
 
 Synthesizing Unit <control>.
-    Related source file is C:/desktop/network/vhdl/control.vhd.
+    Related source file is E:/desktop/network/vhdl/control.vhd.
 WARNING:Xst:1780 - Signal <rxcrcerr_sr> is never used or assigned.
 WARNING:Xst:1780 - Signal <txf_sr> is never used or assigned.
 WARNING:Xst:653 - Signal <phydo<31:16>> is used but never assigned. Tied to value 0000000000000000.
@@ -626,7 +629,7 @@ Unit <control> synthesized.
 
 
 Synthesizing Unit <FIFOcheck>.
-    Related source file is C:/desktop/network/vhdl/FIFOcheck.vhd.
+    Related source file is E:/desktop/network/vhdl/FIFOcheck.vhd.
     Found 1-bit register for signal <FIFOFULL>.
     Found 16-bit subtractor for signal <$n0001> created at line 32.
     Found 17-bit comparator greater for signal <$n0003> created at line 33.
@@ -641,7 +644,7 @@ Unit <FIFOcheck> synthesized.
 
 
 Synthesizing Unit <TXinput>.
-    Related source file is C:/desktop/network/vhdl/TXinput.vhd.
+    Related source file is E:/desktop/network/vhdl/TXinput.vhd.
 WARNING:Xst:1780 - Signal <nenable> is never used or assigned.
     Found finite state machine <FSM_5> for signal <cs>.
     -----------------------------------------------------------------------
@@ -686,7 +689,7 @@ Unit <TXinput> synthesized.
 
 
 Synthesizing Unit <TXoutput>.
-    Related source file is C:/desktop/network/vhdl/TXoutput.vhd.
+    Related source file is E:/desktop/network/vhdl/TXoutput.vhd.
 WARNING:Xst:1780 - Signal <rdata> is never used or assigned.
 WARNING:Xst:1780 - Signal <rstaddr> is never used or assigned.
 WARNING:Xst:646 - Signal <ncrcl> is assigned but never used.
@@ -737,7 +740,7 @@ Unit <TXoutput> synthesized.
 
 
 Synthesizing Unit <RXoutput>.
-    Related source file is C:/desktop/network/vhdl/RXoutput.vhd.
+    Related source file is E:/desktop/network/vhdl/RXoutput.vhd.
 WARNING:Xst:646 - Signal <fe> is assigned but never used.
 WARNING:Xst:646 - Signal <ff> is assigned but never used.
 WARNING:Xst:1780 - Signal <ceout> is never used or assigned.
@@ -793,12 +796,12 @@ Unit <RXoutput> synthesized.
 
 
 Synthesizing Unit <RXinput>.
-    Related source file is C:/desktop/network/vhdl/RXinput.vhd.
+    Related source file is E:/desktop/network/vhdl/RXinput.vhd.
 Unit <RXinput> synthesized.
 
 
 Synthesizing Unit <memory>.
-    Related source file is C:/desktop/network/vhdl/memory.vhd.
+    Related source file is E:/desktop/network/vhdl/memory.vhd.
 WARNING:Xst:1780 - Signal <clk1> is never used or assigned.
 WARNING:Xst:1780 - Signal <clk2> is never used or assigned.
 WARNING:Xst:1780 - Signal <clk3> is never used or assigned.
@@ -827,7 +830,7 @@ Unit <memory> synthesized.
 
 
 Synthesizing Unit <clockenable>.
-    Related source file is C:/desktop/network/vhdl/clockenable.vhd.
+    Related source file is E:/desktop/network/vhdl/clockenable.vhd.
 WARNING:Xst:647 - Input <RESET> is never used.
     Found 1-bit register for signal <TXFIFOWERRSR>.
     Found 1-bit register for signal <RXFSR>.
@@ -853,7 +856,7 @@ Unit <clockenable> synthesized.
 
 
 Synthesizing Unit <memdebug>.
-    Related source file is C:/desktop/network/vhdl/memdebug.vhd.
+    Related source file is E:/desktop/network/vhdl/memdebug.vhd.
 WARNING:Xst:646 - Signal <lcnt> is assigned but never used.
     Found 17-bit register for signal <ADDR>.
     Found 32-bit register for signal <DOUT>.
@@ -865,7 +868,7 @@ Unit <memdebug> synthesized.
 
 
 Synthesizing Unit <network>.
-    Related source file is C:/desktop/network/vhdl/network.vhd.
+    Related source file is E:/desktop/network/vhdl/network.vhd.
 WARNING:Xst:653 - Signal <d2> is used but never assigned. Tied to value 00000000000000000000000000000000.
 WARNING:Xst:653 - Signal <d3> is used but never assigned. Tied to value 00000000000000000000000000000000.
 WARNING:Xst:1780 - Signal <clkslen_to_bufg> is never used or assigned.
@@ -882,70 +885,17 @@ WARNING:Xst:646 - Signal <clkio180> is assigned but never used.
 WARNING:Xst:646 - Signal <addr3ext> is assigned but never used.
 Unit <network> synthesized.
 
-
-=========================================================================
-HDL Synthesis Report
-
-Macro Statistics
-# FSMs                             : 8
-# Registers                        : 443
-  1-bit register                   : 359
-  16-bit register                  : 36
-  32-bit register                  : 20
-  8-bit register                   : 9
-  6-bit register                   : 4
-  5-bit register                   : 1
-  10-bit register                  : 5
-  17-bit register                  : 4
-  48-bit register                  : 2
-  4-bit register                   : 3
-# Counters                         : 21
-  6-bit up counter                 : 2
-  32-bit up counter                : 7
-  16-bit up counter                : 6
-  16-bit down counter              : 1
-  2-bit up counter                 : 1
-  3-bit up counter                 : 1
-  32-bit down counter              : 1
-  12-bit down counter              : 2
-# Shift Registers                  : 18
-  3-bit shift register             : 2
-  4-bit shift register             : 16
-# Multiplexers                     : 7
-  2-to-1 multiplexer               : 5
-  17-bit 4-to-1 multiplexer        : 1
-  32-bit 4-to-1 multiplexer        : 1
-# Adders/Subtractors               : 9
-  6-bit adder                      : 1
-  16-bit subtractor                : 5
-  16-bit adder                     : 2
-  15-bit adder                     : 1
-# Comparators                      : 17
-  6-bit comparator lessequal       : 1
-  8-bit comparator equal           : 6
-  32-bit comparator greater        : 1
-  7-bit comparator greatequal      : 1
-  7-bit comparator lessequal       : 1
-  32-bit comparator lessequal      : 1
-  17-bit comparator greater        : 2
-  16-bit comparator equal          : 3
-  16-bit comparator greater        : 1
-# Xors                             : 97
-  1-bit xor2                       : 45
-  1-bit xor3                       : 16
-  1-bit xor4                       : 26
-  1-bit xor5                       : 8
-  1-bit xor7                       : 2
-
-=========================================================================
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+WARNING:Xst:524 - All outputs of the instance <memwdebug> of the block <memdebug> are unconnected in block <network>.
+   This instance will be removed from the design along with all underlying logic
 
 =========================================================================
 *                       Advanced HDL Synthesis                          *
 =========================================================================
 
-INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
-WARNING:Xst:524 - All outputs of the instance <memwdebug> of the block <memdebug> are unconnected in block <network>.
-   This instance will be removed from the design along with all underlying logic
+Advanced RAM inference ...
+Advanced multiplier inference ...
+Advanced Registered AddSub inference ...
 Selecting encoding for FSM_7 ...
 Optimizing FSM <FSM_7> on signal <cs> with one-hot encoding.
 Selecting encoding for FSM_6 ...
@@ -962,6 +912,64 @@ Selecting encoding for FSM_1 ...
 Optimizing FSM <FSM_1> on signal <cs> with one-hot encoding.
 Selecting encoding for FSM_0 ...
 Optimizing FSM <FSM_0> on signal <cs> with one-hot encoding.
+Dynamic shift register inference ...
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# FSMs                             : 8
+# Adders/Subtractors               : 9
+ 16-bit adder                      : 2
+ 15-bit adder                      : 1
+ 16-bit subtractor                 : 5
+ 6-bit adder                       : 1
+# Counters                         : 20
+ 16-bit up counter                 : 5
+ 16-bit down counter               : 1
+ 12-bit down counter               : 2
+ 32-bit down counter               : 1
+ 6-bit up counter                  : 2
+ 32-bit up counter                 : 7
+ 3-bit up counter                  : 1
+ 2-bit up counter                  : 1
+# Registers                        : 530
+ 1-bit register                    : 448
+ 32-bit register                   : 19
+ 17-bit register                   : 3
+ 16-bit register                   : 36
+ 4-bit register                    : 3
+ 8-bit register                    : 9
+ 48-bit register                   : 2
+ 6-bit register                    : 4
+ 10-bit register                   : 5
+ 5-bit register                    : 1
+# Shift Registers                  : 18
+ 3-bit shift register              : 2
+ 4-bit shift register              : 16
+# Comparators                      : 17
+ 16-bit comparator greater         : 1
+ 16-bit comparator equal           : 3
+ 17-bit comparator greater         : 2
+ 32-bit comparator lessequal       : 1
+ 7-bit comparator lessequal        : 1
+ 7-bit comparator greatequal       : 1
+ 32-bit comparator greater         : 1
+ 8-bit comparator equal            : 6
+ 6-bit comparator lessequal        : 1
+# Multiplexers                     : 7
+ 17-bit 4-to-1 multiplexer         : 1
+ 32-bit 4-to-1 multiplexer         : 1
+ 16-bit 2-to-1 multiplexer         : 3
+ 32-bit 2-to-1 multiplexer         : 2
+# Xors                             : 97
+ 1-bit xor7                        : 2
+ 1-bit xor5                        : 8
+ 1-bit xor4                        : 26
+ 1-bit xor3                        : 16
+ 1-bit xor2                        : 45
+
+=========================================================================
 
 =========================================================================
 *                         Low Level Synthesis                           *
@@ -1119,59 +1127,12 @@ Optimizing unit <RXinput> ...
 Loading device for application Xst from file '2s200e.nph' in environment C:/Xilinx.
 
 Mapping all equations...
-WARNING:Xst:1293 - FF/Latch  <lenr_12> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <lenr_13> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <lenr_14> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_31> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_15> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_15> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_15> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <lenr_15> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_0> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_1> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_2> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_3> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_4> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_5> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_6> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_7> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_8> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_9> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_10> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_11> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_12> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_13> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_14> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_16> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_17> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_18> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_19> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_20> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_21> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_22> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_23> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_24> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_25> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_26> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_27> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_28> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_29> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_30> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_0> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_1> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_2> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_3> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_4> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_5> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_6> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_7> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_8> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_9> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_10> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_11> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_12> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_13> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <len_14> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <fifodin_0> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <fifodin_1> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <fifodin_2> is constant in block <rx_output>.
@@ -1186,7 +1147,6 @@ WARNING:Xst:1293 - FF/Latch  <fifodin_10> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <fifodin_11> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <fifodin_12> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <fifodin_13> is constant in block <rx_output>.
-WARNING:Xst:1291 - FF/Latch <lmasell> is unconnected in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <fifodin_14> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_2> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_3> is constant in block <rx_output>.
@@ -1198,6 +1158,53 @@ WARNING:Xst:1293 - FF/Latch  <lenr_8> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_9> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_10> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_11> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_16> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_15> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_14> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_13> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_12> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_11> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_10> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_9> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_8> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_7> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_6> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_5> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_4> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_3> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_2> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_1> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_0> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <lenr_15> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <fifodin_15> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_31> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <lenr_14> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <lenr_13> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <lenr_12> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_24> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_23> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_22> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_21> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_20> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_19> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_18> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_17> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_14> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_13> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_12> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_15> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_11> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_10> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_9> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_0> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_1> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_2> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_3> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_4> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_5> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_6> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_7> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_8> is constant in block <rx_output>.
 WARNING:Xst:1291 - FF/Latch <MWEN> is unconnected in block <tx_input>.
 WARNING:Xst:1291 - FF/Latch <Q4_31> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_31> is unconnected in block <memcontroller>.
@@ -1263,6 +1270,7 @@ WARNING:Xst:1291 - FF/Latch <Q1_27> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_28> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_29> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_30> is unconnected in block <memcontroller>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <lmasell> is unconnected in block <rx_output>.
 Building and optimizing final netlist ...
 Found area constraint ratio of 100 (+ 5) on block network, actual ratio is 71.
 WARNING:Xst:382 - Register FBBP_15 is equivalent to bpl_15
@@ -2396,14 +2404,15 @@ Cell Usage :
 #      GND                         : 14
 #      LUT1                        : 358
 #      LUT1_L                      : 1
-#      LUT2                        : 322
+#      LUT2                        : 266
 #      LUT2_D                      : 6
-#      LUT2_L                      : 20
-#      LUT3                        : 315
+#      LUT2_L                      : 7
+#      LUT3                        : 370
 #      LUT3_D                      : 1
-#      LUT4                        : 846
+#      LUT3_L                      : 13
+#      LUT4                        : 849
 #      LUT4_D                      : 33
-#      LUT4_L                      : 135
+#      LUT4_L                      : 133
 #      MUXCY                       : 635
 #      MUXCY_D                     : 4
 #      MUXCY_L                     : 8
@@ -2476,7 +2485,7 @@ Timing Summary:
 ---------------
 Speed Grade: -6
 
-   Minimum period: 14.914ns (Maximum Frequency: 67.051MHz)
+   Minimum period: 14.864ns (Maximum Frequency: 67.277MHz)
    Minimum input arrival time before clock: 21.513ns
    Maximum output required time after clock: 19.448ns
    Maximum combinational path delay: No path found
@@ -2506,7 +2515,7 @@ Delay:               8.197ns (Levels of Logic = 1)
 
 -------------------------------------------------------------------------
 Timing constraint: Default period analysis for Clock 'CLKIN'
-Delay:               14.914ns (Levels of Logic = 6)
+Delay:               14.864ns (Levels of Logic = 6)
   Source:            mac_control/addr_1 (FF)
   Destination:       mac_control/dout_1 (FF)
   Source Clock:      CLKIN rising
@@ -2516,17 +2525,17 @@ Delay:               14.914ns (Levels of Logic = 6)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q             17   0.992   2.850  addr_1 (addr_1)
+     FDE:C->Q             16   0.992   2.800  addr_1 (addr_1)
      LUT2_D:I1->O         16   0.468   2.800  Ker557951 (N55797)
      LUT4_D:I3->O         16   0.468   2.800  _n00941 (_n0094)
      LUT4:I2->O            1   0.468   0.920  Mmux__n0018_Result<14>66 (CHOICE3070)
-     LUT3:I2->O            1   0.468   0.920  Mmux__n0018_Result<14>101_SW0 (N86581)
+     LUT3:I2->O            1   0.468   0.920  Mmux__n0018_Result<14>101_SW0 (N86571)
      LUT4_L:I3->LO         1   0.468   0.100  Mmux__n0018_Result<14>101 (CHOICE3080)
      LUT4_L:I2->LO         1   0.468   0.000  Mmux__n0018_Result<14>137 (_n0018<14>)
      FDE:D                     0.724          dout_14
     ----------------------------------------
-    Total                     14.914ns (4.524ns logic, 10.390ns route)
-                                       (30.3% logic, 69.7% route)
+    Total                     14.864ns (4.524ns logic, 10.340ns route)
+                                       (30.4% logic, 69.6% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default period analysis for Clock 'CLKIOIN'
@@ -2626,7 +2635,7 @@ Offset:              19.448ns (Levels of Logic = 11)
      LUT4:I3->O            1   0.468   0.920  sout365 (CHOICE1065)
      LUT4:I0->O            1   0.468   0.920  sout442 (CHOICE1081)
      LUT3:I0->O            1   0.468   0.920  sout472 (CHOICE1083)
-     LUT3:I2->O            1   0.468   0.920  sout498_SW0 (N86615)
+     LUT3:I2->O            1   0.468   0.920  sout498_SW0 (N86605)
      LUT4:I3->O            1   0.468   0.920  sout498 (sout)
      IOBUF:I->IO               4.602          iobuffer (MDIO)
      end scope: 'MII_Interface'
@@ -2655,10 +2664,10 @@ Offset:              6.514ns (Levels of Logic = 2)
                                        (85.9% logic, 14.1% route)
 
 =========================================================================
-CPU : 68.58 / 68.99 s | Elapsed : 69.00 / 69.00 s
+CPU : 45.92 / 46.86 s | Elapsed : 46.00 / 47.00 s
  
 --> 
 
-Total memory usage is 106712 kilobytes
+Total memory usage is 108344 kilobytes
 
 
