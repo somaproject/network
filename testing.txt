@@ -1,0 +1,10 @@
+Things we need to test:
+
+FIFO RX overflow
+FIFO TX overflow
+serial interface across the board
+
+CRC stuff
+
+address filtering. 
+

@@ -36,7 +36,8 @@ entity network is
 			  LEDRX : out std_logic;
 			  LED100 : out std_logic;
 			  LED1000 : out std_logic;
-			  LEDDPX : out std_logic; 
+			  LEDDPX : out std_logic;
+			  LEDPOWER : out std_logic;  
 			  PHYRESET : out std_logic;
 			  SCLK : in std_logic;
 			  SIN : in std_logic;
@@ -228,6 +229,8 @@ architecture Behavioral of network is
 
 
 begin
+	 LEDPOWER <= '1';
+
     addr1ext <= ('1' & addr1);
     addr2ext <= ('0' & addr2);
     addr3ext <= ('1' & addr3);

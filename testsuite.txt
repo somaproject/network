@@ -21,4 +21,6 @@ For each cycle, we'll toggle the TX LED for the duration of TX_EN.
 RX_DV is tied to the RX LED. 
 
 The Serial interface is configured, but mostly to convince myself that it works. 
+Added LEDPOWER with a flasher. 
 
+				   

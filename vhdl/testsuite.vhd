@@ -31,6 +31,7 @@ entity testsuite is
            DINEN : in std_logic;
 			  MDIO : inout std_logic;
 			  MDC : out std_logic;
+			  LEDPOWER : out std_logic; 
 			  LEDACT : out std_logic;
 			  LEDTX : out std_logic;
 			  LEDRX : out std_logic;
@@ -159,9 +160,33 @@ architecture Behavioral of testsuite is
 	end component;
 begin
 
-	 
+
+	 -- random LED flashing:
+	 flash: process(CLK) is
+	 	variable cnt : std_logic_vector(23 downto 0) := (others => '0'); 
+		variable toggle, t1, t2, t3 : std_logic := '0';  
+		
+	 begin
+	 	if rising_edge(CLK) then
+			cnt := cnt + 1;
+			t1 := cnt(23); 
+			t2 := t1;
+			t3 := t2; 	 		
+
+			LEDPOWER <= t3;
+		end if;
+	 end process flash; 
 
 
+	 -- ledrx
+	 process(CLK) is
+	 	variable lrx : std_logic := '0'; 
+	 begin
+	 	if rising_edge(CLK) then
+			lrx := RX_DV;
+			LEDRX <= lrx; 
+		end if; 
+	 end process; 
     clk_dll : CLKDLL generic map (
 	 		clkdv_divide => 4.0)
 			port map (
@@ -210,12 +235,12 @@ begin
 				RESET => RESET,
 				CLKSL => clksl,
 				SCLK => '0',
-				SCS => '1', 
+				SCS => SCS, 
 				SIN => '0',
 				SOUT => SOUT, 
 				LEDACT => open,
 				LEDTX => LEDTX,
-				LEDRX => LEDRX,
+				LEDRX => open,
 				LED100 => LED100,
 				LED1000 => LED1000,
 				LEDDPX => LEDDPX,
@@ -250,7 +275,7 @@ begin
 				RESET => RESET,
 				TX_EN => tx_en_out,
 				TXD => TXD);
-	
+	 
 		TX_EN <= tx_en_out; 
 		GTX_CLK <= clk; 			 
 end Behavioral;
