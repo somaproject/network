@@ -1,2 +1,0 @@
-NET "rx_clk" TNM_NET = "rx_clk";
-TIMESPEC "TS_clk" = PERIOD "rx_clk" 6.5ns;

@@ -24,15 +24,11 @@ STIMULUS MII_testbench.vhd
 STIMULUS TXinput_test.tbw
 STIMULUS TXout_testbench.vhd
 STIMULUS control_testbench.vhd
-STIMULUS RXinput_GMII_test.tbw
 STIMULUS test_NoBLSRAM_test.tbw
-STIMULUS rxinput_fifo_test.tbw
 SOURCE rxoutput_async_fifo.xco
-SOURCE RXinput_memio.vhd
 SOURCE CRC_combtest.vhd
 SOURCE memory.vhd
 SOURCE network.vhd
-SOURCE async_fifo.xco
 SOURCE FIFOcheck.vhd
 SOURCE MII.vhd
 SOURCE crc_combinational.vhd
@@ -40,14 +36,10 @@ SOURCE RXinput.vhd
 SOURCE TXinput.vhd
 SOURCE RXoutput.vhd
 SOURCE TXoutput.vhd
-SOURCE rxinput_fifocontrol.vhd
-SOURCE RXinput_GMII.vhd
-SOURCE RXinput_fifo.vhd
 SOURCE test_NoBLSRAM.vhd
 SOURCE control.vhd
 SOURCE PHYstatus.vhd
 STIMULUS PHYstatus_testbench.vhd
-SOURCE RXinput_addrchk.vhd
 SOURCE testsuite.vhd
 SOURCE testsuite_memory.vhd
 STIMULUS testsuite_testbench.vhd
@@ -60,15 +52,12 @@ STIMULUS memdebug_test.tbw
 SOURCE testsuite_datain.vhd
 STIMULUS testsuite_datain_test.tbw
 SOURCE GMIIin.vhd
-DEPASSOC rxinput_memio RXinput_memio.ucf
+SOURCE RXValid.vhd
 DEPASSOC network network.ucf
 DEPASSOC rxinput RXinput.ucf
 DEPASSOC txinput TXinput.ucf
 DEPASSOC rxoutput rxoutput.ucf
 DEPASSOC txoutput TXoutput.ucf
-DEPASSOC rxinput_fifocontrol txinput_fifocontrol.ucf
-DEPASSOC rxinput_gmii RXinput_GMII.ucf
-DEPASSOC rxinput_fifo rxinput_fifo.ucf
 DEPASSOC control control.ucf
 DEPASSOC testsuite testsuite.ucf
 [Normal]
@@ -77,39 +66,41 @@ mpprPARiterations=xstvhd, spartan3, Implementation.t_mppr, 1071094950, 100
 mpprResultsToSave=xstvhd, spartan3, Implementation.t_mppr, 1071094950, 100
 mpprStartingPlacerCostTbl=xstvhd, spartan3, Implementation.t_mppr, 1071094950, 1
 p_ModelSimSimRunTime_tb=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064439070, 100ms
-p_PostMapSimModelName=xstvhd, spartan3, VHDL.t_postMapSimModel, 1065570070, network_PR
-p_PostParSimModelName=xstvhd, spartan3, VHDL.t_postParSimModel, 1068825295, network_PR
-p_PostXlateSimModelName=xstvhd, spartan3, VHDL.t_postXlateSimModel, 1067543028, testsuite_PR
-p_SimModelGtsPortName=xstvhd, spartan3, VHDL.t_postMapSimModel, 1065562750, RESET
-p_SimModelRetainHierarchy=xstvhd, spartan3, VHDL.t_postMapSimModel, 1067543145, False
-p_SimModelSelOutBehav=xstvhd, spartan3, VHDL.t_postMapSimModel, 1065568345, True
-p_SimModelTarget=xstvhd, spartan3, VHDL.t_postMapSimModel, 1065562750, Modelsim_VHDL
+p_PostMapSimModelName=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1065570070, network_PR
+p_PostParSimModelName=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1068825295, network_PR
+p_PostXlateSimModelName=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1067543028, testsuite_PR
+p_SimModelGtsPortName=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1065562750, RESET
+p_SimModelRetainHierarchy=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1067543145, False
+p_SimModelSelOutBehav=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1065568345, True
+p_SimModelTarget=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1065562750, Modelsim_VHDL
 p_SimUseCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, False
-p_xstEquivRegRemoval=xstvhd, spartan3, Schematic.t_synthesize, 1069203989, False
-p_xstPackIORegister=xstvhd, spartan3, Schematic.t_synthesize, 1065491837, Yes
-p_xstUseSynthConstFile=xstvhd, spartan3, Schematic.t_synthesize, 1068754069, False
+p_xstEquivRegRemoval=xstvhd, spartan3, VHDL.t_synthesize, 1069203989, False
+p_xstPackIORegister=xstvhd, spartan3, VHDL.t_synthesize, 1065491837, Yes
+p_xstUseSynthConstFile=xstvhd, spartan3, VHDL.t_synthesize, 1068754069, False
 xilxBitgCfg_GenOpt_ASCIIFile=xstvhd, spartan3, Implementation.t_bitFile, 1067537310, True
-xilxMapAllowLogicOpt=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1069115939, True
-xilxMapCoverMode=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1068755569, Speed
-xilxMapPackfactor=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064958980, 100
-xilxMapReplicateLogic=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1069164003, True
-xilxMapReportDetail=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1067550771, True
-xilxMapTimingDrivenPacking=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1069203938, False
-xilxNgdbldNTType=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1064958659, On
-xilxNgdbldPresHierarchy=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1068755053, False
-xilxPAReffortLevel=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1071122479, Medium
-xilxPARextraEffortLevel=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1068774187, Normal
-xilxPARplacerCostTable=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1071005936, 1
-xilxPARplacerEffortLevel=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1069341668, None
-xilxPARrouterEffortLevel=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1069341668, None
-xilxPostTrceUncovPath=xstvhd, spartan3, Implementation.t_placeAndRouteDes, 1068659666,
-xilxSynthKeepHierarchy=xstvhd, spartan3, Schematic.t_synthesize, 1065203996, Yes
-xilxSynthMaxFanout=xstvhd, spartan3, Schematic.t_synthesize, 1069163640, 150
-_SynthCaseImplStyle=xstvhd, spartan3, Schematic.t_synthesize, 1069112142, None
-_SynthFsmEncode=xstvhd, spartan3, Schematic.t_synthesize, 1069110759, Auto
-_SynthOpt=xstvhd, spartan3, Schematic.t_synthesize, 1069163640, Speed
-_SynthOptEffort=xstvhd, spartan3, Schematic.t_synthesize, 1064934786, High
+xilxMapAllowLogicOpt=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1069115939, True
+xilxMapCoverMode=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1068755569, Speed
+xilxMapPackfactor=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1064958980, 100
+xilxMapReplicateLogic=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1069164003, True
+xilxMapReportDetail=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1067550771, True
+xilxMapTimingDrivenPacking=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1069203938, False
+xilxNgdbldNTType=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1064958659, On
+xilxNgdbldPresHierarchy=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1068755053, False
+xilxPAReffortLevel=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1099024918, High
+xilxPARextraEffortLevel=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1068774187, Normal
+xilxPARplacerCostTable=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1071005936, 1
+xilxPARplacerEffortLevel=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1069341668, None
+xilxPARrouterEffortLevel=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1069341668, None
+xilxPostTrceUncovPath=xstvhd, spartan3, VHDL.t_placeAndRouteDes, 1068659666,
+xilxSynthKeepHierarchy=xstvhd, spartan3, VHDL.t_synthesize, 1065203996, Yes
+xilxSynthMaxFanout=xstvhd, spartan3, VHDL.t_synthesize, 1069163640, 150
+_SynthCaseImplStyle=xstvhd, spartan3, VHDL.t_synthesize, 1069112142, None
+_SynthFsmEncode=xstvhd, spartan3, VHDL.t_synthesize, 1069110759, Auto
+_SynthOpt=xstvhd, spartan3, VHDL.t_synthesize, 1069163640, Speed
+_SynthOptEffort=xstvhd, spartan3, VHDL.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, True
+[STATUS-ALL]
+rxinput.twrFile=WARNINGS,1099024967
 [STRATEGY-LIST]
 Normal=True

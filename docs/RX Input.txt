@@ -31,3 +31,25 @@ The post-fifo side was a bit more complex, as we wanted an easy-to-use interface
 This makes the interface easy and potentially allows the reading out of data as soon as it becomes available. 
 
 The challenge here was getting LVALID to disable following the reading of the end frame and then _not preventing the next NEXTF from reading subsequent frames_. This is done by having EFV reset NFL and disable LVALID. 
+
+
+---------------------------------------------------------------------------
+RXINPUT.VHD
+---------------------------------------------------------------------------
+
+We created FD (Frame Data) to be a signal indicating that the data on DATA is valid frame data, i.e. ENDF is not asserted nor is the data SFD data, -and- the DV line is asserted. This is necessary as any of the BnWR registers can stick for multiple states (due to VALID delays in the GMII system, i.e. there's no data to read out of the FIFO yet). 
+
+Note that the last four bytes of any frame are the FCS (well, at least, they -should be, i.e. if they're not the frame gets trashed anyway). This means that we don't need to worry about extra wait states for the memory write to finish. This also means that the BP will always be one greater than we really want. 
+
+CRCvalid is checked in BPWAIT3 because it has a long propagation delay. 
+
+FD is an anding of RD, DV, and not ENDF. FD is high ==> DATA contains valid in-frame data(not SFD nor ENDF). FD is only high for a single cycle while this data is valid, preventing double-latchings and the like. 
+
+RXInput can be viewed as having four parts:
+   * input data latching: the appropriate states of the FSM latch the output of data onto LM. This is latched onto LML once a word, and is written to the memory buffer via MD. 
+   * Byte counting: bcnt counts the number of FDs that come in, i.e. the number of bytes. Note that we write four less than this, because FD actually includes the FCS as well. 
+
+   * CRC checking: Heavily pipelined CRC checking using previous CRC_combinational code. We reload CRCL withi 0xFFFFFFF to start the CRC; again, each FD-signaled byte is latched, and we eventually check to see if we arrive at the correct value -- this causes the assertion of CRCVALID. 
+
+    * memory address writing: this manages the base pointer. Each new cycle, we load the BP into the MACNT counter, which is eventually written out to MA; thus we sequentially write the frames. Note that we skip over writing the BP and actually write the first valid word at BP+1; the BPWEN mux lets us go back to the BP and write the BCNT value. 
+    We only update LPB (thus bpout) -after- the complete, total successful reception of a valid frame. This is the only mechanism we have to commit data to the fifo. 

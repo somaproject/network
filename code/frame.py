@@ -76,7 +76,7 @@ def macdecode(macstring):
     for i in range(6):
         result[i] = int(bytes[i], 16)
 
-    return struct.pack("bbbbbb", result[0], result[1], result[2], result[3], result[4], result[5])
+    return struct.pack("BBBBBB", result[0], result[1], result[2], result[3], result[4], result[5])
 
 def tohex(data):
     
