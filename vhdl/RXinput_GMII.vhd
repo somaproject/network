@@ -16,7 +16,7 @@ entity RXinput_GMII is
            INCE : out std_logic;
            ENDFIN : out std_logic;
            FIFOIN : out std_logic_vector(7 downto 0);
-           RX_OF : in std_logic);
+           RX_NEARF : in std_logic);
 end RXinput_GMII;
 
 architecture Behavioral of RXinput_GMII is
@@ -26,7 +26,9 @@ architecture Behavioral of RXinput_GMII is
 
    -- latched signals
    signal rx_dvl, rx_dvll, rx_erl : std_logic := '0';
-   signal rxdl : std_logic_vector(7 downto 0) := (others => '0');
+   signal rxdl, lfifoin : std_logic_vector(7 downto 0) := (others => '0');
+
+   signal lendfin, lince, rx_of : std_logic := '0';
 
    -- internal signals
    signal dvdelta, endf, ro : std_logic := '0';
@@ -43,6 +45,12 @@ begin
 		rxdl <= RXD; 
 
 		rx_dvll <= rx_dvl;
+
+		-- io registers
+		rx_of <= RX_NEARF;
+		ENDFIN <= lendfin; 
+		INCE <= lince; 
+		FIFOIN <= lfifoin; 
 
 		-- the set-reset register
 		if endf = '1' then
@@ -61,23 +69,23 @@ begin
    -- generic combinational signals
 
    dvdelta <= (not rx_dvll) and rx_dvl;
-   INCE <= ro or dvdelta; 
+   lince <= ro or dvdelta; 
    endf <= (not rx_dvl) or rx_erl or RX_OF;
-   ENDFIN <= endf; 
+   lendfin <= endf; 
 
    fifo : process(rx_dvl, rx_erl, rx_of, rxdl) is
    begin
    	  if rx_erl = '1' and rx_of = '1' then
-	  	FIFOIN <= X"07";
+	  	lfifoin <= X"07";
        elsif rx_erl = '0' and rx_of = '1' then
-	  	FIFOIN <= X"06";
+	  	lfifoin <= X"06";
        elsif rx_erl = '1' and rx_of = '0' then
-	  	FIFOIN <= X"05";
+	  	lfifoin <= X"05";
 	  else
 	  	if rx_dvl = '1' then
-			FIFOIN <= rxdl;
+			lfifoin <= rxdl;
 		else
-			FIFOIN <= X"00";
+			lfifoin <= X"00";
 		end if;
 	  end if;
    end process fifo;  

@@ -32,8 +32,8 @@ architecture Behavioral of RXinput is
 -- using a FIFO from their CoreGen IP, such that only someone
 -- with the ISE tools will be able to compile the project. 
 
-   -- rc_clock signals
-   signal ince, endfin, rx_of : std_logic := '0';
+   -- rx_clock signals
+   signal ince, endfin, rx_nearf : std_logic := '0';
    signal fifoin: std_logic_vector(7 downto 0) := (others => '0');
 
    -- mmio signals
@@ -43,6 +43,10 @@ architecture Behavioral of RXinput is
    -- data signals
    signal fifodin, fifodout : std_logic_vector(15 downto 0) :=
    			(others => '0');
+   signal nearf: std_logic := '0';
+   signal wr_count : std_logic_vector(1 downto 0) := 
+   			(others => '0'); 
+
 
 	component RXinput_GMII is
 	    Port ( RX_CLK : in std_logic;
@@ -52,7 +56,7 @@ architecture Behavioral of RXinput is
 	           INCE : out std_logic;
 	           ENDFIN : out std_logic;
 	           FIFOIN : out std_logic_vector(7 downto 0);
-	           RX_OF : in std_logic);
+	           RX_NEARF: in std_logic);
 	end component;
 
 	component RXinput_memio is
@@ -81,7 +85,7 @@ architecture Behavioral of RXinput is
 		dout: OUT std_logic_VECTOR(15 downto 0);
 		full: OUT std_logic;
 		empty: OUT std_logic;
-		almost_full: OUT std_logic);
+		wr_count: OUT std_logic_VECTOR(1 downto 0));
 	END component;
 
 begin
@@ -93,7 +97,7 @@ begin
 		INCE => ince,
 		ENDFIN => endfin,
 		FIFOIN => fifoin,
-		RX_OF => rx_of);
+		RX_NEARF => rx_nearf);
 
    memio : RXinput_memio port map (
    		CLK => CLK,
@@ -119,10 +123,14 @@ begin
 		dout => fifodout,
 		full => open,
 		empty => empty, 
-		almost_full => rx_of);
+		wr_count => wr_count);
+
+
     fifodin <= "0000000" & endfin & fifoin;
     endf <= fifodout(8);
     data <= fifodout(7 downto 0);
+    
+    rx_nearf <= '1' when wr_count = "10" else '0';
 
 
 end Behavioral;

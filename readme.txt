@@ -99,6 +99,8 @@ Tests (9/29/03):
   error condition
 
 
+To make timing constraints a bit better, we registered all inputs to and outputs from the FIFO. Since we don't really care about the 3/4 full signal (we're playuing it safe) having the system respond a tick later isn't a big deal. 
+
 
 ----- on the other side of the FIFO
 
@@ -120,8 +122,6 @@ I believe if you CRC over the entire frame, including the CRC, you end up with a
 
 This design is somewhat complicated. Basically, once you've read a byte that contains an end of frame bit, it disables the CRCEN. This is starting to get pretty complicated. Unfortuantely, this locks the system into a no-new-bytes situation, hence CEFORCE=1 in the none state, such that we will get the new bytes.       
 
-
- 
 In the state ERRCHK_AND_BPW we write the base pointer and check for errors. If there
 are any errors, we just don't update the BP. Otherwise, we wait enough states to be sure the memory was written, and then go back to NONE. 
 
@@ -131,8 +131,7 @@ This allows multiple things. First, it allows us to have MEN=1 in BYTE0 and not 
 
 Second, by keeping MEN high at the end of a cycle (through NONE), we prevent the first BYTE0 of actually causing a memory write. This guarantees that previous MA/MD (from writing the BP for the last frame) will be stable for 4 ticks, guaranteeing their validity. 
 
-
-The timing for this thing is a total bitch; who let the FSM get so damn large?
+The timing for this thing is a total bitch; who let the FSM get so damn large? it actually appears that the FIFO doesn't play nice with the static timing analysis; I think I will try inserting more output registers in the hope that the system will push them back through as pipelining. i don't think it should be this hard to do it. 
 
 
 
