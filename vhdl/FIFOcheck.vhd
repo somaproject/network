@@ -29,8 +29,8 @@ begin
    	if rising_edge(CLK) then
 	   bpl <= BP;
 	   fbbpl <= FBBP; 
-	   diff <= bpl - fbbpl; 
-	   if diff > 8192 then
+	   diff <= fbbpl - bpl ; 
+	   if (diff > 8192) or (diff =0) then
 	   	 FIFOFULL <= '0';
 	   else
 	   	 FIFOFULL <= '1';

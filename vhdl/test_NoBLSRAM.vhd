@@ -66,6 +66,10 @@ begin
    begin
      wait until falling_edge(RESET);
 	   index:= 0;
+	   for i in 0 to 131071 loop
+	       SRAM(i) := (others => '0'); -- zero sram
+	   end loop;
+	    
 	   while not endfile(load_file) loop
 		 readline(load_file, RL);
 		 read(RL, dword); 
@@ -88,14 +92,15 @@ begin
 			     
 			     
 
-			    numaddress := to_integer(unsigned(addr_now));
-				T_ENABLE <= (not we_now); 
+			    numaddress := to_integer(unsigned(laddr));
+			    dout <= SRAM(numaddress) after 2 ns;
 
-			    if we_now = '0' then -- a write
-			       wait for 2 ns; 
-			       SRAM(numaddress) := din; 			        
-			    elsif we_now = '1' then -- a read!
-			       dout <= SRAM(numaddress) after 2 ns;  
+				T_ENABLE <= (not lwe) after 2 ns; 
+
+			    if llwe = '0' then -- a write
+			       --wait for 2 ns; 
+			       SRAM(to_integer(unsigned(lladdr))) := din; 			        
+			         
 			    end if;
 
 			end if; 
@@ -107,10 +112,10 @@ begin
    clock: process(CLK) is
    begin
    	if rising_edge(CLK) then
-	   		   we_now <= lwe; 
+	   		   llwe <= lwe; 
 			    lwe <= WE;
 			    
-			    addr_now <= laddr;
+			    lladdr <= laddr;
 			    laddr <= ADDR;
 
 	end if; 

@@ -44,11 +44,12 @@ architecture Behavioral of RXinput_memio is
    signal crc, crcl, crcll: std_logic_vector(31 downto 0) := 
    				 (others => '0');
    constant CRCCONST : std_logic_vector(31 downto 0) := 
-   				 X"00000000"; 
+   				 X"C704DD7B"; 
    signal crcequal : std_logic := '0'; 
    signal fifofulll : std_logic := '0'; 
    -- memory:
-   signal bp, macnt, lma, bpl : std_logic_vector(15 downto 0) :=
+   signal bp, macnt, lma, bpl, lbpout, lbpout2, lbpout3, lbpout4, lbpout5
+    : std_logic_vector(15 downto 0) :=
    					  (others => '0');
 
    signal men, menl, mendelta, wbp, wbpl, newf, bpen: std_logic := '0';
@@ -76,7 +77,9 @@ begin
 	   	 cs <= none;
 		 macnt <= (others => '0');
 		 bcnt <= (others => '0');
-
+		 MA <= (others => '0');
+		 MD <= (others => '0');
+		  
 	   else
 	      if rising_edge(CLK) then
 		 	cs <= ns; 
@@ -143,7 +146,7 @@ begin
 			
 			-- crc:
 			if newf = '1' then
-			   crcl <= (others => '0');
+			   crcl <= (others => '1');
 			else
 			   if brdy = '1' then 
 			      crcl <= crc;
@@ -178,17 +181,23 @@ begin
 			   PHYERR <= '0';
 			end if;
 			
-			if crcl = CRCCONST then
+			if crcll = CRCCONST then
 				crcequal <= '1'; 
 			else
 				crcequal <= '0';
 			end if;
 			  
-			if crcequal = '1' and cs = errchk then
+			if crcequal = '0' and cs = errchk then
 			   CRCERR <= '1';
 		     else
 			   CRCERR <= '0';
-			end if; 
+			end if;
+			 
+			lbpout <= bp;
+			lbpout2 <= lbpout;
+			lbpout3 <= lbpout2;
+			lbpout4 <= lbpout3;  
+			BPOUT <= lbpout4; 
 
 			if cs = writebp then
 			   RXF <= '1';
@@ -209,7 +218,7 @@ begin
 
     brdy <= not(ENDF or INVALID);
 
-    BPOUT <= bp; 
+    
 
     fsm : process(CS, NS, ENDF, INVALID, CRCLl, endbyte, data, fifofulll) is
     begin

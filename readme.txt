@@ -72,6 +72,12 @@ We read in n bytes, based on what the header says, and westop reading once we've
 
 Since the input clock is on the order of 60 MHz or less, we use a system like that outlined to work across async boundaries. 
 
+Test:
+simple 8-byte frame : (pass, 20030921)
+simple 10-byte frame: (pass, 20030921)
+8-byte frame with len=8 but NEWFRAME high for an extra clock cycle (pass, 20030921)
+
+
 
 
 RX_IN *****************************************************************
@@ -158,7 +164,9 @@ we've combined all of This into a rxinput_fifo file, which now actually contins 
 
 Wed 3 September 2003: RXinput_fifo appears to work with behavioral simulation. 
 
-RXoutput-------------------------------------------
+--------------------------------------------------------------------------
+RXoutput
+--------------------------------------------------------------------------
 Signals: 
 NEXTFRAME
 DOUTEN
@@ -187,6 +195,28 @@ So, we're going to have a FIFO_full and a FIFO_NEARFULL signal. FIFO_FULL will p
 
 testing: the input pattern here is so complicated, and I'm so impatient, that I'm just going to code up the main system and deal with this later. 
 
+Note that the addition of the length to the BP to get the next BP is not going to be too tolerant of error. 
+We round LEN such that XX01, XX10, XX11 all get rounded to XX00+100. 
+
+This way a len of one, two, or three counts as a full word for adding to the BP
+
+
+
+
+----------------------------------------------------------------------------
+FIFO OVERFLOW PROTECTION
+----------------------------------------------------------------------------
+If the current BP is less than 2*MAXFRAME bytes behind the feedback BP, don't update our BP. 
+
+So, something is putting data into the FIFO, and it could write up to 16384 bytes, but then if there's less than enough space for two frames, it won't update its base poniter, so the next frame will simply overwrite the previous one. 
+
+Why not just not-update if the FBPB is less than 1 MAXFRAME ahead? Because if the FB is less than 1 MAXFRAME ahead of our BP, and we write in a frame of length MAXFRAME, we will OVERWRITE THE BASE OF THE NEW FRAME, which is bad. 
+
+Plus, it's easy to make these modifications. 
+
+So now all those things that write the FIFO (i.e. anything with *INPUT) has a FIFO full line, which is high. 
+
+There is lots of pipelining in here :)
 
 
 
@@ -214,10 +244,4 @@ of overall common naming scheme. Go refactoring!!!
 Net result is network.vhd
 
 We need feedback signals so that the *inputs don't overwrite the fifo, but this is difficult to implement. Since our buffer size is 256 kB, and we'd like to allow for a maximum frame size of 16384 bytes, or 16 frames of this size in the buffer. Wow, suddenly that doesn't seem like so much. Anyway, we're going to kill two of those such that we can implement the following overflow protection scheme:
-
-If the current BP is less than 2*MAXFRAME bytes behind the feedback BP, don't update our BP. 
-
-So, something is putting data into the FIFO, and it could write up to 16384 bytes, but then if there's less than enough space for two frames, it won't update its base poniter, so the next frame will simply overwrite the previous one. 
-
-Why not just not-update if the FBPB is less than 1 MAXFRAME ahead? Because if the FB is less than 1 MAXFRAME ahead of our BP, and we write in a frame of length MAXFRAME, we will OVERWRITE THE BASE OF THE NEW FRAME, which is bad. 
 

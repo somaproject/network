@@ -39,7 +39,7 @@ end memory;
 
 architecture Behavioral of memory is
 -- MEMORY.VHD -- multiplexed memory controller
-   signal wen, we : std_logic := '0';
+   signal wen, we : std_logic := '1';
    signal addrn, addr : std_logic_vector(16 downto 0) := (others => '0');
    signal oe, oel, ts: std_logic := '0';
    signal dn, dnl1, dnl2, dnout : std_logic_vector(31 downto 0) :=
@@ -81,41 +81,51 @@ begin
 	   		I=> addr(i), O=> ADDREXT(i));     	   	
    end generate; 
 
-   clock: process(CLK) is
+   clock: process(CLK, RESET) is
    begin
-      if rising_edge(CLK) then
-	    if clknum =3 then 
-	       clknum <= 0;
- 	    else
-	       clknum <= clknum  + 1; 
-  	    end if; 
+   	if RESET = '1' then
+	    clknum <= 0;
+	    oe <= '0';
+	    we <= '1';
+	    addr <= (others => '0');
+	    qn <= (others => '0');
+	    ts <= '1'; 
+	     	
+	else
+	      if rising_edge(CLK) then
+		    if clknum =3 then 
+		       clknum <= 0;
+	 	    else
+		       clknum <= clknum  + 1; 
+	  	    end if; 
 
-	    oe <= wen;
-	    oel <= oe; 
-	    ts <= not oel; 
-	    dnl1 <= dn;
-	    dnl2 <= dnl1;
-	    dnout <= dnl2;
+		    oe <= wen;
+		    oel <= oe; 
+		    ts <= not oel; 
+		    dnl1 <= dn;
+		    dnl2 <= dnl1;
+		    dnout <= dnl2;
 
-	    qn <= q;
-	    we <= wen; 
-	    addr <= addrn; 
+		    qn <= q;
+		    we <= not wen; 
+		    addr <= addrn; 
 
-	    if clknum = 1 then
-	    	  Q1 <= qn;
-	    end if; 
-	    if clknum = 2 then
-	    	  Q2 <= qn;
-	    end if; 
-	    if clknum = 3 then
-	    	  Q3 <= qn;
-	    end if; 
-	    if clknum = 0 then
-	    	  Q4 <= qn;
-	    end if; 
+		    if clknum = 0 then
+		    	  Q1 <= qn;
+		    end if; 
+		    if clknum = 1 then
+		    	  Q2 <= qn;
+		    end if; 
+		    if clknum = 2 then
+		    	  Q3 <= qn;
+		    end if; 
+		    if clknum = 3 then
+		    	  Q4 <= qn;
+		    end if; 
 
 
-	 end if;
+		 end if;
+	end if; 
    end process clock; 
 
    addrn <= addr1 when clknum = 0 else

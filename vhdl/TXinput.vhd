@@ -133,7 +133,7 @@ begin
 			enableintl <= enableint; 
 
 			-- data latching
-			if den = '1' and (newfint = '1' or dlen = '1') then
+			if den = '1' and (cs = none or dlen = '1') then
 				dl <= dinint;	
 			end if; 
 
@@ -146,7 +146,7 @@ begin
 				if cs = none then
 					cnt <= dinint;
 				else
-					cnt <= cnt - 1;
+					cnt <= cnt - 2;
 				end if;
 			end if;
 
@@ -227,7 +227,7 @@ begin
 			cpen <= '1';
 			DONE <= '0';
 			FIFOW_ERR <= '0';
-			if cnt = "0000000000000000" then
+			if cnt < 1 then
 				ns <= waitlow;
 			else
 				ns <= high_w;
@@ -255,7 +255,7 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			FIFOW_ERR <= '0';
-			if  cnt = "0000000000000000" then
+			if  cnt < 1 then
 				ns <= pktdone1;
 			else
 				ns <= low_w;

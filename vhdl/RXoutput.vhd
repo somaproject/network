@@ -30,7 +30,9 @@ architecture Behavioral of RXoutput is
    --MA code
    signal bp, macnt, lbp, bpl, len: std_logic_vector(15 downto 0) := 
    					(others => '0');	
-   signal lenen, bpen, mainc, mald, lmasel: std_logic := '0';
+   signal lenen, bpen, mainc, mald, lmasel, lmasell: std_logic := '0';
+   signal lenr : std_logic_vector(15 downto 0) := (others => '0'); 
+
 
    -- data registers
    signal mdl : std_logic_vector(31 downto 0) := (others => '0');
@@ -42,17 +44,17 @@ architecture Behavioral of RXoutput is
    signal fifo_full, fifo_nearfull, cein: std_logic := '0';
    signal fifo_wrcount : std_logic_vector(1 downto 0) := "00";
    signal fifo_reset : std_logic := '0'; 
-   signal ceout, invalid, ceinl : std_logic := '0';
+   signal ceout, invalid, ceinl, ceinll : std_logic := '0';
    signal fe, ff : std_logic := '0'; 
 
 
    -- new-frame signals
    signal nf, nfl, nfdelta : std_logic :=  '0';
-   signal den, denl, denll, ldouten : std_logic := '0';
+   signal den, denl, denll, ldouten, ldouten2 : std_logic := '0';
    
    -- state machine
    type states is (none, waitclken, swait0, swait1, swait2, swait3, 
-   			    latchlen, wait0, wait1, startw, lowbyte,
+   			    swait4, latchlen, wait0, wait1, startw, lowbyte,
 			    highbyte, nextw, fifonop, reincmac, waitdone,
 			    latchbp); 
    signal cs, ns : states := none; 
@@ -76,7 +78,7 @@ begin
 
    fifo : rxoutput_async_fifo port map (
    		din => fifodin,
-		wr_en => ceinl,
+		wr_en => ceinll,
 		wr_clk => clk,
 		rd_en => denll,
 		rd_clk => CLKIO,
@@ -87,11 +89,12 @@ begin
 		wr_count => fifo_wrcount,
 		rd_err => invalid);
 
-
+   MA <= macnt;
    int_clock: process(RESET, CLK) is
    begin
      if RESET = '1' then
 	   cs <= none;
+
      else
 	   if rising_edge(CLK) then
 	      cs <= ns; 
@@ -114,10 +117,12 @@ begin
 		    end if; 
            end if; 
 
-		 MA <= macnt;
+		 
 
 		 fifodin <= lma;
 		 ceinl <= cein; 
+		 ceinll <= ceinl; 
+		 lmasell <= lmasel;
 
 		 if fifo_wrcount = "11" then 
 		 	fifo_full <= '1';
@@ -141,16 +146,20 @@ begin
 
 
    -- general combinational for internal clock
-   lma <= mdl(15 downto 0) when lmasel = '0'
+   lma <= mdl(15 downto 0) when lmasell = '0'
    		else mdl(31 downto 16); 
-   lbp <= len + bp + X"0001"; 
+   lbp <= ("00" & lenr(15 downto 2))  + bp + X"0001";
+   lenr <= len when len(1 downto 0) = "00" else
+   		 len + 1;
+		  
    nfdelta <= nf and (not nfl);
 
    ext_clock: process(CLKIO) is
    begin
       if rising_edge(CLKIO) then
 	    DOUT <= fifodout;
-	    DOUTEN <= ldouten;
+	    ldouten2 <= ldouten;
+	    DOUTEN <= ldouten2;
 	    nf <= NEXTFRAME;
 	    denl <= den;
 	    denll <= denl;
@@ -236,18 +245,8 @@ begin
 		   cein <= '0';
 		   lenen <= '0';
 		   bpen <= '0';   
-		   ns <= latchlen;
-	    when latchlen => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '1';
-		   bpen <= '0';   
-		   ns <= wait0;
-	    when wait0 => 
+		   ns <= swait4;
+	    when swait4 => 
 	        mald <= '0';
 		   mainc <= '0';
 		   den <= '0'; 
@@ -256,11 +255,17 @@ begin
 		   cein <= '0';
 		   lenen <= '0';
 		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		   else
-		      ns <= wait1;
- 		   end if; 
+		   ns <= latchlen;
+	    when latchlen => 
+	        mald <= '0';
+		   mainc <= '0';
+		   den <= '0'; 
+		   fifo_reset <= '0';
+		   lmasel <= '0';
+		   cein <= '1';
+		   lenen <= '1';
+		   bpen <= '0';   
+		   ns <= wait1;
 	    when wait1 => 
 	        mald <= '0';
 		   mainc <= '1';
@@ -305,7 +310,7 @@ begin
  		   end if; 
 	    when highbyte => 
 	        mald <= '0';
-		   mainc <= '1';
+		   mainc <= '0';
 		   den <= '1'; 
 		   fifo_reset <= '0';
 		   lmasel <= '1';
@@ -389,7 +394,7 @@ begin
 	        mald <= '0';
 		   mainc <= '0';
 		   den <= '0'; 
-		   fifo_reset <= '0';
+		   fifo_reset <= '1';
 		   lmasel <= '0';
 		   cein <= '0';
 		   lenen <= '0';

@@ -1,4 +1,4 @@
 NET "clk" TNM_NET = "clk";
-TIMESPEC "TS_clk" = PERIOD "clk" 7.2ns;
+TIMESPEC "TS_clk" = PERIOD "clk" 6.1ns;
 NET "clkio" TNM_NET = "clkio";
 TIMESPEC "TS_clkio" = PERIOD "clkio" 15ns;
