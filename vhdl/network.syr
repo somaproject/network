@@ -1,10 +1,10 @@
 Release 6.2.03i - xst G.31a
 Copyright (c) 1995-2004 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to __projnav
-CPU : 0.00 / 0.61 s | Elapsed : 0.00 / 1.00 s
+CPU : 0.00 / 0.58 s | Elapsed : 0.00 / 0.00 s
  
 --> Parameter xsthdpdir set to ./xst
-CPU : 0.00 / 0.61 s | Elapsed : 0.00 / 1.00 s
+CPU : 0.00 / 0.58 s | Elapsed : 0.00 / 0.00 s
  
 --> Reading design: network.prj
 
@@ -94,46 +94,46 @@ tristate2logic                     : No
 WARNING:HDLParsers:3481 - No primary, secondary unit in the file E:\desktop\network\vhdl/rxoutput_async_fifo.vhd. Ignore this file from project file network_vhdl.prj.
 WARNING:HDLParsers:3481 - No primary, secondary unit in the file E:\desktop\network\vhdl/async_fifo.vhd. Ignore this file from project file network_vhdl.prj.
 Compiling vhdl file E:/desktop/network/vhdl/MII.vhd in Library work.
-Entity <MII> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity mii is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/rxinput_fifocontrol.vhd in Library work.
-Entity <rxinput_fifocontrol> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity rxinput_fifocontrol is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/crc_combinational.vhd in Library work.
-Entity <crc_combinational> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity crc_combinational is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/RXinput_addrchk.vhd in Library work.
-Entity <RXinput_addrchk> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity rxinput_addrchk is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/PHYstatus.vhd in Library work.
-Entity <PHYstatus> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity phystatus is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/RXinput_GMII.vhd in Library work.
-Entity <RXinput_GMII> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity rxinput_gmii is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/RXinput_memio.vhd in Library work.
-Entity <RXinput_memio> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity rxinput_memio is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/RXinput_fifo.vhd in Library work.
-Entity <RXinput_fifo> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity rxinput_fifo is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/memdebug.vhd in Library work.
-Entity <memdebug> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity memdebug is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/clockenable.vhd in Library work.
-Entity <clockenable> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity clockenable is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/memory.vhd in Library work.
-Entity <memory> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity memory is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/RXinput.vhd in Library work.
-Entity <RXinput> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity rxinput is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/RXoutput.vhd in Library work.
-Entity <RXoutput> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity rxoutput is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/TXoutput.vhd in Library work.
-Entity <TXoutput> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity txoutput is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/TXinput.vhd in Library work.
-Entity <TXinput> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity txinput is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/FIFOcheck.vhd in Library work.
-Entity <FIFOcheck> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity fifocheck is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/control.vhd in Library work.
-Entity <control> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity control is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/network.vhd in Library work.
-Entity <network> (Architecture <Behavioral>) compiled.
+Architecture behavioral of Entity network is up to date.
 
 =========================================================================
 *                            HDL Analysis                               *
 =========================================================================
-Analyzing Entity <network> (Architecture <Behavioral>).
+Analyzing Entity <network> (Architecture <behavioral>).
 WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK90' of component 'CLKDLL'.
 WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK270' of component 'CLKDLL'.
 WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK2X' of component 'CLKDLL'.
@@ -2664,7 +2664,7 @@ Offset:              6.514ns (Levels of Logic = 2)
                                        (85.9% logic, 14.1% route)
 
 =========================================================================
-CPU : 45.92 / 46.86 s | Elapsed : 46.00 / 47.00 s
+CPU : 47.13 / 48.03 s | Elapsed : 47.00 / 48.00 s
  
 --> 
 

@@ -648,8 +648,6 @@ Power/ component... the PHY only claims "typically less than 1 W" which I'm goin
    VCCAUX 
    AVDD on PHY, which is level-sensitivee
 1.8 V: 
-
-
    
 73601 
 73618
@@ -657,3 +655,10 @@ Power/ component... the PHY only claims "typically less than 1 W" which I'm goin
 
 but, drat, none in the 1.8V category
 
+To do :
+   chassis grounding for connector
+   move "soma gigabit ethernet" over enough to deal with screw holes for brackets
+   other screw holes for mounting
+   remaining power planes
+   --any-- way we can de-skew? 
+   

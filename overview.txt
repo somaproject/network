@@ -1,0 +1,11 @@
+General notes:
+
+Our ram is 32 bits wide, our IO is 16 bits wide. The following describes the byte ordering:
+
+In ram, data is always stored with the least significant byte at the LSBs, no exceptions. Thus we get:
+
+0    8   16   24  31
+  B0   B1  B2   B3
+
+and (for example) B0 is transmitted on the wire first. For pointers, the pointer value is in B1:B0, i.e. bits 15 downto 0. 
+

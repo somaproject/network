@@ -1,0 +1,22 @@
+Network Interface/ 
+   All Protel-related files for schematic capture and board design
+
+docs/
+   documentation
+
+vhdl/ 
+   main system vhdl 
+
+simulation/ 
+   Software component simulation and unit testing. This is broken up by test, and includes .do files. However, this also includes... 
+   txoutput: jig that creates simulated ram, and sends out synthetic packets. Checks to ensure proper CRC computation. 
+
+   footest2
+   components/ -- parts of the external system we might want to simulate
+      memsim : a simulated memory implementation
+      gmii-out: output gmii
+      [etc]
+
+tests/ - hardware test jigs, for various components. 
+   memtest: a simple memtest for the memory subsystem
+

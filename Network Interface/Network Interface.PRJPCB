@@ -34,69 +34,55 @@ AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 [Document4]
-DocumentPath=NIC original.PCBDOC
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotateSuffix=
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-[Document5]
 DocumentPath=PHY.SCHDOC
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
-[Document6]
+[Document5]
 DocumentPath=MAIN.SCHDOC
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
-[Document7]
-DocumentPath=NIC original.PCBDOC
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotateSuffix=
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-[Document8]
+[Document6]
 DocumentPath=output control.OUTJOB
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
-[Document9]
+[Document7]
 DocumentPath=..\..\parts\mydevices\My devices.lib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
-[Document10]
+[Document8]
 DocumentPath=..\..\parts\mydevices\my packages.lib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
-[Document11]
+[Document9]
 DocumentPath=C:\Program Files\Altium\Library\Pcb\Chip Capacitor - 2 Contacts.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
-[Document12]
+[Document10]
 DocumentPath=C:\Program Files\Altium\Library\KEMET Electronics\KEMET Chip Capacitor.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
-[Document13]
+[Document11]
 DocumentPath=NIC.PCBDOC
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -104,32 +90,36 @@ AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 [GeneratedDocument1]
-DocumentPath=Outputs\NIC.DRL
+DocumentPath=Outputs\Bill of Materials-Network Interface.csv
 [GeneratedDocument2]
-DocumentPath=Outputs\NIC.DRR
+DocumentPath=Outputs\Good BOM-Network Interface.csv
 [GeneratedDocument3]
-DocumentPath=Outputs\NIC.GBL
+DocumentPath=Outputs\NIC.DRL
 [GeneratedDocument4]
-DocumentPath=Outputs\NIC.GBS
+DocumentPath=Outputs\NIC.DRR
 [GeneratedDocument5]
-DocumentPath=Outputs\NIC.GM4
+DocumentPath=Outputs\NIC.GBL
 [GeneratedDocument6]
-DocumentPath=Outputs\NIC.GP1
+DocumentPath=Outputs\NIC.GBS
 [GeneratedDocument7]
-DocumentPath=Outputs\NIC.GP2
+DocumentPath=Outputs\NIC.GM5
 [GeneratedDocument8]
-DocumentPath=Outputs\NIC.GTL
+DocumentPath=Outputs\NIC.GP1
 [GeneratedDocument9]
-DocumentPath=Outputs\NIC.GTO
+DocumentPath=Outputs\NIC.GP2
 [GeneratedDocument10]
-DocumentPath=Outputs\NIC.GTS
+DocumentPath=Outputs\NIC.GTL
 [GeneratedDocument11]
-DocumentPath=Outputs\NIC.LDP
+DocumentPath=Outputs\NIC.GTO
 [GeneratedDocument12]
-DocumentPath=Outputs\NIC.REP
+DocumentPath=Outputs\NIC.GTS
 [GeneratedDocument13]
-DocumentPath=Outputs\NIC.RUL
+DocumentPath=Outputs\NIC.LDP
 [GeneratedDocument14]
+DocumentPath=Outputs\NIC.REP
+[GeneratedDocument15]
+DocumentPath=Outputs\NIC.RUL
+[GeneratedDocument16]
 DocumentPath=Outputs\NIC.TXT
 [OutputGroup1]
 Name=Netlist Outputs

@@ -1,4 +1,4 @@
-DRC Rules Export File for PCB: C:\desktop\network\Network Interface\NIC.PCBDOC
+DRC Rules Export File for PCB: E:\desktop\network\Network Interface\NIC.PCBDOC
 RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
 RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
 RuleKind=Width|RuleName=Width|Scope=Board|Minimum=7.00

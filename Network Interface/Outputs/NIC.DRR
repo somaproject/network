@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-NCDrill File Report For: NIC.PCBDOC   11/20/2003  3:53:03 PM
+NCDrill File Report For: NIC.PCBDOC   7/6/2004  9:23:13 AM
 ---------------------------------------------------------------------------
 
 
@@ -10,15 +10,16 @@ EIA File   : NCDrillOutput.DRL
 
 Tool         Hole Size          Hole Count Plated       Tool Travel
 ---------------------------------------------------------------------------
-T1        13.5mil (0.3429mm)       373              65.06 Inch (1652.42 mm)
-T2        20mil (0.508mm)          31               18.40 Inch (467.31 mm)
-T3        28mil (0.7112mm)         22               16.05 Inch (407.78 mm)
-T4        35mil (0.889mm)          77               22.28 Inch (565.91 mm)
-T5        62mil (1.5748mm)         2                9.28 Inch (235.76 mm)
-T6        110mil (2.794mm)         2                6.06 Inch (154.03 mm)
-T7        128mil (3.2512mm)        2                9.05 Inch (229.80 mm)
-T8        149.6mil (3.79984mm)     4                17.46 Inch (443.56 mm)
+T1        13.5mil (0.3429mm)       372              67.61 Inch (1717.32 mm)
+T2        20mil (0.508mm)          12               10.28 Inch (261.12 mm)
+T3        25mil (0.635mm)          8                8.95 Inch (227.25 mm)
+T4        28mil (0.7112mm)         26               19.64 Inch (498.78 mm)
+T5        35mil (0.889mm)          76               21.20 Inch (538.54 mm)
+T6        62mil (1.5748mm)         2                9.49 Inch (241.00 mm)
+T7        110mil (2.794mm)         2                5.78 Inch (146.77 mm)
+T8        128mil (3.2512mm)        2                9.26 Inch (235.18 mm)
+T9        149.6mil (3.79984mm)     4                20.86 Inch (529.91 mm)
 ---------------------------------------------------------------------------
-Totals                             513              163.64 Inch (4156.57 mm)
+Totals                             504              173.07 Inch (4395.88 mm)
 
-Total Processing Time : 12:00:06 AM
+Total Processing Time : 12:00:05 AM

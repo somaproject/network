@@ -10,7 +10,7 @@ use UNISIM.VComponents.all;
 
 entity memory is
     Port ( CLK : in std_logic;
-		     RESET : in std_logic;
+		 RESET : in std_logic;
            DQEXT : inout std_logic_vector(31 downto 0) ;
            WEEXT : out std_logic;
            ADDREXT : out std_logic_vector(16 downto 0);

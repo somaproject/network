@@ -145,10 +145,10 @@ begin
    end process clock;
 
    -- combinational muxes:
-   ldata <= MQ(7 downto 0) when dsel = 1 else
-   		  MQ(15 downto 8) when dsel = 0 else
-		  MQ(23 downto 16) when dsel = 3 else
-		  MQ(31 downto 24) when dsel = 2;
+   ldata <= MQ(7 downto 0) when dsel = 0 else
+   		  MQ(15 downto 8) when dsel = 1 else
+		  MQ(23 downto 16) when dsel = 2 else
+		  MQ(31 downto 24) when dsel = 3;
  
    ncrcbyte <= not crcl(7 downto 0) when crcsell = 0 else
    		    not crcl(15 downto 8) when crcsell = 1 else

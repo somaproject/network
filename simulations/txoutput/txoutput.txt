@@ -1,0 +1,44 @@
+This is a simulation to text the transmit output. 
+
+txoutput.do runs txoutput_test.vhdl
+
+Things we're interested in observing:
+success for differing frame sizes
+success for wrap-around
+what happens when BP is more than one frame ahead? 
+
+
+For each test we have the following sets of files:
+
+testname.ram.dat : a ram map of the form (addr, data)
+
+testname.bp.dat : a list of the ram addresses consisting of the base pointers and lengths of frames (addr, bytelen)
+
+testname.gmii.dat : for each of the above listed frames, this is the output data, with a series of bytes as they'd appear on the wire (in hex) minus everything but the start frame sequence.
+
+We generate these using the python script txoutput.py, which uses the etherframe.
+
+To successfully emulate the memory controller we'll need to add some pipelining stages to the output of our ram. 
+
+
+The code works as follows:
+1. read in base pointer + len
+2. set bpin = base pointer + (len + 3) / 4, i.e. next location
+3. wait till tx is done
+4.  
+
+
+Then we have a second battery of tests that jumps between one and three base pointers at a time...
+
+Verification: a separate process?
+
+verify: reads gmii bytes, compares with what's in file. Each received frame causes a toggle of the verify_frame_rx line. 
+
+1. load ram
+2. reset output-verify
+3. reset rx_io
+4. begin cycle of:
+   read base pointer, set it equal to the next value
+   wait for verify_frame_rx
+   cycle
+
