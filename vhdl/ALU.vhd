@@ -67,7 +67,7 @@ begin
 			when "00" =>
 			   logicout <= NOT B;
 			when "01"  =>
-				logicout <= B;
+				logicout <= B(15 downto 0) & B(31 downto 16);
 			when "10" =>
 				logicout <= A AND B;
 			when "11" =>

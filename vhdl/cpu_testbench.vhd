@@ -83,7 +83,7 @@ BEGIN
 
 	RESET <= '0' after 20 ns;
 	
-	
+	mq <= "00000000000000000000000000000011";
 	
 	LOAD_CODE: process(CLK, RESET) is
 		file filehandle: text open read_mode is "\\shannon.mwl.ai.mit.edu\hostFS\acquisition\development\network\asm\test.hex";

@@ -84,7 +84,9 @@ architecture Behavioral of CPU is
 			 	  MDD: out std_logic_vector(31 downto 0);
 			 	  MDQ: in std_logic_vector(31 downto 0);
 			     MDQL: in std_logic; 
-	           Rb : in std_logic_vector(5 downto 0));
+	           Rb : in std_logic_vector(5 downto 0);
+				  Rc : in std_logic_vector(5 downto 0)
+				  );
 	end component;
 begin
 
@@ -144,7 +146,8 @@ begin
 				MDD => MD,
 				MDQ => MQ,
 				MDQL => mdql,
-				Rb => rb);
+				Rb => rb,
+				Rc => rc);
 		  	
 	-- combinational selection of inputs for ALU
 	a <= dataa when imsel = '0' else

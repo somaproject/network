@@ -18,7 +18,8 @@ entity SFR is
 			  MDQ: in std_logic_vector(31 downto 0);
 			  MDQL: in std_logic; 	
 
-           Rb : in std_logic_vector(5 downto 0));
+           Rb : in std_logic_vector(5 downto 0);
+			  Rc : in std_logic_vector(5 downto 0));
 end SFR;
 
 architecture Behavioral of SFR is
@@ -44,7 +45,7 @@ begin
 	begin
 		if rising_edge(CLK) then
 			if CLKEN = '1' then
-				case Rb is 
+				case Rc is 
 					when "100000" => 
 						Null;	-- zero register, obviously don't store value. 
 					when "100010" => 
@@ -70,7 +71,7 @@ begin
 	end process SFR_output; 
 
 	-- happy memory-related processes:
-	mem_process: process(CLK, CLKEN, MDQ, MDQL, MDQL1, MDQL2) is
+	mem_process: process(CLK, CLKEN, MDQ, MDQL, MDQL1, MDQL2, MDOUT) is
 	begin
 		 if rising_edge(CLK) then
 		 	if CLKEN = '1' then
@@ -83,7 +84,7 @@ begin
 		end if;
 
 
-
+		MDD <= MDOUT; 
 
 	end process mem_process; 
 end Behavioral;
