@@ -24,3 +24,58 @@ The Serial interface is configured, but mostly to convince myself that it works.
 Added LEDPOWER with a flasher. 
 
 				   
+------------------------------------------------------------
+RESULTS
+-----------------------------------------------------------
+30 Oct 2003
+Memory has problems. When we configure the testout to only write 0x01010101, we see the one-cycle data high asserted by the FPGA. We also see the WE preceeding that cycle by 2 ticks, as expected. What we don't see is the data out. 
+
+Memory pin sanity check: All pins appear correct
+
+WHY THE HECK ARENT THE TS REGISTERS BENIG PACKED INTO THE IOB? 
+
+Ghetto test:
+write 01010101 to 00000
+write 02020202 to 00001
+read  0000
+read  0001
+			
+
+Wow, had some bugs in the nobl_sram simulation . 
+
+My options:
+FPGA isn't correctly tri-stating outputs. 
+RAM is busted
+Don't understand how ram works
+
+	   
+31 October 2003
+Well, so, proving I'm a member of the winner class, I've decided to solder up an entire 'nother board. Except that this one somehow has a busted PROGRAM pin on the FPGA that shorts to ground. So we only get to play with that board if we replace the FPGA. 
+
+We desoldered the ram from the other one, and have now shifted to using a much simpler test to figure out what's wrong. 
+
+Very simple ram test (drumroll) appears to work, giving correct output when OE is high vs low. Make sure to set output slew to fast and drive with 6-8 ma to minimize ringing and undershoot. 
+
+
+For memtest: wow, we got it to not report constant errors! and the addressing seems to be what we should be expecting! That's amazing!
+
+We're using the current memtest. Although it looks like we get way more errors when we have ADDR3 and ADDR4 == ADDR2, i don't understand why. 
+
+So, obviously there will be issues if we try to have a back-to-back read-write of the same address, ifonly because somehow the address is supposed to "magically" go through pipelining in that cycle. that's kinda lame. 
+
+New Mem test: 4 addresses. Reads and writes are interleaved. 
+
+
+CRUCIAL TO SUCESS is looking at the MAP report and making sure that the MD pins use TS, O, and I registers. 
+
+Was getting strange single-address-pin-dependent errors, but they appear to have disappered when i moved memclk to CLK270. 
+
+So, for some fucked-up reason, the tardo memory-test appears to work correctly. This must just be a pipelining issue, or something. I don't understand it. 
+
+2 Nov 2003
+  So, what i've learned:
+  The output TS pins were having issues because of the "allow logic optimization across hierarchy" setting being true. Removing it showed MAP correctly placing the FFs in the output blocks. 
+				 
+  The CLK270 needs to drive the memory.  
+
+Ram apears to work... we'll see... 

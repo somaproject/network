@@ -59,7 +59,7 @@ begin
 		 if rising_edge(CLK) then
 			 if counter = maxcnt then 
 				 counter <= 0;
-				 lltx <= '1';
+				 llltx <= '1';
 			 else
 			 	 counter <= counter + 1; 
 			 end if;

@@ -10,7 +10,6 @@ use UNISIM.VComponents.all;
 
 entity memory is
     Port ( CLK : in std_logic;
-           CLKOUT : out std_logic;
 		     RESET : in std_logic;
            DQEXT : inout std_logic_vector(31 downto 0) ;
            WEEXT : out std_logic;
@@ -42,7 +41,7 @@ architecture Behavioral of memory is
    signal wen, we : std_logic := '1';
    signal addrn, addr : std_logic_vector(16 downto 0) := (others => '0');
    signal oe, oel: std_logic := '0';
-   signal ts: std_logic_vector(31 downto 0) := (others => '1');
+   signal ts: std_logic_vector(31 downto 0);
    signal dn, dnl1, dnl2, dnout : std_logic_vector(31 downto 0) :=
    							(others => '0');
    signal qn, q : std_logic_vector(31 downto 0) := (others => '0');
@@ -51,54 +50,54 @@ architecture Behavioral of memory is
    signal clknum : integer range 0 to 3 := 0; 
 
 
-	component IOBUF_F_2
+	component IOBUF_F_6
 	      port (I, T: in std_logic; 
 	            O: out std_logic; 
 	            IO: inout std_logic);
 	end component;       
 
+	attribute IOB : string;
+	attribute IOB of ts : signal is "true"; 
 
 	 
 begin
 	 
-   -- maybe we'll do some sort of funky de-skew
-   CLKOUT <= CLK; 
 
-   weout: obuf port map (
-   		I=> we, O=> WEEXT);
-		
+   WEEXT <= we; 
+
    datablock: for i in 0 to 31 generate 
-	   qdout: IOBUF_F_2 port map (
-	   		I => dnout(i), 
+	   qdout: IOBUF_F_6 port map (
+	   	 I => dnout(i), 
 			 O => q(i), 
 			 T => ts(i),
 			 IO => DQEXT(i)); 
    end generate;
    
-   addrblock: for i in 0 to 16 generate
-	   addrout: obuf port map (
-	   		I=> addr(i), O=> ADDREXT(i));     	   	
-   end generate; 
-
+	ADDREXT <= addr; 
 
 	outputlatch: process(CLK) is
 	begin
 		if rising_edge(CLK) then
-			ts <=  (others => oel); 
 			qn <= q;
 			dnout <= dnl2;
 		end if;
-	end process outputlatch; 
+	end process outputlatch;
+	
+	process(CLK) is
+	begin
+		if rising_edge(CLK) then
+			ts <= (others => oel) ; 
+		end if; 
+	end process;  
+
+	--DQEXT <= dnout when ts = '0' else (others => 'Z'); 
 
    clock: process(CLK, RESET) is
    begin
    	if RESET = '1' then
 	    clknum <= 0;
 	    oe <= '0';
-	    we <= '1';
-	    addr <= (others => '0');
-	    --ts <= '1'; 
-  	    --dnout <= (others => '0'); 	
+
 	else
 	      if rising_edge(CLK) then
 		    if clknum =3 then 

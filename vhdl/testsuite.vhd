@@ -22,6 +22,7 @@ entity testsuite is
            MD : inout std_logic_vector(31 downto 0);
            MCLK : out std_logic;
            MWE : out std_logic;
+			  MOE : out std_logic; 
            CLKIOIN : in std_logic;
            NEXTFRAME : in std_logic;
            DOUT : out std_logic_vector(15 downto 0);
@@ -69,11 +70,10 @@ architecture Behavioral of testsuite is
 				std_logic := '0';
 
 	signal tx_en_out : std_logic;
-
+	signal err : std_logic; 
 
 	component memory is
 	    Port ( CLK : in std_logic;
-	           CLKOUT : out std_logic;
 			     RESET : in std_logic;
 	           DQEXT : inout std_logic_vector(31 downto 0) ;
 	           WEEXT : out std_logic;
@@ -160,6 +160,7 @@ architecture Behavioral of testsuite is
 	end component;
 begin
 
+	 MOE <= '0'; 
 
 	 -- random LED flashing:
 	 flash: process(CLK) is
@@ -177,34 +178,8 @@ begin
 		end if;
 	 end process flash; 
 
-
-	 -- ledrx
-	 process(CLK) is
-	 	variable lrx : std_logic := '0'; 
-	 begin
-	 	if rising_edge(CLK) then
-			lrx := RX_DV;
-			LEDRX <= lrx; 
-		end if; 
-	 end process; 
-    clk_dll : CLKDLL generic map (
-	 		clkdv_divide => 4.0)
-			port map (
-    		CLKIN => CLKIN,
-			CLKFB => clk,
-			RST => RESET,
-			CLK0 => clk_to_bufg, 
-			CLKDV => clksl);
-
-    clk_bufg : BUFG port map (
-    		I => clk_to_bufg,
-			O => clk); 
-
-
-     
     memcontroller: memory port map (
     		  CLK => clk,
-			  CLKOUT => MCLK,
 			  RESET => RESET,
 			  DQEXT => MD,
 			  WEEXT => MWE,
@@ -221,7 +196,7 @@ begin
 			  Q2 => q2,
 			  Q3 => q3,
 			  Q4 => q4,
-			  WE1 => '1', 
+			  WE1 => '1',
 			  WE2 => '0',
 			  WE3 => '0',
 			  WE4 =>  '0',
@@ -229,6 +204,34 @@ begin
 			  CLKEN2 => clken2,
 			  CLKEN3 => clken3,
 			  CLKEN4 => clken4);
+
+	 -- ledrx
+	 process(CLK) is
+	 	variable lrx : std_logic := '0'; 
+	 begin
+	 	if rising_edge(CLK) then
+			lrx := RX_DV;
+			LEDRX <= lrx; 
+		end if; 
+	 end process; 
+    clk_dll : CLKDLL generic map (
+	 		clkdv_divide => 8.0)
+			port map (
+    		CLKIN => CLKIN,
+			CLKFB => clk,
+			RST => RESET,
+			CLK0 => clk_to_bufg, 
+			CLKDV => clksl,
+			CLK270 => MCLK);
+
+    clk_bufg : BUFG port map (
+    		I => clk_to_bufg,
+			O => clk); 
+
+ 
+
+
+
 
 	mac_control: control port map (
 				CLK => clk,
@@ -266,15 +269,36 @@ begin
 				MQ => q2,
 				MAD => addr1,
 				MAQ => addr2,
-				ERR => ledact,
+				ERR => err,
 				CLKEN1 => clken1,
 				CLKEN2 => clken2);
 
+
+	 flasherror: process(CLK) is
+	 	variable cnt: std_logic_vector(3 downto 0) := (others => '0'); 
+		variable toggle, t1, t2, t3 : std_logic := '0';  
+		variable err2, err3, cntr2, cntr3 : std_logic := '0'; 
+	 begin
+	 	if rising_edge(CLK) then
+			if err = '1' then 
+				cnt := (others => '0');
+			else
+				if not (cnt = "1111") then
+					cnt := cnt + 1; 
+					LEDACT <= '1';
+				else
+					LEDACT <= '0';
+				end if;
+			end if; 
+		end if;
+	 end process flasherror; 
+
 	 txsim : testsuite_tx port map (
 	 			CLK => clk, 
-				RESET => RESET,
-				TX_EN => tx_en_out,
-				TXD => TXD);
+	 			RESET => RESET,
+	 			TX_EN => tx_en_out,
+	 			TXD => TXD);
+ 
 	 
 		TX_EN <= tx_en_out; 
 		GTX_CLK <= clk; 			 
