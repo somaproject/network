@@ -3,21 +3,21 @@
 # COREGenPath = C:\Xilinx\coregen
 # ProjectPath = C:\desktop\soma\hardware\network\vhdl
 # ExpandedProjectPath = C:\desktop\soma\hardware\network\vhdl
-# OverwriteFiles = true
+# OverwriteFiles = True
 # Core name: async_fifo
-# Number of Primitives in design: 200
-# Number of CLBs used in design: 28
-# Number of Slices used in design: 49
-# Number of LUT sites used in design: 67
-# Number of LUTs used in design: 67
-# Number of REG used in design: 77
+# Number of Primitives in design: 280
+# Number of CLBs used in design: 37
+# Number of Slices used in design: 64
+# Number of LUT sites used in design: 93
+# Number of LUTs used in design: 93
+# Number of REG used in design: 107
 # Number of SRL16s used in design: 0
 # Number of Distributed RAM primitives used in design: 0
-# Number of Block Memories used in design: 1
+# Number of Block Memories used in design: 4
 # Number of Dedicated Multipliers used in design: 0
 # Number of HU_SETs used: 2
-# Huset "async_fifo/control/rd_blk" = (0, 0) to (2, 5) in CLBs
-# Huset "async_fifo/control/wr_blk" = (0, 0) to (4, 5) in CLBs
+# Huset "async_fifo/control/rd_blk" = (0, 0) to (2, 7) in CLBs
+# Huset "async_fifo/control/wr_blk" = (0, 0) to (4, 7) in CLBs
 # 
 SET BusFormat = BusFormatAngleBracketNotRipped
 SET SimulationOutputProducts = Verilog VHDL
@@ -38,7 +38,7 @@ CSET almost_full_flag = false
 CSET almost_empty_flag = false
 CSET memory_type = block
 CSET read_error = true
-CSET fifo_depth = 127
+CSET fifo_depth = 1023
 CSET component_name = async_fifo
 CSET input_data_width = 16
 CSET write_count = true

@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+#
+# formats the frames passed on stdin 
+#
+#
+
+
+if($ARGV[0] eq "-toGMII") {
+    # this will take in a series of frame lines and output them in a gmii
+    # format, i.e. with col 0 being RX_DV, col 1 being RX_ERR, and col2 being
+    # the byte; 
+    while(<STDIN>){
+	my $frame = $_;
+	/frame (\d+) (\d+) (\d+) (\d+) (\d+)/;
+	my $len = $1; 
+	my $phyerr = $5; 
+
+	# print extra leader 
+	print "0 0 00\n0 0 00\n0 0 00\n0 0 00\n0 0 00\n0 0 00\n";
+	my $i = 0; 
+	while(/(\w+)/g) {
+	    if($i == $phyerr + 5) {
+		$err = '1';
+	    } else {
+		$err = '0';
+	    } 
+	    if ($i > 5) {
+		print "1 $err $1\n";
+	    }
+	    $i++; 
+	}
+	
+	
+    }
+} elsif ($ARGV[0] eq "-data") {
+    # just print raw data
+    while(<STDIN>){
+	my $frame = $_;
+	/frame (\d+) (\d+) (\d+) (\d+) (\d+)/;
+	my $len = $1; 
+	my $nosfs = $3; 
+	my $sfslen = $4; 
+	my $phyerr = $5; 
+
+	# figure out where, after SFS, the data is
+	
+
+	my $i = 0; 
+	while(/(\w+)/g) {
+	    if ($i > 6 + $sfslen + $nosfs && 
+		($i < ($len +6 -4))) {
+		print "$1 ";
+	    }
+	    $i++; 
+	}
+	
+
+	print "\n";
+
+	
+    }
+}
+
+

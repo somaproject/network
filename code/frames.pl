@@ -80,19 +80,29 @@ for(my $i = 0; $i < $numframes; $i++) {
 }
 
 
-my $randmac = sprintf("%2.2x:%2.2x:%2.2x:%2.2x:%2.2x:%2.2x", int(rand(256)),  int(rand(256)), int(rand(256)), int(rand(256)), int(rand(256)), int(rand(256)));
 
-
-my $source_mac = $randmac;
-
-#my $dest_mac = "FF:FF:FF:FF:FF:FF";
-#my $dest_mac = "C0:FF:EE:01:02:03";
-#my $dest_mac = "01:00:00:00:00:00"; 
-my $dest_mac = $randmac;
 
 
 # now we actually generate the packets;
 for (my $i = 0; $i < $numframes; $i++) { 
+    my $randmac = sprintf("%2.2x:%2.2x:%2.2x:%2.2x:%2.2x:%2.2x", 
+			  int(rand(256)),  int(rand(256)), int(rand(256)), 
+			  int(rand(256)), int(rand(256)), int(rand(256)));
+    
+    
+ 
+    #my $dest_mac = $randmac;
+    #my $dest_mac = "FF:FF:FF:FF:FF:FF";
+    #my $dest_mac = "C0:FF:EE:01:02:03";
+    my $dest_mac = "01:00:00:00:00:00"; 
+
+    my $randmac = sprintf("%2.2x:%2.2x:%2.2x:%2.2x:%2.2x:%2.2x", 
+			  int(rand(256)),  int(rand(256)), int(rand(256)), 
+			  int(rand(256)), int(rand(256)), int(rand(256)));
+   my $source_mac = $randmac;
+    
+   
+    
     my $execstring = "./frame $lengths[$i] $dest_mac $source_mac ";
     if ($sfserrs[$i] > 0 ) {
 	$execstring .= " -nosfs";

@@ -124,6 +124,8 @@ Tests (9/29/03):
 
 To make timing constraints a bit better, we registered all inputs to and outputs from the FIFO. Since we don't really care about the 3/4 full signal (we're playuing it safe) having the system respond a tick later isn't a big deal. 
 
+10 Oct 2003: so, when we throw bytes and bytes and bytes at it, unfortunately, the fifo in the RX_input side overflows, with quite a degree of periodicity, in fact. Need to correct... but how?
+    Well, it looks like this is essentially an artifact of the RX_input_memio requiring n+c ticks for each n-byte frame. Thus, actually, for longer frames, this is less of an issue. 
 
 ----- on the other side of the FIFO
 
@@ -403,3 +405,7 @@ frame_filter: cat in a bunch of frames, only return those that
    are ucast
    have no phy errors
 takes a new frame format 
+
+randomize macs with addresses via
+perl -e '@a = <>; print splice @a, rand @a, 1 while @a' file1 file2 > file3; 
+

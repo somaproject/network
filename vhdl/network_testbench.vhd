@@ -32,11 +32,11 @@ ARCHITECTURE behavior OF network_testbench IS
 -- gmii.rx.*.dat is pushed into the RX* interface
 --    RX_DV RX_ER RXD (hex) 
 
-   constant FILE_GMII_RX : string := "testvectors/gmii.rx.4.dat";
+   constant FILE_GMII_RX : string := "testvectors/gmii.rx.allframes.dat";
    constant FILE_GMII_TX : string := "testvectors/gmii.tx.3.dat";
    constant FILE_IO_RAW_TX : string := "testvectors/io.tx.raw.0.dat";
    constant FILE_IO_FRAME_TX : string := "testvectors/io.tx.frame.3.dat";
-   constant FILE_IO_RX : string := "testvectors/io.rx.4.dat";
+   constant FILE_IO_RX : string := "testvectors/io.rx.allframes.dat";
     
  
 	component network is
@@ -201,8 +201,8 @@ BEGIN
 -- SYSTEM CLOCKS
 --  Here's where we define our clocks;
    clkin <= not clkin after 4 ns;
-   rx_clk <= not rx_clk after 4.0 ns; 
-   clkioin <= not clkioin after 12 ns; 
+   rx_clk <= not rx_clk after 4.001 ns; 
+   clkioin <= not clkioin after 10 ns; 
    
    reset <= '0' after 200 ns; 
 
@@ -237,7 +237,7 @@ BEGIN
    end process master; 
 
 
-   gmii_rx : process(rx_clk) is
+   gmii_rx : process(rx_clk, RESET) is
       -- again, this format is RX_DV, RX_ER, RXD
 	file load_file : text open read_mode is FILE_GMII_RX;	
 
@@ -249,7 +249,7 @@ BEGIN
 
    begin
      if rising_edge(rx_clk) then
- 		if not endfile(load_file) then 
+ 		if not endfile(load_file) and RESET = '0' then 
 			readline(load_file, L);
 			read(L, RX_DV_var);
 		 	read(L, RX_ER_var);
@@ -340,7 +340,7 @@ BEGIN
 	variable bytecount : integer := 0; 
 	variable byte : std_logic_vector(7 downto 0); 
 	 
-
+												  
    begin
      wait for 1 us; 
      while not endfile(load_file) loop
@@ -436,8 +436,8 @@ BEGIN
 				    frame_length := to_integer(unsigned(DOUT));
 				    fcnt :=  to_integer(unsigned(DOUT));
 				    outstate := 2;
-				    write(L, frame_length);
-				    writeline(write_file, L);
+				    --write(L, frame_length);
+				    --writeline(write_file, L);
 				    wordpos := 0; 
 				 end if; 
 			   elsif outstate = 2 then
@@ -467,7 +467,7 @@ BEGIN
 				 end if;
 				 if wordpos >7  then 
 				 	wordpos := 0;
-					writeline(write_file, L);
+					--writeline(write_file, L);
 				 end if; 
 			  end if;
 		    end if; 

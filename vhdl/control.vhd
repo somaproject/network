@@ -321,10 +321,11 @@ begin
 			if ledtx_rst = '1' then
 				ledtx_cnt <= X"FFF";
 			else
-				if not ledtx_cnt = X"000" then
+				if not (ledtx_cnt = X"000") then
 					ledtx_cnt <= ledtx_cnt - 1;
 				end if;
 			end if; 
+
 			if ledtx_cnt = X"000" then
 				LEDTX <= '0';
 			else
@@ -335,7 +336,7 @@ begin
 			if ledrx_rst = '1' then
 				ledrx_cnt <= X"FFF";
 			else
-				if not ledrx_cnt = X"000" then
+				if not (ledrx_cnt = X"000") then
 					ledrx_cnt <= ledrx_cnt - 1;
 				end if;													  
 			end if; 
