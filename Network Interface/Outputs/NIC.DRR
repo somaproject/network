@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
-NCDrill File Report For: NIC.PCBDOC   9/23/2003  10:34:16 AM
+NCDrill File Report For: NIC.PCBDOC   10/22/2003  10:53:20 AM
 ---------------------------------------------------------------------------
 
 
@@ -10,19 +10,15 @@ EIA File   : NCDrillOutput.DRL
 
 Tool         Hole Size          Hole Count Plated       Tool Travel
 ---------------------------------------------------------------------------
-T1        13.5mil (0.3429mm)       332              62.25 Inch (1581.06 mm)
-T2        20mil (0.508mm)          34               18.87 Inch (479.32 mm)
+T1        13.5mil (0.3429mm)       348              63.60 Inch (1615.55 mm)
+T2        20mil (0.508mm)          33               18.67 Inch (474.29 mm)
 T3        28mil (0.7112mm)         22               16.05 Inch (407.78 mm)
-T4        30mil (0.762mm)          68               11.94 Inch (303.31 mm)
-T5        35mil (0.889mm)          8                9.05 Inch (229.92 mm)
-T6        62mil (1.5748mm)         2                9.28 Inch (235.76 mm)
+T4        35mil (0.889mm)          76               21.39 Inch (543.33 mm)
+T5        62mil (1.5748mm)         2                9.28 Inch (235.76 mm)
+T6        110mil (2.794mm)         2                6.06 Inch (154.03 mm)
 T7        128mil (3.2512mm)        2                9.05 Inch (229.80 mm)
 T8        149.6mil (3.79984mm)     4                17.46 Inch (443.56 mm)
 ---------------------------------------------------------------------------
-Totals                             472              153.96 Inch (3910.50 mm)
+Totals                             489              161.58 Inch (4104.09 mm)
 
-Two holes at same point : 1
------------------------
-4400,5580
-
-Total Processing Time : 12:00:03 AM
+Total Processing Time : 12:00:07 AM

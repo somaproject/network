@@ -1,0 +1,17 @@
+The NIC test jig for VHDL and results...
+
+The goal of the test code is to make sure we can successfully:
+1. download rawbits to the FPGA
+2. make sure the memory interface has all necessary pins connected, and can actually work at our desired speed. 
+3. send one pkt over and over and over. 
+4. Flash das blinkenlights
+
+
+To do this, we basically wire up the memory controller to do the following:
+on chan 1, write in bytes
+on chan 2, read in bytes
+The reader thread will follow the writing thread by some arbitrary number of ticks, and will make sure the words == the address. 
+
+For outputting to the PHY, it's easy: we just pre-load the PHY with a frame and a counter with the number of bytes to transmit; then every second we send out the frame. 
+
+We start out with the counter's lower 10 bits reading bytes from the BlockSelect RAM, and pull TX_EN low when CNT > (FRAMELEN-1) . We reset the counter when CNT=CNTRST; 
