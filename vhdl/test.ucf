@@ -1,2 +1,0 @@
-TIMESPEC "TS_P2P" = FROM "PADS" TO "PADS" 20 ns;
-OFFSET = OUT 30 ns AFTER "clk";
