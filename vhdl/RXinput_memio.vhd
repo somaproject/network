@@ -33,6 +33,7 @@ architecture Behavioral of RXinput_memio is
    					   (others => '0');
    
    signal mnewf, brdy : std_logic := '0';
+   signal endbyte: std_logic_vector(7 downto 0) :=(others => '0');
 
    -- byte counter
    signal bcnt, bcntl : std_logic_vector(15 downto 0) := (others => '0');
@@ -40,7 +41,9 @@ architecture Behavioral of RXinput_memio is
    -- crc signals
    signal crc, crcl: std_logic_vector(31 downto 0) := 
    				 (others => '0');
-   
+   constant CRCCONST : std_logic_vector(31 downto 0) := 
+   				 X"00000000"; 
+
    -- memory:
    signal bp, macnt, lma, bpl : std_logic_vector(15 downto 0) :=
    					  (others => '0');
@@ -90,6 +93,10 @@ begin
 
 			end if; 			
 			bpen <= wbp; 
+			
+			if ENDF='1' then
+			    endbyte <= DATA;
+			end if; 
 							
 			if mendelta = '1' then
 				doutl <= dout;
@@ -145,7 +152,32 @@ begin
 			   if brdy = '1' then 
 			      bcnt <= bcnt + 1;
 			   end if; 
-		     end if; 				  
+		     end if; 	
+			
+			-- error reporting:
+			if cs = errchk then
+			   if endbyte(2 downto 0) = "101" then
+			      PHYERR <= '1';
+			   end if; 
+			   if endbyte(2 downto 0) = "110" then
+			      OFERR <= '1'; 
+			   end if; 
+			   if CRCL = CRCCONST then
+			   	 CRCERR <= '1';
+			   else
+			   	 CRCERR <= '0';
+			   end if; 
+			else 
+			   CRCERR <= '0';
+			   OFERR <= '0';
+			   PHYERR <= '0';
+			end if;
+			
+			if cs = writebp then
+			   RXF <= '1';
+			else
+			   RXF <= '0';
+			end if; 			  
 		 end if; 
 	   end if; 
 
@@ -162,7 +194,7 @@ begin
 
     BPOUT <= bp; 
 
-    fsm : process(CS, NS, ENDF, INVALID, CRCL, DATA) is
+    fsm : process(CS, NS, ENDF, INVALID, CRCL, endbyte, data) is
     begin
        case cs is
 	      when none => 
@@ -260,7 +292,7 @@ begin
 			 CE <= '0'; 
 			 newf <= '0';
 			 wbp <= '0'; 
-			 if DATA(2) = '0' then --and CRCL = X"00000000" then
+			 if endbyte(2) = '0' and CRCL = CRCCONST then
 			    ns <= wait1;
 			 else
 			    ns <= none; 
@@ -276,13 +308,13 @@ begin
 		      men <= '1'; 
 			 CE <= '0'; 
 			 newf <= '0';
-			 wbp <= '0';
+			 wbp <= '1';
 			 ns <= writebp; 
 	      when writebp => 
 		      men <= '1'; 
 			 CE <= '0'; 
 			 newf <= '0';
-			 wbp <= '1';  
+			 wbp <= '0';  
 			 ns <= none; 
 	      when others => 
 		      men <= '0'; 
