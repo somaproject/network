@@ -52,14 +52,14 @@ begin
 		   cell <= cel; 
 		   celll <= cell; 
 
-		   dinl <=  din;
+
 		   if celll = '1' then
 		   	  d0 <= dinl;
 			  d1 <= d0; 
 			  d2 <= d1;
 			  d3 <= d2; 
 		   end if; 
-		   
+		   dinl <=  din;
 		   if CE = '1' then
 		      DATA <= ldata(7 downto 0);
 			 ENDF <= ldata(8);
@@ -68,7 +68,7 @@ begin
 	    end if;
       end if; 
    end process clocks; 
-
+		   
    ldata <= d3 when cs = sel3 else
    		  d2 when cs = sel2 else
 		  d1 when cs = sel1 else

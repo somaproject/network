@@ -139,8 +139,9 @@ The D3-D0 registers start out with their invalid bits set. Since the output of D
 
 This is all due to the fact that the registering of the FIFO output introduces a lag. Thus, say, CE is high for four ticks before we get our first byte. Now, say ten bytes later, we get an end of frame byte. We'd like to be able to immediately stop the FIFO's production of data, but we can't: it's pipelined. So the D3-D0 registers essentially store the output from the pipeline. 
 
-we've combined all of This into a rxinput_fifo file, which now actually contins the FIFO coregen and the auxillary FIFO control. 
+we've combined all of This into a rxinput_fifo file, which now actually contins the FIFO coregen and the auxillary FIFO control. Now, the interesting part is that this design assumes that you keep CE low for four ticks between having it go high. This will require some creative FSM modification. 
 
+Wed 3 September 2003: RXinput_fifo appears to work with behavioral simulation. 
 
 
 
