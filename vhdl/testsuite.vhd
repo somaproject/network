@@ -10,6 +10,7 @@ use UNISIM.VComponents.all;
 														  
 entity testsuite is
     Port ( CLKIN : in std_logic;
+	 		  CLKFB : in std_logic; 
            RESET : in std_logic;
            RX_DV : in std_logic;
            RX_ER : in std_logic;
@@ -78,8 +79,8 @@ architecture Behavioral of testsuite is
 				std_logic := '0';
 	signal txfsr, rxfsr : std_logic := '0'; 
 	signal tx_en_out : std_logic;
-	signal err : std_logic; 
-
+	signal err, err2 : std_logic; 
+	signal mwe2 : std_logic; 
 	component memory is
 	    Port ( CLK : in std_logic;
 			     RESET : in std_logic;
@@ -189,12 +190,23 @@ architecture Behavioral of testsuite is
     Port ( CLK : in std_logic;
            MD : out std_logic_vector(31 downto 0);
            MQ : in std_logic_vector(31 downto 0);
-           MAQ : out std_logic_vector(16 downto 0);
-           MAD : out std_logic_vector(16 downto 0);
+           MAQ : out std_logic_vector(15 downto 0);
+           MAD : out std_logic_vector(15 downto 0);
 			  ERR : out std_logic; 
            CLKEN1 : in std_logic;
 			  CLKEN2 : in std_logic);
      end component;
+
+	component testsuite_memory2 is
+	    Port ( CLK : in std_logic;
+	           MD : out std_logic_vector(31 downto 0);
+	           MQ : in std_logic_vector(31 downto 0);
+	           MA : out std_logic_vector(15 downto 0);
+				  MWE : out std_logic; 
+				  ERR : out std_logic; 
+	           CLKEN : in std_logic);
+	end component;
+
 	component testsuite_tx is
 	    Port ( CLK : in std_logic;
 		 		  RESET : in std_logic; 
@@ -205,12 +217,12 @@ begin
 	 MOE <= '0'; 
 
 	 -- random LED flashing:
-	 flash: process(rx_clk_int) is
+	 flash: process(clk) is
 	 	variable cnt : std_logic_vector(23 downto 0) := (others => '0'); 
 		variable toggle, t1, t2, t3 : std_logic := '0';  
 		
 	 begin
-	 	if rising_edge(rx_clk_int) then
+	 	if rising_edge(clk) then
 			cnt := cnt + 1;
 			t1 := cnt(23); 
 			t2 := t1;
@@ -263,15 +275,15 @@ begin
 			  ADDR3 => addr3,
 			  ADDR4 => addr4,
 			  D1 => d1,
-			  D2 => X"00000000", 
-			  D3 => X"00000000",
-			  D4 => X"00000000",
+			  D2 => d2, 
+			  D3 => d3,
+			  D4 => d4,
 			  Q1 => q1,
 			  Q2 => q2,
 			  Q3 => q3,
 			  Q4 => q4,
 			  WE1 => '1',
-			  WE2 => '0',
+			  WE2 => mwe2,
 			  WE3 => '0',
 			  WE4 =>  '0',
 			  CLKEN1 => clken1,
@@ -286,7 +298,7 @@ begin
 			port map (
 			CLKIN => CLKIN,
 			RST => RESET,
-			CLKFB => clk,
+			CLKFB => CLKFB,
 			CLK0 => clk_to_bufg,
 			CLK180 => clk180,
 			CLK90 => clk90); 
@@ -313,7 +325,7 @@ begin
 			I => rx_clk_to_bufg,
 			O => rx_clk_int);
 	GTX_CLK <= clk180; 		 
-	MCLK <= clk90; 
+	MCLK <= clk; 
 
 
 	maccontrol: control port map (
@@ -349,24 +361,38 @@ begin
 	 memtest: testsuite_memory port map (
 	 			CLK => clk,
 				MD => d1,
-				MQ => q2,
-				MAD => addr1,
-				MAQ => addr2,
+				MQ => q4,
+				MAD => addr1(15 downto 0),
+				MAQ => addr4(15 downto 0),
 				ERR => err,
 				CLKEN1 => clken1,
-				CLKEN2 => clken2);
-
+				CLKEN2 => clken4);
+	 memtest2 : testsuite_memory2  port map(
+				CLK => clk,
+				MD => d2,
+				MQ => q2,
+				MA => addr2(15 downto 0),
+				MWE => mwe2,
+				ERR => err2,
+				CLKEN => clken2);
+				 
+	addr1(16) <= '1';
+	addr2(16) <= '0';
+	addr3(16) <= '0';
+	addr4(16) <= '1'; 
+	
 
 	 flasherror: process(CLK) is
-	 	variable cnt: std_logic_vector(3 downto 0) := (others => '0'); 
+	 	variable cnt: std_logic_vector(5 downto 0) := (others => '0'); 
 		variable toggle, t1, t2, t3 : std_logic := '0';  
 		variable err2, err3, cntr2, cntr3 : std_logic := '0'; 
 	 begin
 	 	if rising_edge(CLK) then
-			if err = '1' then 
+			if err = '1' or err2 = '1'  then 
 				cnt := (others => '0');
+				LEDACT <= '1'; 
 			else
-				if not (cnt = "1111") then
+				if not (cnt = "111111") then
 					cnt := cnt + 1; 
 					LEDACT <= '1';
 				else

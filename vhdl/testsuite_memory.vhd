@@ -12,15 +12,15 @@ entity testsuite_memory is
     Port ( CLK : in std_logic;
            MD : out std_logic_vector(31 downto 0);
            MQ : in std_logic_vector(31 downto 0);
-           MAQ : out std_logic_vector(16 downto 0);
-           MAD : out std_logic_vector(16 downto 0);
+           MAQ : out std_logic_vector(15 downto 0);
+           MAD : out std_logic_vector(15 downto 0);
 			  ERR : out std_logic; 
            CLKEN1 : in std_logic;
 			  CLKEN2 : in std_logic);
 end testsuite_memory;
 
 architecture Behavioral of testsuite_memory is
-	signal addrcnt, addrcntl, addrcntll: std_logic_vector(16 downto 0) := (others => '0'); 
+	signal addrcnt, addrcntl, addrcntll: std_logic_vector(15 downto 0) := (others => '0'); 
 	signal datacnt : std_logic_vector(31 downto 0) := (others => '0');
 	signal dataw1, dataw2, dataw3, dataw4, dataw5, dataw6, dataw7 : 
 		std_logic_vector(31 downto 0) := (others => '0');
@@ -56,7 +56,7 @@ begin
 		end if ;
 	end process main; 
 
-	MD <= datacnt(31 downto 5) &  datacnt(4 downto 0);  						 
+	MD <= datacnt;  						 
 	MAD <= addrcnt;
 	MAQ <= addrcntll; 
 

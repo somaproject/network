@@ -102,3 +102,13 @@ And, when we create a loop-back in the FPGA, we get expected results of double-p
 So, the only way things will work is if you CORRECTLY TIME THE GTX_CLK! In this case, it means using the CLK180 to drive it from the main clk. 
 
 Memory can pass testsuite but YOU NEED TO CORRECTLY SOLDER ALL THE DATA PINS. Using clk90, although (??) clk180 appears to work as well. Freaky. 
+
+
+New Memory test scheme:
+testsuite_memory2.vhd
+
+Use 2 LFSRs to write pseudo-random locations in memory with pseudo-random values. ADDR is 16-bits, so we can make sure we only hit one half of memory. DATA is a 32-bit LFSR.
+
+Then, we reset both LFSRs and try to read. 
+
+Wow, it actually works. That's amazing! 

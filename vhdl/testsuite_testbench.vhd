@@ -51,7 +51,8 @@ ARCHITECTURE behavior OF testsuite_testbench IS
 		LED1000 : OUT std_logic;
 		LEDDPX : OUT std_logic;
 		PHYRESET : OUT std_logic;
-		SOUT : OUT std_logic;			
+		SOUT : OUT std_logic;
+		CLKFB : in std_logic;			
 	   MACADDR : in std_logic_vector(7 downto 0);
 	   MACDATA : out std_logic_vector(15 downto 0);
 	   IFCLK : in std_logic;
@@ -93,6 +94,7 @@ ARCHITECTURE behavior OF testsuite_testbench IS
 	SIGNAL SIN :  std_logic;
 	SIGNAL SOUT :  std_logic;
 	SIGNAL SCS :  std_logic;
+	signal clkfb : std_logic; 
 	SIGNAL MACADDR : std_logic_vector(7 downto 0) := (others => '0');
 	SIGNAL MACDATA : std_logic_vector(15 downto 0);
 	SIGNAL IFCLK : std_logic := '0';
@@ -135,6 +137,7 @@ BEGIN
 
 	uut: testsuite PORT MAP(
 		CLKIN => CLKIN,
+		CLKFB => clkfb, 
 		RESET => RESET,
 		RX_DV => RX_DV,
 		RX_ER => RX_ER,

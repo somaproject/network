@@ -132,7 +132,7 @@ begin
 
 			    if llwe = '0' then -- a write
 			       --wait for 2 ns; 
-			       SRAM(to_integer(unsigned(lladdr))) := din; 			        
+			       --SRAM(to_integer(unsigned(lladdr))) := din; 			        
 			         
 			    end if;
 
