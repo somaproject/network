@@ -83,7 +83,7 @@ class RXoutput:
             vals = struct.unpack("B", data[-1])
             self.fid.write("00%02X" % (vals[0],))
         self.fid.write("\n")
-        
+
 
 class RXsystem:
     def __init__(self, iteration):
@@ -126,37 +126,132 @@ class RXsystem:
             g.addER((10,11))
 
         self.gfid.write(g)
-
+        self.gfid.writeempty(int(len(fdata)*0.07))
         
         if (not RXErrors) and CRCvalid :
             d = f.getWire(preamble=0, SFD=False)[:-4]
             self.dfid.write(nop, (len(d) + 1)/2 - readShort+1, d)
-      
+
+
+            
+        
+class TXinput:
+
+    def __init__(self, iteration):
+       
+        self.dinfile = file("din.%d.dat" % iteration, 'w')
+        self.wait(4)
+    def wait(self, nticks):
+        # we wait n ticks to put the data on the wire
+        #
+        for i in range(nticks):
+            self.dinfile.write("0 0000\n")
+
+    def write(self, length, data):
+        self.dinfile.write("1 %04X\n" % length)
+
+        for i in range((length)/2):
+            lowbyte = struct.unpack("B", data[2*i])[0]
+            highbyte = struct.unpack("B", data[2*i+1])[0]
+            
+            self.dinfile.write("1 %02X%02X\n" %(highbyte, lowbyte) )
+            
+        if (length % 2) == 1:
+            self.dinfile.write("1 00%02X\n" % struct.unpack("B", data[-1])[0])
+
+        self.wait(3)
+
+class TXoutput:
+    def __init__(self, iteration):
+        self.fid = file("gmiiout.%d.dat" % iteration, "w")
+
+    def write(self, f):
+        fdata = f.getWire()
+
+        for i in fdata:
+            self.fid.write("%02X " % struct.unpack("B", i)[0])
+
+        self.fid.write("\n")
+
+class TXsystem:
+    def __init__(self, iteration):
+        self.gfid = TXoutput(iteration)
+        self.dfid = TXinput(iteration)
+
+    def writeFrame(self, length, destMAC = "C0:FF:EE:01:02:03",
+                   wronglenval = 0 ):
+        # writes a frame with the above-indicated error conditions
+
+        data = ""
+        for i in range(length):
+            data += struct.pack("B", random.randint(0, 255))
+
+        srcMAC = "%02X:%02X:%02X:%02X:%02X:%02X" % \
+                 (random.randint(0,255), random.randint(0,255),
+                  random.randint(0,255), random.randint(0,255),
+                  random.randint(0,255), random.randint(0,255))
+        
+                                         
+        f = frame.frame(destMAC,
+                        srcMAC,
+                        0x0101, data)
+
+        fdataall = f.getWire(preamble=0, SFD=False)
+        fdata = fdataall[:-4] # no CRC
+        self.dfid.write(len(fdata), fdata)
+
+        self.gfid.write(f)
+    
+
         
 def RXsuite():
-   rx = RXsystem(0)
-   
-   rx.writeFrame(60)
-   rx.writeFrame(70)
-   rx.writeFrame(80)
-   rx.writeFrame(90)
-   rx.writeFrame(100, preamble=0)
-   
+    rx = RXsystem(0)
+    
+    rx.writeFrame(60)
+    rx.writeFrame(70)
+    rx.writeFrame(80)
+    rx.writeFrame(90)
+    rx.writeFrame(100, preamble=0)
+    
+    
+    # now we try some error frames
+    rx.writeFrame(100, RXErrors=True)
+    rx.writeFrame(110)
+    rx.writeFrame(100, CRCvalid=False)
+    rx.writeFrame(110)
+    
+    # super long frames
+    rx.writeFrame(1000)
+    rx.writeFrame(2000)
+    rx.writeFrame(10000)
+    
+    l = 2**18 # a fifo-wrap of data
+    t = 0 
+    while  t < l:
+        f = random.randint(64, 2000)
+        rx.writeFrame(f)
+        t += f
+        
+        
 
-   # now we try some error frames
-   rx.writeFrame(100, RXErrors=True)
-   rx.writeFrame(110)
-   rx.writeFrame(100, CRCvalid=False)
-   rx.writeFrame(110)
-
-   # super long frames
-   rx.writeFrame(1000)
-   rx.writeFrame(2000)
-   rx.writeFrame(10000)
-   
-   
+def TXsuite():
+    tx = TXsystem(0)
+    tx.writeFrame(4, destMAC="12:34:56:78:90:AB")
+    tx.writeFrame(5)
+    tx.writeFrame(500)
+    tx.writeFrame(2500)
+    tx.writeFrame(10000)
+    
+    
+    l = 2**18 # a fifo-wrap of data
+    t = 0 
+    while  t < l:
+        f = random.randint(64, 2000)
+        tx.writeFrame(f)
+        t += f
+        
 
 if __name__ == "__main__":    
     RXsuite()
-
+    TXsuite()
 

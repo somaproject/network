@@ -36,3 +36,4 @@ If the input FIFOFULL signal is high, then the current packet is discarded via t
 
 To accomodate excess data at the end of a frame, PKTDONE3 eats any remaining time during whcih NEWFINT is high. 
 
+That said, the extra cycles we take up result in us needing at least three ticks of NEWFRAME low between frames, giving us a worst-case 95% tx efficiency (and a best-case (MTU=1500) 99.8%!)

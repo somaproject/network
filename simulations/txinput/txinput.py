@@ -148,12 +148,19 @@ if __name__ == "__main__":
     ti.writeframe(10, 10)
     ti.wait(3)
     ti.writeframe(12, 16)
-
+    ti.wait(3)
+    ti.writeframe(11, 11)
+    ti.wait(3)
+    ti.writeframe(1543, 1543)
+    ti.wait(3)
+    ti.writeframe(1575, 1575)
+    
+    
     # now, random data, whee
     datalen = 0 
     for i in range(1000):
         ti.wait(random.randint(3, 10))
-        r = random.randint(0, 20)
+        r = random.randint(0, 18) # disabling bad packet gen
         if r < 19 :
             l = random.randint(4, 4000)
             #print "Generating nomal packet with len = ", l

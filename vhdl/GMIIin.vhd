@@ -223,7 +223,24 @@ begin
 	efv <= val and endfo; 	
 	lvalid <= nfl and (not aeq) and (not efv); 
 	VALID <= val;
-	ENDFOUT <= endfo; 
+	ENDFOUT <= endfo;
+
+	ffs <= '0' when al2l(9 downto 8)="00" and ao(9 downto 8)="00" else
+            '0' when al2l(9 downto 8)="01" and ao(9 downto 8)="00" else
+            '0' when al2l(9 downto 8)="10" and ao(9 downto 8)="00" else
+            '1' when al2l(9 downto 8)="11" and ao(9 downto 8)="00" else
+            '0' when al2l(9 downto 8)="01" and ao(9 downto 8)="01" else
+            '0' when al2l(9 downto 8)="10" and ao(9 downto 8)="01" else
+            '0' when al2l(9 downto 8)="11" and ao(9 downto 8)="01" else
+            '1' when al2l(9 downto 8)="00" and ao(9 downto 8)="01" else
+            '0' when al2l(9 downto 8)="10" and ao(9 downto 8)="10" else
+            '0' when al2l(9 downto 8)="11" and ao(9 downto 8)="10" else
+            '0' when al2l(9 downto 8)="00" and ao(9 downto 8)="10" else
+            '1' when al2l(9 downto 8)="01" and ao(9 downto 8)="10" else
+            '0' when al2l(9 downto 8)="11" and ao(9 downto 8)="11" else
+            '0' when al2l(9 downto 8)="00" and ao(9 downto 8)="11" else
+            '0' when al2l(9 downto 8)="01" and ao(9 downto 8)="11" else
+            '1' when al2l(9 downto 8)="10" and ao(9 downto 8)="11";
 
 	clk_domain: process(CLK) is
 	begin
@@ -231,7 +248,7 @@ begin
 			val <= lvalid; 
 
 			al2 <= al; 
-
+			al2l <= al2; 
 			if lvalid = '1' then 
 				ao <= ao + 1;
 			end if; 
@@ -244,12 +261,6 @@ begin
 				end if;
 			end if; 
 
-			-- code for fifo overflow
-			if al2l - aol > 128 or al2l = aol then
-				ffs <= '0';
-			else
-				ffs <= '1';
-			end if;
 				
 	    end if; 
 	end process clk_domain; 

@@ -110,6 +110,12 @@ ARCHITECTURE behavior OF networktest IS
 	SIGNAL SCS :  std_logic := '0';
 
 	signal save : std_logic := '0'; 
+	signal expected_gmiiout : std_logic_vector(7 downto 0)
+		:= (others => '0');
+
+	signal rxinput_done, rxoutput_done, 
+		txinput_done, txoutput_done : std_logic := '0';
+
 
 BEGIN
 
@@ -163,7 +169,7 @@ BEGIN
 		SAVE => SAVE);
 
     clkin <= not clkin after 4 ns;
-    clkioin <= not clkioin after 10 ns;
+    clkioin <= not clkioin after 8.5 ns;
     RX_CLK <= not RX_CLK after 4 ns;  
 
     reset <= '0' after 80 ns; 
@@ -199,11 +205,8 @@ BEGIN
 			end if; 
 			RXD <= rxdin; 
 		end loop; 
+		rxinput_done <= '1'; 
 		wait; 
-
-		--assert false
-			--report "End of simulation"
-			--severity failure;   
 	end process; 
 
 	rxoutput : process is
@@ -212,6 +215,8 @@ BEGIN
 		variable words, nops, wcnt, ncnt : integer := 0;
 		variable rdata : std_logic_vector(15 downto 0)
 			:= (others => '0'); 
+		variable bytelen : integer := 0; 
+
 	begin
 		wait until falling_edge(RESET);
 			file_open(datafile, "dout.0.dat", read_mode);
@@ -224,6 +229,7 @@ BEGIN
 			read(L, nops); 
 			read(L, words);
 			ncnt := -1; 
+			bytelen := 0; 
 			while ncnt < nops loop
 				wait until rising_edge(CLKIOin);
 				ncnt := ncnt + 1; 
@@ -233,10 +239,17 @@ BEGIN
 			while wcnt < words loop
 				wait until rising_edge(CLKIOin) and DOUTEN = '1'; 
 				wcnt := wcnt + 1;
+
 				hread(L, rdata); 
-				if rdata /= DOUT then
+
+				if wcnt = 1 then
+					bytelen := to_integer(unsigned(rdata));
+				end if; 
+				if ((bytelen mod 2 = 0) and (rdata /= DOUT)) or
+					((bytelen mod 2 = 1) and 
+					(rdata(7 downto 0) /= DOUT(7 downto 0)))then
 					assert false
-						report "error reading data"
+						report "RXOUTPUT : error reading data"
 						severity failure;   
 				end if; 
 		
@@ -244,8 +257,98 @@ BEGIN
 			NEXTFRAME <= '0' after 10 ns; 
 
 		end loop; 
-
+		rxoutput_done <= '1'; 
 		wait; 
 			
 	end process rxoutput; 	
+
+	-- input data:
+	txinput: process is
+		file dinfile: text; 
+		variable L : line; 
+		variable newframein : integer := 0;
+		variable dinin : std_logic_vector(15 downto 0);
+
+	begin				
+		wait until falling_edge(RESET); 
+		
+		   wait for 400 ns; 
+		file_open(dinfile, "din.0.dat", read_mode); 
+		while not endfile(dinfile) loop
+			wait until rising_edge(CLKIOin); 
+			readline(dinfile, L);
+			read(L, newframein); 
+			hread(L, dinin);
+			if newframein = 0 then
+				NEWFRAME <= '0';
+			elsif newframein = 1 then
+				NEWFRAME <= '1';
+			end if; 
+			DIN <= dinin; 
+		end loop;
+		txinput_done <= '1';  
+		wait; 
+
+	end process txinput; 
+
+	
+	--tx output simulation
+	txoutput : process is
+		file gmiifile : text;
+		variable L : line; 
+		variable indata : std_logic_vector(7 downto 0) := (others => '0');
+		variable txenl : std_logic := '0'; 
+		variable txerrors : integer := 0;  
+	begin
+		wait until falling_edge(RESET);
+		   file_open(gmiifile, "gmiiout.0.dat", read_mode); 
+		while not endfile(gmiifile) or TX_EN = '1' loop
+		   	wait until rising_edge(GTX_CLK);
+
+			if txenl = '0' and TX_EN = '1' then -- rising edge
+				txerrors := 0; 
+				readline(gmiifile, L); 
+				hread(L, indata); 
+				if TXD /= indata then
+					txerrors := txerrors + 1; 
+				end if;
+				expected_gmiiout <= indata;  
+			elsif txenl = '1' and TX_EN = '0' then
+			     if txerrors /= 0 then
+					assert false
+						report "TXOUTPUT: error reading frame on gmii"
+						severity failure;   
+				end if;  
+
+			elsif txenl = '1' and TX_EN = '1' then
+				hread(L, indata); 
+				if TXD /= indata then
+					assert false
+						report "TXOUTPUT: error reading frame on gmii"
+						severity failure;   					
+				end if; 
+	
+				expected_gmiiout <= indata; 
+			end if;
+
+			txenl := TX_EN; 
+		end loop; 
+
+		txoutput_done <= '1';
+		wait;  
+	end process txoutput;
+
+
+	endofsim: process(rxinput_done, rxoutput_done,
+				txinput_done, txoutput_done) is
+	begin
+		if rxinput_done = '1' and rxoutput_done = '1'
+			and txoutput_done = '1' and txinput_done ='1' then
+				assert false
+					report "End of simulation"
+					severity failure;   
+		end if; 
+		
+	end process endofsim;   
+
 END;
