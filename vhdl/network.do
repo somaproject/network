@@ -3,6 +3,7 @@
 vlib work
 
 # actual hardware
+vcom -93 -explicit clockenable.vhd
 vcom -93 -explicit MII.vhd
 vcom -93 -explicit PHYstatus.vhd
 vcom -93 -explicit control.vhd

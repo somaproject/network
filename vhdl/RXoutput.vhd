@@ -384,7 +384,7 @@ begin
 		      ns <= rewait1; 
  		   end if; 
 	    when rewait1 => 
-	        mald <= '0';
+	       mald <= '0';
 		   mainc <= '0';
 		   den <= '1'; 
 		   fifo_reset <= '0';
@@ -420,7 +420,7 @@ begin
 		   cein <= '0';
 		   lenen <= '0'; 
 		   bpen <= '0';  
-             if nf = '0'  then
+         if nf = '0'  then
 			    ns <= latchbp;
  		   else
 			    ns <= waitdone;
@@ -436,7 +436,7 @@ begin
 		   bpen <= '1';   
              ns <= none;
 	    when others  => 
-	        mald <= '0';
+	      mald <= '0';
 		   mainc <= '0';
 		   den <= '0'; 
 		   fifo_reset <= '0';

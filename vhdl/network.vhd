@@ -28,7 +28,6 @@ entity network is
            DOUTEN : out std_logic;
            NEWFRAME : in std_logic;
            DIN : in std_logic_vector(15 downto 0);
-           DINEN : in std_logic;
 			  MDIO : inout std_logic;
 			  MDC : out std_logic;
 			  LEDACT : out std_logic;
@@ -275,7 +274,7 @@ begin
 			CLK0 => clk_to_bufg, 
 			CLKDV => open, 
 			CLK90 => MCLK);
-
+	 --MCLK <= clk; 	-- should be clk90
     clk_bufg : BUFG port map (
     		I => clk_to_bufg,
 			O => clk); 
@@ -441,5 +440,17 @@ begin
 				MACADDR => macaddr,
 				MDIO => MDIO,
 				MDC => MDC); 
+
+-- debugging
+	process(clk) is
+		variable l, ll :std_logic; 
+	
+	begin
+		if rising_edge(clk) then
+			l := rxfsr;
+			ll := l;
+			--LEDRX <= ll; 
+		end if; 
+	end process; 
 		  	
 end Behavioral;

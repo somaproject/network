@@ -22,6 +22,15 @@ SOURCE ping.vhd
 SOURCE rambuffer.vhd
 STIMULUS ping_test.tbw
 SOURCE serial.vhd
+SOURCE outping.vhd
+STIMULUS outping_test.tbw
 DEPASSOC ping ping.ucf
+DEPASSOC outping outping.ucf
+[Normal]
+xilxBitgCfg_GenOpt_ASCIIFile=xstvhd, spartan2e, Implementation.t_bitFile, 1068819097, True
+xilxMapAllowLogicOpt=xstvhd, spartan2e, Implementation.t_map, 1068937080, True
+[STATUS-ALL]
+outping.ngcFile=WARNINGS,1069023311
+outping.ngdFile=WARNINGS,1069023318
 [STRATEGY-LIST]
 Normal=True

@@ -20,7 +20,8 @@ entity NICserial is
 			  RW : in std_logic; 
 			  CMD : in std_logic;
 			  SAMPLE : out std_logic;  
-			  DONE : out std_logic);
+			  DONE : out std_logic;
+			  SETBIT : out std_logic);
 end NICserial;
 
 architecture Behavioral of NICserial is
@@ -145,7 +146,19 @@ begin
 					seraddr <= (not rwll) & "00" & addrll(4 downto 0);
 				end if; 
 
+				if cs = none then
+					macreadcnt <= (others => '0');
+				else
+					if cs = macreadwait then
+						macreadcnt <= macreadcnt + 1;
+					end if;
+				end if;
 
+				if macreadcnt = "00010" then
+					SETBIT <= '1';
+				else
+					SETBIT <= '0';
+				end if;  
 
 
 
@@ -169,21 +182,25 @@ begin
 				DONE <= '0';
 				sstart <= '0'; 
 				if cmdl = '1' then
-
-						if addrl(6) = '0' then
-							if rwl = '0'  then
-								ns <= ramw;
-							else
-								ns <= ramr;
+						if addrl(7) = '1' then
+							
+								ns <= macreadwait;
+							
+						else
+							if addrl(6) = '0' then
+								if rwl = '0'  then
+									ns <= ramw;
+								else
+									ns <= ramr;
+								end if;
+							elsif addrl(6) = '1' then
+								if rwl = '0' then
+									ns <= serialwl;
+								else
+									ns <= serialr; 
+								end if;
 							end if;
-						elsif addrl(6) = '1' then
-							if rwl = '0' then
-								ns <= serialwl;
-							else
-								ns <= serialr; 
-							end if;
-						end if;
- 
+						end if;  
 				else
 					ns <= none;
 				end if; 

@@ -267,13 +267,6 @@ begin
 
 
 				    -- latching the counters into our time frame
-				    txf_cntl <= txf_cnt;
-				    rxf_cntl <= rxf_cnt;
-				    txfifowerr_cntl <= txfifowerr_cnt;
-				    rxfifowerr_cntl <= rxfifowerr_cnt;
-				    rxphyerr_cntl <= rxphyerr_cnt;
-				    rxoferr_cntl <= rxoferr_cnt;
-				    rxcrcerr_cntl <= rxcrcerr_cnt;
 
 
 				    -- mac packet types
@@ -362,6 +355,13 @@ begin
 	end if; 
    end process slow_clock; 
 
+				    txf_cntl <= txf_cnt;
+				    rxf_cntl <= rxf_cnt;
+				    txfifowerr_cntl <= txfifowerr_cnt;
+				    rxfifowerr_cntl <= rxfifowerr_cnt;
+				    rxphyerr_cntl <= rxphyerr_cnt;
+				    rxoferr_cntl <= rxoferr_cnt;
+				    rxcrcerr_cntl <= rxcrcerr_cnt;
 
    lsclkdelta <= (not sclkll) and (sclkl);
    rw <= addr(7); 
@@ -395,6 +395,10 @@ begin
 			when "010101" => doutmux <= rxphyerr_cntl; 
 			when "010110" => doutmux <= rxoferr_cntl; 
 			when "010111" => doutmux <= rxcrcerr_cntl;
+			when "011001" => doutmux <= X"0000000" & "000" & lrxallf;
+			when "011010" => doutmux <= X"0000000" & "000" & lrxbcast;
+			when "011011" => doutmux <= X"0000000" & "000" & lrxmcast;
+			when "011100" => doutmux <= X"0000000" & "000" & lrxucast;
 			when "011101" => doutmux <= X"0000" & lmacaddr(15 downto 0);
 			when "011110" => doutmux <= X"0000" & lmacaddr(31 downto 16);
 			when "011111" => doutmux <= X"0000" & lmacaddr(47 downto 32);

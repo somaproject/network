@@ -301,7 +301,7 @@ BEGIN
 
    io_input_raw : process(clkioin) is
       
-	file load_file : text open read_mode is FILE_IO_RAW_TX;	
+	--file load_file : text open read_mode is FILE_IO_RAW_TX;	
 
 	variable L : line;
 	
@@ -311,17 +311,18 @@ BEGIN
 
    begin
      if rising_edge(clkioin) and io_input_mode = 0 then
- 		if not endfile(load_file) then 
-			readline(load_file, L);
-			read(L, tx_newframe);
-		 	hread(L, tx_data);
+-- 		if not endfile(load_file) then 
+--			readline(load_file, L);
+--			read(L, tx_newframe);
+--		 	hread(L, tx_data);
 			
 			
-			newframe_raw <= to_x01(tx_newframe);
-			din_raw <= to_x01(tx_data); 
+--			newframe_raw <= to_x01(tx_newframe);
+--			din_raw <= to_x01(tx_data); 
+			din_raw <= (others => '0'); 
+			newframe_raw <= '0';
 
-
-		end if;   
+--		end if;   
 
 	end if; 
    end process io_input_raw;

@@ -257,7 +257,7 @@ begin
 			lbpout4 <= lbpout3;  
 			BPOUT <= lbpout4; 
 
-			if cs = writebp then
+			if cs = writebp then --  writebp then
 			   RXF <= '1';
 			else
 			   RXF <= '0';

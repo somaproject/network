@@ -1,25 +1,38 @@
-info x 328 510 0 0 0 0 0 0 0 0 0 0 0 0 0 0 VHDL
-col x 1052 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+info x 346 510 0 0 0 0 0 0 0 0 0 0 0 0 0 0 VHDL
+col x 2092 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 radix x 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 entity name 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ping
-term mark 950 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+term mark 1978 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 vlib save 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
+library UNISIM;
+use UNISIM.VComponents.all;
 
-var add 1 0 0 226 12 0 1052 16000 8000 8000 3000 3000 0 0 0 0 CLKINInstd_logicRISING_EDGECLKIN
-var add 2 0 0 98 13 0 1052 16000 8000 8000 3000 3000 0 0 0 0 RESETInstd_logicRISING_EDGECLKIN
-var add 4 15 0 100 15 0 1052 16000 8000 8000 3000 3000 0 0 0 0 DINInstd_logic_vectorRISING_EDGECLKIN
-var add 5 0 0 98 16 0 1052 16000 8000 8000 3000 3000 0 0 0 0 DINENInstd_logicRISING_EDGECLKIN
-var add 3 0 0 98 14 0 1052 16000 8000 8000 3000 3000 0 0 0 0 CLKOUTOutstd_logicRISING_EDGECLKIN
-var add 6 0 0 98 17 0 1052 16000 8000 8000 3000 3000 0 0 0 0 NEXTFRAMEOutstd_logicRISING_EDGECLKIN
-var add 7 15 0 100 18 0 1052 16000 8000 8000 3000 3000 0 0 0 0 DOUTOutstd_logic_vectorRISING_EDGECLKIN
-var add 8 0 0 98 19 0 1052 16000 8000 8000 3000 3000 0 0 0 0 NEWFRAMEOutstd_logicRISING_EDGECLKIN
+var add 1 0 0 226 12 0 2092 16000 8000 8000 3000 3000 0 0 0 0 CLKINInstd_logicRISING_EDGECLKIN
+var add 3 0 0 98 14 0 2092 16000 8000 8000 3000 3000 0 0 0 0 RESETInstd_logicRISING_EDGECLKIN
+var add 5 15 0 100 16 0 2092 16000 8000 8000 3000 3000 0 0 0 0 DINInstd_logic_vectorRISING_EDGECLKIN
+var add 6 0 0 98 17 0 2092 16000 8000 8000 3000 3000 0 0 0 0 DINENInstd_logicRISING_EDGECLKIN
+var add 2 0 0 98 13 0 2092 16000 8000 8000 3000 3000 0 0 0 0 IFCLKInstd_logicRISING_EDGECLKIN
+var add 12 0 0 98 23 0 2092 16000 8000 8000 3000 3000 0 0 0 0 SOUTInstd_logicRISING_EDGECLKIN
+var add 15 7 0 100 26 0 2092 16000 8000 8000 3000 3000 0 0 0 0 ADDRInstd_logic_vectorRISING_EDGECLKIN
+var add 16 0 0 98 27 0 2092 16000 8000 8000 3000 3000 0 0 0 0 RWInstd_logicRISING_EDGECLKIN
+var add 17 0 0 98 28 0 2092 16000 8000 8000 3000 3000 0 0 0 0 CMDInstd_logicRISING_EDGECLKIN
+var add 4 0 0 98 15 0 2092 16000 8000 8000 3000 3000 0 0 0 0 CLKOUTOutstd_logicRISING_EDGECLKIN
+var add 7 0 0 98 18 0 2092 16000 8000 8000 3000 3000 0 0 0 0 NEXTFRAMEOutstd_logicRISING_EDGECLKIN
+var add 8 15 0 100 19 0 2092 16000 8000 8000 3000 3000 0 0 0 0 DOUTOutstd_logic_vectorRISING_EDGECLKIN
+var add 9 0 0 98 20 0 2092 16000 8000 8000 3000 3000 0 0 0 0 NEWFRAMEOutstd_logicRISING_EDGECLKIN
+var add 10 0 0 98 21 0 2092 16000 8000 8000 3000 3000 0 0 0 0 SCLKOutstd_logicRISING_EDGECLKIN
+var add 11 0 0 98 22 0 2092 16000 8000 8000 3000 3000 0 0 0 0 SINOutstd_logicRISING_EDGECLKIN
+var add 13 0 0 98 24 0 2092 16000 8000 8000 3000 3000 0 0 0 0 SCSOutstd_logicRISING_EDGECLKIN
+var add 18 0 0 98 29 0 2092 16000 8000 8000 3000 3000 0 0 0 0 SAMPLEOutstd_logicRISING_EDGECLKIN
+var add 19 0 0 98 30 0 2092 16000 8000 8000 3000 3000 0 0 0 0 DONEOutstd_logicRISING_EDGECLKIN
+var add 14 15 0 100 25 0 2092 16000 8000 8000 3000 3000 0 0 0 0 DATAInOutstd_logic_vectorRISING_EDGECLKIN
 vdone xxx 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 npos xxx 116 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 cell fill 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-cell fill 2 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cell fill 2 16 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 cell fill 2 24 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 cell fill 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0000000000000000
 cell fill 3 28 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0000000000110001
@@ -80,7 +93,7 @@ cell fill 4 232 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 cell fill 4 340 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 time info 50 50 3000 3000 8000 8000 1 1 0 0 0 0 0 0 0 0 psCLKIN
 font save -14 0 400 49 0 0 0 0 0 0 0 0 0 0 0 0 Times New Roman
-src mod 0 3835341840 29597261 0 0 0 0 0 0 0 0 0 0 0 0 0 ping.vhd
+src mod 0 2646310208 29600718 0 0 0 0 0 0 0 0 0 0 0 0 0 ping.vhd
 utd false 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 cellenab on 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 grid off 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
@@ -93,6 +106,9 @@ Click outside me to update
 com add 1 232 -17920 7520 21 -3 -38 0 0 0 0 0 0 0 0 0 Double click on me to edit.
 Click outside me to update
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_ulogic_vectorVECTORDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 signedVECTORDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_ulogicBITDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
@@ -244,10 +260,6 @@ type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
-type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
-type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
-type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
-type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
@@ -327,11 +339,19 @@ type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
+type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logic_vectorVECTORDOWNTO
 type info 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 std_logicBITDOWNTO
 opt vhdl87 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 NumClocks x 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 clock_1 name 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 CLKIN
-Zoom_level x 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.00000000000000
+Zoom_level x 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5.06250000000000

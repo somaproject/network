@@ -5,8 +5,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 --  Uncomment the following lines to use the declarations that are
 --  provided for instantiating Xilinx primitive components.
---library UNISIM;
---use UNISIM.VComponents.all;
+library UNISIM;
+use UNISIM.VComponents.all;
 
 entity ping is
     Port ( CLKIN : in std_logic;
@@ -72,7 +72,7 @@ architecture Behavioral of ping is
 	signal rcs, rns : states_rx := none; 
 
 	-- clocking
-	signal clk : std_logic := '0'; 
+	signal clk, clk_to_bufg, clksl, clksl_to_bufg : std_logic := '0'; 
 
 
 	component rambuffer is
@@ -99,11 +99,17 @@ architecture Behavioral of ping is
 				  DONE : out std_logic);
 	end component;
 
+	component CLKDLL
+			generic (CLKDV_DIVIDE : in real := 4.0); 
+	      port (CLKIN, CLKFB, RST : in STD_LOGIC;
+	      CLK0, CLK90, CLK180, CLK270, CLK2X, CLKDV, LOCKED : out std_logic);
+	end component;
 
 begin
 
+	CLKOUT <= clksl; 
 	ram0 : rambuffer port map (
-			CLK => clk,
+			CLK => clksl,
 			RESET => RESET,
 			DIN => bufin,
 			DOUT => bufout0,
@@ -111,7 +117,7 @@ begin
 			ADDR => a0); 
 
 	ram1 : rambuffer port map (
-			CLK => clk,
+			CLK => clksl,
 			RESET => RESET,
 			DIN => bufin,
 			DOUT => bufout1,
@@ -133,17 +139,33 @@ begin
 			DONE => DONE); 
 
 
+	 clk_DLL : CLKDLL generic map (
+	 		CLKDV_DIVIDE => 2.5)
+			port map (
+			CLKIN => CLKIN,
+			RST => RESET,
+			CLKFB => clk,
+			CLK0 => clk_to_bufg,
+			CLKDV => clksl_to_bufg); 
+	clk_bufg : BUFG port map (
+			I => clk_to_bufg,
+			O => clk); 
+	clksl_bufg : BUFG port map (
+			I => clksl_to_bufg,
+			O => clksl); 
+
+
+
+
 	-- making clocks
 
-   clk<= clkin; 
-
-	clock: process(clk, RESET) is
+	clock: process(clksl, RESET) is
 	begin
 	   if RESET = '1' then
 		   tcs <= none;
 			rcs <= none; 
 		else
-		   if rising_edge(clk) then 
+		   if rising_edge(clksl) then 
 				rcs <= rns;
 				tcs <= tns; 
 
@@ -152,9 +174,9 @@ begin
 				lnewframe1 <= lnewframe;
 				lnewframe2 <= lnewframe1;
 				lnewframe3 <= lnewframe2; 
-				NEXTFRAME <= lnextframe;
+					NEXTFRAME <= lnextframe;  
 				dinenl <= DINEN;
-				NEWFRAME <= lnewframe3; 
+					NEWFRAME <= lnewframe3; 
 				bufin <= dinl;
 
 				-- this is some pretty serious stuff
@@ -169,8 +191,6 @@ begin
 				else
 					ldout <= bufout0;
 				end if; 
-
-
 
 				-- comparison registers:
 				if dinenl = '1' and ai = "00000000001" then
@@ -309,7 +329,7 @@ begin
 				rns <= readf;
 			when readf => 
 				lnextframe <= '1';
-				if ai = inlen then 
+				if (ail & '0') > inlen then 
 					rns <= validp;
 				else
 					rns <= readf;
