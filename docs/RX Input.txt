@@ -47,9 +47,13 @@ FD is an anding of RD, DV, and not ENDF. FD is high ==> DATA contains valid in-f
 
 RXInput can be viewed as having four parts:
    * input data latching: the appropriate states of the FSM latch the output of data onto LM. This is latched onto LML once a word, and is written to the memory buffer via MD. 
-   * Byte counting: bcnt counts the number of FDs that come in, i.e. the number of bytes. Note that we write four less than this, because FD actually includes the FCS as well. 
+   * Byte counting: bcnt counts the number of FDs that come in, i.e. the number of bytes. We reset this to -4, because FD-highs end up counting the FCS as well. Resetting to -4 is much faster than having a subtract-by-4 component. 
+
 
    * CRC checking: Heavily pipelined CRC checking using previous CRC_combinational code. We reload CRCL withi 0xFFFFFFF to start the CRC; again, each FD-signaled byte is latched, and we eventually check to see if we arrive at the correct value -- this causes the assertion of CRCVALID. 
 
     * memory address writing: this manages the base pointer. Each new cycle, we load the BP into the MACNT counter, which is eventually written out to MA; thus we sequentially write the frames. Note that we skip over writing the BP and actually write the first valid word at BP+1; the BPWEN mux lets us go back to the BP and write the BCNT value. 
     We only update LPB (thus bpout) -after- the complete, total successful reception of a valid frame. This is the only mechanism we have to commit data to the fifo. 
+
+There is also the address valid part -- this is just a heavily pipelined subsystem that checks if the DESTADDR is of the correct type and if we are accepting frames of that type. RXALLF=1 implies we pass all frames, i.e. promiscuous mode. 
+

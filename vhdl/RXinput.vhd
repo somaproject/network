@@ -169,7 +169,7 @@ begin
 
 
 				if cs = none then
-					bcnt <= (others => '0');
+					bcnt <= X"FFFC";
 				else
 					if fd = '1' then
 						bcnt <= bcnt + 1;
@@ -180,7 +180,7 @@ begin
 				if bpwenl = '0' then
 					MD <= lml;
 				else
-					MD <= (X"0000" & (bcnt - 4)); 
+					MD <= (X"0000" & bcnt); 
 				end if; 
 
 				if cs = none then 	
@@ -240,6 +240,37 @@ begin
 					crcvalid <= '1';
 				else
 					crcvalid <= '0';
+				end if; 
+
+				-- output signal latches
+				if cs = validf then	
+					RXF <= '1';
+				else
+					RXF <= '0';
+				end if; 
+
+				if cs = checkf and ofl = '1' then	
+					RXOFERR <= '1';
+				else
+					RXOFERR <= '0';
+				end if; 
+
+				if cs = checkf and fifofull = '1' then	
+					RXFIFOWERR <= '1';
+				else
+					RXFIFOWERR <= '0';
+				end if; 
+
+				if cs = bpwait3 and crcvalid = '0' then	
+					RXCRCERR <= '1';
+				else
+					RXCRCERR <= '0';
+				end if; 
+
+				if cs = checkf and erl = '1' then	
+					RXPHYERR <= '1';
+				else
+					RXPHYERR <= '0';
 				end if; 
 
 			end if;

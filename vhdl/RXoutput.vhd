@@ -5,8 +5,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 --  Uncomment the following lines to use the declarations that are
 --  provided for instantiating Xilinx primitive components.
---library UNISIM;
---use UNISIM.VComponents.all;
+library UNISIM;
+use UNISIM.VComponents.all;
 
 entity RXoutput is
     Port ( CLK : in std_logic;
@@ -27,425 +27,482 @@ architecture Behavioral of RXoutput is
 -- side of the receiving system. Lots of clock-boundary crossing
 -- here, be careful!
 
-   --MA code
-   signal bp, macnt, lbp, bpl, len: std_logic_vector(15 downto 0) := 
-   					(others => '0');	
-   signal lenen, bpen, mainc, mald, lmasel, lmasell: std_logic := '0';
-   signal lenr : std_logic_vector(15 downto 0) := (others => '0'); 
+	-- output side
+	signal do : std_logic_vector(15 downto 0)
+		:= (others => '0');
+	signal nfl, nextd, ldouten, aeq : std_logic := '0';
+	signal ao, ail, aill : std_logic_vector(9 downto 0)
+		:= (others => '0');
+		
+	-- input side
+	signal mdl : std_logic_vector(31 downto 0)
+		:= (others => '0');
+	signal ldi, di : std_logic_vector(15 downto 0)
+		:= (others => '0');
+	signal lai, ai : std_logic_vector(9 downto 0)
+		:= (others => '0');
+	signal fifowe, fifowel, we, nfll, halffull, nearfull,
+		lhalffull, lnearfull, mdsel, mdsell, lenen : std_logic := '0';
+		
+	-- macaddr
+	signal bpinl, len, lenr, lbp, bp, macnt :
+		 std_logic_vector(15 downto 0)
+		:= (others => '0');
+	signal mainc, bpen : std_logic := '0';
 
+	type states is (none, waitclken, swait0, swait1, 
+		swait2, swait3, swait4, latchlen, wait0,
+		startw, loww, highw, fifonop, nextw,
+		rewait0, rewait1,reincmac, waitdone, latchbp); 
 
-   -- data registers
-   signal mdl : std_logic_vector(31 downto 0) := (others => '0');
-   signal lma : std_logic_vector(15 downto 0) := (others => '0');
+	signal cs, ns : states := none; 
 
-   -- fifo signals
-   signal fifodin, fifodout: std_logic_vector(15 downto 0) := 
-   					   (others =>'0');
-   signal fifo_full, fifo_nearfull, cein: std_logic := '0';
-   signal fifo_wrcount : std_logic_vector(1 downto 0) := "00";
-   signal fifo_reset : std_logic := '0'; 
-   signal ceout, invalid, ceinl, ceinll : std_logic := '0';
-   signal fe, ff : std_logic := '0'; 
+	-- overflow
+	signal addrmsbs : std_logic_vector(3 downto 0)
+		:= (others => '0'); 
 
+	component RAMB16_S18_S18 
+	  generic (
+	       WRITE_MODE_A : string := "WRITE_FIRST";
+	       WRITE_MODE_B : string := "WRITE_FIRST";
+	       INIT_A : bit_vector  := X"00000";
+	       SRVAL_A : bit_vector := X"00000";
 
-   -- new-frame signals
-   signal nf, nfl, nfdelta : std_logic :=  '0';
-   signal den, denl, denll, ldouten, ldouten2 : std_logic := '0';
-   
-   -- state machine
-   type states is (none, waitclken, swait0, swait1, swait2, swait3, 
-   			    swait4, latchlen, wait0, wait1, startw, lowbyte,
-			    highbyte, nextw, fifonop, reincmac, waitdone, rewait0,
-				 rewait1, latchbp); 
-   signal cs, ns : states := none; 
+	       INIT_B : bit_vector  := X"00000";
+	       SRVAL_B : bit_vector := X"00000";
 
-	component rxoutput_async_fifo IS
-		port (
-		din: IN std_logic_VECTOR(15 downto 0);
-		wr_en: IN std_logic;
-		wr_clk: IN std_logic;
-		rd_en: IN std_logic;
-		rd_clk: IN std_logic;
-		ainit: IN std_logic;
-		dout: OUT std_logic_VECTOR(15 downto 0);
-		full: OUT std_logic;
-		empty: OUT std_logic;
-		wr_count: OUT std_logic_VECTOR(1 downto 0);
-		rd_err: OUT std_logic);
-	END component;
+	       INITP_00 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INITP_01 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INITP_02 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INITP_03 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_00 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_01 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_02 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_03 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_04 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_05 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_06 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_07 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_08 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_09 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_0A : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_0B : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_0C : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_0D : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_0E : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_0F : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_10 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_11 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_12 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_13 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_14 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_15 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_16 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_17 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_18 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_19 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_1A : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_1B : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_1C : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_1D : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_1E : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_1F : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_20 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_21 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_22 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_23 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_24 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_25 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_26 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_27 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_28 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_29 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_2A : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_2B : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_2C : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_2D : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_2E : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_2F : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_30 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_31 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_32 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_33 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_34 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_35 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_36 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_37 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_38 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_39 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_3A : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_3B : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_3C : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_3D : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_3E : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
+	       INIT_3F : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000");
+	  port (DIA    : in STD_LOGIC_VECTOR (15 downto 0);
+	        DIB    : in STD_LOGIC_VECTOR (15 downto 0);
+	        DIPA    : in STD_LOGIC_VECTOR (1 downto 0);
+	        DIPB    : in STD_LOGIC_VECTOR (1 downto 0);
+	        ENA    : in STD_logic;
+	        ENB    : in STD_logic;
+	        WEA    : in STD_logic;
+	        WEB    : in STD_logic;
+	        SSRA   : in STD_logic;
+	        SSRB   : in STD_logic;
+	        CLKA   : in STD_logic;
+	        CLKB   : in STD_logic;
+	        ADDRA  : in STD_LOGIC_VECTOR (9 downto 0);
+	        ADDRB  : in STD_LOGIC_VECTOR (9 downto 0);
+	        DOA    : out STD_LOGIC_VECTOR (15 downto 0);
+	        DOB    : out STD_LOGIC_VECTOR (15 downto 0);
+	        DOPA    : out STD_LOGIC_VECTOR (1 downto 0);
+	        DOPB    : out STD_LOGIC_VECTOR (1 downto 0)
+	       ); 
+
+	end component;
 
 begin
+	
+	-- ram instantiation
+	fifo : RAMB16_S18_S18 port map (
+		DIA => di,
+		DIB => X"0000",
+		DIPA => "00",
+		DIPB => "00",
+		ENA => '1',
+		ENB => nfl,
+		WEA => we, 
+		WEB => '0',
+		SSRA => '0',
+		SSRB => '0',
+		CLKA => clk,
+		CLKB => clkio,
+		ADDRA => ai,
+		ADDRB => ao,
+		DOA => open,
+		DOB => do,
+		DOPA => open,
+		DOPB => open);
+		
+	-- the output side
+	nextd <= nfl and (not aeq); 
+	aeq <= '1' when aill = ao else '0';
+	
+	addrmsbs <= ao(9 downto 8) & aill(9 downto 8);
+	lbp <= lenr + bp + 1; 
 
-   fifo : rxoutput_async_fifo port map (
-   		din => fifodin,
-		wr_en => ceinll,
-		wr_clk => clk,
-		rd_en => denll,
-		rd_clk => CLKIO,
-		ainit => fifo_reset,
-		dout => fifodout,
-		full => ff,
-		empty => fe,
-		wr_count => fifo_wrcount,
-		rd_err => invalid);
-
-   MA <= macnt;
-   int_clock: process(RESET, CLK) is
-   begin
-     if RESET = '1' then
-	   cs <= none;
-
-     else
-	   if rising_edge(CLK) then
-	      cs <= ns; 
-
-		 mdl <= MQ; 
-
-		 if lenen = '1' then 
-		    len <= mdl(15 downto 0);
- 		 end if; 
-
-		 if bpen = '1' then 
-		    bp <= lbp;
-           end if; 	  
-
-		 if mald = '1' then 
-		    macnt <= bp;
-		 else
-		    if mainc = '1' then
-		       macnt <= macnt + '1';
-		    end if; 
-           end if; 
-
-		 
-
-		 fifodin <= lma;
-		 ceinl <= cein; 
-		 ceinll <= ceinl; 
-		 lmasell <= lmasel;
-
-		 if fifo_wrcount = "11" then 
-		 	fifo_full <= '1';
-		 else
-		 	fifo_full <= '0';
-		 end if; 
-		 bpl <= bp; 
-		 FBBP <= bp; 
-
-		 if fifo_wrcount = "10" or fifo_wrcount = "11" then
-		     fifo_nearfull <= '1';
-		 else
-		 	fifo_nearfull <=  '0';
-		 end if; 
-		 
-		 nfl <= nf;  	
+	output : process(CLKIO) is
+	begin
+		if rising_edge(CLKIO) then
+			DOUT <= do;
+			nfl <= NEXTFRAME;
+			if nfl = '0' then
+				AO <= (others => '0');
+			else
+				if nextd = '1' then
+					ao <= ao + 1;
+				end if; 
+			end if;
+			if nfl = '0' then
+				aill <= (others => '0');
+			else 
+				aill <= ail;
+			end if;  
+			ldouten <= nextd;
+			DOUTEN <= ldouten;
 
 
-		 -- rounding of length for correct BP 
-		 case len(1 downto 0) is
-		 	when "00" => lenr <= len; 
-			when "01" => lenr <= len + 3; 
-			when "10" => lenr <= len + 2;
-			when others => lenr <= len + 1; 
-		 end case; 
-        end if; 
-	end if; 
-   end process int_clock;
+		end if;	
+	end process output;  	
+
+	-- input
+	ldi <= mdl(15 downto 0) when mdsell = '0' else mdl(31 downto 16);
+
+	MA <= macnt; 
+
+	input : process(RESET, CLK) is
+	begin
+		if RESET = '1' then
+			cs <= none;
+			MACNT <= (others => '0');
+		else
+			if rising_edge(CLK) then
+				
+				-- state machine
+				cs <= ns;
+
+				-- input latching
+				bpinl <= BPIN;
+				mdl <= MQ;
+				-- addresses
+				if lenen = '1' then
+					len <= mdl(15 downto 0);
+				end if; 
+
+				if bpen = '1' then
+					bp <= lbp;
+				end if; 
+
+				if cs = none then
+					macnt <= bp;
+				else
+					if mainc = '1' then
+						macnt <= macnt + 1;
+					end if;
+				end if; 
+
+				-- data
+				di <= ldi; 
+
+				ai <= lai; 
+				mdsell <= mdsel; 
+				fifowel <= fifowe; 
+				we <= fifowel;
+
+				if nfll = '0' then
+					lai <= (others => '0');
+				else
+					if fifowel = '1' then
+						lai <= lai + 1;
+					end if; 
+				end if; 
+
+				if len(1 downto 0) = "00" then
+					lenr <= "00" & len(15 downto 2); 
+				else
+					lenr <= "00" & (len(15 downto 2) +1);
+				end if; 
+				if nfll = '0' then
+					ail <= (others => '0');
+				else
+					ail <= lai;
+  				end if;
+				nfll <= nfl;
 
 
-   -- general combinational for internal clock
-   lma <= mdl(15 downto 0) when lmasell = '0'
-   		else mdl(31 downto 16); 
-   lbp <= ("00" & lenr(15 downto 2))  + bp + X"0001";
+				FBBP <= bp; 
 
-		  
-   nfdelta <= nf and (not nfl);
-
-   ext_clock: process(CLKIO) is
-   begin
-      if rising_edge(CLKIO) then
-	    DOUT <= fifodout;
-	    ldouten2 <= ldouten;
-	    DOUTEN <= ldouten2;
-	    nf <= NEXTFRAME;
-	    denl <= den;
-	    denll <= denl;
-	 end if;
-   
-   end process ext_clock;
+				-- fifo status?
+				
+				halffull <= lhalffull;
+				nearfull <= lnearfull; 
+			end if;
+		end if; 
+ 	end process input; 
 
 
-   -- combinational for external clock
-   ldouten <= denll and (not invalid); 
+	lhalffull <= '0' when addrmsbs = "0000" else
+			  '0' when addrmsbs = "0001" else
+			  '1' when addrmsbs = "0010" else
+			  '1' when addrmsbs = "0011" else
+			  '1' when addrmsbs = "0100" else
+			  '0' when addrmsbs = "0101" else
+			  '0' when addrmsbs = "0110" else
+			  '1' when addrmsbs = "0111" else
+			  '1' when addrmsbs = "1000" else
+			  '1' when addrmsbs = "1001" else
+			  '0' when addrmsbs = "1010" else
+			  '0' when addrmsbs = "1011" else
+			  '0' when addrmsbs = "1100" else
+			  '1' when addrmsbs = "1101" else
+			  '1' when addrmsbs = "1110" else
+			  '0';
+
+	lnearfull <= '0' when addrmsbs = "0000" else
+			  '0' when addrmsbs = "0001" else
+			  '0' when addrmsbs = "0010" else
+			  '1' when addrmsbs = "0011" else
+			  '1' when addrmsbs = "0100" else
+			  '0' when addrmsbs = "0101" else
+			  '0' when addrmsbs = "0110" else
+			  '0' when addrmsbs = "0111" else
+			  '0' when addrmsbs = "1000" else
+			  '1' when addrmsbs = "1001" else
+			  '0' when addrmsbs = "1010" else
+			  '0' when addrmsbs = "1011" else
+			  '0' when addrmsbs = "1100" else
+			  '0' when addrmsbs = "1101" else
+			  '1' when addrmsbs = "1110" else
+			  '0';
+
+	fsm: process(CS, nfll, bpinl, bp, clken, nearfull, halffull) is
+	begin
+		case cs is
+			when none=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				if nfll = '1' then
+					ns <= waitclken;
+				else
+					ns <= none;
+				end if; 
+			when waitclken=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				if BPINL /= bp and clken = '1' then
+					ns <= swait0;
+				else
+					ns <= waitclken;
+				end if; 
+			when swait0 =>
+				lenen <= '0';
+				mainc <= '1';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= swait1;
+			when swait1 =>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= swait2;
+			when swait2 =>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= swait3;
+			when swait3 =>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= swait4;
+			when swait4 =>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';	
+				bpen <= '0'; 
+				ns <= latchlen;
+			when latchlen =>
+				lenen <= '1';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '1';
+				bpen <= '0'; 
+				ns <= wait0;
+			when wait0 =>
+				lenen <= '0';
+				mainc <= '1';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= startw;
+			when startw=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= loww;
+			when loww=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '1';
+				bpen <= '0'; 
+				ns <= highw;
+			when highw=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '1';
+				fifowe <= '1';
+				bpen <= '0'; 
+				if nearfull = '1' then
+					ns <= fifonop;
+				else
+					ns <= nextw;
+				end if; 
+			when nextw=>
+				lenen <= '0';
+				mainc <= '1';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				if lbp = macnt then
+					ns <= waitdone;
+				else
+					ns <= startw;
+				end if; 
+			-- now the detour states
+			when fifonop=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				if nearfull = '0' and halffull = '0'
+					and clken = '1' then
+					ns <= rewait0;
+				else
+					ns <= fifonop;
+				end if; 
+
+			when rewait0=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= rewait1; 
+			when rewait1=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= reincmac; 
+			when reincmac=>
+				lenen <= '0';
+				mainc <= '1';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				if lbp = macnt then 
+					ns <= waitdone;
+				else
+					ns <= startw; 
+				end if; 
 
 
-   -- state machine!!!
-   fsm : process(cs, nfdelta, nf, bp, BPIN, bpl, CLKEN, FIFO_FULL,
-			  FIFO_NEARFULL, macnt, lbp) is
-   begin
-      case cs is
-	    when none => 
-	        mald <= '1';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '1';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';  
-		   if nfdelta = '1' then
-		      ns <= waitclken;
-		   else
-		      ns <= none;
-	        end if;
-	    when waitclken => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';    
-	        if (not (bpl = BPIN)) and clken ='1' then
-		      ns <= swait0;
-	  	   else
-		      ns <= waitclken;
-		   end if;
+			when waitdone=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				if nfll = '0'  then
+					ns <= latchbp;
+				else
+					ns <= waitdone;
+				end if; 
+			when latchbp=>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '1'; 
+				ns <= none; 
+			when others =>
+				lenen <= '0';
+				mainc <= '0';
+				mdsel <= '0';
+				fifowe <= '0';
+				bpen <= '0'; 
+				ns <= none;
+		end case; 
+	end process fsm; 
 
-	    when swait0 => 
-	        mald <= '0';
-		   mainc <= '1';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   ns <= swait1;
-	    when swait1 => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   ns <= swait2;	    	    
-	    when swait2 => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   ns <= swait3;
-	    when swait3 => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   ns <= swait4;
-	    when swait4 => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   ns <= latchlen;
-	    when latchlen => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '1';
-		   lenen <= '1';
-		   bpen <= '0';   
-		   ns <= wait1;
-	    when wait1 => 
-	        mald <= '0';
-		   mainc <= '1';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		   else
-		      ns <= startw;
- 		   end if; 
-	    when startw => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		   else
-		      ns <= lowbyte;
- 		   end if; 
-	    when lowbyte => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '1';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		   else
-		      ns <= highbyte;
- 		   end if; 
-	    when highbyte => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '1';
-		   cein <= '1';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		   else
-		      if fifo_full = '1' then
-			      ns <= fifonop;
- 			   else
-			      ns <= nextw;
-			   end if;
- 		   end if; 
-	    when nextw => 
-	        mald <= '0';
-		   mainc <= '1';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		   else
-		      if macnt = bpl then
-			    ns <= waitdone;
- 			 else
-			    ns <= startw;
-			 end if;
- 		   end if; 
-	    when fifonop => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		else
-		      if fifo_nearfull = '0' and CLKEN = '1'then
-			      ns <= rewait0;
- 			   else
-			      ns <= fifonop; 
-			   end if;
- 		   end if; 
-	    when rewait0 => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		else
-		      ns <= rewait1; 
- 		   end if; 
-	    when rewait1 => 
-	       mald <= '0';
-		   mainc <= '0';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		else
-		      ns <= reincmac; 
- 		   end if;  
-	    when reincmac => 
-	        mald <= '0';
-		   mainc <= '1';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-		   if nf = '0' then 
-		      ns <= latchbp;
-   		   else
-		      ns <= startw;
- 		   end if; 
-	    when waitdone => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '1'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0'; 
-		   bpen <= '0';  
-         if nf = '0'  then
-			    ns <= latchbp;
- 		   else
-			    ns <= waitdone;
-		   end if;
-	    when latchbp => 
-	        mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '1';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '1';   
-             ns <= none;
-	    when others  => 
-	      mald <= '0';
-		   mainc <= '0';
-		   den <= '0'; 
-		   fifo_reset <= '0';
-		   lmasel <= '0';
-		   cein <= '0';
-		   lenen <= '0';
-		   bpen <= '0';   
-             ns <= none;
 
- 	end case; 
-   end process fsm; 
 end Behavioral;
