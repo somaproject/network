@@ -250,14 +250,6 @@ architecture Behavioral of network is
 	           RXCRCERRSR : out std_logic);
 	end component;	
 
-	component memdebug is
-    Port ( CLK : in std_logic;
-           CLKEN : in std_logic; 
-			  DOUT : out std_logic_vector(31 downto 0); 
-			  ADDR : out std_logic_vector(16 downto 0));
-	end component;
-
-
 	component CLKDLL
 	      port (CLKIN, CLKFB, RST : in STD_LOGIC;
 	      CLK0, CLK90, CLK180, CLK270, CLK2X, CLKDV, LOCKED : out std_logic);
@@ -277,13 +269,6 @@ begin
     addr3ext <= ('1' & addr3);
     addr4ext <= ('0' & addr4);
 
-
-	 -- debug instantiation
-	 memwdebug : memdebug port map (
-	 		CLK => CLK, 
-			CLKEN => CLKEN1,
-			DOUT => debugwdata,
-			ADDR => debugwaddr); 
 
 
     clkio_dll : CLKDLL port map (
@@ -325,7 +310,7 @@ begin
     		I => clkrx_to_bufg,
 			O => clkrx); 
 
-	 U1: OBUF port map (I => clk90, O => MCLK);
+	 U1: OBUF port map (I => clk, O => MCLK);
  	 U2: OBUF port map (I => clk180, O => GTX_CLK);
 	 
 	 slowclock: clockenable port map (
@@ -356,7 +341,7 @@ begin
 			  ADDREXT => MA,
 			  ADDR1 => addr1ext,
 			  ADDR2 => addr2ext,
-			  ADDR3 => debugaddr,--addr3ext,
+			  ADDR3 => addr3ext,
 			  ADDR4 => addr4ext,
 			  D1 => d1,
 			  D2 => d2, 
@@ -364,9 +349,9 @@ begin
 			  D4 => d4,
 			  Q1 => q1,
 			  Q2 => q2,
-			  Q3 => debugdata,--q3,
+			  Q3 => q3,
 			  Q4 => q4,
-			  WE1 => '0',--'1', 
+			  WE1 => '1', 
 			  WE2 => '0',
 			  WE3 => '0',
 			  WE4 =>  '1',
@@ -482,16 +467,5 @@ begin
 				RXFBBP => rxfbbp,
 				TXFBBP => txfbbp); 
 
--- debugging
-	process(clk) is
-		variable l, ll :std_logic; 
-	
-	begin
-		if rising_edge(clk) then
-			l := rxfsr;
-			ll := l;
-			--LEDRX <= ll; 
-		end if; 
-	end process; 
-		  	
+	  	
 end Behavioral;

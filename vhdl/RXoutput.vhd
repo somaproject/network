@@ -45,7 +45,7 @@ architecture Behavioral of RXoutput is
 		lhalffull, lnearfull, mdsel, mdsell, lenen : std_logic := '0';
 		
 	-- macaddr
-	signal bpinl, len, lenr, lbp, bp, macnt :
+	signal bpinl, len, lenr, llbp, lbp, bp, macnt :
 		 std_logic_vector(15 downto 0)
 		:= (others => '0');
 	signal mainc, bpen : std_logic := '0';
@@ -189,6 +189,7 @@ begin
 	aeq <= '1' when aill = ao else '0';
 	
 	addrmsbs <= ao(9 downto 8) & aill(9 downto 8);
+	 
 	lbp <= lenr + bp + 1; 
 
 	output : process(CLKIO) is
@@ -242,6 +243,8 @@ begin
 				if bpen = '1' then
 					bp <= lbp;
 				end if; 
+
+				
 
 				if cs = none then
 					macnt <= bp;

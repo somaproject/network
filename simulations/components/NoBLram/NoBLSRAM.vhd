@@ -10,7 +10,7 @@ use ieee.std_logic_textio.ALL;
 library UNISIM;
 use UNISIM.VComponents.all;
 
-entity test_NoBLSRAM is
+entity NoBLSRAM is
     Generic (  FILEIN : string := "SRAM_in.dat"; 
     			FILEOUT : string := "SRAM_out.dat";
 				physical_sim : integer := 0;
@@ -24,9 +24,9 @@ entity test_NoBLSRAM is
            WE : in std_logic;
            RESET : in std_logic;
 		 SAVE : in std_logic);
-end test_NoBLSRAM;
+end NoBLSRAM;
 
-architecture Behavioral of test_NoBLSRAM is
+architecture Behavioral of NoBLSRAM is
 -- another ram simulation.  filein is our input file, fileout is
 -- where we save to. filein is read on startup, fileout is 
 -- saved. This is ram designed to behave like Cypresses NoBL 

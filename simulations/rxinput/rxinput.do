@@ -19,3 +19,5 @@ vsim -t 1ps -L xilinxcorelib -lib work RXinputtest
 view wave
 add wave *
 view structure
+run -All
+exit

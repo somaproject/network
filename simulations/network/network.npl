@@ -32,5 +32,7 @@ SOURCE ..\..\vhdl\crc_combinational.vhd
 SOURCE ..\..\vhdl\memory.vhd
 SOURCE ..\..\vhdl\PHYstatus.vhd
 SOURCE ..\..\vhdl\FIFOcheck.vhd
+STIMULUS networktest.vhd
+SOURCE ..\components\NoBLram\NoBLSRAM.vhd
 [STRATEGY-LIST]
 Normal=True

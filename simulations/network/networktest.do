@@ -17,16 +17,17 @@ vcom -93 -explicit ../../vhdl/RXoutput.vhd
 vcom -93 -explicit ../../vhdl/TXinput.vhd
 vcom -93 -explicit ../../vhdl/crc_combinational.vhd
 vcom -93 -explicit ../../vhdl/TXoutput.vhd
+vcom -93 -explicit ../../vhdl/Network.vhd
 
 
 
 -- simulation entities
-vcom -93 -explicit ../components/
-vcom -93 -explicit controltest.vhd
+vcom -93 -explicit ../components/NoBLram/NoBLSRAM.vhd
+vcom -93 -explicit networktest.vhd
 
 
 
-vsim -t 1ps -L xilinxcorelib -lib work controltest
+vsim -t 1ps -L xilinxcorelib -lib work networktest
 
 view wave
 add wave *

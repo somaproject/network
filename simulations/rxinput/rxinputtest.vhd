@@ -183,8 +183,7 @@ BEGIN
 			end if; 
 		end loop;
 		file_close(memfile); 
-
-		wait; 
+		
 		assert false
 			report "End of simulation"
 			severity failure;   

@@ -1,7 +1,7 @@
 Release 6.2.03i Par G.31a
 Copyright (c) 1995-2004 Xilinx, Inc.  All rights reserved.
 
-CLAUDE::  Mon Nov 08 15:03:19 2004
+CLAUDE::  Fri Nov 12 11:30:24 2004
 
 
 C:/Xilinx/bin/nt/par.exe -w -intstyle ise -ol high -xe n -t 1 network_map.ncd
@@ -148,7 +148,7 @@ Device utilization summary:
       Number of LOCed External IOBs  123 out of 124    99%
 
    Number of RAMB16s                   2 out of 12     16%
-   Number of Slices                 1594 out of 1920   83%
+   Number of Slices                 1617 out of 1920   84%
       Number of SLICEMs               12 out of 960     1%
 
    Number of BUFGMUXs                  3 out of 8      37%
@@ -162,12 +162,12 @@ Placer cost table entry (-t): 1
 Router effort level (-rl):    High (set by user)
 Extra effort level (-xe):     Normal (set by user)
 
-Starting initial Timing Analysis.  REAL time: 2 secs 
+Starting initial Timing Analysis.  REAL time: 0 secs 
 Finished initial Timing Analysis.  REAL time: 3 secs 
 
 
 Phase 1.1
-Phase 1.1 (Checksum:98f16f) REAL time: 3 secs 
+Phase 1.1 (Checksum:98f20f) REAL time: 3 secs 
 
 .....
 ....
@@ -178,51 +178,57 @@ Phase 4.5
 Phase 4.5 (Checksum:26259fc) REAL time: 5 secs 
 
 Phase 5.8
-....................................
-..........
-..............................................
-........
+............................................................
 .......
-Phase 5.8 (Checksum:bd1f04) REAL time: 27 secs 
+...............................................................................................
+...........
+.........
+.........................................................................
+.........
+Phase 5.8 (Checksum:bcd2ce) REAL time: 44 secs 
 
 Phase 6.11
-......
-Phase 6.11 (Checksum:c6d93b) REAL time: 31 secs 
+.......................
+Phase 6.11 (Checksum:c747a5) REAL time: 59 secs 
 
 Phase 7.5
-Phase 7.5 (Checksum:42c1d79) REAL time: 31 secs 
+Phase 7.5 (Checksum:42c1d79) REAL time: 59 secs 
 
 Phase 8.18
-Phase 8.18 (Checksum:4c4b3f8) REAL time: 45 secs 
+Phase 8.18 (Checksum:4c4b3f8) REAL time: 1 mins 15 secs 
 
 Writing design to file network.ncd.
 
-Total REAL time to Placer completion: 46 secs 
-Total CPU time to Placer completion: 45 secs 
+Total REAL time to Placer completion: 1 mins 16 secs 
+Total CPU time to Placer completion: 1 mins 15 secs 
 
 
-Phase 1: 9697 unrouted;       REAL time: 46 secs 
+Phase 1: 9808 unrouted;       REAL time: 1 mins 16 secs 
 
-Phase 2: 8136 unrouted;       REAL time: 46 secs 
+Phase 2: 8239 unrouted;       REAL time: 1 mins 16 secs 
 
-Phase 3: 3366 unrouted;       REAL time: 48 secs 
+Phase 3: 3557 unrouted;       REAL time: 1 mins 18 secs 
 
-Phase 4: 3366 unrouted; (60329)      REAL time: 48 secs 
+Phase 4: 3557 unrouted; (32221)      REAL time: 1 mins 18 secs 
 
-Phase 5: 3392 unrouted; (1002)      REAL time: 49 secs 
+Phase 5: 3587 unrouted; (1533)      REAL time: 1 mins 19 secs 
 
-Phase 6: 3404 unrouted; (0)      REAL time: 49 secs 
+Phase 6: 3595 unrouted; (630)      REAL time: 1 mins 19 secs 
 
-Phase 7: 0 unrouted; (104)      REAL time: 54 secs 
+Phase 7: 0 unrouted; (2694)      REAL time: 1 mins 25 secs 
 
 Writing design to file network.ncd.
 
-Phase 8: 0 unrouted; (0)      REAL time: 58 secs 
+Phase 8: 0 unrouted; (2010)      REAL time: 1 mins 29 secs 
 
-Phase 9: 0 unrouted; (0)      REAL time: 58 secs 
+Phase 9: 0 unrouted; (1707)      REAL time: 1 mins 35 secs 
 
-Total REAL time to Router completion: 59 secs 
-Total CPU time to Router completion: 57 secs 
+Phase 10: 0 unrouted; (819)      REAL time: 1 mins 41 secs 
+
+Phase 11: 0 unrouted; (819)      REAL time: 1 mins 45 secs 
+
+Total REAL time to Router completion: 1 mins 47 secs 
+Total CPU time to Router completion: 1 mins 46 secs 
 
 Generating "par" statistics.
 
@@ -233,7 +239,7 @@ Generating Clock Report
 +-------------------------+----------+------+------+------------+-------------+
 |        Clock Net        | Resource |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +-------------------------+----------+------+------+------------+-------------+
-|               clk       |  BUFGMUX4| No   | 1255 |  0.046     |  1.056      |
+|               clk       |  BUFGMUX4| No   | 1278 |  0.046     |  1.056      |
 +-------------------------+----------+------+------+------------+-------------+
 |             clkio       |  BUFGMUX7| No   |   32 |  0.041     |  1.051      |
 +-------------------------+----------+------+------+------------+-------------+
@@ -243,22 +249,24 @@ Generating Clock Report
 
    The Delay Summary Report
 
-   The SCORE FOR THIS DESIGN is: 215
+   The SCORE FOR THIS DESIGN is: 9241
 
 
 The NUMBER OF SIGNALS NOT COMPLETELY ROUTED for this design is: 0
 
-   The AVERAGE CONNECTION DELAY for this design is:        1.284
-   The MAXIMUM PIN DELAY IS:                               5.994
-   The AVERAGE CONNECTION DELAY on the 10 WORST NETS is:   4.316
+   The AVERAGE CONNECTION DELAY for this design is:        1.301
+   The MAXIMUM PIN DELAY IS:                               6.417
+   The AVERAGE CONNECTION DELAY on the 10 WORST NETS is:   4.750
 
    Listing Pin Delays by value: (nsec)
 
-    d < 1.00   < d < 2.00  < d < 3.00  < d < 4.00  < d < 6.00  d >= 6.00
+    d < 1.00   < d < 2.00  < d < 3.00  < d < 4.00  < d < 7.00  d >= 7.00
    ---------   ---------   ---------   ---------   ---------   ---------
-        3639        4507        1161         227         163           0
+        3609        4491        1268         283         157           0
 
-Timing Score: 0
+Timing Score: 819
+
+WARNING:Par:62 - Timing constraints have not been met.
 
 Asterisk (*) preceding a constraint indicates it was not met.
    This may be due to a setup or hold violation.
@@ -267,8 +275,8 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                | Requested  | Actual     | Logic 
                                             |            |            | Levels
 --------------------------------------------------------------------------------
-  TS_CLKIN = PERIOD TIMEGRP "CLKIN"  7 nS   | N/A        | N/A        | N/A  
-   HIGH 50.000000 %                         |            |            |      
+  TS_CLKIN = PERIOD TIMEGRP "CLKIN"  6.900  | N/A        | N/A        | N/A  
+  nS   HIGH 50.000000 %                     |            |            |      
 --------------------------------------------------------------------------------
   TS_CLKIOIN = PERIOD TIMEGRP "CLKIOIN"  16 | N/A        | N/A        | N/A  
    nS   HIGH 50.000000 %                    |            |            |      
@@ -276,38 +284,38 @@ Asterisk (*) preceding a constraint indicates it was not met.
   TS_RX_CLK = PERIOD TIMEGRP "RX_CLK"  7.10 | N/A        | N/A        | N/A  
   0 nS   HIGH 50.000000 %                   |            |            |      
 --------------------------------------------------------------------------------
-  ts_maccontrol = MAXDELAY FROM TIMEGRP "ma | 56.000ns   | 14.478ns   | 8    
+  ts_maccontrol = MAXDELAY FROM TIMEGRP "ma | 55.200ns   | 13.782ns   | 7    
   ccontrol" TO TIMEGRP "maccontrol"  TS_CLK |            |            |      
   IN * 8.000                                |            |            |      
 --------------------------------------------------------------------------------
-  TS_clk_to_bufg = PERIOD TIMEGRP "clk_to_b | 7.000ns    | 6.956ns    | 1    
+* TS_clk_to_bufg = PERIOD TIMEGRP "clk_to_b | 6.900ns    | 7.127ns    | 9    
   ufg" TS_CLKIN * 1.000000 HIGH 50.000 %    |            |            |      
 --------------------------------------------------------------------------------
-  TS_clkrx_to_bufg = PERIOD TIMEGRP "clkrx_ | 7.100ns    | 5.189ns    | 5    
+  TS_clkrx_to_bufg = PERIOD TIMEGRP "clkrx_ | 7.100ns    | 7.018ns    | 1    
   to_bufg" TS_RX_CLK * 1.000000 HIGH  50.00 |            |            |      
   0 %                                       |            |            |      
 --------------------------------------------------------------------------------
-  TS_clkio_to_bufg = PERIOD TIMEGRP "clkio_ | 16.000ns   | 7.223ns    | 3    
+  TS_clkio_to_bufg = PERIOD TIMEGRP "clkio_ | 16.000ns   | 6.913ns    | 4    
   to_bufg" TS_CLKIOIN * 1.000000 HIGH  50.0 |            |            |      
   00 %                                      |            |            |      
 --------------------------------------------------------------------------------
 
 
-All constraints were met.
+1 constraint not met.
 INFO:Timing:2761 - N/A entries in the Constraints list may indicate that the
    constraint does not cover any paths or that it has no requested value.
 Generating Pad Report.
 
 All signals are completely routed.
 
-Total REAL time to PAR completion: 1 mins 
-Total CPU time to PAR completion: 58 secs 
+Total REAL time to PAR completion: 1 mins 48 secs 
+Total CPU time to PAR completion: 1 mins 47 secs 
 
-Peak Memory Usage:  100 MB
+Peak Memory Usage:  107 MB
 
 Placement: Completed - No errors found.
 Routing: Completed - No errors found.
-Timing: Completed - No errors found.
+Timing: Completed - 9 errors found.
 
 Writing design to file network.ncd.
 

@@ -64,7 +64,8 @@ architecture Behavioral of RXinput is
 
 	-- states
 	type states is (none, waitsfd, b0wr, b1wr, b2wr, b3wr,
-				 checkf, bpwait0, bpwait1, bpwait2, 
+				 checkf, bpwait0, bpwait1, bpwait2,
+				 wwait0, wwait1, wwait2,  
 				 bpwait3, validf); 
 	signal cs, ns : states := none; 
 
@@ -149,16 +150,16 @@ begin
 				cs <= ns;
 
 				-- data latching
-				if cs = b0wr and rd = '1' and endf = '0' then
+				if cs = b0wr and fd = '1' then
 					lm(7 downto 0) <= data;
 				end if; 
-				if cs = b1wr and rd = '1' and endf = '0'  then
+				if cs = b1wr and  fd = '1'   then
 					lm(15 downto 8) <= data;
 				end if; 
-				if cs = b2wr and rd = '1' and endf = '0'  then
+				if cs = b2wr and  fd = '1'  then
 					lm(23 downto 16) <= data;
 				end if; 
-				if cs = b3wr and rd = '1' and endf = '0'  then
+				if cs = b3wr and  fd = '1'  then
 					lm(31 downto 24) <= data;
 				end if; 
 
@@ -203,7 +204,7 @@ begin
 
 				-- memory address
 				if cs = validf then
-					lbp <= macnt -1;
+					lbp <= macnt;
 				end if; 
 
 				if cs = none then
@@ -308,7 +309,7 @@ begin
 					if endf = '0' then
 						ns <= b1wr;
 					else
-						ns <= checkf;
+						ns <= wwait0;
 					end if;
 				else
 					ns <= b0wr;
@@ -322,7 +323,7 @@ begin
 					if endf = '0' then
 						ns <= b2wr;
 					else
-						ns <= checkf;
+						ns <= wwait1;
 					end if;
 				else
 					ns <= b1wr;
@@ -336,7 +337,7 @@ begin
 					if endf = '0' then
 						ns <= b3wr;
 					else
-						ns <= checkf;
+						ns <= wwait2;
 					end if;
 				else
 					ns <= b2wr;
@@ -355,6 +356,25 @@ begin
 				else
 					ns <= b3wr;
 				end if;
+			when wwait0 => 
+				rd <= '0';
+				mwen <= '0';
+				nextf <= '0';
+				bpwen <= '0';
+				ns <= wwait1; 
+			when wwait1 => 
+				rd <= '0';
+				mwen <= '0';
+				nextf <= '0';
+				bpwen <= '0';
+				ns <= wwait2; 
+			when wwait2 => 
+				rd <= '0';
+				mwen <= '0';
+				nextf <= '0';
+				bpwen <= '0';
+				ns <= checkf; 
+
 			when checkf => 
 				rd <= '0';
 				mwen <= '1';
@@ -378,7 +398,7 @@ begin
 				mwen <= '0';
 				nextf <= '0';
 				bpwen <= '1';
-				ns <= bpwait2; 
+				ns <= bpwait2; 						  
 			when bpwait2 => 
 				rd <= '0';
 				mwen <= '0';
@@ -397,7 +417,7 @@ begin
 				end if;
 			when others =>
 				rd <= '0';
-				mwen <= '0';
+				mwen <= '1';
 				nextf <= '0';
 				bpwen <= '0';
 				ns <= none;
