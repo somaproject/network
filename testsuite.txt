@@ -10,7 +10,7 @@ The goal of the test code is to make sure we can successfully:
 To do this, we basically wire up the memory controller to do the following:
 on chan 1, write in bytes
 on chan 2, read in bytes
-The reader thread will follow the writing thread by some arbitrary number of ticks, and will make sure the words == the address. 
+The reader thread will follow the writing thread by some arbitrary number of ticks, and will make sure the words == what was recently written
 
 For outputting to the PHY, it's easy: we just pre-load the PHY with a frame and a counter with the number of bytes to transmit; then every second we send out the frame. 
 
