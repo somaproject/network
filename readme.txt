@@ -23,6 +23,8 @@ The Frame check sequence is described in IEEE 802.3-2003 section 3.2.8 . We evid
 pre-setting the CRCL to FFFFFFFF is the same as complementing the first 32 bits of the input stream, which we need to do. 
 
 
+
+
 We have six main sections here: 
 
 
