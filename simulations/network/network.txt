@@ -1,0 +1,19 @@
+A complete simulation of the entire network interface. 
+
+We create code to do this:
+gmiiin.0.dat
+gmiiout.0.dat
+
+din.0.dat
+dout.0.dat 
+
+
+In the forms that the other inputs/outputs use to maxmize code reuse. In particular, 
+
+gmiiin.n.dat: A series of triples, "BYTE RX_DV RX_ER", each line being one tick.
+dout.n.dat :  "Number of extra ticks to wait", "number of DATAENS to expect" (i.e. length), and then just a series of hex words representing the data until newline. 
+
+din.n.dat : each line is a clock tic, with "NEWFRAME WORD" where newframe is the newframe value and word is a hex word. 
+
+gmiiout.n.dat: Each line is a frame, with the hex bytes being subsequent values on the bus (each value is a tick)
+

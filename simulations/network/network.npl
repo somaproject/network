@@ -1,0 +1,36 @@
+JDF G
+// Created by Project Navigator ver 1.0
+PROJECT network
+DESIGN network
+DEVFAM spartan3
+DEVFAMTIME 0
+DEVICE xc3s200
+DEVICETIME 0
+DEVPKG pq208
+DEVPKGTIME 0
+DEVSPEED -4
+DEVSPEEDTIME 0
+DEVTOPLEVELMODULETYPE HDL
+TOPLEVELMODULETYPETIME 0
+DEVSYNTHESISTOOL XST (VHDL/Verilog)
+SYNTHESISTOOLTIME 0
+DEVSIMULATOR Modelsim
+SIMULATORTIME 0
+DEVGENERATEDSIMULATIONMODEL VHDL
+GENERATEDSIMULATIONMODELTIME 0
+SOURCE ..\..\vhdl\RXoutput.vhd
+SOURCE ..\..\vhdl\clockenable.vhd
+SOURCE ..\..\vhdl\RXinput.vhd
+SOURCE ..\..\vhdl\TXinput.vhd
+SOURCE ..\..\vhdl\MII.vhd
+SOURCE ..\..\vhdl\GMIIin.vhd
+SOURCE ..\..\vhdl\network.vhd
+SOURCE ..\..\vhdl\control.vhd
+SOURCE ..\..\vhdl\RXValid.vhd
+SOURCE ..\..\vhdl\TXoutput.vhd
+SOURCE ..\..\vhdl\crc_combinational.vhd
+SOURCE ..\..\vhdl\memory.vhd
+SOURCE ..\..\vhdl\PHYstatus.vhd
+SOURCE ..\..\vhdl\FIFOcheck.vhd
+[STRATEGY-LIST]
+Normal=True
