@@ -9,6 +9,7 @@ vcom -93 -explicit control.vhd
 vcom -93 -explicit crc_combinational.vhd 
 vcom -93 -explicit memory.vhd
 vcom -93 -explicit testsuite_memory.vhd
+vcom -93 -explicit testsuite_tx.vhd
 vcom -93 -explicit testsuite.vhd
 
 

@@ -67,18 +67,8 @@ architecture Behavioral of testsuite is
 	        txi_mwen, txfifowerr, rxfifowerr :
 				std_logic := '0';
 
-	-- base pointers 
-	signal rxbp, txbp : std_logic_vector(15 downto 0) :=
-			(others => '0');
-	signal txfbbp, rxfbbp : std_logic_vector(15 downto 0) :=
-			(others => '0');
+	signal tx_en_out : std_logic;
 
-	-- fifo control
-	signal txfifofull, rxfifofull : std_logic := '0';
-
-	-- mac address filtering
-	signal rxmcast, rxbcast, rxucast, rxallf : std_logic := '0';
-	signal macaddr : std_logic_vector(47 downto 0) := (others => '0');
 
 	component memory is
 	    Port ( CLK : in std_logic;
@@ -161,22 +151,15 @@ architecture Behavioral of testsuite is
            CLKEN1 : in std_logic;
 			  CLKEN2 : in std_logic);
      end component;
-
+	component testsuite_tx is
+	    Port ( CLK : in std_logic;
+		 		  RESET : in std_logic; 
+	           TX_EN : out std_logic;
+	           TXD : out std_logic_vector(7 downto 0));
+	end component;
 begin
 
-
-    clkio_dll : CLKDLL generic map (
-	 		clkdv_divide => 4.0)
-			port map (
-    		CLKIN => CLKIOIN,
-			CLKFB => clkio,
-			RST => RESET,
-			CLKDV => open,
-			CLK0 => clkio_to_bufg);
-
-    clkio_bufg : BUFG port map (
-    		I => clkio_to_bufg,
-			O => clkio); 
+	 
 
 
     clk_dll : CLKDLL generic map (
@@ -192,19 +175,6 @@ begin
     		I => clk_to_bufg,
 			O => clk); 
 
-    -- receive in clock
-    clkrx_dll : CLKDLL generic map (
-	 		clkdv_divide => 4.0)
-			port map (
-    		CLKIN => RX_CLK,
-			CLKFB => clkrx,
-			RST => RESET,
-			CLKDV => open,
-			CLK0 => clkrx_to_bufg);
-
-    clkrx_bufg : BUFG port map (
-    		I => clkrx_to_bufg,
-			O => clkrx); 
 
      
     memcontroller: memory port map (
@@ -239,9 +209,9 @@ begin
 				CLK => clk,
 				RESET => RESET,
 				CLKSL => clksl,
-				SCLK => SCLK,
-				SCS => SCS, 
-				SIN => SIN,
+				SCLK => '0',
+				SCS => '1', 
+				SIN => '0',
 				SOUT => SOUT, 
 				LEDACT => open,
 				LEDTX => LEDTX,
@@ -250,18 +220,18 @@ begin
 				LED1000 => LED1000,
 				LEDDPX => LEDDPX,
 				PHYRESET => PHYRESET,
-				TXF => txf,
-				RXF => rxf,
-				TXFIFOWERR => txfifowerr,
-				RXFIFOWERR => rxfifowerr,
-				RXPHYERR => rxphyerr,
-		 		RXOFERR => rxoferr,
-				RXCRCERR => rxcrcerr,
-				RXBCAST => rxbcast,
-				RXMCAST => rxmcast,
-				RXUCAST => rxucast,
-				RXALLF => rxallf, 
-				MACADDR => macaddr,
+				TXF => tx_en_out,
+				RXF => '0',
+				TXFIFOWERR => '0',
+				RXFIFOWERR => '0',
+				RXPHYERR => '0',
+		 		RXOFERR => '0',
+				RXCRCERR => '0',
+				RXBCAST => open,
+				RXMCAST => open,
+				RXUCAST => open,
+				RXALLF => open, 
+				MACADDR => open,
 				MDIO => MDIO,
 				MDC => MDC); 
 
@@ -275,5 +245,12 @@ begin
 				CLKEN1 => clken1,
 				CLKEN2 => clken2);
 
-
+	 txsim : testsuite_tx port map (
+	 			CLK => clk, 
+				RESET => RESET,
+				TX_EN => tx_en_out,
+				TXD => TXD);
+	
+		TX_EN <= tx_en_out; 
+		GTX_CLK <= clk; 			 
 end Behavioral;

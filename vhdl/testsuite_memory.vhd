@@ -24,7 +24,7 @@ architecture Behavioral of testsuite_memory is
 	signal datacnt : std_logic_vector(31 downto 0) := (others => '0');
 	signal dataw1, dataw2, dataw3, dataw4, dataw5, dataw6, dataw7 : 
 		std_logic_vector(31 downto 0) := (others => '0');
-
+	signal llerr, lerr : std_logic; 
 begin
 
    main: process(CLK) is
@@ -41,9 +41,9 @@ begin
 			if CLKEN2 = '1' then
 			   addrcntll <= addrcntl;
 				if  (MQ = dataw4) then
-					ERR <= '0';
+					llerr <= '0';
 				else
-					ERR <= '1';
+					llerr <= '1';
 				end if;
 			dataw2 <= dataw1;
 			dataw3 <= dataw2;
@@ -51,7 +51,8 @@ begin
 			dataw5 <= dataw4; 
 			end if; 
 
-
+			lerr <= llerr;
+			ERR <= lerr; 
 
 		end if ;
 	end process main; 
