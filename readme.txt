@@ -94,6 +94,12 @@ Now, SET and RSET are input to a set-reset latch, which obeys reset before set. 
 
 RST = (not RX_DV) or RX_ER or RX_OF. This results CE going low the cycle after a low RX_DV, or the cycle after a high RX_ER or RX_OF, is detected. This way, those signals can select the DATA mux. 
 
+Tests (9/29/03): 
+  behavioral test for set of inputs successfully aborts entry into FIFO following
+  error condition
+
+
+
 ----- on the other side of the FIFO
 
 Outputs: 

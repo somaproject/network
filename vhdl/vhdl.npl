@@ -13,10 +13,12 @@ DEVSPEEDTIME 0
 FLOW XST VHDL
 FLOWTIME 0
 STIMULUS TXout_testbench.vhd Normal
+STIMULUS RXinput_GMII_test.tbw Normal
 STIMULUS TXinput_test.tbw Normal
-STIMULUS crc_combtest_test.tbw Normal
 MODULE CRC_combtest.vhd
 MODSTYLE crc_combtest Normal
+MODULE RXinput_GMII.vhd
+MODSTYLE rxinput_gmii Normal
 MODULE TXinput.vhd
 MODSTYLE txinput Normal
 MODULE TXoutput.vhd
