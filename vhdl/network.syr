@@ -1,10 +1,10 @@
 Release 6.2.03i - xst G.31a
 Copyright (c) 1995-2004 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to __projnav
-CPU : 0.00 / 0.58 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.33 s | Elapsed : 0.00 / 0.00 s
  
 --> Parameter xsthdpdir set to ./xst
-CPU : 0.00 / 0.58 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.33 s | Elapsed : 0.00 / 0.00 s
  
 --> Reading design: network.prj
 
@@ -33,7 +33,7 @@ Verilog Include Directory          :
 ---- Target Parameters
 Output File Name                   : network
 Output Format                      : NGC
-Target Device                      : xc2s200e-6-pq208
+Target Device                      : xc3s200-4-pq208
 
 ---- Source Options
 Top Module Name                    : network
@@ -52,13 +52,13 @@ Shift Register Extraction          : YES
 Logical Shifter Extraction         : YES
 XOR Collapsing                     : YES
 Resource Sharing                   : YES
-Multiplier Style                   : lut
+Multiplier Style                   : auto
 Automatic Register Balancing       : No
 
 ---- Target Options
 Add IO Buffers                     : YES
 Global Maximum Fanout              : 150
-Add Generic Clock Buffer(BUFG)     : 4
+Add Generic Clock Buffer(BUFG)     : 8
 Register Duplication               : YES
 Equivalent register Removal        : NO
 Slice Packing                      : YES
@@ -83,7 +83,6 @@ Read Cores                         : YES
 cross_clock_analysis               : NO
 verilog2001                        : YES
 Optimize Instantiated Primitives   : NO
-tristate2logic                     : No
 
 =========================================================================
 
@@ -91,24 +90,16 @@ tristate2logic                     : No
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
-WARNING:HDLParsers:3481 - No primary, secondary unit in the file E:\desktop\network\vhdl/rxoutput_async_fifo.vhd. Ignore this file from project file network_vhdl.prj.
-WARNING:HDLParsers:3481 - No primary, secondary unit in the file E:\desktop\network\vhdl/async_fifo.vhd. Ignore this file from project file network_vhdl.prj.
 Compiling vhdl file E:/desktop/network/vhdl/MII.vhd in Library work.
 Architecture behavioral of Entity mii is up to date.
-Compiling vhdl file E:/desktop/network/vhdl/rxinput_fifocontrol.vhd in Library work.
-Architecture behavioral of Entity rxinput_fifocontrol is up to date.
-Compiling vhdl file E:/desktop/network/vhdl/crc_combinational.vhd in Library work.
-Architecture behavioral of Entity crc_combinational is up to date.
-Compiling vhdl file E:/desktop/network/vhdl/RXinput_addrchk.vhd in Library work.
-Architecture behavioral of Entity rxinput_addrchk is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/PHYstatus.vhd in Library work.
 Architecture behavioral of Entity phystatus is up to date.
-Compiling vhdl file E:/desktop/network/vhdl/RXinput_GMII.vhd in Library work.
-Architecture behavioral of Entity rxinput_gmii is up to date.
-Compiling vhdl file E:/desktop/network/vhdl/RXinput_memio.vhd in Library work.
-Architecture behavioral of Entity rxinput_memio is up to date.
-Compiling vhdl file E:/desktop/network/vhdl/RXinput_fifo.vhd in Library work.
-Architecture behavioral of Entity rxinput_fifo is up to date.
+Compiling vhdl file E:/desktop/network/vhdl/crc_combinational.vhd in Library work.
+Architecture behavioral of Entity crc_combinational is up to date.
+Compiling vhdl file E:/desktop/network/vhdl/GMIIin.vhd in Library work.
+Architecture behavioral of Entity gmiiin is up to date.
+Compiling vhdl file E:/desktop/network/vhdl/RXValid.vhd in Library work.
+Architecture behavioral of Entity rxvalid is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/memdebug.vhd in Library work.
 Architecture behavioral of Entity memdebug is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/clockenable.vhd in Library work.
@@ -128,34 +119,34 @@ Architecture behavioral of Entity fifocheck is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/control.vhd in Library work.
 Architecture behavioral of Entity control is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/network.vhd in Library work.
-Architecture behavioral of Entity network is up to date.
+Entity <network> (Architecture <behavioral>) compiled.
 
 =========================================================================
 *                            HDL Analysis                               *
 =========================================================================
 Analyzing Entity <network> (Architecture <behavioral>).
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK90' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK270' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 290: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 298: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 303: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 303: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 313: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK90' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK180' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK270' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 318: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 318: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 325: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 412: Unconnected output port 'GTX_CLK' of component 'TXoutput'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 424: Unconnected output port 'DONE' of component 'TXinput'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 289: Unconnected output port 'CLK90' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 289: Unconnected output port 'CLK270' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 289: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 289: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 289: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 289: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 297: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 302: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 302: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 302: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 302: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 312: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLK90' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLK180' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLK270' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 317: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - E:/desktop/network/vhdl/network.vhd line 324: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 411: Unconnected output port 'GTX_CLK' of component 'TXoutput'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/network.vhd line 423: Unconnected output port 'DONE' of component 'TXinput'.
 Entity <network> analyzed. Unit <network> generated.
 
 Analyzing Entity <memdebug> (Architecture <behavioral>).
@@ -201,31 +192,30 @@ WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black
 Entity <memory> analyzed. Unit <memory> generated.
 
 Analyzing Entity <RXinput> (Architecture <behavioral>).
+WARNING:Xst:819 - E:/desktop/network/vhdl/RXinput.vhd line 282: The following signals are missing in the process sensitivity list:
+   erl, ofl, destok.
 Entity <RXinput> analyzed. Unit <RXinput> generated.
-
-Analyzing Entity <RXinput_GMII> (Architecture <behavioral>).
-Entity <RXinput_GMII> analyzed. Unit <RXinput_GMII> generated.
-
-Analyzing Entity <RXinput_memio> (Architecture <behavioral>).
-Entity <RXinput_memio> analyzed. Unit <RXinput_memio> generated.
 
 Analyzing Entity <crc_combinational> (Architecture <behavioral>).
 Entity <crc_combinational> analyzed. Unit <crc_combinational> generated.
 
-Analyzing Entity <RXinput_addrchk> (Architecture <behavioral>).
-Entity <RXinput_addrchk> analyzed. Unit <RXinput_addrchk> generated.
+Analyzing Entity <GMIIin> (Architecture <behavioral>).
+WARNING:Xst:753 - E:/desktop/network/vhdl/GMIIin.vhd line 195: Unconnected output port 'DOA' of component 'RAMB16_S18_S18'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/GMIIin.vhd line 195: Unconnected output port 'DOPA' of component 'RAMB16_S18_S18'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/GMIIin.vhd line 195: Unconnected output port 'DOPB' of component 'RAMB16_S18_S18'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/GMIIin.vhd line 195: Generating a Black Box for component <RAMB16_S18_S18>.
+Entity <GMIIin> analyzed. Unit <GMIIin> generated.
 
-Analyzing Entity <RXinput_fifo> (Architecture <behavioral>).
-WARNING:Xst:753 - E:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Unconnected output port 'full' of component 'async_fifo'.
-WARNING:Xst:753 - E:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Unconnected output port 'empty' of component 'async_fifo'.
-WARNING:Xst:766 - E:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Generating a Black Box for component <async_fifo>.
-Entity <RXinput_fifo> analyzed. Unit <RXinput_fifo> generated.
-
-Analyzing Entity <rxinput_fifocontrol> (Architecture <behavioral>).
-Entity <rxinput_fifocontrol> analyzed. Unit <rxinput_fifocontrol> generated.
+Analyzing Entity <RXValid> (Architecture <behavioral>).
+Entity <RXValid> analyzed. Unit <RXValid> generated.
 
 Analyzing Entity <RXoutput> (Architecture <behavioral>).
-WARNING:Xst:766 - E:/desktop/network/vhdl/RXoutput.vhd line 79: Generating a Black Box for component <rxoutput_async_fifo>.
+WARNING:Xst:753 - E:/desktop/network/vhdl/RXoutput.vhd line 167: Unconnected output port 'DOA' of component 'RAMB16_S18_S18'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/RXoutput.vhd line 167: Unconnected output port 'DOPA' of component 'RAMB16_S18_S18'.
+WARNING:Xst:753 - E:/desktop/network/vhdl/RXoutput.vhd line 167: Unconnected output port 'DOPB' of component 'RAMB16_S18_S18'.
+WARNING:Xst:766 - E:/desktop/network/vhdl/RXoutput.vhd line 167: Generating a Black Box for component <RAMB16_S18_S18>.
+WARNING:Xst:819 - E:/desktop/network/vhdl/RXoutput.vhd line 328: The following signals are missing in the process sensitivity list:
+   lbp, macnt.
 Entity <RXoutput> analyzed. Unit <RXoutput> generated.
 
 Analyzing Entity <TXoutput> (Architecture <behavioral>).
@@ -340,43 +330,10 @@ WARNING:Xst:1780 - Signal <counter> is never used or assigned.
 Unit <PHYstatus> synthesized.
 
 
-Synthesizing Unit <rxinput_fifocontrol>.
-    Related source file is E:/desktop/network/vhdl/rxinput_fifocontrol.vhd.
-    Found finite state machine <FSM_2> for signal <cs>.
-    -----------------------------------------------------------------------
-    | States             | 4                                              |
-    | Transitions        | 8                                              |
-    | Inputs             | 1                                              |
-    | Outputs            | 4                                              |
-    | Clock              | CLK (rising_edge)                              |
-    | Reset              | RESET (positive)                               |
-    | Reset type         | asynchronous                                   |
-    | Reset State        | sel3                                           |
-    | Power Up State     | sel3                                           |
-    | Encoding           | automatic                                      |
-    | Implementation     | LUT                                            |
-    -----------------------------------------------------------------------
-    Found 1-bit register for signal <INVALID>.
-    Found 1-bit register for signal <ENDF>.
-    Found 8-bit register for signal <DATA>.
-    Found 1-bit register for signal <cel>.
-    Found 1-bit register for signal <cell>.
-    Found 1-bit register for signal <celll>.
-    Found 10-bit register for signal <d0>.
-    Found 10-bit register for signal <d1>.
-    Found 10-bit register for signal <d2>.
-    Found 10-bit register for signal <d3>.
-    Found 10-bit register for signal <dinl>.
-    Summary:
-	inferred   1 Finite State Machine(s).
-	inferred  23 D-type flip-flop(s).
-Unit <rxinput_fifocontrol> synthesized.
-
-
-Synthesizing Unit <RXinput_addrchk>.
-    Related source file is E:/desktop/network/vhdl/RXinput_addrchk.vhd.
+Synthesizing Unit <RXValid>.
+    Related source file is E:/desktop/network/vhdl/RXValid.vhd.
 WARNING:Xst:646 - Signal <mcast<5:1>> is assigned but never used.
-    Found finite state machine <FSM_3> for signal <cs>.
+    Found finite state machine <FSM_2> for signal <cs>.
     -----------------------------------------------------------------------
     | States             | 7                                              |
     | Transitions        | 20                                             |
@@ -391,17 +348,20 @@ WARNING:Xst:646 - Signal <mcast<5:1>> is assigned but never used.
     | Implementation     | LUT                                            |
     -----------------------------------------------------------------------
     Found 1-bit register for signal <DESTOK>.
-    Found 8-bit comparator equal for signal <$n0033> created at line 122.
-    Found 8-bit comparator equal for signal <$n0036> created at line 122.
-    Found 8-bit comparator equal for signal <$n0039> created at line 122.
-    Found 8-bit comparator equal for signal <$n0042> created at line 122.
-    Found 8-bit comparator equal for signal <$n0045> created at line 122.
-    Found 8-bit comparator equal for signal <$n0048> created at line 122.
+    Found 8-bit comparator equal for signal <$n0033> created at line 131.
+    Found 8-bit comparator equal for signal <$n0036> created at line 131.
+    Found 8-bit comparator equal for signal <$n0039> created at line 131.
+    Found 8-bit comparator equal for signal <$n0042> created at line 131.
+    Found 8-bit comparator equal for signal <$n0045> created at line 131.
+    Found 8-bit comparator equal for signal <$n0048> created at line 131.
     Found 6-bit register for signal <bcast>.
     Found 48-bit register for signal <datal>.
+    Found 8-bit register for signal <dl>.
+    Found 1-bit register for signal <fdl>.
     Found 48-bit register for signal <macaddrl>.
     Found 6-bit register for signal <maceq>.
     Found 6-bit register for signal <mcast>.
+    Found 1-bit register for signal <nextfl>.
     Found 1-bit register for signal <rxallfl>.
     Found 1-bit register for signal <rxbcastl>.
     Found 1-bit register for signal <rxmcastl>.
@@ -411,9 +371,39 @@ WARNING:Xst:646 - Signal <mcast<5:1>> is assigned but never used.
     Found 1-bit register for signal <validucast>.
     Summary:
 	inferred   1 Finite State Machine(s).
-	inferred 122 D-type flip-flop(s).
+	inferred 132 D-type flip-flop(s).
 	inferred   6 Comparator(s).
-Unit <RXinput_addrchk> synthesized.
+Unit <RXValid> synthesized.
+
+
+Synthesizing Unit <GMIIin>.
+    Related source file is E:/desktop/network/vhdl/GMIIin.vhd.
+WARNING:Xst:646 - Signal <do<12:8>> is assigned but never used.
+WARNING:Xst:653 - Signal <al2l> is used but never assigned. Tied to value 0000000000.
+WARNING:Xst:653 - Signal <aol> is used but never assigned. Tied to value 0000000000.
+    Found 10-bit subtractor for signal <$n0003> created at line 248.
+    Found 10-bit comparator equal for signal <$n0006> created at line 221.
+    Found 10-bit up counter for signal <ain>.
+    Found 10-bit register for signal <al>.
+    Found 10-bit register for signal <al2>.
+    Found 10-bit up counter for signal <ao>.
+    Found 8-bit register for signal <din>.
+    Found 1-bit register for signal <dvl>.
+    Found 1-bit register for signal <dvll>.
+    Found 1-bit register for signal <erin>.
+    Found 1-bit register for signal <erl>.
+    Found 1-bit register for signal <ff>.
+    Found 1-bit register for signal <ffs>.
+    Found 1-bit register for signal <nfl>.
+    Found 8-bit register for signal <rxdl>.
+    Found 1-bit register for signal <val>.
+    Found 1-bit register for signal <wel>.
+    Summary:
+	inferred   2 Counter(s).
+	inferred  45 D-type flip-flop(s).
+	inferred   1 Adder/Subtracter(s).
+	inferred   1 Comparator(s).
+Unit <GMIIin> synthesized.
 
 
 Synthesizing Unit <crc_combinational>.
@@ -460,88 +450,6 @@ Synthesizing Unit <crc_combinational>.
 Unit <crc_combinational> synthesized.
 
 
-Synthesizing Unit <RXinput_fifo>.
-    Related source file is E:/desktop/network/vhdl/RXinput_fifo.vhd.
-WARNING:Xst:646 - Signal <fifodout<15:9>> is assigned but never used.
-Unit <RXinput_fifo> synthesized.
-
-
-Synthesizing Unit <RXinput_memio>.
-    Related source file is E:/desktop/network/vhdl/RXinput_memio.vhd.
-WARNING:Xst:646 - Signal <endbyte<7:3>> is assigned but never used.
-WARNING:Xst:1780 - Signal <lbpout5> is never used or assigned.
-WARNING:Xst:1780 - Signal <bcnten> is never used or assigned.
-WARNING:Xst:1780 - Signal <mnewf> is never used or assigned.
-    Found finite state machine <FSM_4> for signal <cs>.
-    -----------------------------------------------------------------------
-    | States             | 16                                             |
-    | Transitions        | 31                                             |
-    | Inputs             | 7                                              |
-    | Outputs            | 10                                             |
-    | Clock              | CLK (rising_edge)                              |
-    | Reset              | RESET (positive)                               |
-    | Reset type         | asynchronous                                   |
-    | Reset State        | none                                           |
-    | Power Up State     | none                                           |
-    | Encoding           | automatic                                      |
-    | Implementation     | LUT                                            |
-    -----------------------------------------------------------------------
-    Found 1-bit register for signal <RXOFERR>.
-    Found 1-bit register for signal <RXF>.
-    Found 16-bit register for signal <MA>.
-    Found 32-bit register for signal <MD>.
-    Found 16-bit register for signal <BPOUT>.
-    Found 1-bit register for signal <RXFIFOWERR>.
-    Found 1-bit register for signal <RXCRCERR>.
-    Found 1-bit register for signal <RXPHYERR>.
-    Found 16-bit subtractor for signal <$n0042> created at line 135.
-    Found 16-bit subtractor for signal <$n0043> created at line 142.
-    Found 16-bit up counter for signal <bcnt>.
-    Found 16-bit register for signal <bcntl>.
-    Found 16-bit register for signal <bp>.
-    Found 1-bit register for signal <bpen>.
-    Found 16-bit register for signal <bpl>.
-    Found 1-bit register for signal <crcen>.
-    Found 1-bit register for signal <crcequal>.
-    Found 32-bit register for signal <crcl>.
-    Found 32-bit register for signal <crcll>.
-    Found 1-bit register for signal <crcrst>.
-    Found 8-bit register for signal <datal>.
-    Found 32-bit register for signal <dout>.
-    Found 32-bit register for signal <doutl>.
-    Found 8-bit register for signal <endbyte>.
-    Found 1-bit register for signal <fifofulll>.
-    Found 4-bit shift register for signal <lbpout4>.
-    Found 16-bit up counter for signal <macnt>.
-    Found 1-bit register for signal <menl>.
-    Found 1-bit register for signal <wbpl>.
-    Found 48 1-bit 2-to-1 multiplexers.
-    Summary:
-	inferred   1 Finite State Machine(s).
-	inferred   2 Counter(s).
-	inferred 268 D-type flip-flop(s).
-	inferred   2 Adder/Subtracter(s).
-	inferred  48 Multiplexer(s).
-	inferred  16 Shift register(s).
-Unit <RXinput_memio> synthesized.
-
-
-Synthesizing Unit <RXinput_GMII>.
-    Related source file is E:/desktop/network/vhdl/RXinput_GMII.vhd.
-    Found 1-bit register for signal <ENDFIN>.
-    Found 1-bit register for signal <INCE>.
-    Found 8-bit register for signal <FIFOIN>.
-    Found 1-bit register for signal <ro>.
-    Found 1-bit register for signal <rx_dvl>.
-    Found 1-bit register for signal <rx_dvll>.
-    Found 1-bit register for signal <rx_erl>.
-    Found 1-bit register for signal <rx_of>.
-    Found 8-bit register for signal <rxdl>.
-    Summary:
-	inferred  23 D-type flip-flop(s).
-Unit <RXinput_GMII> synthesized.
-
-
 Synthesizing Unit <control>.
     Related source file is E:/desktop/network/vhdl/control.vhd.
 WARNING:Xst:1780 - Signal <rxcrcerr_sr> is never used or assigned.
@@ -572,7 +480,7 @@ WARNING:Xst:1780 - Signal <rxfifowerr_sr> is never used or assigned.
     Found 32-bit comparator greater for signal <$n0070> created at line 331.
     Found 7-bit comparator greatequal for signal <$n0098> created at line 196.
     Found 7-bit comparator lessequal for signal <$n0099> created at line 201.
-    Found 32-bit comparator lessequal for signal <$n0112> created at line 331.
+    Found 32-bit comparator lessequal for signal <$n0111> created at line 331.
     Found 8-bit register for signal <addr>.
     Found 6-bit up counter for signal <bitcnt>.
     Found 17-bit register for signal <debugaddr>.
@@ -646,10 +554,10 @@ Unit <FIFOcheck> synthesized.
 Synthesizing Unit <TXinput>.
     Related source file is E:/desktop/network/vhdl/TXinput.vhd.
 WARNING:Xst:1780 - Signal <nenable> is never used or assigned.
-    Found finite state machine <FSM_5> for signal <cs>.
+    Found finite state machine <FSM_3> for signal <cs>.
     -----------------------------------------------------------------------
     | States             | 12                                             |
-    | Transitions        | 29                                             |
+    | Transitions        | 25                                             |
     | Inputs             | 5                                              |
     | Outputs            | 8                                              |
     | Clock              | CLK (rising_edge)                              |
@@ -663,7 +571,7 @@ WARNING:Xst:1780 - Signal <nenable> is never used or assigned.
     Found 16-bit register for signal <MA>.
     Found 1-bit register for signal <MWEN>.
     Found 32-bit register for signal <MD>.
-    Found 16-bit subtractor for signal <$n0042> created at line 151.
+    Found 16-bit subtractor for signal <$n0040> created at line 154.
     Found 16-bit up counter for signal <addr>.
     Found 16-bit register for signal <bp>.
     Found 16-bit register for signal <CNT>.
@@ -693,7 +601,7 @@ Synthesizing Unit <TXoutput>.
 WARNING:Xst:1780 - Signal <rdata> is never used or assigned.
 WARNING:Xst:1780 - Signal <rstaddr> is never used or assigned.
 WARNING:Xst:646 - Signal <ncrcl> is assigned but never used.
-    Found finite state machine <FSM_6> for signal <cs>.
+    Found finite state machine <FSM_4> for signal <cs>.
     -----------------------------------------------------------------------
     | States             | 17                                             |
     | Transitions        | 23                                             |
@@ -741,16 +649,12 @@ Unit <TXoutput> synthesized.
 
 Synthesizing Unit <RXoutput>.
     Related source file is E:/desktop/network/vhdl/RXoutput.vhd.
-WARNING:Xst:646 - Signal <fe> is assigned but never used.
-WARNING:Xst:646 - Signal <ff> is assigned but never used.
-WARNING:Xst:1780 - Signal <ceout> is never used or assigned.
-WARNING:Xst:646 - Signal <lenr<1:0>> is assigned but never used.
-    Found finite state machine <FSM_7> for signal <cs>.
+    Found finite state machine <FSM_5> for signal <cs>.
     -----------------------------------------------------------------------
     | States             | 19                                             |
-    | Transitions        | 36                                             |
-    | Inputs             | 7                                              |
-    | Outputs            | 8                                              |
+    | Transitions        | 29                                             |
+    | Inputs             | 6                                              |
+    | Outputs            | 6                                              |
     | Clock              | CLK (rising_edge)                              |
     | Reset              | RESET (positive)                               |
     | Reset type         | asynchronous                                   |
@@ -759,44 +663,92 @@ WARNING:Xst:646 - Signal <lenr<1:0>> is assigned but never used.
     | Encoding           | automatic                                      |
     | Implementation     | LUT                                            |
     -----------------------------------------------------------------------
+    Found 16x2-bit ROM for signal <$n0041>.
     Found 16-bit register for signal <FBBP>.
     Found 16-bit register for signal <DOUT>.
     Found 1-bit register for signal <DOUTEN>.
-    Found 16-bit comparator equal for signal <$n0017> created at line 210.
-    Found 16-bit comparator equal for signal <$n0018> created at line 348.
-    Found 15-bit adder for signal <$n0047> created at line 148.
-    Found 16-bit adder for signal <$n0060>.
+    Found 14-bit adder for signal <$n0004> created at line 273.
+    Found 16-bit comparator not equal for signal <$n0013> created at line 348.
+    Found 16-bit comparator equal for signal <$n0014> created at line 433.
+    Found 10-bit comparator equal for signal <$n0036> created at line 189.
+    Found 10-bit register for signal <ai>.
+    Found 10-bit register for signal <ail>.
+    Found 10-bit register for signal <aill>.
+    Found 10-bit up counter for signal <ao>.
     Found 16-bit register for signal <bp>.
-    Found 16-bit register for signal <bpl>.
-    Found 1-bit register for signal <ceinl>.
-    Found 1-bit register for signal <ceinll>.
-    Found 1-bit register for signal <denl>.
-    Found 1-bit register for signal <denll>.
-    Found 1-bit register for signal <fifo_full>.
-    Found 1-bit register for signal <fifo_nearfull>.
-    Found 16-bit register for signal <fifodin>.
+    Found 16-bit register for signal <bpinl>.
+    Found 16-bit register for signal <di>.
+    Found 1-bit register for signal <fifowel>.
+    Found 1-bit register for signal <halffull>.
+    Found 10-bit up counter for signal <lai>.
     Found 16-bit adder for signal <lbp>.
-    Found 1-bit register for signal <ldouten2>.
+    Found 1-bit register for signal <ldouten>.
     Found 16-bit register for signal <len>.
     Found 16-bit register for signal <lenr>.
-    Found 1-bit register for signal <lmasell>.
     Found 16-bit up counter for signal <macnt>.
     Found 32-bit register for signal <mdl>.
-    Found 1-bit register for signal <nf>.
+    Found 1-bit register for signal <mdsell>.
+    Found 1-bit register for signal <nearfull>.
     Found 1-bit register for signal <nfl>.
-    Found 16 1-bit 2-to-1 multiplexers.
+    Found 1-bit register for signal <nfll>.
+    Found 1-bit register for signal <we>.
+    Found 32 1-bit 2-to-1 multiplexers.
     Summary:
 	inferred   1 Finite State Machine(s).
-	inferred   1 Counter(s).
-	inferred 155 D-type flip-flop(s).
-	inferred   3 Adder/Subtracter(s).
-	inferred   2 Comparator(s).
-	inferred  16 Multiplexer(s).
+	inferred   1 ROM(s).
+	inferred   3 Counter(s).
+	inferred 183 D-type flip-flop(s).
+	inferred   2 Adder/Subtracter(s).
+	inferred   3 Comparator(s).
+	inferred  32 Multiplexer(s).
 Unit <RXoutput> synthesized.
 
 
 Synthesizing Unit <RXinput>.
     Related source file is E:/desktop/network/vhdl/RXinput.vhd.
+    Found finite state machine <FSM_6> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 12                                             |
+    | Transitions        | 27                                             |
+    | Inputs             | 8                                              |
+    | Outputs            | 11                                             |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | none                                           |
+    | Power Up State     | none                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 1-bit register for signal <RXOFERR>.
+    Found 1-bit register for signal <RXF>.
+    Found 16-bit register for signal <MA>.
+    Found 32-bit register for signal <MD>.
+    Found 1-bit register for signal <RXFIFOWERR>.
+    Found 1-bit register for signal <RXCRCERR>.
+    Found 1-bit register for signal <RXPHYERR>.
+    Found 16-bit subtractor for signal <$n0049> created at line 206.
+    Found 16-bit up counter for signal <bcnt>.
+    Found 1-bit register for signal <bpwenl>.
+    Found 32-bit register for signal <crcl>.
+    Found 32-bit register for signal <crcll>.
+    Found 1-bit register for signal <crcvalid>.
+    Found 8-bit register for signal <datal>.
+    Found 1-bit register for signal <erl>.
+    Found 1-bit register for signal <fdl>.
+    Found 16-bit register for signal <lbp>.
+    Found 32-bit register for signal <lm>.
+    Found 16-bit register for signal <lma>.
+    Found 32-bit register for signal <lml>.
+    Found 16-bit up counter for signal <macnt>.
+    Found 1-bit register for signal <ofl>.
+    Found 48 1-bit 2-to-1 multiplexers.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   2 Counter(s).
+	inferred 226 D-type flip-flop(s).
+	inferred   1 Adder/Subtracter(s).
+	inferred  48 Multiplexer(s).
 Unit <RXinput> synthesized.
 
 
@@ -885,7 +837,6 @@ WARNING:Xst:646 - Signal <clkio180> is assigned but never used.
 WARNING:Xst:646 - Signal <addr3ext> is assigned but never used.
 Unit <network> synthesized.
 
-INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
 WARNING:Xst:524 - All outputs of the instance <memwdebug> of the block <memdebug> are unconnected in block <network>.
    This instance will be removed from the design along with all underlying logic
 
@@ -896,8 +847,6 @@ WARNING:Xst:524 - All outputs of the instance <memwdebug> of the block <memdebug
 Advanced RAM inference ...
 Advanced multiplier inference ...
 Advanced Registered AddSub inference ...
-Selecting encoding for FSM_7 ...
-Optimizing FSM <FSM_7> on signal <cs> with one-hot encoding.
 Selecting encoding for FSM_6 ...
 Optimizing FSM <FSM_6> on signal <cs> with one-hot encoding.
 Selecting encoding for FSM_5 ...
@@ -918,14 +867,17 @@ Dynamic shift register inference ...
 HDL Synthesis Report
 
 Macro Statistics
-# FSMs                             : 8
-# Adders/Subtractors               : 9
- 16-bit adder                      : 2
- 15-bit adder                      : 1
- 16-bit subtractor                 : 5
+# FSMs                             : 7
+# ROMs                             : 1
+ 16x2-bit ROM                      : 1
+# Adders/Subtractors               : 7
+ 16-bit subtractor                 : 4
+ 14-bit adder                      : 1
+ 16-bit adder                      : 1
  6-bit adder                       : 1
-# Counters                         : 20
+# Counters                         : 24
  16-bit up counter                 : 5
+ 10-bit up counter                 : 4
  16-bit down counter               : 1
  12-bit down counter               : 2
  32-bit down counter               : 1
@@ -933,34 +885,35 @@ Macro Statistics
  32-bit up counter                 : 7
  3-bit up counter                  : 1
  2-bit up counter                  : 1
-# Registers                        : 530
- 1-bit register                    : 448
+# Registers                        : 514
+ 1-bit register                    : 435
  32-bit register                   : 19
  17-bit register                   : 3
- 16-bit register                   : 36
+ 8-bit register                    : 8
+ 16-bit register                   : 34
+ 10-bit register                   : 5
  4-bit register                    : 3
- 8-bit register                    : 9
  48-bit register                   : 2
  6-bit register                    : 4
- 10-bit register                   : 5
  5-bit register                    : 1
-# Shift Registers                  : 18
+# Shift Registers                  : 2
  3-bit shift register              : 2
- 4-bit shift register              : 16
-# Comparators                      : 17
+# Comparators                      : 19
+ 16-bit comparator not equal       : 1
  16-bit comparator greater         : 1
- 16-bit comparator equal           : 3
+ 16-bit comparator equal           : 2
  17-bit comparator greater         : 2
  32-bit comparator lessequal       : 1
  7-bit comparator lessequal        : 1
  7-bit comparator greatequal       : 1
  32-bit comparator greater         : 1
+ 10-bit comparator equal           : 2
  8-bit comparator equal            : 6
  6-bit comparator lessequal        : 1
-# Multiplexers                     : 7
+# Multiplexers                     : 8
  17-bit 4-to-1 multiplexer         : 1
  32-bit 4-to-1 multiplexer         : 1
- 16-bit 2-to-1 multiplexer         : 3
+ 16-bit 2-to-1 multiplexer         : 4
  32-bit 2-to-1 multiplexer         : 2
 # Xors                             : 97
  1-bit xor7                        : 2
@@ -974,17 +927,11 @@ Macro Statistics
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
-Launcher: "rxoutput_async_fifo.ngo" is up to date.
-Launcher: "async_fifo.ngo" is up to date.
-Loading core <rxoutput_async_fifo> for timing and area information for instance <fifo>.
-Loading core <async_fifo> for timing and area information for instance <fifo>.
-WARNING:Xst:1291 - FF/Latch <lenr_0> is unconnected in block <RXoutput>.
-WARNING:Xst:1291 - FF/Latch <lenr_1> is unconnected in block <RXoutput>.
-WARNING:Xst:1291 - FF/Latch <mcast_5> is unconnected in block <RXinput_addrchk>.
-WARNING:Xst:1291 - FF/Latch <mcast_1> is unconnected in block <RXinput_addrchk>.
-WARNING:Xst:1291 - FF/Latch <mcast_2> is unconnected in block <RXinput_addrchk>.
-WARNING:Xst:1291 - FF/Latch <mcast_3> is unconnected in block <RXinput_addrchk>.
-WARNING:Xst:1291 - FF/Latch <mcast_4> is unconnected in block <RXinput_addrchk>.
+WARNING:Xst:1291 - FF/Latch <mcast_5> is unconnected in block <RXValid>.
+WARNING:Xst:1291 - FF/Latch <mcast_1> is unconnected in block <RXValid>.
+WARNING:Xst:1291 - FF/Latch <mcast_2> is unconnected in block <RXValid>.
+WARNING:Xst:1291 - FF/Latch <mcast_3> is unconnected in block <RXValid>.
+WARNING:Xst:1291 - FF/Latch <mcast_4> is unconnected in block <RXValid>.
 WARNING:Xst:1426 - The value init of the FF/Latch DOUT_31 hinder the constant cleaning in the block memdebug.
    You should achieve better results by setting this init to 1.
 WARNING:Xst:1426 - The value init of the FF/Latch DOUT_30 hinder the constant cleaning in the block memdebug.
@@ -1018,11 +965,6 @@ WARNING:Xst:1426 - The value init of the FF/Latch DOUT_1 hinder the constant cle
 WARNING:Xst:1426 - The value init of the FF/Latch DOUT_0 hinder the constant cleaning in the block memdebug.
    You should achieve better results by setting this init to 1.
 WARNING:Xst:1710 - FF/Latch  <ADDR_16> (without init value) is constant in block <memdebug>.
-WARNING:Xst:1291 - FF/Latch <endbyte_7> is unconnected in block <RXinput_memio>.
-WARNING:Xst:1291 - FF/Latch <endbyte_3> is unconnected in block <RXinput_memio>.
-WARNING:Xst:1291 - FF/Latch <endbyte_4> is unconnected in block <RXinput_memio>.
-WARNING:Xst:1291 - FF/Latch <endbyte_5> is unconnected in block <RXinput_memio>.
-WARNING:Xst:1291 - FF/Latch <endbyte_6> is unconnected in block <RXinput_memio>.
 WARNING:Xst:1291 - FF/Latch <MWEN> is unconnected in block <tx_input>.
 WARNING:Xst:1291 - FF/Latch <Q4_31> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_31> is unconnected in block <memcontroller>.
@@ -1088,30 +1030,28 @@ WARNING:Xst:1291 - FF/Latch <Q1_27> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_28> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_29> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_30> is unconnected in block <memcontroller>.
+WARNING:Xst:1293 - FF/Latch  <lenr_15> is constant in block <RXoutput>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <lenr_14> is constant in block <RXoutput>.
 
 Optimizing unit <network> ...
-
-Optimizing unit <RXoutput> ...
 
 Optimizing unit <TXinput> ...
 
 Optimizing unit <FIFOcheck> ...
 
-Optimizing unit <RXinput_GMII> ...
-
 Optimizing unit <crc_combinational> ...
 
-Optimizing unit <RXinput_addrchk> ...
+Optimizing unit <RXValid> ...
 
 Optimizing unit <MII> ...
 
 Optimizing unit <memdebug> ...
 
+Optimizing unit <RXoutput> ...
+
 Optimizing unit <TXoutput> ...
 
-Optimizing unit <RXinput_memio> ...
-
-Optimizing unit <rxinput_fifocontrol> ...
+Optimizing unit <GMIIin> ...
 
 Optimizing unit <PHYstatus> ...
 
@@ -1119,35 +1059,33 @@ Optimizing unit <clockenable> ...
 
 Optimizing unit <memory> ...
 
-Optimizing unit <control> ...
-
-Optimizing unit <RXinput_fifo> ...
-
 Optimizing unit <RXinput> ...
-Loading device for application Xst from file '2s200e.nph' in environment C:/Xilinx.
+
+Optimizing unit <control> ...
+Loading device for application Xst from file '3s200.nph' in environment C:/Xilinx.
 
 Mapping all equations...
-WARNING:Xst:1293 - FF/Latch  <mdl_25> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_26> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_27> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_28> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_29> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_30> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_0> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_1> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_2> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_3> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_4> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_5> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_6> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_7> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_8> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_9> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_10> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_11> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_12> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_13> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_14> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_0> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_1> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_2> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_3> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_4> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_5> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_6> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_7> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_8> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_9> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_10> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_11> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_12> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_13> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_14> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <lenr_0> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <lenr_1> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_2> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_3> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_4> is constant in block <rx_output>.
@@ -1158,6 +1096,8 @@ WARNING:Xst:1293 - FF/Latch  <lenr_8> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_9> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_10> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_11> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_18> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_17> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_16> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_15> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_14> is constant in block <rx_output>.
@@ -1175,27 +1115,21 @@ WARNING:Xst:1293 - FF/Latch  <mdl_3> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_2> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_1> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_0> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <lenr_15> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <fifodin_15> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <di_15> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_31> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <lenr_14> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_13> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <lenr_12> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_26> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_25> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_24> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_23> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_22> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_21> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_20> is constant in block <rx_output>.
 WARNING:Xst:1293 - FF/Latch  <mdl_19> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_18> is constant in block <rx_output>.
-WARNING:Xst:1293 - FF/Latch  <mdl_17> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_20> is constant in block <rx_output>.
+WARNING:Xst:1293 - FF/Latch  <mdl_21> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_15> is constant in block <rx_output>.
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_14> is constant in block <rx_output>.
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_13> is constant in block <rx_output>.
-WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_12> is constant in block <rx_output>.
-WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_15> is constant in block <rx_output>.
-WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_11> is constant in block <rx_output>.
-WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_10> is constant in block <rx_output>.
-WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_9> is constant in block <rx_output>.
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_0> is constant in block <rx_output>.
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_1> is constant in block <rx_output>.
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_2> is constant in block <rx_output>.
@@ -1205,6 +1139,10 @@ WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_5> is constant
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_6> is constant in block <rx_output>.
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_7> is constant in block <rx_output>.
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_8> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_9> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_10> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_11> is constant in block <rx_output>.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch  <len_12> is constant in block <rx_output>.
 WARNING:Xst:1291 - FF/Latch <MWEN> is unconnected in block <tx_input>.
 WARNING:Xst:1291 - FF/Latch <Q4_31> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_31> is unconnected in block <memcontroller>.
@@ -1270,25 +1208,9 @@ WARNING:Xst:1291 - FF/Latch <Q1_27> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_28> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_29> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_30> is unconnected in block <memcontroller>.
-WARNING:Xst:1898 - Due to constant pushing, FF/Latch <lmasell> is unconnected in block <rx_output>.
+WARNING:Xst:1898 - Due to constant pushing, FF/Latch <mdsell> is unconnected in block <rx_output>.
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block network, actual ratio is 71.
-WARNING:Xst:382 - Register FBBP_15 is equivalent to bpl_15
-WARNING:Xst:382 - Register FBBP_0 is equivalent to bpl_0
-WARNING:Xst:382 - Register FBBP_1 is equivalent to bpl_1
-WARNING:Xst:382 - Register FBBP_2 is equivalent to bpl_2
-WARNING:Xst:382 - Register FBBP_3 is equivalent to bpl_3
-WARNING:Xst:382 - Register FBBP_4 is equivalent to bpl_4
-WARNING:Xst:382 - Register FBBP_5 is equivalent to bpl_5
-WARNING:Xst:382 - Register FBBP_6 is equivalent to bpl_6
-WARNING:Xst:382 - Register FBBP_7 is equivalent to bpl_7
-WARNING:Xst:382 - Register FBBP_8 is equivalent to bpl_8
-WARNING:Xst:382 - Register FBBP_9 is equivalent to bpl_9
-WARNING:Xst:382 - Register FBBP_10 is equivalent to bpl_10
-WARNING:Xst:382 - Register FBBP_11 is equivalent to bpl_11
-WARNING:Xst:382 - Register FBBP_12 is equivalent to bpl_12
-WARNING:Xst:382 - Register FBBP_13 is equivalent to bpl_13
-WARNING:Xst:382 - Register FBBP_14 is equivalent to bpl_14
+Found area constraint ratio of 100 (+ 5) on block network, actual ratio is 80.
 WARNING:Xst:382 - Register addrl_15 is equivalent to FBBP_15
 WARNING:Xst:382 - Register addrl_0 is equivalent to FBBP_0
 WARNING:Xst:382 - Register addrl_1 is equivalent to FBBP_1
@@ -1801,22 +1723,6 @@ WARNING:Xst:382 - Register ts_31 is equivalent to ts_28
 WARNING:Xst:382 - Register ts_30 is equivalent to ts_29
 WARNING:Xst:382 - Register ts_31 is equivalent to ts_29
 WARNING:Xst:382 - Register ts_31 is equivalent to ts_30
-WARNING:Xst:382 - Register FBBP_15 is equivalent to bpl_15
-WARNING:Xst:382 - Register FBBP_0 is equivalent to bpl_0
-WARNING:Xst:382 - Register FBBP_1 is equivalent to bpl_1
-WARNING:Xst:382 - Register FBBP_2 is equivalent to bpl_2
-WARNING:Xst:382 - Register FBBP_3 is equivalent to bpl_3
-WARNING:Xst:382 - Register FBBP_4 is equivalent to bpl_4
-WARNING:Xst:382 - Register FBBP_5 is equivalent to bpl_5
-WARNING:Xst:382 - Register FBBP_6 is equivalent to bpl_6
-WARNING:Xst:382 - Register FBBP_7 is equivalent to bpl_7
-WARNING:Xst:382 - Register FBBP_8 is equivalent to bpl_8
-WARNING:Xst:382 - Register FBBP_9 is equivalent to bpl_9
-WARNING:Xst:382 - Register FBBP_10 is equivalent to bpl_10
-WARNING:Xst:382 - Register FBBP_11 is equivalent to bpl_11
-WARNING:Xst:382 - Register FBBP_12 is equivalent to bpl_12
-WARNING:Xst:382 - Register FBBP_13 is equivalent to bpl_13
-WARNING:Xst:382 - Register FBBP_14 is equivalent to bpl_14
 WARNING:Xst:382 - Register addrl_15 is equivalent to FBBP_15
 WARNING:Xst:382 - Register addrl_0 is equivalent to FBBP_0
 WARNING:Xst:382 - Register addrl_1 is equivalent to FBBP_1
@@ -2329,15 +2235,12 @@ WARNING:Xst:382 - Register ts_31 is equivalent to ts_28
 WARNING:Xst:382 - Register ts_30 is equivalent to ts_29
 WARNING:Xst:382 - Register ts_31 is equivalent to ts_29
 WARNING:Xst:382 - Register ts_31 is equivalent to ts_30
-FlipFlop slowclock/clken has been replicated 1 time(s)
-FlipFlop mac_control/bitcnt_109 has been replicated 1 time(s)
 FlipFlop mac_control/addr_4 has been replicated 1 time(s)
 FlipFlop mac_control/addr_3 has been replicated 1 time(s)
 FlipFlop mac_control/addr_2 has been replicated 1 time(s)
+FlipFlop mac_control/addr_4 has been replicated 1 time(s)
 FlipFlop mac_control/addr_3 has been replicated 1 time(s)
 FlipFlop mac_control/addr_2 has been replicated 1 time(s)
-FlipFlop mac_control/addr_4 has been replicated 1 time(s)
-FlipFlop rx_input/memio/cs_FFd16 has been replicated 1 time(s)
 
 =========================================================================
 *                            Final Report                               *
@@ -2350,41 +2253,46 @@ Optimization Goal                  : Speed
 Keep Hierarchy                     : YES
 
 Design Statistics
-# IOs                              : 125
+# IOs                              : 124
 
 Macro Statistics :
-# Registers                        : 487
-#      1-bit register              : 399
-#      10-bit register             : 1
-#      16-bit register             : 46
+# ROMs                             : 1
+#      16x2-bit ROM                : 1
+# Registers                        : 446
+#      1-bit register              : 354
+#      10-bit register             : 18
+#      16-bit register             : 34
 #      17-bit register             : 3
 #      32-bit register             : 19
 #      4-bit register              : 3
 #      48-bit register             : 2
 #      5-bit register              : 1
 #      6-bit register              : 4
-#      8-bit register              : 9
-# Counters                         : 10
+#      8-bit register              : 8
+# Counters                         : 11
+#      10-bit up counter           : 1
 #      12-bit down counter         : 2
 #      16-bit down counter         : 1
 #      16-bit up counter           : 4
 #      32-bit down counter         : 1
 #      6-bit up counter            : 2
-# Shift Registers                  : 18
+# Shift Registers                  : 2
 #      3-bit shift register        : 2
-#      4-bit shift register        : 16
-# Multiplexers                     : 7
+# Multiplexers                     : 8
 #      17-bit 4-to-1 multiplexer   : 1
-#      2-to-1 multiplexer          : 5
+#      2-to-1 multiplexer          : 6
 #      32-bit 4-to-1 multiplexer   : 1
-# Adders/Subtractors               : 19
-#      15-bit adder                : 1
-#      16-bit adder                : 12
-#      16-bit subtractor           : 5
+# Adders/Subtractors               : 20
+#      10-bit adder                : 13
+#      14-bit adder                : 1
+#      16-bit adder                : 1
+#      16-bit subtractor           : 4
 #      6-bit adder                 : 1
-# Comparators                      : 17
-#      16-bit comparator equal     : 3
+# Comparators                      : 19
+#      10-bit comparator equal     : 2
+#      16-bit comparator equal     : 2
 #      16-bit comparator greater   : 1
+#      16-bit comparator not equal : 1
 #      17-bit comparator greater   : 2
 #      32-bit comparator greater   : 1
 #      32-bit comparator lessequal : 1
@@ -2399,49 +2307,44 @@ Macro Statistics :
 #      1-bit xor7                  : 2
 
 Cell Usage :
-# BELS                             : 3291
-#      BUF                         : 4
-#      GND                         : 14
-#      LUT1                        : 358
-#      LUT1_L                      : 1
-#      LUT2                        : 266
-#      LUT2_D                      : 6
-#      LUT2_L                      : 7
-#      LUT3                        : 370
-#      LUT3_D                      : 1
-#      LUT3_L                      : 13
-#      LUT4                        : 849
-#      LUT4_D                      : 33
-#      LUT4_L                      : 133
-#      MUXCY                       : 635
-#      MUXCY_D                     : 4
-#      MUXCY_L                     : 8
-#      MUXF5                       : 50
-#      VCC                         : 14
-#      XORCY                       : 525
-# FlipFlops/Latches                : 2400
-#      FD                          : 227
-#      FDC                         : 120
-#      FDCE                        : 246
-#      FDCPE                       : 32
-#      FDE                         : 1452
-#      FDP                         : 7
-#      FDPE                        : 67
-#      FDR                         : 13
-#      FDRE                        : 225
-#      FDS                         : 4
-#      FDSE                        : 7
-# RAMS                             : 5
-#      RAMB4_S16_S16               : 1
-#      RAMB4_S4_S4                 : 4
-# Shifters                         : 36
+# BELS                             : 3015
+#      BUF                         : 1
+#      GND                         : 12
+#      LUT1                        : 346
+#      LUT1_L                      : 14
+#      LUT2                        : 293
+#      LUT2_D                      : 5
+#      LUT3                        : 371
+#      LUT3_D                      : 3
+#      LUT3_L                      : 15
+#      LUT4                        : 629
+#      LUT4_D                      : 30
+#      LUT4_L                      : 144
+#      MUXCY                       : 585
+#      MUXF5                       : 53
+#      VCC                         : 12
+#      XORCY                       : 502
+# FlipFlops/Latches                : 2179
+#      FD                          : 252
+#      FDC                         : 62
+#      FDCE                        : 79
+#      FDCPE                       : 16
+#      FDE                         : 1499
+#      FDP                         : 5
+#      FDPE                        : 3
+#      FDR                         : 19
+#      FDRE                        : 236
+#      FDSE                        : 8
+# RAMS                             : 2
+#      RAMB16_S18_S18              : 2
+# Shifters                         : 20
 #      SRL16                       : 18
-#      SRL16E                      : 18
+#      SRL16E                      : 2
 # Clock Buffers                    : 3
 #      BUFG                        : 3
-# IO Buffers                       : 125
+# IO Buffers                       : 124
 #      IBUF                        : 32
-#      IBUFG                       : 4
+#      IBUFG                       : 3
 #      IOBUF                       : 1
 #      IOBUF_F_6                   : 32
 #      OBUF                        : 56
@@ -2452,14 +2355,14 @@ Cell Usage :
 Device utilization summary:
 ---------------------------
 
-Selected Device : 2s200epq208-6 
+Selected Device : 3s200pq208-4 
 
- Number of Slices:                    1626  out of   2352    69%  
- Number of Slice Flip Flops:          2400  out of   4704    51%  
- Number of 4 input LUTs:              2073  out of   4704    44%  
- Number of bonded IOBs:                125  out of    146    85%  
- Number of BRAMs:                        5  out of     14    35%  
- Number of GCLKs:                        3  out of      4    75%  
+ Number of Slices:                    1450  out of   1920    75%  
+ Number of Slice Flip Flops:          2179  out of   3840    56%  
+ Number of 4 input LUTs:              1870  out of   3840    48%  
+ Number of bonded IOBs:                124  out of    141    87%  
+ Number of BRAMs:                        2  out of     12    16%  
+ Number of GCLKs:                        3  out of      8    37%  
 
 
 =========================================================================
@@ -2474,20 +2377,18 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-RX_CLK                             | clkrx_dll:CLK0         | 90    |
-CLKIN                              | clk_dll:CLK0           | 2295  |
-rx_input/fifo/fifo/GND:G           | NONE                   | 2     |
-CLKIOIN                            | clkio_dll:CLK0         | 57    |
-rx_output/fifo/GND:G               | NONE                   | 2     |
+CLKIN                              | clk_dll:CLK0           | 2119  |
+RX_CLK                             | clkrx_dll:CLK0         | 43    |
+CLKIOIN                            | clkio_dll:CLK0         | 41    |
 -----------------------------------+------------------------+-------+
 
 Timing Summary:
 ---------------
-Speed Grade: -6
+Speed Grade: -4
 
-   Minimum period: 14.864ns (Maximum Frequency: 67.277MHz)
-   Minimum input arrival time before clock: 21.513ns
-   Maximum output required time after clock: 19.448ns
+   Minimum period: 8.671ns (Maximum Frequency: 115.327MHz)
+   Minimum input arrival time before clock: 7.780ns
+   Maximum output required time after clock: 13.058ns
    Maximum combinational path delay: No path found
 
 Timing Detail:
@@ -2495,130 +2396,156 @@ Timing Detail:
 All values displayed in nanoseconds (ns)
 
 -------------------------------------------------------------------------
-Timing constraint: Default period analysis for Clock 'RX_CLK'
-Delay:               8.197ns (Levels of Logic = 1)
-  Source:            rx_input/fifo/fifo/BU435 (FF)
-  Destination:       rx_input/fifo/fifo/BU184 (FF)
-  Source Clock:      RX_CLK rising
-  Destination Clock: RX_CLK rising
-
-  Data Path: rx_input/fifo/fifo/BU435 to rx_input/fifo/fifo/BU184
-                                Gate     Net
-    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
-    ----------------------------------------  ------------
-     FDPE:C->Q            13   0.992   2.550  BU435 (full)
-     LUT4:I1->O           40   0.468   3.500  BU229 (N2364)
-     FDPE:CE                   0.687          BU184
-    ----------------------------------------
-    Total                      8.197ns (2.147ns logic, 6.050ns route)
-                                       (26.2% logic, 73.8% route)
-
--------------------------------------------------------------------------
 Timing constraint: Default period analysis for Clock 'CLKIN'
-Delay:               14.864ns (Levels of Logic = 6)
-  Source:            mac_control/addr_1 (FF)
-  Destination:       mac_control/dout_1 (FF)
+Delay:               8.671ns (Levels of Logic = 19)
+  Source:            mac_control/addr_7 (FF)
+  Destination:       mac_control/phyrstcnt_135 (FF)
   Source Clock:      CLKIN rising
   Destination Clock: CLKIN rising
 
-  Data Path: mac_control/addr_1 to mac_control/dout_1
+  Data Path: mac_control/addr_7 to mac_control/phyrstcnt_135
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q             16   0.992   2.800  addr_1 (addr_1)
-     LUT2_D:I1->O         16   0.468   2.800  Ker557951 (N55797)
-     LUT4_D:I3->O         16   0.468   2.800  _n00941 (_n0094)
-     LUT4:I2->O            1   0.468   0.920  Mmux__n0018_Result<14>66 (CHOICE3070)
-     LUT3:I2->O            1   0.468   0.920  Mmux__n0018_Result<14>101_SW0 (N86571)
-     LUT4_L:I3->LO         1   0.468   0.100  Mmux__n0018_Result<14>101 (CHOICE3080)
-     LUT4_L:I2->LO         1   0.468   0.000  Mmux__n0018_Result<14>137 (_n0018<14>)
-     FDE:D                     0.724          dout_14
+     FDE:C->Q             12   0.720   0.865  addr_7 (addr_7)
+     LUT2:I1->O            1   0.551   0.240  _n0060_SW1 (N83150)
+     LUT4:I3->O           20   0.551   1.137  Ker550711 (N55073)
+     LUT4_D:I1->O         18   0.551   1.066  Ker549611 (N54963)
+     LUT3_L:I0->LO         1   0.551   0.000  phyrstcnt_inst_lut3_2191 (phyrstcnt_inst_lut3_219)
+     MUXCY:S->O            1   0.500   0.000  phyrstcnt_inst_cy_314 (phyrstcnt_inst_cy_314)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_315 (phyrstcnt_inst_cy_315)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_316 (phyrstcnt_inst_cy_316)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_317 (phyrstcnt_inst_cy_317)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_318 (phyrstcnt_inst_cy_318)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_319 (phyrstcnt_inst_cy_319)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_320 (phyrstcnt_inst_cy_320)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_321 (phyrstcnt_inst_cy_321)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_322 (phyrstcnt_inst_cy_322)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_323 (phyrstcnt_inst_cy_323)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_324 (phyrstcnt_inst_cy_324)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_325 (phyrstcnt_inst_cy_325)
+     MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_326 (phyrstcnt_inst_cy_326)
+     MUXCY:CI->O           0   0.064   0.000  phyrstcnt_inst_cy_327 (phyrstcnt_inst_cy_327)
+     XORCY:CI->O           1   0.904   0.000  phyrstcnt_inst_sum_275 (phyrstcnt_inst_sum_275)
+     FDE:D                     0.203          phyrstcnt_135
     ----------------------------------------
-    Total                     14.864ns (4.524ns logic, 10.340ns route)
-                                       (30.4% logic, 69.6% route)
+    Total                      8.671ns (5.363ns logic, 3.308ns route)
+                                       (61.8% logic, 38.2% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default period analysis for Clock 'RX_CLK'
+Delay:               3.967ns (Levels of Logic = 11)
+  Source:            rx_input/gmii/ain_0 (FF)
+  Destination:       rx_input/gmii/ain_9 (FF)
+  Source Clock:      RX_CLK rising
+  Destination Clock: RX_CLK rising
+
+  Data Path: rx_input/gmii/ain_0 to rx_input/gmii/ain_9
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q              3   0.720   0.577  ain_0 (ain_0)
+     LUT1:I0->O            2   0.551   0.000  ain_Madd__n0000_inst_lut2_161 (ain_Madd__n0000_inst_lut2_16)
+     MUXCY:S->O            1   0.500   0.000  ain_Madd__n0000_inst_cy_16 (ain_Madd__n0000_inst_cy_16)
+     MUXCY:CI->O           1   0.064   0.000  ain_Madd__n0000_inst_cy_17 (ain_Madd__n0000_inst_cy_17)
+     MUXCY:CI->O           1   0.064   0.000  ain_Madd__n0000_inst_cy_18 (ain_Madd__n0000_inst_cy_18)
+     MUXCY:CI->O           1   0.064   0.000  ain_Madd__n0000_inst_cy_19 (ain_Madd__n0000_inst_cy_19)
+     MUXCY:CI->O           1   0.064   0.000  ain_Madd__n0000_inst_cy_20 (ain_Madd__n0000_inst_cy_20)
+     MUXCY:CI->O           1   0.064   0.000  ain_Madd__n0000_inst_cy_21 (ain_Madd__n0000_inst_cy_21)
+     MUXCY:CI->O           1   0.064   0.000  ain_Madd__n0000_inst_cy_22 (ain_Madd__n0000_inst_cy_22)
+     MUXCY:CI->O           1   0.064   0.000  ain_Madd__n0000_inst_cy_23 (ain_Madd__n0000_inst_cy_23)
+     MUXCY:CI->O           0   0.064   0.000  ain_Madd__n0000_inst_cy_24 (ain_Madd__n0000_inst_cy_24)
+     XORCY:CI->O           1   0.904   0.000  ain_Madd__n0000_inst_sum_25 (ain__n0000<9>)
+     FDE:D                     0.203          ain_9
+    ----------------------------------------
+    Total                      3.967ns (3.390ns logic, 0.577ns route)
+                                       (85.5% logic, 14.5% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default period analysis for Clock 'CLKIOIN'
-Delay:               7.897ns (Levels of Logic = 1)
-  Source:            rx_output/fifo/BU176 (FF)
-  Destination:       rx_output/fifo/BU41 (FF)
+Delay:               5.072ns (Levels of Logic = 7)
+  Source:            rx_output/ao_0 (FF)
+  Destination:       rx_output/ao_8 (FF)
   Source Clock:      CLKIOIN rising
   Destination Clock: CLKIOIN rising
 
-  Data Path: rx_output/fifo/BU176 to rx_output/fifo/BU41
+  Data Path: rx_output/ao_0 to rx_output/ao_8
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDPE:C->Q            12   0.992   2.450  BU176 (empty)
-     LUT4:I1->O           32   0.468   3.300  BU16 (N1515)
-     FDCE:CE                   0.687          BU41
+     FDRE:C->Q             3   0.720   0.577  ao_0 (ao_0)
+     LUT4:I1->O            1   0.551   0.000  Mcompar__n0036_inst_lut4_81 (Mcompar__n0036_inst_lut4_8)
+     MUXCY:S->O            1   0.500   0.000  Mcompar__n0036_inst_cy_134 (Mcompar__n0036_inst_cy_134)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0036_inst_cy_135 (Mcompar__n0036_inst_cy_135)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0036_inst_cy_136 (Mcompar__n0036_inst_cy_136)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0036_inst_cy_137 (Mcompar__n0036_inst_cy_137)
+     MUXCY:CI->O           1   0.303   0.240  Mcompar__n0036_inst_cy_138 (aeq)
+     LUT2:I0->O           11   0.551   0.836  nextd1 (nextd)
+     FDRE:CE                   0.602          ao_0
     ----------------------------------------
-    Total                      7.897ns (2.147ns logic, 5.750ns route)
-                                       (27.2% logic, 72.8% route)
-
--------------------------------------------------------------------------
-Timing constraint: Default OFFSET IN BEFORE for Clock 'RX_CLK'
-Offset:              2.441ns (Levels of Logic = 2)
-  Source:            RX_DV (PAD)
-  Destination:       rx_input/GMII/rx_dvl (FF)
-  Destination Clock: RX_CLK rising
-
-  Data Path: RX_DV to rx_input/GMII/rx_dvl
-                                Gate     Net
-    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
-    ----------------------------------------  ------------
-     IBUF:I->O             1   0.797   0.920  RX_DV_IBUF (RX_DV_IBUF)
-     begin scope: 'rx_input'
-     begin scope: 'GMII'
-     FD:D                      0.724          rx_dvl
-    ----------------------------------------
-    Total                      2.441ns (1.521ns logic, 0.920ns route)
-                                       (62.3% logic, 37.7% route)
+    Total                      5.072ns (3.419ns logic, 1.653ns route)
+                                       (67.4% logic, 32.6% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLKIN'
-Offset:              21.513ns (Levels of Logic = 6)
+Offset:              7.780ns (Levels of Logic = 4)
   Source:            RESET (PAD)
-  Destination:       rx_input/memio/addrchk/maceq_4 (FF)
+  Destination:       rx_output/FBBP_15 (FF)
   Destination Clock: CLKIN rising
 
-  Data Path: RESET to rx_input/memio/addrchk/maceq_4
+  Data Path: RESET to rx_output/FBBP_15
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           108   0.797   5.200  RESET_IBUF (RESET_IBUF)
-     BUF:I->O             48   0.468   3.700  RESET_IBUF_2 (RESET_IBUF_2)
-     begin scope: 'rx_input'
-     BUF:I->O            137   0.468   5.500  RESET_1 (RESET_1)
-     begin scope: 'memio'
-     begin scope: 'addrchk'
-     LUT1:I0->O           69   0.468   4.225  maceq_N54231 (maceq_N5423)
-     FDE:CE                    0.687          maceq_0
+     IBUF:I->O           118   1.930   1.407  RESET_IBUF (RESET_IBUF)
+     BUF:I->O            104   0.551   1.393  RESET_IBUF_1 (RESET_IBUF_1)
+     begin scope: 'rx_output'
+     LUT1:I0->O           57   0.551   1.346  FBBP_N46611 (FBBP_N4661)
+     FDE:CE                    0.602          FBBP_0
     ----------------------------------------
-    Total                     21.513ns (2.888ns logic, 18.625ns route)
-                                       (13.4% logic, 86.6% route)
+    Total                      7.780ns (3.634ns logic, 4.146ns route)
+                                       (46.7% logic, 53.3% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default OFFSET IN BEFORE for Clock 'RX_CLK'
+Offset:              2.373ns (Levels of Logic = 2)
+  Source:            RX_ER (PAD)
+  Destination:       rx_input/gmii/erl (FF)
+  Destination Clock: RX_CLK rising
+
+  Data Path: RX_ER to rx_input/gmii/erl
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   1.930   0.240  RX_ER_IBUF (RX_ER_IBUF)
+     begin scope: 'rx_input'
+     begin scope: 'gmii'
+     FD:D                      0.203          erl
+    ----------------------------------------
+    Total                      2.373ns (2.133ns logic, 0.240ns route)
+                                       (89.9% logic, 10.1% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLKIOIN'
-Offset:              2.441ns (Levels of Logic = 2)
+Offset:              2.373ns (Levels of Logic = 2)
   Source:            NEXTFRAME (PAD)
-  Destination:       rx_output/nf (FF)
+  Destination:       rx_output/nfl (FF)
   Destination Clock: CLKIOIN rising
 
-  Data Path: NEXTFRAME to rx_output/nf
+  Data Path: NEXTFRAME to rx_output/nfl
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O             1   0.797   0.920  NEXTFRAME_IBUF (NEXTFRAME_IBUF)
+     IBUF:I->O             1   1.930   0.240  NEXTFRAME_IBUF (NEXTFRAME_IBUF)
      begin scope: 'rx_output'
-     FD:D                      0.724          nf
+     FD:D                      0.203          nfl
     ----------------------------------------
-    Total                      2.441ns (1.521ns logic, 0.920ns route)
-                                       (62.3% logic, 37.7% route)
+    Total                      2.373ns (2.133ns logic, 0.240ns route)
+                                       (89.9% logic, 10.1% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default OFFSET OUT AFTER for Clock 'CLKIN'
-Offset:              19.448ns (Levels of Logic = 11)
+Offset:              13.058ns (Levels of Logic = 11)
   Source:            mac_control/PHY_status/cs_FFd4 (FF)
   Destination:       MDIO (PAD)
   Source Clock:      CLKIN rising
@@ -2627,27 +2554,27 @@ Offset:              19.448ns (Levels of Logic = 11)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDCE:C->Q             5   0.992   1.720  cs_FFd4 (cs_FFd4)
-     LUT3:I1->O            7   0.468   1.950  Ker444971 (N44499)
-     LUT4:I3->O            1   0.468   0.920  miiaddr<3>1 (miiaddr<3>)
+     FDCE:C->Q             5   0.720   0.658  cs_FFd4 (cs_FFd4)
+     LUT3:I1->O            7   0.551   0.717  Ker418501 (N41852)
+     LUT4:I3->O            1   0.551   0.240  miiaddr<3>1 (miiaddr<3>)
      begin scope: 'MII_Interface'
-     LUT4:I0->O            1   0.468   0.920  sout361 (CHOICE1064)
-     LUT4:I3->O            1   0.468   0.920  sout365 (CHOICE1065)
-     LUT4:I0->O            1   0.468   0.920  sout442 (CHOICE1081)
-     LUT3:I0->O            1   0.468   0.920  sout472 (CHOICE1083)
-     LUT3:I2->O            1   0.468   0.920  sout498_SW0 (N86605)
-     LUT4:I3->O            1   0.468   0.920  sout498 (sout)
-     IOBUF:I->IO               4.602          iobuffer (MDIO)
+     LUT4:I0->O            1   0.551   0.240  sout361 (CHOICE1056)
+     LUT4:I3->O            1   0.551   0.240  sout365 (CHOICE1057)
+     LUT4:I0->O            1   0.551   0.240  sout442 (CHOICE1073)
+     LUT3:I0->O            1   0.551   0.240  sout472 (CHOICE1075)
+     LUT3:I2->O            1   0.551   0.240  sout498_SW0 (N83536)
+     LUT4:I0->O            1   0.551   0.240  sout498 (sout)
+     IOBUF:I->IO               4.875          iobuffer (MDIO)
      end scope: 'MII_Interface'
      end scope: 'PHY_status'
      end scope: 'mac_control'
     ----------------------------------------
-    Total                     19.448ns (9.338ns logic, 10.110ns route)
-                                       (48.0% logic, 52.0% route)
+    Total                     13.058ns (10.003ns logic, 3.055ns route)
+                                       (76.6% logic, 23.4% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default OFFSET OUT AFTER for Clock 'CLKIOIN'
-Offset:              6.514ns (Levels of Logic = 2)
+Offset:              5.835ns (Levels of Logic = 2)
   Source:            rx_output/DOUTEN (FF)
   Destination:       DOUTEN (PAD)
   Source Clock:      CLKIOIN rising
@@ -2656,18 +2583,18 @@ Offset:              6.514ns (Levels of Logic = 2)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FD:C->Q               1   0.992   0.920  DOUTEN (DOUTEN)
+     FD:C->Q               1   0.720   0.240  DOUTEN (DOUTEN)
      end scope: 'rx_output'
-     OBUF:I->O                 4.602          DOUTEN_OBUF (DOUTEN)
+     OBUF:I->O                 4.875          DOUTEN_OBUF (DOUTEN)
     ----------------------------------------
-    Total                      6.514ns (5.594ns logic, 0.920ns route)
-                                       (85.9% logic, 14.1% route)
+    Total                      5.835ns (5.595ns logic, 0.240ns route)
+                                       (95.9% logic, 4.1% route)
 
 =========================================================================
-CPU : 47.13 / 48.03 s | Elapsed : 47.00 / 48.00 s
+CPU : 48.03 / 48.67 s | Elapsed : 48.00 / 49.00 s
  
 --> 
 
-Total memory usage is 108344 kilobytes
+Total memory usage is 109340 kilobytes
 
 

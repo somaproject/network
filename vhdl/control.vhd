@@ -18,7 +18,7 @@ entity control is
 				SOUT : out std_logic;
 				LEDACT : out std_logic;
 				LEDTX : out std_logic;
-				LEDRX : out std_logic;			   c0o  
+				LEDRX : out std_logic;			   
 				LED100 : out std_logic;
 				LED1000 : out std_logic;
 				LEDDPX : out std_logic;

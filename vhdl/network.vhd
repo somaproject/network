@@ -10,7 +10,6 @@ use UNISIM.VComponents.all;
 
 entity network is
     Port ( CLKIN : in std_logic;
-	 		  CLKFB : in std_logic;
            RESET : in std_logic;
            RX_DV : in std_logic;
            RX_ER : in std_logic;
@@ -29,20 +28,20 @@ entity network is
            DOUTEN : out std_logic;
            NEWFRAME : in std_logic;
            DIN : in std_logic_vector(15 downto 0);
-			  MDIO : inout std_logic;
-			  MDC : out std_logic;
-			  LEDACT : out std_logic;
-			  LEDTX : out std_logic;
-			  LEDRX : out std_logic;
-			  LED100 : out std_logic;
-			  LED1000 : out std_logic;
-			  LEDDPX : out std_logic;
-			  LEDPOWER : out std_logic;  
-			  PHYRESET : out std_logic;
-			  SCLK : in std_logic;
-			  SIN : in std_logic;
-			  SOUT : out std_logic; 
-			  SCS : in std_logic );
+		 MDIO : inout std_logic;
+		 MDC : out std_logic;
+	      LEDACT : out std_logic;
+		 LEDTX : out std_logic;
+		 LEDRX : out std_logic;
+		 LED100 : out std_logic;
+		 LED1000 : out std_logic;
+		 LEDDPX : out std_logic;
+		 LEDPOWER : out std_logic;  
+		 PHYRESET : out std_logic;
+		 SCLK : in std_logic;
+		 SIN : in std_logic;
+		 SOUT : out std_logic; 
+		 SCS : in std_logic );
 end network;
 
 architecture Behavioral of network is
@@ -302,7 +301,7 @@ begin
 
     clk_dll : CLKDLL port map (
     		CLKIN => CLKIN,
-			CLKFB => CLKFB,
+			CLKFB => clk,
 			RST => RESET,
 			CLK0 => clk_to_bufg, 
 			CLKDV => open,
