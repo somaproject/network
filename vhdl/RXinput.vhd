@@ -149,16 +149,16 @@ begin
 				cs <= ns;
 
 				-- data latching
-				if cs = b0wr and fd = '1' then
+				if cs = b0wr and rd = '1' and endf = '0' then
 					lm(7 downto 0) <= data;
 				end if; 
-				if cs = b1wr and fd = '1' then
+				if cs = b1wr and rd = '1' and endf = '0'  then
 					lm(15 downto 8) <= data;
 				end if; 
-				if cs = b2wr and fd = '1' then
+				if cs = b2wr and rd = '1' and endf = '0'  then
 					lm(23 downto 16) <= data;
 				end if; 
-				if cs = b3wr and fd = '1' then
+				if cs = b3wr and rd = '1' and endf = '0'  then
 					lm(31 downto 24) <= data;
 				end if; 
 
@@ -171,7 +171,7 @@ begin
 				if cs = none then
 					bcnt <= X"FFFC";
 				else
-					if fd = '1' then
+					if fdl = '1' then
 						bcnt <= bcnt + 1;
 					end if;
 				end if;

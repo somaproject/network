@@ -21,7 +21,7 @@ architecture Behavioral of FIFOcheck is
 -- sure the BP is at least two maximum frame sizes behind
 -- the FBBP. 
    signal bpl, fbbpl : std_logic_vector(15 downto 0) := (others =>'0');
-   signal diff : std_logic_vector(15 downto 0) := (others => '0');
+   signal diff, diffl : std_logic_vector(15 downto 0) := (others => '0');
 
 begin
    main: process(CLK) is
@@ -29,8 +29,9 @@ begin
    	if rising_edge(CLK) then
 	   bpl <= BP;
 	   fbbpl <= FBBP; 
-	   diff <= fbbpl - bpl ; 
-	   if (diff > 8192) or (diff =0) then
+	   diff <= fbbpl - bpl ;
+	   diffl <= diff;  
+	   if (diffl > 8192) or (diffl =0) then
 	   	 FIFOFULL <= '0';
 	   else
 	   	 FIFOFULL <= '1';
