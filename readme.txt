@@ -264,6 +264,13 @@ The clocks will of course be synchronized, meaning that a lot of concerns about 
 
 CLKSL is CLK / 4
 
+For our PHY, I think we should disable autonegotiatio and enable 1000mbit operation on startup, full duplex of course. 
+
+For MII interface portion: 
+   The MDCCNT line is a 64-bit counter whose top bit is used as the (registerd) MDC clock,a nd which is enabled by MDCEN. At 33 MHz, this is a .5 MHz clock, which is nice. a delta detector is placed on this signal to generate a clken when the MDC transitions from high to low. This will, in part, drive the FSM. SHIFTEN is derived the same way, but is high on the rising edge of the clock. 
+
+   SIN, SOUT, and STS are the input, output, and tristate control pins for the tristate buffer control of MDIO
+
 
 
 

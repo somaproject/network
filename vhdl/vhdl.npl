@@ -37,6 +37,8 @@ MODULE async_fifo.xco
 MODSTYLE async_fifo Normal
 MODULE FIFOcheck.vhd
 MODSTYLE fifocheck Normal
+MODULE MII.vhd
+MODSTYLE mii Normal
 MODULE crc_combinational.vhd
 MODSTYLE crc_combinational Normal
 MODULE RXinput.vhd
