@@ -37,6 +37,9 @@ architecture Behavioral of RXinput_memio is
    signal mnewf, brdy : std_logic := '0';
    signal endbyte: std_logic_vector(7 downto 0) :=(others => '0');
 
+	signal datal: std_logic_vector(7 downto 0) := (others => '0'); 
+
+
    -- byte counter
    signal bcnt, bcntl : std_logic_vector(15 downto 0) := (others => '0');
    signal bcnten : std_logic := '0';
@@ -48,6 +51,9 @@ architecture Behavioral of RXinput_memio is
    				 X"C704DD7B"; 
    signal crcequal : std_logic := '0'; 
    signal fifofulll : std_logic := '0'; 
+	signal crcrst, crcen : std_logic := '0';
+
+
    -- memory:
    signal bp, macnt, lma, bpl, lbpout, lbpout2, lbpout3, lbpout4, lbpout5
     : std_logic_vector(15 downto 0) :=
@@ -59,7 +65,7 @@ architecture Behavioral of RXinput_memio is
 
    -- fsms:
    type states is (none, byte0, byte1, byte2, byte3, memwait1,
-   			    memwait2, memwait3, wait0, wait1, wait2, errchk,
+   			    memwait2, memwait3, wait0, wait1, wait2, wait3, errchk,
 			    incbp, pktabort, writebp);
    signal cs, ns : states := none;  
    
@@ -75,7 +81,7 @@ begin
     crccomb: crc_combinational port map (
 			CI => crcl,
 			CO => crc,
-			D => data);	
+			D => datal);	
     
     clock: process(CLK, RESET) is
     begin
@@ -151,14 +157,19 @@ begin
 			
 			
 			-- crc:
-			if newf = '1' then
+			if crcrst = '1' then
 			   crcl <= (others => '1');
 			else
-			   if brdy = '1' and ce = '1' then 
+			   if crcen = '1' then 
 			      crcl <= crc;
 			   end if; 
 		     end if; 
 			crcll <= crcl; 
+
+			crcrst <= newf; 
+			crcen <= brdy and ce;
+
+			datal <= data; 
 
 			-- byte count
 			if newf = '1' then
@@ -327,19 +338,32 @@ begin
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
+			 ns <= wait1; 
+	      when wait1 => 
+		      men <= '1'; 
+			 ce <= '0'; 
+			 newf <= '0';
+			 wbp <= '0';
+			 ns <= wait2; 
+	      when wait2 => 
+		      men <= '1'; 
+			 ce <= '0'; 
+			 newf <= '0';
+			 wbp <= '0';
 			 ns <= errchk; 
+
 	      when errchk => 
 		      men <= '1'; 
 			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
 			 if fifofulll = '0' and endbyte(2) = '0' and 
-			 	crcll = CRCCONST then 
-				ns <= wait1; 
+			 	crcequal = '1' then --crcll = CRCCONST then 
+				ns <= wait3; 
 			 else 
 				 ns <= pktabort; 
 			 end if;  
-	      when wait1 => 
+	      when wait3=> 
 		      men <= '0'; 
 			 ce <= '0'; 
 			 newf <= '0';

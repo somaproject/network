@@ -10,16 +10,16 @@ use UNISIM.VComponents.all;
 
 entity TXinput is
     Port ( CLK : in std_logic;
-    		 CLKIO : in std_logic; 
-    		 RESET : in std_logic; 
+    		  CLKIO : in std_logic; 
+    		  RESET : in std_logic; 
            DIN : in std_logic_vector(15 downto 0);
            NEWFRAME : in std_logic;
            MD : out std_logic_vector(31 downto 0);
            MWEN : out std_logic;
            MA : out std_logic_vector(15 downto 0);
-		 FIFOFULL : in std_logic; 
+			  FIFOFULL : in std_logic; 
            BPOUT : out std_logic_vector(15 downto 0);
-		 TXFIFOWERR : out std_logic; 
+				TXFIFOWERR : out std_logic; 
            DONE : out std_logic);
 end TXinput;
 
@@ -37,7 +37,7 @@ architecture Behavioral of TXinput is
    signal dlen, dhen : std_logic := '0';
    signal cpen : std_logic := '0';
    signal mrw, men : std_logic := '0';
-   
+   										  
    signal addr, bp : std_logic_vector(15 downto 0) := (others => '0');
    signal bpen : std_logic := '0';
    signal CNT : std_logic_vector(15 downto 0);
@@ -47,10 +47,11 @@ architecture Behavioral of TXinput is
    signal cs, ns : states := none; 
 
    -- signals for clock-boundary-crossing logic
-   signal nenable, enable, enableint, enableintl, den :
+   signal nenable, enable, enableint, enableintl, den, lden :
    		std_logic := '0';
-   signal dinl, dinint : std_logic_vector(15 downto 0) := (others => '0');
-   signal newframel, newfint : std_logic := '0'; 
+   signal dinl, dinint, ldinint : std_logic_vector(15 downto 0) 
+					:= (others => '0');
+   signal newframel, newfint, lnewfint : std_logic := '0'; 
 
    -- fifo control
    signal fifofulll : std_logic := '0';
@@ -101,7 +102,7 @@ begin
 			A1 => '0',
 			A2 => '1',
 			A3 => '0',
-			Q => newfint);
+			Q => lnewfint);
    srl16_din: for i in 0 to 15 generate
 	    srl16_din_bit: srl16 port map (
    			D => dinl(i),
@@ -110,10 +111,10 @@ begin
 			A1 => '0',
 			A2 => '1',
 			A3 => '0',
-			Q => dinint(i));
+			Q => ldinint(i));
    end generate; 
 
-   den <= enableintl xor enableint; 
+   lden <= enableintl xor enableint; 
 
 
    clock: process(CLK, RESET) is
@@ -165,6 +166,10 @@ begin
 			-- fifo concerns
 			fifofulll <= FIFOFULL; 
 
+			-- extra registers at output
+			dinint <= ldinint;
+			newfint <= lnewfint; 
+			den <= lden;   
 
 			-- memory interface
 			if MEN = '1' then

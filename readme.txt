@@ -173,6 +173,12 @@ Tues 30 September 2003 : Problems from switching ISE/modelsim versions, resultin
 To avoid writing the 4 checksum bytes, we simply subtract 1 from the BP when we write it (and subtract 4 from the BCNT. 
 
 
+3 October 2003: It's really hard to synthesize using ISE 6 with the damn CRC. So I'm going to try and pipeline the inputs and insert an extra receive state. 
+
+We've created CRCRST, CRCEN as registered signals for the CRCL register. Go pipelining!
+
+
+
 --------------------------------------------------------------------------
 RXoutput
 --------------------------------------------------------------------------
