@@ -17,11 +17,13 @@ entity TXoutput is
            TXD : out std_logic_vector(7 downto 0);
            TXEN : out std_logic;
 		 FRAMETX: out std_logic; 
-           CLKEN : in std_logic);
+           CLKEN : in std_logic;
+		 GTX_CLK : out std_logic);
 end TXoutput;
 
 architecture Behavioral of TXoutput is
 -- TXOUTPUT.VHD -- MAC transmit output. 
+
 
 
 	-- mux counters:
@@ -74,6 +76,9 @@ begin
 			D => data);
     MA <= addr; 
     ncrcl <= not crcl; 
+
+    GTX_CLK <= clk;
+
 
     --frametx goes high when a packet is being sent, and
     -- is used both for TX LED and the indicator counter

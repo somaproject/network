@@ -40,12 +40,15 @@ MODULE rxinput_fifocontrol.vhd
 MODSTYLE rxinput_fifocontrol Normal
 MODULE memory.vhd
 MODSTYLE memory Normal
+MODULE network.vhd
+MODSTYLE network Normal
 MODULE RXinput_GMII.vhd
 MODSTYLE rxinput_gmii Normal
 MODULE RXinput_fifo.vhd
 MODSTYLE rxinput_fifo Normal
 DEPASSOC rxinput_fifocontrol txinput_fifocontrol.ucf Normal
 DEPASSOC rxoutput rxoutput.ucf SYSTEM
+DEPASSOC network network.ucf SYSTEM
 DEPASSOC rxinput_gmii RXinput_GMII.ucf Normal
 DEPASSOC rxinput_memio RXinput_memio.ucf Normal
 DEPASSOC txoutput TXoutput.ucf Normal
@@ -58,6 +61,7 @@ p_ModelSimSimRunTime_tb=xstvhd, spartan2e, Module VHDL Test Bench.t_MSimulateBeh
 p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1062287314, Yes
 xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1062367111, High
 [STATUS-ALL]
-rxinput.ngdFile=WARNINGS,1063564548
+network.ngcFile=WARNINGS,1063735923
+RXinput.vhd.jhdFile=WARNINGS,1063735923
 [STRATEGY-LIST]
 Normal=True

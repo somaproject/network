@@ -59,7 +59,7 @@ architecture Behavioral of memory is
 	component OBUF
 	      port (I: in std_logic; O: out std_logic);
 	end component;   
-
+	 
 begin
 
    -- maybe we'll do some sort of funky de-skew

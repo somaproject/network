@@ -5,19 +5,19 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 --  Uncomment the following lines to use the declarations that are
 --  provided for instantiating Xilinx primitive components.
---library UNISIM;
---use UNISIM.VComponents.all;
+library UNISIM;
+use UNISIM.VComponents.all;
 
 entity TXinput is
     Port ( CLK : in std_logic;
+    		 CLKOUT : in std_logic; 
     		 RESET : in std_logic; 
-           DATA : in std_logic_vector(15 downto 0);
+           DIN : in std_logic_vector(15 downto 0);
            NEWFRAME : in std_logic;
-           DEN : in std_logic;
            MD : out std_logic_vector(31 downto 0);
            MWEN : out std_logic;
-           MA : out std_logic_vector(16 downto 0);
-           BPOUT : out std_logic_vector(16 downto 0);
+           MA : out std_logic_vector(15 downto 0);
+           BPOUT : out std_logic_vector(15 downto 0);
            DONE : out std_logic);
 end TXinput;
 
@@ -36,7 +36,7 @@ architecture Behavioral of TXinput is
    signal cpen : std_logic := '0';
    signal mrw, men : std_logic := '0';
    
-   signal addr, bp : std_logic_vector(16 downto 0) := (others => '0');
+   signal addr, bp : std_logic_vector(15 downto 0) := (others => '0');
    signal bpen : std_logic := '0';
    signal CNT : std_logic_vector(15 downto 0);
 
@@ -44,11 +44,71 @@ architecture Behavioral of TXinput is
    			    lowmemw, pktdone1, pktdone2, pktdone3); 
    signal cs, ns : states := none; 
 
+   -- signals for clock-boundary-crossing logic
+   signal nenable, enable, enableint, enableintl, den :
+   		std_logic := '0';
+   signal dinl, dinint : std_logic_vector(15 downto 0) := (others => '0');
+   signal newframel, newfint : std_logic := '0'; 
+
+	component SRL16
+	  generic (
+	       INIT : bit_vector := X"0000");
+	  port (D   : in STD_logic;
+	        CLK : in STD_logic;
+	        A0  : in STD_logic;
+	        A1  : in STD_logic;
+	        A2  : in STD_logic;
+	        A3  : in STD_logic;
+	        Q   : out STD_logic); 
+	end component;
 
 begin
 
    lmd <= dh & dl;
-   BPOUT <= bp; 
+   BPOUT <= bp;
+   
+   
+   -- clocks to outside:
+   clock_external: process(CLKOUT) is
+   begin
+   	 if rising_edge(CLKOUT) then
+	     enable <= not enable; 
+
+		dinl <= DIN;
+
+		newframel <= NEWFRAME;
+	 end if; 
+   end process clock_external; 
+
+   srl16_enable: srl16 port map (
+   			D => enable,
+			CLK => clk,
+			A0 => '0',
+			A1 => '0',
+			A2 => '1',
+			A3 => '0',
+			Q => enableint);
+   srl16_newframe: srl16 port map (
+   			D => newframel,
+			CLK => clk,
+			A0 => '0',
+			A1 => '0',
+			A2 => '1',
+			A3 => '0',
+			Q => newfint);
+   srl16_din: for i in 0 to 15 generate
+	    srl16_din_bit: srl16 port map (
+   			D => dinl(i),
+			CLK => clk,
+			A0 => '0',
+			A1 => '0',
+			A2 => '1',
+			A3 => '0',
+			Q => dinint(i));
+   end generate; 
+
+   den <= enableintl xor enableint; 
+
 
    clock: process(CLK) is
    begin
@@ -60,19 +120,22 @@ begin
 
 			cs <= ns;
 
+			-- enable code
+			enableintl <= enableint; 
+
 			-- data latching
-			if DEN = '1' and (NEWFRAME = '1' or dlen = '1') then
-				dl <= DATA;	
+			if den = '1' and (newfint = '1' or dlen = '1') then
+				dl <= dinint;	
 			end if; 
 
-			if DEN = '1' and dhen = '1' then
-				dh <= DATA;
+			if den = '1' and dhen = '1' then
+				dh <= dinint;
 			end if;
 
 			-- byte counter
-			if DEN = '1' then
-				if NEWFRAME = '1' then
-					cnt <= DATA;
+			if den = '1' then
+				if newfint = '1' then
+					cnt <= dinint;
 				else
 					cnt <= cnt - 1;
 				end if;
@@ -80,10 +143,10 @@ begin
 
 
 			-- memory-pointer associated code:
-			if NEWFRAME = '1' then 
+			if newfint = '1' then 
 				addr <= bp;
 			else 
-				if CPEN = '1' then
+				if cpen = '1' then
 					addr <= addr + 1;
 				end if;
 			end if; 
@@ -103,7 +166,7 @@ begin
    end process clock; 
 
 
-   fsm: process(cs, ns, DEN, NEWFRAME, cnt) is
+   fsm: process(cs, ns, den, din, newfint, cnt) is
    begin
    	 case cs is 
 	 	when none => 
@@ -114,7 +177,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			if DEN = '1' and NEWFRAME = '1' then
+			if den = '1' and newfint = '1' then
 				ns <= newf;
 			else
 				ns <= none;
@@ -136,7 +199,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			if DEN = '1' then
+			if den = '1' then
 				ns <= low;
 			else
 				ns <= low_w;
@@ -162,7 +225,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
-			if DEN = '1'  then
+			if den = '1'  then
 				ns <= high;
 			else
 				ns <= high_w;
@@ -239,4 +302,6 @@ begin
 			 
    end process fsm;  
 
+
+   
 end Behavioral;

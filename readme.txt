@@ -59,7 +59,15 @@ Trying to not inc addr if bytecnt < 8... works. Must also be sure to inc addr in
 
 System works, sends out packets of right size, sends new pkt when bp changes. 
 
-FRAMETX  is the status/indicator signal to be used by MAC-wide counters, etc. 
+----------------------------------------------------------------------
+TX INPUT
+----------------------------------------------------------------------
+NEWFRAME is kept high for the entire transmission duration of a frame, which is prefaced with the length in bytes. 
+
+We read in n bytes, based on what the header says, and westop reading once we've gotten that many bytes. 
+
+Since the input clock is on the order of 60 MHz or less, we use a system like that outlined to work across async boundaries. 
+
 
 
 RX_IN *****************************************************************
@@ -198,3 +206,6 @@ Overview notes
 ----------------------------------------------------------------------------
 Trying to rename large numbers of signals so that there's some sort
 of overall common naming scheme. Go refactoring!!!
+
+Net result is network.vhd
+

@@ -22,7 +22,7 @@ entity RXinput is
            OFERR : out std_logic;
            PHYERR : out std_logic;
            RXF : out std_logic);
-end RXinput;
+end  RXinput;
 
 architecture Behavioral of RXinput is
 -- RXINPUT.VHD -- the pre-memory input side of the receive section,
