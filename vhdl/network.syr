@@ -1,10 +1,10 @@
 Release 6.2.03i - xst G.31a
 Copyright (c) 1995-2004 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to __projnav
-CPU : 0.02 / 0.31 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.30 s | Elapsed : 0.00 / 0.00 s
  
 --> Parameter xsthdpdir set to ./xst
-CPU : 0.00 / 0.31 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.30 s | Elapsed : 0.00 / 0.00 s
  
 --> Reading design: network.prj
 
@@ -97,7 +97,7 @@ Architecture behavioral of Entity phystatus is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/crc_combinational.vhd in Library work.
 Architecture behavioral of Entity crc_combinational is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/GMIIin.vhd in Library work.
-Entity <gmiiin> (Architecture <behavioral>) compiled.
+Architecture behavioral of Entity gmiiin is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/RXValid.vhd in Library work.
 Architecture behavioral of Entity rxvalid is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/clockenable.vhd in Library work.
@@ -107,7 +107,7 @@ Architecture behavioral of Entity memory is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/RXinput.vhd in Library work.
 Entity <rxinput> (Architecture <behavioral>) compiled.
 Compiling vhdl file E:/desktop/network/vhdl/RXoutput.vhd in Library work.
-Entity <rxoutput> (Architecture <behavioral>) compiled.
+Architecture behavioral of Entity rxoutput is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/TXoutput.vhd in Library work.
 Architecture behavioral of Entity txoutput is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/TXinput.vhd in Library work.
@@ -117,7 +117,7 @@ Architecture behavioral of Entity fifocheck is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/control.vhd in Library work.
 Architecture behavioral of Entity control is up to date.
 Compiling vhdl file E:/desktop/network/vhdl/network.vhd in Library work.
-Entity <network> (Architecture <behavioral>) compiled.
+Architecture behavioral of Entity network is up to date.
 
 =========================================================================
 *                            HDL Analysis                               *
@@ -187,7 +187,7 @@ WARNING:Xst:766 - E:/desktop/network/vhdl/memory.vhd line 69: Generating a Black
 Entity <memory> analyzed. Unit <memory> generated.
 
 Analyzing Entity <RXinput> (Architecture <behavioral>).
-WARNING:Xst:819 - E:/desktop/network/vhdl/RXinput.vhd line 283: The following signals are missing in the process sensitivity list:
+WARNING:Xst:819 - E:/desktop/network/vhdl/RXinput.vhd line 284: The following signals are missing in the process sensitivity list:
    erl, ofl, destok.
 Entity <RXinput> analyzed. Unit <RXinput> generated.
 
@@ -209,7 +209,7 @@ WARNING:Xst:753 - E:/desktop/network/vhdl/RXoutput.vhd line 167: Unconnected out
 WARNING:Xst:753 - E:/desktop/network/vhdl/RXoutput.vhd line 167: Unconnected output port 'DOPA' of component 'RAMB16_S18_S18'.
 WARNING:Xst:753 - E:/desktop/network/vhdl/RXoutput.vhd line 167: Unconnected output port 'DOPB' of component 'RAMB16_S18_S18'.
 WARNING:Xst:766 - E:/desktop/network/vhdl/RXoutput.vhd line 167: Generating a Black Box for component <RAMB16_S18_S18>.
-WARNING:Xst:819 - E:/desktop/network/vhdl/RXoutput.vhd line 331: The following signals are missing in the process sensitivity list:
+WARNING:Xst:819 - E:/desktop/network/vhdl/RXoutput.vhd line 334: The following signals are missing in the process sensitivity list:
    lbp, macnt.
 Entity <RXoutput> analyzed. Unit <RXoutput> generated.
 
@@ -659,14 +659,15 @@ WARNING:Xst:1780 - Signal <llbp> is never used or assigned.
     | Encoding           | automatic                                      |
     | Implementation     | LUT                                            |
     -----------------------------------------------------------------------
-    Found 16x2-bit ROM for signal <$n0041>.
+    Found 16x2-bit ROM for signal <$n0042>.
     Found 16-bit register for signal <FBBP>.
     Found 16-bit register for signal <DOUT>.
     Found 1-bit register for signal <DOUTEN>.
     Found 14-bit adder for signal <$n0004> created at line 276.
-    Found 16-bit comparator not equal for signal <$n0013> created at line 351.
-    Found 16-bit comparator equal for signal <$n0014> created at line 436.
-    Found 10-bit comparator equal for signal <$n0036> created at line 189.
+    Found 16-bit comparator not equal for signal <$n0013> created at line 354.
+    Found 16-bit comparator equal for signal <$n0014> created at line 439.
+    Found 16-bit adder for signal <$n0034> created at line 279.
+    Found 10-bit comparator equal for signal <$n0037> created at line 189.
     Found 10-bit register for signal <ai>.
     Found 10-bit register for signal <ail>.
     Found 10-bit register for signal <aill>.
@@ -677,7 +678,7 @@ WARNING:Xst:1780 - Signal <llbp> is never used or assigned.
     Found 1-bit register for signal <fifowel>.
     Found 1-bit register for signal <halffull>.
     Found 10-bit up counter for signal <lai>.
-    Found 16-bit adder for signal <lbp>.
+    Found 16-bit register for signal <lbp>.
     Found 1-bit register for signal <ldouten>.
     Found 16-bit register for signal <len>.
     Found 16-bit register for signal <lenr>.
@@ -693,7 +694,7 @@ WARNING:Xst:1780 - Signal <llbp> is never used or assigned.
 	inferred   1 Finite State Machine(s).
 	inferred   1 ROM(s).
 	inferred   3 Counter(s).
-	inferred 183 D-type flip-flop(s).
+	inferred 199 D-type flip-flop(s).
 	inferred   2 Adder/Subtracter(s).
 	inferred   3 Comparator(s).
 	inferred  32 Multiplexer(s).
@@ -853,8 +854,8 @@ Macro Statistics
 # ROMs                             : 1
  16x2-bit ROM                      : 1
 # Adders/Subtractors               : 6
- 14-bit adder                      : 1
  16-bit adder                      : 1
+ 14-bit adder                      : 1
  16-bit subtractor                 : 3
  6-bit adder                       : 1
 # Counters                         : 24
@@ -867,12 +868,12 @@ Macro Statistics
  32-bit up counter                 : 7
  3-bit up counter                  : 1
  2-bit up counter                  : 1
-# Registers                        : 519
+# Registers                        : 520
  1-bit register                    : 437
  32-bit register                   : 19
  17-bit register                   : 3
  8-bit register                    : 8
- 16-bit register                   : 36
+ 16-bit register                   : 37
  10-bit register                   : 6
  4-bit register                    : 3
  48-bit register                   : 2
@@ -1156,7 +1157,7 @@ WARNING:Xst:1291 - FF/Latch <Q1_28> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_29> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q1_30> is unconnected in block <memcontroller>.
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block network, actual ratio is 82.
+Found area constraint ratio of 100 (+ 5) on block network, actual ratio is 83.
 WARNING:Xst:382 - Register addrl_15 is equivalent to FBBP_15
 WARNING:Xst:382 - Register addrl_0 is equivalent to FBBP_0
 WARNING:Xst:382 - Register addrl_1 is equivalent to FBBP_1
@@ -2184,7 +2185,6 @@ WARNING:Xst:382 - Register ts_31 is equivalent to ts_30
 FlipFlop mac_control/addr_4 has been replicated 1 time(s)
 FlipFlop mac_control/addr_3 has been replicated 1 time(s)
 FlipFlop mac_control/addr_2 has been replicated 1 time(s)
-FlipFlop rx_input/cs_FFd15 has been replicated 2 time(s)
 FlipFlop mac_control/addr_4 has been replicated 1 time(s)
 FlipFlop mac_control/addr_3 has been replicated 1 time(s)
 FlipFlop mac_control/addr_2 has been replicated 1 time(s)
@@ -2205,10 +2205,10 @@ Design Statistics
 Macro Statistics :
 # ROMs                             : 1
 #      16x2-bit ROM                : 1
-# Registers                        : 448
+# Registers                        : 449
 #      1-bit register              : 353
 #      10-bit register             : 19
-#      16-bit register             : 36
+#      16-bit register             : 37
 #      17-bit register             : 3
 #      32-bit register             : 19
 #      4-bit register              : 3
@@ -2254,31 +2254,31 @@ Macro Statistics :
 #      1-bit xor7                  : 2
 
 Cell Usage :
-# BELS                             : 3010
+# BELS                             : 3012
 #      BUF                         : 1
 #      GND                         : 12
-#      LUT1                        : 343
+#      LUT1                        : 342
 #      LUT1_L                      : 1
-#      LUT2                        : 279
+#      LUT2                        : 293
 #      LUT2_D                      : 5
-#      LUT2_L                      : 14
+#      LUT2_L                      : 1
 #      LUT3                        : 395
 #      LUT3_D                      : 1
-#      LUT3_L                      : 15
-#      LUT4                        : 624
+#      LUT3_L                      : 16
+#      LUT4                        : 638
 #      LUT4_D                      : 30
-#      LUT4_L                      : 143
+#      LUT4_L                      : 131
 #      MUXCY                       : 583
-#      MUXF5                       : 53
+#      MUXF5                       : 52
 #      VCC                         : 12
 #      XORCY                       : 499
-# FlipFlops/Latches                : 2247
+# FlipFlops/Latches                : 2261
 #      FD                          : 286
-#      FDC                         : 65
-#      FDCE                        : 79
+#      FDC                         : 64
+#      FDCE                        : 80
 #      FDCPE                       : 16
-#      FDE                         : 1529
-#      FDP                         : 7
+#      FDE                         : 1545
+#      FDP                         : 5
 #      FDPE                        : 3
 #      FDR                         : 18
 #      FDRE                        : 236
@@ -2306,8 +2306,8 @@ Device utilization summary:
 Selected Device : 3s200pq208-4 
 
  Number of Slices:                    1497  out of   1920    77%  
- Number of Slice Flip Flops:          2247  out of   3840    58%  
- Number of 4 input LUTs:              1870  out of   3840    48%  
+ Number of Slice Flip Flops:          2261  out of   3840    58%  
+ Number of 4 input LUTs:              1873  out of   3840    48%  
  Number of bonded IOBs:                124  out of    141    87%  
  Number of BRAMs:                        2  out of     12    16%  
  Number of GCLKs:                        3  out of      8    37%  
@@ -2325,7 +2325,7 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-CLKIN                              | clk_dll:CLK0           | 2187  |
+CLKIN                              | clk_dll:CLK0           | 2201  |
 RX_CLK                             | clkrx_dll:CLK0         | 43    |
 CLKIOIN                            | clkio_dll:CLK0         | 41    |
 -----------------------------------+------------------------+-------+
@@ -2335,7 +2335,7 @@ Timing Summary:
 Speed Grade: -4
 
    Minimum period: 8.671ns (Maximum Frequency: 115.327MHz)
-   Minimum input arrival time before clock: 7.825ns
+   Minimum input arrival time before clock: 7.845ns
    Maximum output required time after clock: 13.058ns
    Maximum combinational path delay: No path found
 
@@ -2356,9 +2356,9 @@ Delay:               8.671ns (Levels of Logic = 19)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDE:C->Q             12   0.720   0.865  addr_7 (addr_7)
-     LUT2:I1->O            1   0.551   0.240  _n0060_SW1 (N82197)
-     LUT4:I3->O           20   0.551   1.137  Ker547981 (N54800)
-     LUT4_D:I1->O         18   0.551   1.066  Ker546881 (N54690)
+     LUT2:I1->O            1   0.551   0.240  _n0060_SW1 (N82425)
+     LUT4:I3->O           20   0.551   1.137  Ker549301 (N54932)
+     LUT4_D:I1->O         18   0.551   1.066  Ker548201 (N54822)
      LUT3_L:I0->LO         1   0.551   0.000  phyrstcnt_inst_lut3_2191 (phyrstcnt_inst_lut3_219)
      MUXCY:S->O            1   0.500   0.000  phyrstcnt_inst_cy_298 (phyrstcnt_inst_cy_298)
      MUXCY:CI->O           1   0.064   0.000  phyrstcnt_inst_cy_299 (phyrstcnt_inst_cy_299)
@@ -2422,12 +2422,12 @@ Delay:               5.072ns (Levels of Logic = 7)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDRE:C->Q             3   0.720   0.577  ao_0 (ao_0)
-     LUT4:I1->O            1   0.551   0.000  Mcompar__n0036_inst_lut4_81 (Mcompar__n0036_inst_lut4_8)
-     MUXCY:S->O            1   0.500   0.000  Mcompar__n0036_inst_cy_134 (Mcompar__n0036_inst_cy_134)
-     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0036_inst_cy_135 (Mcompar__n0036_inst_cy_135)
-     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0036_inst_cy_136 (Mcompar__n0036_inst_cy_136)
-     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0036_inst_cy_137 (Mcompar__n0036_inst_cy_137)
-     MUXCY:CI->O           1   0.303   0.240  Mcompar__n0036_inst_cy_138 (aeq)
+     LUT4:I1->O            1   0.551   0.000  Mcompar__n0037_inst_lut4_81 (Mcompar__n0037_inst_lut4_8)
+     MUXCY:S->O            1   0.500   0.000  Mcompar__n0037_inst_cy_134 (Mcompar__n0037_inst_cy_134)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0037_inst_cy_135 (Mcompar__n0037_inst_cy_135)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0037_inst_cy_136 (Mcompar__n0037_inst_cy_136)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar__n0037_inst_cy_137 (Mcompar__n0037_inst_cy_137)
+     MUXCY:CI->O           1   0.303   0.240  Mcompar__n0037_inst_cy_138 (aeq)
      LUT2:I0->O           11   0.551   0.836  nextd1 (nextd)
      FDRE:CE                   0.602          ao_0
     ----------------------------------------
@@ -2436,23 +2436,23 @@ Delay:               5.072ns (Levels of Logic = 7)
 
 -------------------------------------------------------------------------
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLKIN'
-Offset:              7.825ns (Levels of Logic = 4)
+Offset:              7.845ns (Levels of Logic = 4)
   Source:            RESET (PAD)
-  Destination:       rx_input/RXPHYERR (FF)
+  Destination:       rx_output/FBBP_15 (FF)
   Destination Clock: CLKIN rising
 
-  Data Path: RESET to rx_input/RXPHYERR
+  Data Path: RESET to rx_output/FBBP_15
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      IBUF:I->O           118   1.930   1.407  RESET_IBUF (RESET_IBUF)
-     BUF:I->O            109   0.551   1.398  RESET_IBUF_1 (RESET_IBUF_1)
-     begin scope: 'rx_input'
-     LUT1:I0->O           96   0.551   1.385  RXPHYERR_N42951 (RXPHYERR_N4295)
-     FDE:CE                    0.602          RXPHYERR
+     BUF:I->O            105   0.551   1.394  RESET_IBUF_1 (RESET_IBUF_1)
+     begin scope: 'rx_output'
+     LUT1:I0->O          136   0.551   1.409  FBBP_N45491 (FBBP_N4549)
+     FDE:CE                    0.602          FBBP_0
     ----------------------------------------
-    Total                      7.825ns (3.634ns logic, 4.191ns route)
-                                       (46.4% logic, 53.6% route)
+    Total                      7.845ns (3.634ns logic, 4.211ns route)
+                                       (46.3% logic, 53.7% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default OFFSET IN BEFORE for Clock 'RX_CLK'
@@ -2503,14 +2503,14 @@ Offset:              13.058ns (Levels of Logic = 11)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDCE:C->Q             5   0.720   0.658  cs_FFd4 (cs_FFd4)
-     LUT3:I1->O            7   0.551   0.717  Ker416771 (N41679)
+     LUT3:I1->O            7   0.551   0.717  Ker418291 (N41831)
      LUT4:I3->O            1   0.551   0.240  miiaddr<3>1 (miiaddr<3>)
      begin scope: 'MII_Interface'
      LUT4:I0->O            1   0.551   0.240  sout361 (CHOICE992)
      LUT4:I3->O            1   0.551   0.240  sout365 (CHOICE993)
      LUT4:I0->O            1   0.551   0.240  sout442 (CHOICE1009)
      LUT3:I0->O            1   0.551   0.240  sout472 (CHOICE1011)
-     LUT3:I2->O            1   0.551   0.240  sout498_SW0 (N82583)
+     LUT3:I2->O            1   0.551   0.240  sout498_SW0 (N82813)
      LUT4:I0->O            1   0.551   0.240  sout498 (sout)
      IOBUF:I->IO               4.875          iobuffer (MDIO)
      end scope: 'MII_Interface'
@@ -2539,10 +2539,10 @@ Offset:              5.835ns (Levels of Logic = 2)
                                        (95.9% logic, 4.1% route)
 
 =========================================================================
-CPU : 49.03 / 49.64 s | Elapsed : 49.00 / 50.00 s
+CPU : 59.95 / 60.55 s | Elapsed : 59.00 / 60.00 s
  
 --> 
 
-Total memory usage is 108316 kilobytes
+Total memory usage is 109340 kilobytes
 
 

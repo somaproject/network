@@ -190,7 +190,7 @@ begin
 	
 	addrmsbs <= ao(9 downto 8) & aill(9 downto 8);
 	 
-	lbp <= lenr + bp + 1; 
+	
 
 	output : process(CLKIO) is
 	begin
@@ -275,6 +275,9 @@ begin
 				else
 					lenr <= "00" & (len(15 downto 2) +1);
 				end if; 
+
+				lbp <= lenr + bp + 1; 
+
 				if nfll = '0' then
 					ail <= (others => '0');
 				else

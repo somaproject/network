@@ -217,9 +217,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.7317593"
-     inkscape:cx="487.03675"
-     inkscape:cy="167.14590"
+     inkscape:zoom="9.7963099"
+     inkscape:cx="296.99475"
+     inkscape:cy="502.32901"
      inkscape:window-width="1597"
      inkscape:window-height="1155"
      showgrid="true"
@@ -243,8 +243,8 @@
      d="M 604.87500,388.50001 L 604.87500,388.50001"
      id="path2861" />
   <path
-     style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.2499998;stroke-linecap:round;"
-     d="M 356.25000,355.62500 L 340.62500,355.62500 C 340.62500,355.62500 331.25000,355.43670 331.25000,365.00000 C 331.25000,374.56330 340.62500,374.37500 340.62500,374.37500 L 356.25000,374.37500 L 356.25000,355.62500 z "
+     style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.2499999;stroke-linecap:round;"
+     d="M 368.75000,355.62515 L 345.31250,355.62515 C 345.31250,355.62515 331.25000,355.31132 331.25000,371.25015 C 331.25000,387.18899 345.31250,386.87516 345.31250,386.87516 L 368.75000,386.87516 L 368.75000,355.62515 z "
      id="AND"
      sodipodi:nodetypes="cccccc" />
   <g
@@ -1209,7 +1209,7 @@
      y="274.28522"
      id="text4124"
      sodipodi:linespacing="100%"
-     transform="translate(49.65979,87.17181)"><tspan
+     transform="translate(62.15979,87.58978)"><tspan
        sodipodi:role="line"
        id="tspan4125"
        x="316.60193"
@@ -1221,18 +1221,18 @@
      y="274.28522"
      id="text4169"
      sodipodi:linespacing="100%"
-     transform="translate(48.94886,99.67181)"><tspan
+     transform="translate(61.44886,100.0898)"><tspan
        sodipodi:role="line"
        id="tspan4170"
        x="316.60193"
-       y="274.28522">FD</tspan></text>
+       y="274.28522">DV</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
-     d="M 365.62500,358.75000 L 356.25000,358.75000"
+     d="M 378.12500,359.16797 L 368.75000,359.16797"
      id="path4172" />
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
-     d="M 365.62500,371.25000 L 356.25000,371.25000"
+     d="M 378.12500,371.66797 L 368.75000,371.66797"
      id="path4173" />
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
@@ -2742,7 +2742,7 @@
        style="font-size:4.0000000;stroke-width:0.36937839;font-family:Bitstream Vera Sans;text-anchor:end;"
        x="44.623661"
        y="106.58193"
-       id="text2729"
+       id="text3164"
        sodipodi:linespacing="100%"
        transform="matrix(3.384064,0.000000,0.000000,3.384064,-40.39924,0.000000)"><tspan
          id="tspan2730">Q</tspan></text>
@@ -2945,7 +2945,7 @@
      style="font-size:11.000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
      x="424.20044"
      y="204.47612"
-     id="text2784"
+     id="text3216"
      sodipodi:linespacing="100%"
      transform="translate(12.29813,515.1313)"><tspan
        sodipodi:role="line"
@@ -3013,4 +3013,20 @@
      height="78.125000"
      x="331.32812"
      y="690.00000" />
+  <text
+     xml:space="preserve"
+     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
+     x="316.60193"
+     y="274.28522"
+     id="text3235"
+     sodipodi:linespacing="100%"
+     transform="translate(61.44886,112.1718)"><tspan
+       sodipodi:role="line"
+       id="tspan3236"
+       x="316.60193"
+       y="274.28522">RD</tspan></text>
+  <path
+     style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
+     d="M 378.12500,383.74998 L 368.75000,383.74998"
+     id="path3238" />
 </svg>
