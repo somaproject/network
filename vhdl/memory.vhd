@@ -42,7 +42,7 @@ architecture Behavioral of memory is
    signal wen, we : std_logic := '1';
    signal addrn, addr : std_logic_vector(16 downto 0) := (others => '0');
    signal oe, oel: std_logic := '0';
-   signal ts: std_logic := '1';
+   signal ts: std_logic_vector(31 downto 0) := (others => '1');
    signal dn, dnl1, dnl2, dnout : std_logic_vector(31 downto 0) :=
    							(others => '0');
    signal qn, q : std_logic_vector(31 downto 0) := (others => '0');
@@ -51,7 +51,7 @@ architecture Behavioral of memory is
    signal clknum : integer range 0 to 3 := 0; 
 
 
-	component IOBUF
+	component IOBUF_F_2
 	      port (I, T: in std_logic; 
 	            O: out std_logic; 
 	            IO: inout std_logic);
@@ -68,10 +68,10 @@ begin
    		I=> we, O=> WEEXT);
 		
    datablock: for i in 0 to 31 generate 
-	   qdout: iobuf port map (
+	   qdout: IOBUF_F_2 port map (
 	   		I => dnout(i), 
 			 O => q(i), 
-			 T => ts,
+			 T => ts(i),
 			 IO => DQEXT(i)); 
    end generate;
    
@@ -80,6 +80,16 @@ begin
 	   		I=> addr(i), O=> ADDREXT(i));     	   	
    end generate; 
 
+
+	outputlatch: process(CLK) is
+	begin
+		if rising_edge(CLK) then
+			ts <=  (others => oel); 
+			qn <= q;
+			dnout <= dnl2;
+		end if;
+	end process outputlatch; 
+
    clock: process(CLK, RESET) is
    begin
    	if RESET = '1' then
@@ -87,9 +97,8 @@ begin
 	    oe <= '0';
 	    we <= '1';
 	    addr <= (others => '0');
-	    qn <= (others => '0');
-	    ts <= '1'; 
-	     	
+	    --ts <= '1'; 
+  	    --dnout <= (others => '0'); 	
 	else
 	      if rising_edge(CLK) then
 		    if clknum =3 then 
@@ -99,13 +108,12 @@ begin
 	  	    end if; 
 
 		    oe <= wen;
-		    oel <= oe; 
-		    ts <= not oel; 
+		    oel <=  not oe; 
 		    dnl1 <= dn;
 		    dnl2 <= dnl1;
-		    dnout <= dnl2;
+		    
 
-		    qn <= q;
+		    
 		    we <= not wen; 
 		    addr <= addrn; 
 

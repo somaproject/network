@@ -216,7 +216,7 @@ architecture Behavioral of network is
 	end component;
 
 	component CLKDLL
-			generic (CLKDV_DIVIDE : in string := "4"); 
+			generic (CLKDV_DIVIDE : in real := 4.0); 
 	      port (CLKIN, CLKFB, RST : in STD_LOGIC;
 	      CLK0, CLK90, CLK180, CLK270, CLK2X, CLKDV, LOCKED : out std_logic);
 	end component;
@@ -233,10 +233,13 @@ begin
     addr3ext <= ('1' & addr3);
     addr4ext <= ('0' & addr4);
 
-    clkio_dll : CLKDLL port map (
+    clkio_dll : CLKDLL generic map (
+	 		clkdv_divide => 4.0)
+			port map (
     		CLKIN => CLKIOIN,
 			CLKFB => clkio,
 			RST => RESET,
+			CLKDV => open,
 			CLK0 => clkio_to_bufg);
 
     clkio_bufg : BUFG port map (
@@ -245,7 +248,7 @@ begin
 
 
     clk_dll : CLKDLL generic map (
-	 		CLKDV_DIVIDE => "4") 
+	 		clkdv_divide => 4.0)
 			port map (
     		CLKIN => CLKIN,
 			CLKFB => clk,
