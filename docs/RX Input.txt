@@ -1,0 +1,33 @@
+RX INPUT
+
+The receive input side of the fifo wears many hats. First, it must deal with a discontinuous GMII clock that is 1. not synch'd with our internal clock and 2. may exhibit significant (1%) clock differences, which add up to 1 extra bit out of 125 or 72 extra bytes in a jumbo frame. Thus we'll need a FIFO that can deal with that sort of traffic overhead -and- reject a full packet in the case of overflow. 
+
+
+Somewhat impressively, what I've created there is -so horribly complex- that I can't understand it, and I think I'm just going to start over...
+
+
+---------------------------------------------------------------------------
+GMIIIO.VHD
+---------------------------------------------------------------------------
+This segment deals with the interface to the GMII subsystem, and runs almost entirely on the RX_CLK clock. 
+
+We register the input RXD, RX_DV and RX_ER signals and then place them into a fifo. The FIFO is actually 16-bits wide, with the lower [7:0] being the registerd DV and the top bits being:
+   D[15] : ENDF -- end frame signal. 
+   D[14] : ER   -- error during the RX of this frame (from the PHY)
+   D[13] : FF   -- error during the RX of this frame because the FIFO was full. 
+The input system writes into its FIFO. To signal the end of a frame, it writes one extra word following the data, where D[15] (ENDF) = 1. Should this last word have it's ERF or FIFOWERR bits set, the corresponding errors occurded during the RX of this frame and thus it should be discarded. 
+
+Note that when AIN = AO then the fifo is empty; similary, AIN is incremented following each write, so AIN = 1 when the fifo is storing 1 word (at AIN=0). 
+
+And the ENDF bit is set (and subsequent words for this frame aborted) when any of the above two error conditions are set, to prevent filling up the FIFO with unnecessary junk and to reduce the burden on the output side. 
+
+ 
+The WEIN signal is ORed after a register, sucht that it stays high for an extra tick following the end of a data write segment. Similarly, the FF and ERIN signals are set-reset registers that are only reset by DVL going low. This guarantees that, following any data write, there will be one extra write. ENDFIN is structured to only be toggled on this last write. 
+
+AL and ALL provide clock-synchronization between the RXCLK and CLK clock domains, and FIFOFULL does the same internally. FIFOfull simply checks to see if AO - 32 - al > 0. 
+
+The post-fifo side was a bit more complex, as we wanted an easy-to-use interface for the other part of the RX_INPUT subsystem. As it is, a high on NEXTF causes the next frame to be clocked out of the FIFO. DOUT, EROUT, ENDFOUT, and OFOUT are valid when VALID is high, and invalid otherwise. It is up to the output system to detect when ENDFOUT is high and that that constitutes an end of frame. 
+
+This makes the interface easy and potentially allows the reading out of data as soon as it becomes available. 
+
+The challenge here was getting LVALID to disable following the reading of the end frame and then _not preventing the next NEXTF from reading subsequent frames_. This is done by having EFV reset NFL and disable LVALID. 

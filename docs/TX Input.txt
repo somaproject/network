@@ -1,0 +1,38 @@
+----------------------------------------------------------------------
+TX INPUT
+----------------------------------------------------------------------
+NEWFRAME is kept high for the entire transmission duration of a frame, which is prefaced with the length in bytes. 
+
+We read in n bytes, based on what the header says, and westop reading once we've gotten that many bytes. 
+
+the input 16-bit interface always has the first byte on the wire placed, well, first. That is, for a signal Data[15:0], the byte DATA[7:0] was transmitted BEFORE the byte DATA[15:8] The resulting memory address mapping places the first word at the lower portion of the memory address space. 
+Since the input clock is on the order of 60 MHz or less, we use a system like that outlined to work across async boundaries. WE use SLE16s to prevent the register logic from being ginormous. 
+
+We synchronize the incoming data using a clock locking scheme. The incoming data stream is at least 2x slower than us, which means that we can use the enable system to detect rising edges and uniquely demarcate new data words with the resulting DEN. We want this bus to work at any speed, including unusual clock speeds, etc. That is, we want no esoteric timing relationships between the input and the output side. 
+
+Now, there are two potential byte count states:
+1. The correct number of bytes are read
+2. the sender sends too many bytes
+3. the sender sends too few bytes
+
+The first two can be handled by simply stopping once we've recevied sufficient data, but the second requires a proper abort sequence. 
+
+To write memory we have the following invariants:
+1. MA and MD must always change together
+2. MA and MD must remain constant for at least 4 clock cycles such that the correct clken has latched their values. 
+
+
+FSM cycle operation:
+
+When NEWFINIT =1 and DEN = 1 the current frame length is on the the data internal line DINIT. Thus DL is latched continually during the NONE state; similarly CNT is continually reloaded with the value present during the none state. 
+
+The transition to the NEWF (new frame state) places the frame size (DL output) and base address of the BP on the memory bus.
+
+Then we enter the main data writing section of the bus. This is highly dependent on the IO bus being > 2x slower than the internal clock, as there are two cycles for each input word. LOW_W latches the low word, and then LOW increments the ADDR. HIGH_W operates similarly on the high word input. The HIGH state enables the memory write and latches current values of ADDR and LMD onto the address bus. 
+
+Note that each DEN decrements CNT by 2, thus CNT counts the number of bytes, not sixteen-bit words. Should CNT go to zero following a low word, we wait for the previous write to memory to have its 4 cycles, and then (witgh LOWMENW) commit this word. Otherwise we exit during HIGH, and the most recent write is committed. PKTDONE1 increments CPEN to point to the next address in memory, that is ONE PAST the end of the current frame. 
+
+If the input FIFOFULL signal is high, then the current packet is discarded via the PKTABORT state, adn TXFIFOWERROR is signalled. Otherwise, state PKTDONE2 latches the current value of ADDR (again, the address that's one past the end of the current frame) as the base pointer BP. 
+
+To accomodate excess data at the end of a frame, PKTDONE3 eats any remaining time during whcih NEWFINT is high. 
+

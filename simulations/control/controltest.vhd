@@ -76,13 +76,13 @@ ARCHITECTURE behavior OF controltest IS
 	SIGNAL LED1000 :  std_logic;
 	SIGNAL LEDDPX :  std_logic;
 	SIGNAL PHYRESET :  std_logic;
-	SIGNAL TXF :  std_logic;
-	SIGNAL RXF :  std_logic;
-	SIGNAL TXFIFOWERR :  std_logic;
-	SIGNAL RXFIFOWERR :  std_logic;
-	SIGNAL RXPHYERR :  std_logic;
-	SIGNAL RXOFERR :  std_logic;
-	SIGNAL RXCRCERR :  std_logic;
+	SIGNAL TXF :  std_logic :='0';
+	SIGNAL RXF :  std_logic :='0';
+	SIGNAL TXFIFOWERR :  std_logic :='0';
+	SIGNAL RXFIFOWERR :  std_logic :='0';
+	SIGNAL RXPHYERR :  std_logic :='0';
+	SIGNAL RXOFERR :  std_logic :='0';
+	SIGNAL RXCRCERR :  std_logic :='0';
 	SIGNAL RXBCAST :  std_logic;
 	SIGNAL RXMCAST :  std_logic;
 	SIGNAL RXUCAST :  std_logic;
@@ -293,6 +293,7 @@ BEGIN
 		end loop;
 
 		wait for 0.5 ms;  -- delay to allow PHYSTAT To be updated
+
 		-- now, read back phystat
 		sread(2);
 		if serialdout /= X"AC577817" then
@@ -302,11 +303,153 @@ BEGIN
 		if LEDACT /= '1' or LEDDPX /= '1' then
 			report "Error setting LEDs";
 		end if; 
-   		wait; 
+   		
+		-- trigger the counters and see what we get:
+
+		for i in  1 to 32768 loop
+			if i mod 1 = 0 then
+				TXF <= '1';
+			else
+				TXF <= '0';
+			end if; 
+			if i mod 2 = 0 then
+				RXF <= '1';
+			else
+				RXF <= '0';
+			end if;
+			if i mod 4 = 0 then
+				TXFIFOWERR <= '1';
+			else
+				TXFIFOWERR <= '0';
+			end if; 
+			if i mod 8 = 0 then
+				RXFIFOWERR <= '1';
+			else
+				RXFIFOWERR <= '0';
+			end if; 
+			if i mod 16 = 0 then
+				RXPHYERR <= '1';
+			else
+				RXPHYERR <= '0';
+			end if; 
+			if i mod 32 = 0 then
+				RXOFERR <= '1';
+			else
+				RXOFERR <= '0';
+			end if; 
+ 			if i mod 64 = 0 then
+				RXCRCERR <= '1';
+			else
+				RXCRCERR <= '0';
+			end if; 
+ 
+			  
+			wait until CLKSLEN = '1'; 	
+			wait until rising_edge(CLK); 
+		end loop;
+		TXF <= '0';
+		RXF <= '0';
+		TXFIFOWERR <= '0';
+		RXFIFOWERR <= '0';
+		RXPHYERR <= '0';
+		RXOFERR <= '0';
+		RXCRCERR <= '0'; 
+
+		sread(17); 
+		if serialdout /= X"00008000"	then
+			report "Error counting TXF";
+		end if; 
+
+		sread(18); 
+		if serialdout /= X"00004000"	then
+			report "Error counting RXF";
+		end if; 
+
+		sread(19); 
+		if serialdout /= X"00002000"	then
+			report "Error counting TXFIFOWERR";
+		end if; 
+
+		sread(20); 
+		if serialdout /= X"00001000"	then
+			report "Error counting RXFIFOWERR";
+		end if; 
+
+
+		sread(21); 
+		if serialdout /= X"00000800"	then
+			report "Error counting RXPHYERR";
+		end if; 
+
+		sread(22); 
+		if serialdout /= X"00000400"	then
+			report "Error counting RXOFERR";
+		end if; 
+
+		sread(23); 
+		if serialdout /= X"00000200"	then
+			report "Error counting RXCRCERR";
+		end if; 
+
+		swrite(16, X"00000001");
+		sread(17); 
+		if serialdout /= X"00000000"	then
+			report "TXF Reset Failed";
+		end if; 
+
+		swrite(16, X"00000002");
+		sread(18); 
+		if serialdout /= X"00000000"	then
+			report "RXF Reset Failed";
+		end if; 
+
+		swrite(16, X"00000004");
+		sread(19); 
+		if serialdout /= X"00000000"	then
+			report "TXFIFOWERR Reset Failed";
+		end if; 
+
+		swrite(16, X"00000008");
+		sread(20); 
+		if serialdout /= X"00000000"	then
+			report "RXFIFOWERR Reset Failed";
+		end if; 
+
+		swrite(16, X"00000010");
+		sread(21); 
+		if serialdout /= X"00000000"	then
+			report "RXPHYERR Reset Failed";
+		end if; 
+
+		swrite(16, X"00000020");
+		sread(22); 
+		if serialdout /= X"00000000"	then
+			report "RXOFERR Reset Failed";
+		end if; 
 
 		 
+		-- now, try setting the mac addresses
+		swrite(29, X"00001234"); 
+		swrite(30, X"00005678");
+		swrite(31, X"0000ABCD"); 
+		sread(29);
+		if serialdout /= X"00001234"	then
+			report "MACADDR low-word write failed";
+		end if; 
+		sread(30);
+		if serialdout /= X"00005678"	then
+			report "MACADDR mid-word write failed";
+		end if; 
+		sread(31);
+		if serialdout /= X"0000ABCD"	then
+			report "MACADDR high-word write failed";
+		end if; 
 
 
+		
+
+				
+   		
 
 	end process; 
 

@@ -17,4 +17,3 @@ Counters: do we accurately count? can we read out the errors?
 
 PHY: We have a simulated PHY, and we set certain values for the LINK_AN and 1KSCR register
 
-

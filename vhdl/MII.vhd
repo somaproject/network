@@ -11,15 +11,15 @@ use UNISIM.VComponents.all;
 
 entity MII is
     Port ( CLK : in std_logic;
-	 		  CLKSLEN : in std_logic; 
-    		  RESET : in std_logic; 
+	 	 CLKSLEN : in std_logic; 
+    		 RESET : in std_logic; 
            MDIO : inout std_logic;
-		     MDC : out std_logic; 
+		 MDC : out std_logic; 
            DIN : in std_logic_vector(15 downto 0);
            DOUT : out std_logic_vector(15 downto 0);
            ADDR : in std_logic_vector(4 downto 0);
            START : in std_logic;
-		     RW : in std_logic; 
+		 RW : in std_logic; 
            DONE : out std_logic);
 end MII;
 
@@ -115,8 +115,7 @@ begin
 	   when 41 => sout <= addr(4);
 	   when 42 => sout <= addr(3);
 	   when 43 => sout <= addr(2);
-	   when 44 => sout <= addr(1);
-	   when 45 => sout <= addr(0);
+	   when 44 => sout <= addr(1);	   when 45 => sout <= addr(0);
 	   when 46 => sout <= '1';
 	   when 47 => sout <= '0';
 	   when 48 => sout <= din(15);

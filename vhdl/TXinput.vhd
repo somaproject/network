@@ -10,16 +10,16 @@ use UNISIM.VComponents.all;
 
 entity TXinput is
     Port ( CLK : in std_logic;
-    		  CLKIO : in std_logic; 
-    		  RESET : in std_logic; 
+    		 CLKIO : in std_logic; 
+    		 RESET : in std_logic; 
            DIN : in std_logic_vector(15 downto 0);
            NEWFRAME : in std_logic;
            MD : out std_logic_vector(31 downto 0);
            MWEN : out std_logic;
            MA : out std_logic_vector(15 downto 0);
-			  FIFOFULL : in std_logic; 
+		 FIFOFULL : in std_logic; 
            BPOUT : out std_logic_vector(15 downto 0);
-				TXFIFOWERR : out std_logic; 
+		 TXFIFOWERR : out std_logic; 
            DONE : out std_logic);
 end TXinput;
 
@@ -140,7 +140,10 @@ begin
 			end if; 
 
 			if den = '1' and dhen = '1' then
-				dh <= dinint;
+				dh <= dinint;		   
+			elsif cs = none then
+				dh <= (others => '0'); -- zero high bytes of 
+				-- address-containign memory word; purely cosmetic 
 			end if;
 
 			-- byte counter
@@ -151,8 +154,6 @@ begin
 					cnt <= cnt - 2;
 				end if;
 			end if;
-
-			MWEN <= mrw; 
 
 			-- memory-pointer associated code:
 			if cs = none then 
@@ -242,16 +243,12 @@ begin
 			cpen <= '1';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			if newfint = '0' then
-				ns <= none;
+			if cnt =0 or cnt = 65535 then --i.e. 0 or -1
+				ns <= waitlow;
 			else
-				if cnt =0 or cnt = 65535 then --i.e. 0 or -1
-					ns <= waitlow;
-				else
-					ns <= high_w;
-				end if;
-			end if; 
-
+				ns <= high_w;
+			end if;
+			
 	 	when high_w => 
 			dlen <= '0';
 			dhen <= '1';
@@ -279,14 +276,11 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			if newfint = '0' then
-				ns <= none;
-			else
-				if  cnt =0 or cnt = 65535 then --i.e. 0 or -1
-					ns <= pktdone1;
-				else
-					ns <= low_w;
-				end if; 
+
+			if  cnt =0 or cnt = 65535 then --i.e. 0 or -1
+			    ns <= pktdone1;
+			else				
+				ns <= low_w;
 			end if; 
  	 	when waitlow => 
 			dlen <= '0';
@@ -297,11 +291,7 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			if newfint = '0' then
-				ns <= none;
-			else
-				ns <= lowmemw;
-			end if; 
+			ns <= lowmemw;
 			
 	 	when lowmemw => 
 			dlen <= '0';
@@ -312,11 +302,7 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			if newfint = '0' then
-				ns <= none;
-			else
-				ns <= pktdone1;
-			end if; 
+			ns <= pktdone1;
 			
 	 	when pktdone1 => 
 			dlen <= '0';

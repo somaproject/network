@@ -18,7 +18,7 @@ entity control is
 				SOUT : out std_logic;
 				LEDACT : out std_logic;
 				LEDTX : out std_logic;
-				LEDRX : out std_logic;
+				LEDRX : out std_logic;			   c0o  
 				LED100 : out std_logic;
 				LED1000 : out std_logic;
 				LEDDPX : out std_logic;
@@ -69,7 +69,7 @@ architecture Behavioral of control is
    signal addr, addrl
    		 : std_logic_vector(7 downto 0) := (others => '0');
    signal din, dout : std_logic_vector(31 downto 0) := (others => '0');
-
+   signal douten : std_logic := '0'; 
    signal rw : std_logic := '0';
 
    -- counters
@@ -154,7 +154,7 @@ begin
 					MDC => MDC);
 
 
-
+   douten <= '1' when sclkdeltall = '1' and bitcnt = 8 else '0'; 
    slow_clock: process(CLK, RESET) is
    begin
 		if RESET = '1' then
@@ -204,7 +204,7 @@ begin
 
 
 				    -- data in register
-				    if sclkdeltall = '1' and bitcnt = 8 then
+				    if douten = '1' then
 					  dout <= doutmux; 
 				    else
 				       if sclkdelta = '1' and bitcnt > 7 and rw = '0' then
@@ -399,7 +399,7 @@ begin
 						newcmd = '1' else '0';
 
 	phyaddrr <=  '1' when addr(4 downto 0) = "01000" and rw = '0' and
-						newcmd = '1' else '0';
+						douten ='1' else '0';
 	newcmd <= '1' when sclkdeltal = '1' and bitcnt = 40 else
 				 '0'; 
 
