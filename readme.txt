@@ -131,7 +131,15 @@ This allows multiple things. First, it allows us to have MEN=1 in BYTE0 and not 
 
 Second, by keeping MEN high at the end of a cycle (through NONE), we prevent the first BYTE0 of actually causing a memory write. This guarantees that previous MA/MD (from writing the BP for the last frame) will be stable for 4 ticks, guaranteeing their validity. 
 
-The timing for this thing is a total bitch; who let the FSM get so damn large? it actually appears that the FIFO doesn't play nice with the static timing analysis; I think I will try inserting more output registers in the hope that the system will push them back through as pipelining. i don't think it should be this hard to do it. 
+Because timing is so tight with the fifo (what were you thinking, xilinx?) we're going to have to graft on some logic to deal. 
+
+I've called it the RX Input FIFO interface, or RXinput_FifoIO.vhd. It's a little bit complicated, but basically you use the existence of the invalid bit to let you graft onto the fIFO some registering logic. 
+
+The D3-D0 registers start out with their invalid bits set. Since the output of DINL lags CE to such a degree, we use D0 - d3 to store the sequence output. 
+
+This is all due to the fact that the registering of the FIFO output introduces a lag. Thus, say, CE is high for four ticks before we get our first byte. Now, say ten bytes later, we get an end of frame byte. We'd like to be able to immediately stop the FIFO's production of data, but we can't: it's pipelined. So the D3-D0 registers essentially store the output from the pipeline. 
+
+we've combined all of This into a rxinput_fifo file, which now actually contins the FIFO coregen and the auxillary FIFO control. 
 
 
 
