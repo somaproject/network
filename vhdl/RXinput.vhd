@@ -21,6 +21,8 @@ entity RXinput is
            CRCERR : out std_logic;
            OFERR : out std_logic;
            PHYERR : out std_logic;
+		 FIFOW_ERR : out std_logic;
+		 FIFOFULL : in std_logic; 
            RXF : out std_logic);
 end  RXinput;
 
@@ -64,6 +66,8 @@ architecture Behavioral of RXinput is
 	           CRCERR : out std_logic;
 	           OFERR : out std_logic;
 	           PHYERR : out std_logic;
+		 	 FIFOW_ERR : out std_logic;
+		 	 FIFOFULL : in std_logic; 
 	           RXF : out std_logic);
 	end component;
 
@@ -106,6 +110,8 @@ begin
 		 CRCERR => CRCERR,
 		 OFERR => OFERR,
 		 PHYERR => PHYERR,
+		 FIFOFULL => FIFOFULL,
+		 FIFOW_ERR => FIFOW_ERR,
 		 RXF => RXF); 
 
     fifo: RXinput_fifo port map (

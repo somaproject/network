@@ -28,7 +28,9 @@ ARCHITECTURE behavior OF testbench IS
 		clken : IN std_logic;          
 		ma : OUT std_logic_vector(15 downto 0);
 		txd : OUT std_logic_vector(7 downto 0);
-		frametx : out std_logic; 
+		frametx : out std_logic;
+		fbbp : OUT std_logic_vector(15 downto 0);
+		 
 		txen : OUT std_logic
 		);
 	END COMPONENT;

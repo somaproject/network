@@ -51,12 +51,18 @@ architecture Behavioral of network is
 	       std_logic_vector(16 downto 0) :=	(others => '0');
 
 	-- error and status signals
-	signal crcerr, rxinput_oferr, phyerr, rxf, frametx, txi_mwen :
+	signal crcerr, rxinput_oferr, phyerr, rxf, frametx, 
+	        txi_mwen, txfifow_err, rxfifow_err :
 				std_logic := '0';
 
 	-- base pointers 
 	signal rxbp, txbp : std_logic_vector(15 downto 0) :=
 			(others => '0');
+	signal txfbbp, rxfbbp : std_logic_vector(15 downto 0) :=
+			(others => '0');
+
+	-- fifo control
+	signal txfifofull, rxfifofull : std_logic := '0';
 
 
 	component memory is
@@ -101,6 +107,8 @@ architecture Behavioral of network is
 	           CRCERR : out std_logic;
 	           OFERR : out std_logic;
 	           PHYERR : out std_logic;
+			 FIFOW_ERR : out std_logic;
+			 FIFOFULL : in std_logic; 
 	           RXF : out std_logic);
 	end component;
 
@@ -109,6 +117,7 @@ architecture Behavioral of network is
 	    		 CLKEN : in std_logic; 
 	    		 RESET : in std_logic;
 	           BPIN : in std_logic_vector(15 downto 0);
+		      FBBP : out std_logic_vector(15 downto 0);
 	           MA : out std_logic_vector(15 downto 0);
 	           MQ : in std_logic_vector(31 downto 0);
 	           CLKIO : in std_logic;
@@ -125,7 +134,8 @@ architecture Behavioral of network is
 	           BPIN : in std_logic_vector(15 downto 0);
 	           TXD : out std_logic_vector(7 downto 0);
 	           TXEN : out std_logic;
-			 FRAMETX: out std_logic; 
+			 FRAMETX: out std_logic;
+		      FBBP: out std_logic_vector(15 downto 0); 
 	           CLKEN : in std_logic;
 			 GTX_CLK : out std_logic);
 	end component;
@@ -140,7 +150,16 @@ architecture Behavioral of network is
 	           MWEN : out std_logic;
 	           MA : out std_logic_vector(15 downto 0);
 	           BPOUT : out std_logic_vector(15 downto 0);
+			 FIFOFULL : in std_logic;
+			 FIFOW_ERR : out std_logic;
 	           DONE : out std_logic);
+	end component;
+
+	component FIFOcheck is
+	    Port ( CLK : in std_logic;
+	           BP : in std_logic_vector(15 downto 0);
+	           FBBP : in std_logic_vector(15 downto 0);
+	           FIFOFULL : out std_logic);
 	end component;
 
 
@@ -219,12 +238,15 @@ begin
 			  CRCERR => crcerr,
 			  OFERR => rxinput_oferr,
 			  PHYERR => phyerr,
+			  FIFOFULL => rxfifofull,
+			  FIFOW_ERR => rxfifow_err,
 			  RXF => rxf);
    rx_output : rxoutput port map (
    			  CLK => clk,
 			  CLKEN => clken3,
 			  RESET => RESET,
 			  BPIN => rxbp,
+			  FBBP => rxfbbp,
 			  MA => addr3,
 			  MQ => q3,
 			  CLKIO => clkio,
@@ -241,6 +263,7 @@ begin
 			  TXD => TXD,
 			  TXEN => TX_EN,
 			  FRAMETX => frametx,
+			  FBBP => txfbbp, 
 			  CLKEN => clken2, 
 			  GTX_CLK => GTX_CLK);
    tx_input: txinput port map (
@@ -253,9 +276,21 @@ begin
 			  MA => addr4,
 			  MD => d4,
 			  BPOUT => txbp,
+			  FIFOFULL => txfifofull,
+			  FIFOW_ERR => txfifow_err,
 			  DONE => open);
 
+   tx_fifocheck: FIFOcheck port map(
+   			  CLK => clk,
+			  FIFOFULL => txfifofull,
+			  BP => txbp,
+			  FBBP => txfbbp);
 
+   rx_fifocheck: FIFOcheck port map(
+   			  CLK => clk,
+			  FIFOFULL => rxfifofull,
+			  BP => rxbp,
+			  FBBP => rxfbbp);
 
 			  
 			  	

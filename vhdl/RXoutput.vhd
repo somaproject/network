@@ -13,6 +13,7 @@ entity RXoutput is
     		 CLKEN : in std_logic; 
     		 RESET : in std_logic;
            BPIN : in std_logic_vector(15 downto 0);
+		 FBBP : out std_logic_vector(15 downto 0);
            MA : out std_logic_vector(15 downto 0);
            MQ : in std_logic_vector(31 downto 0);
            CLKIO : in std_logic;
@@ -124,6 +125,7 @@ begin
 		 	fifo_full <= '0';
 		 end if; 
 		 bpl <= bp; 
+		 FBBP <= bp; 
 
 		 if fifo_wrcount = "10" or fifo_wrcount = "11" then
 		     fifo_nearfull <= '1';

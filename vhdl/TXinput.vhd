@@ -17,7 +17,9 @@ entity TXinput is
            MD : out std_logic_vector(31 downto 0);
            MWEN : out std_logic;
            MA : out std_logic_vector(15 downto 0);
+		 FIFOFULL : in std_logic; 
            BPOUT : out std_logic_vector(15 downto 0);
+		 FIFOW_ERR : out std_logic; 
            DONE : out std_logic);
 end TXinput;
 
@@ -41,7 +43,7 @@ architecture Behavioral of TXinput is
    signal CNT : std_logic_vector(15 downto 0);
 
    type states is (none, newf, low_w, low, high_w, high, waitlow,
-   			    lowmemw, pktdone1, pktdone2, pktdone3); 
+   			    lowmemw, pktdone1, pktdone2, pktdone3, pktabort); 
    signal cs, ns : states := none; 
 
    -- signals for clock-boundary-crossing logic
@@ -49,6 +51,10 @@ architecture Behavioral of TXinput is
    		std_logic := '0';
    signal dinl, dinint : std_logic_vector(15 downto 0) := (others => '0');
    signal newframel, newfint : std_logic := '0'; 
+
+   -- fifo control
+   signal fifofulll : std_logic := '0';
+
 
 	component SRL16
 	  generic (
@@ -114,6 +120,9 @@ begin
    begin
    	if RESET = '1' then
 		cs <= none;
+		MD <= (others => '0');
+		MWEN <= '0';
+		MA <= (others => '0');
 	else
 		if rising_edge(CLK) then
 			
@@ -141,6 +150,7 @@ begin
 				end if;
 			end if;
 
+			MWEN <= mrw; 
 
 			-- memory-pointer associated code:
 			if cs = none then 
@@ -152,6 +162,9 @@ begin
 			if bpen = '1' then
 				bp <= addr;
 			end if; 
+			-- fifo concerns
+			fifofulll <= FIFOFULL; 
+
 
 			-- memory interface
 			if MEN = '1' then
@@ -164,7 +177,7 @@ begin
    end process clock; 
 
 
-   fsm: process(cs, ns, den, din, newfint, cnt) is
+   fsm: process(cs, ns, den, din, newfint, cnt, fifofulll) is
    begin
    	 case cs is 
 	 	when none => 
@@ -175,6 +188,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			if den = '1' and newfint = '1' then
 				ns <= newf;
 			else
@@ -188,6 +202,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			ns <= low_w;
 	 	when low_w => 
 			dlen <= '1';
@@ -197,6 +212,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			if den = '1' then
 				ns <= low;
 			else
@@ -210,6 +226,7 @@ begin
 			bpen <= '0';
 			cpen <= '1';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			if cnt = "0000000000000000" then
 				ns <= waitlow;
 			else
@@ -223,6 +240,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			if den = '1'  then
 				ns <= high;
 			else
@@ -236,6 +254,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			if  cnt = "0000000000000000" then
 				ns <= pktdone1;
 			else
@@ -249,6 +268,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			ns <= lowmemw;
 	 	when lowmemw => 
 			dlen <= '0';
@@ -258,6 +278,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			ns <= pktdone1;
 	 	when pktdone1 => 
 			dlen <= '0';
@@ -267,7 +288,12 @@ begin
 			bpen <= '0';
 			cpen <= '1';
 			DONE <= '0';
-			ns <= pktdone2;
+			FIFOW_ERR <= '0';
+			if fifofulll = '1' then
+			   ns <= pktabort;
+			else
+			   ns <= pktdone2;
+			end if; 
 	 	when pktdone2 => 
 			dlen <= '0';
 			dhen <= '0';
@@ -276,7 +302,18 @@ begin
 			bpen <= '1';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			ns <= pktdone3;
+	 	when pktabort => 
+			dlen <= '0';
+			dhen <= '0';
+			mrw <= '0';
+			men <= '0';
+			bpen <= '0';
+			cpen <= '0';
+			DONE <= '0';
+			FIFOW_ERR <= '1';
+			ns <= none;
 	 	when pktdone3 => 
 			dlen <= '0';
 			dhen <= '0';
@@ -285,6 +322,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '1';
+			FIFOW_ERR <= '0';
 			ns <= none;
 	 	when others => 
 			dlen <= '0';
@@ -294,6 +332,7 @@ begin
 			bpen <= '0';
 			cpen <= '0';
 			DONE <= '0';
+			FIFOW_ERR <= '0';
 			ns <= none;	
 	end case; 
 													

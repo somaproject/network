@@ -213,3 +213,11 @@ of overall common naming scheme. Go refactoring!!!
 
 Net result is network.vhd
 
+We need feedback signals so that the *inputs don't overwrite the fifo, but this is difficult to implement. Since our buffer size is 256 kB, and we'd like to allow for a maximum frame size of 16384 bytes, or 16 frames of this size in the buffer. Wow, suddenly that doesn't seem like so much. Anyway, we're going to kill two of those such that we can implement the following overflow protection scheme:
+
+If the current BP is less than 2*MAXFRAME bytes behind the feedback BP, don't update our BP. 
+
+So, something is putting data into the FIFO, and it could write up to 16384 bytes, but then if there's less than enough space for two frames, it won't update its base poniter, so the next frame will simply overwrite the previous one. 
+
+Why not just not-update if the FBPB is less than 1 MAXFRAME ahead? Because if the FB is less than 1 MAXFRAME ahead of our BP, and we write in a frame of length MAXFRAME, we will OVERWRITE THE BASE OF THE NEW FRAME, which is bad. 
+

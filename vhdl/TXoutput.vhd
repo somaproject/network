@@ -16,7 +16,8 @@ entity TXoutput is
            BPIN : in std_logic_vector(15 downto 0);
            TXD : out std_logic_vector(7 downto 0);
            TXEN : out std_logic;
-		 FRAMETX: out std_logic; 
+		 FRAMETX: out std_logic;
+		 FBBP: out std_logic_vector(15 downto 0);  
            CLKEN : in std_logic;
 		 GTX_CLK : out std_logic);
 end TXoutput;
@@ -87,6 +88,7 @@ begin
     begin
 	  if RESET = '1' then
 	  	ADDR <= (others => '0');
+		addr <= (others => '0');
 		cs <= none; 
 	  else
 	     if rising_edge(CLK) then
@@ -123,7 +125,7 @@ begin
 			-- output latches
 			TXEN <= ltxen3;
 			TXD <= ltxd;
-
+			FBBP <= addr; 
 
 			-- lame pipelining attempt:
 			ncrcbytel <= ncrcbyte;
