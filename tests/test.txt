@@ -1,0 +1,11 @@
+18 November 2004:
+Board synthesizes at < 7 ns, correctly can get link from net by using nic serial code
+and doing:
+> t
+Resetting FX2 GPIF interface for NICserial
+> pr 0
+phy addr 0 is 1540
+> pw 0 1140
+
+
+Whee! 

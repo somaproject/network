@@ -310,8 +310,9 @@ begin
     		I => clkrx_to_bufg,
 			O => clkrx); 
 
-	 U1: OBUF port map (I => clk, O => MCLK);
- 	 U2: OBUF port map (I => clk180, O => GTX_CLK);
+	 --U1: OBUF port map (I => clk90, O => MCLK);
+ 	 MCLK <= not clk; 	
+	 U2: OBUF port map (I => clk180, O => GTX_CLK);
 	 
 	 slowclock: clockenable port map (
 	 			CLK => clk,

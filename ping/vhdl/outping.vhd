@@ -9,43 +9,33 @@ library UNISIM;
 use UNISIM.VComponents.all;
 
 entity outping is
-    Port ( CLKIN : in std_logic;
-	 		  IFCLK : in std_logic; 
-	 		  RESET : in std_logic; 
+    Port (CLKIN : in std_logic;  
+    		IFCLK : in std_logic; 
+	 	RESET : in std_logic; 
            CLKOUT : out std_logic;
-           NEXTFRAME : out std_logic;
            DOUT : out std_logic_vector(15 downto 0);
            NEWFRAME : out std_logic;
-			  SCLK : out std_logic; 
-			  SIN : out std_logic; 
-			  SOUT : in std_logic; 
-			  SCS : out std_logic;
-			  DATA : inout std_logic_vector(15 downto 0); 
-			  ADDR : in std_logic_vector(7 downto 0); 
-			  RW : in std_logic; 
-			  CMD : in std_logic;
-			  SAMPLE : out std_logic;  
-			  DONE : out std_logic;										  
-			  TESTOUT : out std_logic;
-			  RWDEBUG : out std_logic;
-			  CMDDEBUG : out std_logic;
-			  DONEDEBUG : out std_logic );
+		  SCLK : out std_logic; 
+		  SIN : out std_logic; 
+		  SOUT : in std_logic; 
+		  SCS : out std_logic;
+		  DATA : inout std_logic_vector(15 downto 0); 
+		  ADDR : in std_logic_vector(7 downto 0); 
+		  RW : in std_logic; 
+		  CMD : in std_logic;
+		  SAMPLE : out std_logic;  
+		  DONE : out std_logic;
+		  STARTTX : in std_logic	);
 end outping;
 
 architecture Behavioral of outping is
 -- OUTPING.VHD -- designed to simply output pings via the expected interface. 
  
-	-- clocking
 	signal clk, clk_to_bufg, clksl, clksl_to_bufg : std_logic := '0'; 
-
-	signal starttx : std_logic := '0'; 
 	signal ramaddr : std_logic_vector(7 downto 0) := (others => '0');
 	signal ramdata : std_logic_vector(15 downto 0) := (others => '0');
-	signal lnewframe : std_logic := '0';
-
-	signal lfsr, llfsr : std_logic_vector(15 downto 0) := (others => '0'); 
-
-	signal doneint : std_logic := '0';
+	signal lnewframe, gotx, cnten : std_logic := '0'; 
+	signal cnt : integer range 0 to 2**18-1 := 0; 
 
 	component NICserial is
 	    Port ( IFCLK : in std_logic;
@@ -59,8 +49,7 @@ architecture Behavioral of outping is
 				  RW : in std_logic; 
 				  CMD : in std_logic;
 				  SAMPLE : out std_logic;  
-				  DONE : out std_logic;
-			  	  SETBIT : out std_logic);
+				  DONE : out std_logic);
 	end component;
 
 	component CLKDLL
@@ -95,12 +84,11 @@ architecture Behavioral of outping is
 	        DO     : out STD_LOGIC_VECTOR (15 downto 0)); 
 	end component;
 
-
 begin
 
 	rom : RAMB4_S16 generic map (
-			INIT_00 => X"0100A8C0de59014000400000540000450008E38B18E90700FFFFFFFFFFFFFE00",
-			INIT_01 => X"0E0D0C0B0A0908000756AF3FB2A2791D2048265EE40008FF00A8C0131211100F",
+			INIT_00 => X"0100A8C0de59014000400000540000450008E38B18E90700FFFFFFFFFFFF00FE",
+			INIT_01 => X"0E0D0C0B0A0908000756AF3FB2A2791D2048265EE40008FF4f3dC0081211100F",
 			INIT_02 => X"333231302F2E2D2C2B2A292827262524232221201F1E1D1C1B1A191817161514",
 			INIT_03 => X"0000000000000000000000000000000000000000000000000000000037363534",
 			--INIT_00 => X"0000000000000000000000000000080786050403020101234567765432102000",
@@ -127,8 +115,7 @@ begin
 				ADDR => ramaddr,
 				DO => ramdata); 
 
-	CLKOUT <= clksl; 
-
+	CLKOUT <= not clksl; 
 	serialio: NICserial port map (	
 			IFCLK => IFCLK,
 			RESET => RESET,
@@ -141,8 +128,7 @@ begin
 			RW => RW,
 			CMD => CMD,
 			SAMPLE => SAMPLE,
-			DONE => doneint,
-			SETBIT => starttx); 
+			DONE => DONE); 
 
 	 clk_DLL : CLKDLL generic map (
 	 		CLKDV_DIVIDE => 4.0)
@@ -159,57 +145,45 @@ begin
 	clksl_bufg : BUFG port map (
 			I => clksl_to_bufg,
 			O => clksl); 
-	DONE <= doneint; 
 
-	process(clksl) is
-		variable toggle: std_logic := '0'; 
-
-	begin
-		if rising_edge(clksl) then
-
-			if toggle = '1' then
-				toggle := '0';
-				CMDDEBUG <= '0';
-			else
-				toggle := '1';
-				CMDDEBUG <= '1';
-			end if; 
-		end if; 
-	end process; 
-			DONEDEBUG <= clksl; 
-			RWDEBUG <= clksl; 		
 	clock : process(clksl) is
 	begin
 		if rising_edge(clksl) then
 			
-			DOUT <= ramdata(7 downto 0) & ramdata(15 downto 8); 
-			--DOUT <= llfsr;
-			llfsr <= lfsr; 
+			DOUT <= ramdata; 
+
 			if starttx = '1' then
+				cnten <= '1';
+			end if; 
+
+			if cnten = '1' then
+				if cnt = 2**18-1 then
+					cnt <= 0;
+				else
+					cnt <= cnt + 1; 
+				end if; 
+			end if; 
+
+			if cnt  = 1 then
 				ramaddr <= X"FF";
-				lfsr <= (others => '0'); 
+
 			else
 				if not(ramaddr = X"FE") then
 					ramaddr <= ramaddr + 1;
-					lfsr(0) <= lfsr(15) xnor lfsr(14) xnor
-					 				lfsr(12) xnor lfsr(3); 
-					lfsr(15 downto 1) <= lfsr(14 downto 0);
 				end if; 
 			end if; 
 
 			if ramaddr = X"00" then
 				lnewframe <= '1';
-			elsif ramaddr = X"82" then
-			--elsif ramaddr = X"08" then
+			elsif ramaddr = X"83" then
 				lnewframe <= '0'; 
 			end if; 
-			TESTOUT <= lnewframe; 
+
 			NEWFRAME <= lnewframe; 
 		end if; 
 	end process clock; 
-
 	
-	
-	
+	--DOUT <= (others => '0');
+	--NEWFRAME <= '0'; 
 					
 end Behavioral;
