@@ -101,6 +101,7 @@ int    ch;
        p_cm->cm_reg <<= 1;
     p_cm->cm_reg &= widmask(p_cm);
    }
+ //printf("intermediate for %x is %x\n", ch, p_cm->cm_reg); 
 }
 
 /****************************************************************************/

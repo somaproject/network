@@ -36,6 +36,8 @@ frame 1000 0 0 6 0 0A 0B 0C 0D 0E 0F
 */
 using namespace std; 
 
+
+
 int main (int argc, char **argv) {
   
   int len = 0; 
@@ -124,18 +126,17 @@ int main (int argc, char **argv) {
   cm_ini(p_cm);
 
   for(int i =0; i < crcable_len; i++) {
+    //   printf("%d %x is %x, complement is %x\n", i, data[i], cm_crc(p_cm), ~cm_crc(p_cm));  
     cm_nxt(p_cm, data[i]);
+    
+
   }
   
   crc = cm_crc(p_cm);  
-  data[crcable_len ] = (char) ((crc >> 24) & 0xFF);
-  data[crcable_len + 1] = (char) ((crc >> 16) & 0xFF);
-  data[crcable_len + 2] = (char) ((crc >> 8) & 0xFF);
-  data[crcable_len + 3] = (char) ((crc) & 0xFF);
-  
-  cout << "crc is " << hex <<crc << endl;
-  // dump data out :+
-
+  data[crcable_len +3] = (char) (crc >> 24) & 0xFF ;
+  data[crcable_len + 2] = (char) (crc >> 16) & 0xFF;
+  data[crcable_len + 1] = (char) (crc >> 8) & 0xFF;
+  data[crcable_len + 0] = (char) (crc) & 0xFF;
 
 
   // now, the output!
@@ -180,7 +181,7 @@ int main (int argc, char **argv) {
   }//
   
   cout << endl; 
-  
+
 }
 
 
@@ -188,4 +189,3 @@ int main (int argc, char **argv) {
 
 
  
-   
