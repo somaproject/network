@@ -69,7 +69,8 @@ BEGIN
 
 
 	CLK <= not CLK after 4 ns; 
-	CLKIO <= not CLKIO after 8.4 ns; 
+	--CLKIO <= not CLKIO after 8.4 ns; 
+	CLKIO <= not CLKIO after 50 ns; 
 
 	RESET <= '0' after 40 ns; 
 
@@ -105,7 +106,7 @@ BEGIN
 			readline(bpfile, L);
 			hread(L, bpold);
 			hread(L, bpnew);
-			while MA < bpold loop
+			while fbbp /= bpin loop
 				wait until rising_edge(CLK);
 			end loop; 
 			BPIN <= bpnew; 
@@ -216,7 +217,9 @@ BEGIN
 				hread(L, rdata); 
 				DOUTEXPECTED <= rdata; 
 				if rdata /= DOUT then
-					report "Error in reading data";
+					assert false
+						report "error reading data"
+						severity failure;   
 				end if; 
 		
 			end loop; 

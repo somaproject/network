@@ -1,4 +1,5 @@
 import struct
+import random
 
 class RamWrite:
     def __init__(self):
@@ -22,6 +23,15 @@ class RamWrite:
         elif self.ramaddr > 30000 and self.rampos == 3:
             self.fid = file("ram.1.high.dat", 'w')
             self.rampos = 4
+        elif self.ramaddr >= 0 and self.ramaddr < 30000 and \
+                 self.rampos == 4:
+            self.fid = file("ram.2.low.dat", 'w')
+            self.rampos = 5
+        elif self.ramaddr > 30000 and self.rampos == 5:
+            self.fid = file("ram.2.high.dat", 'w')
+            self.rampos = 6
+        elif self.ramaddr >= 0 and self.rampos == 6:
+            self.fid = None
             
         
         dlen = len(data)
@@ -74,8 +84,19 @@ class DataWrite:
 
         self.fid.write('\n')
 
+
+class BpWrite:
+    def __init__(self, filename):
+        self.filename = filename
+        self.fid = file(filename, 'w')
+        self.bp = 0
         
+    def write(self, delta):
         
+        self.fid.write("%04X %04X\n" % (self.bp, (self.bp + delta) % 2**16))
+        self.bp = ((self.bp + delta) % 2**16)
+
+                
 
 def simplepackets(bpfid, ram, data):
     # simple code to write tiny packets and see if we process them correctly.
@@ -83,63 +104,85 @@ def simplepackets(bpfid, ram, data):
     # hurt to be correct everywhere.
 
     # first, len = 1
-    bpfid.write("0000 0002\n")
+    bpfid.write(2)
     d = "A"
     ram.write(d)
     data.write(0, 2, d)
 
     # len = 2
-    bpfid.write("0002 0004\n")
+    bpfid.write(2)
     d = "AB"
     ram.write(d)
     data.write(0, 2, d)
 
     # len = 3
-    bpfid.write("0004 0006\n")
+    bpfid.write(2)
     d = "ABC"
     ram.write(d)
     data.write(0, 3, d)
     
     # len = 4
-    bpfid.write("0006 0008\n")
+    bpfid.write(2)
     d = "WXYZ"
     ram.write(d)
     data.write(0, 3, d)
     
     # len = 5
-    bpfid.write("0008 000B\n")
+    bpfid.write(3)
     d = "\x00\x01\x02\x03\x04"
     ram.write(d)
     data.write(0, 4, d)
     
     # len = 6
-    bpfid.write("000B 000E\n")
+    bpfid.write(3)
     d = "\x00\x01\x02\x03\x04\x05"
     ram.write(d)
     data.write(0, 4, d)
 
     # len = 7
-    bpfid.write("000E 0011\n")
+    bpfid.write(3)
     d = "\x00\x01\x02\x03\x04\x05\x06"
     ram.write(d)
     data.write(0, 5, d)
 
     # len = 8
-    bpfid.write("0011 0014\n")
+    bpfid.write(3)
     d = "\x00\x01\x02\x03\x04\x05\x06\07"
     ram.write(d)
     data.write(0, 5, d)
 
+def randpacket(delay, bpfid, ram, data, minsize, maxsize):
+    # packet larger than the fifo
+    l = random.randint(minsize, maxsize)
+    s = ""
+    for i in range(l):
+        s += struct.pack("B", random.randint(0, 255))
+
+    
+    bpfid.write((l+3)/4 + 1)
+    ram.write(s)
+    data.write(delay, (l+1)/2 + 1 , s)
+    return l
+
+
 def main():
     
-    bpfid = file("bp.dat", 'w')
+    bpfid = BpWrite("bp.dat")
     
     ram = RamWrite()
     data = DataWrite("data.dat")
 
 
     simplepackets(bpfid, ram, data)
-    
+    randpacket(0, bpfid, ram, data, 3000, 4000)
+    randpacket(2500,  bpfid, ram, data, 3000, 4000)
 
+    # now we generate quite a lot of extra crap 
+
+    l = 0
+    while l < 500000:
+        l += randpacket(0, bpfid, ram, data, 100, 6000)
+    
+                  
 if __name__ == "__main__":
     main()
