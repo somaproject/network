@@ -24,27 +24,32 @@ architecture Behavioral of TXoutput is
 
 
 	-- mux counters:
-	signal dsel, crcsel, outsel, outsell: integer range 0 to 3 := 0; 
+	signal dsel, crcsel, crcsell, outsel, outsell, outselll: 
+			integer range 0 to 3 := 0; 
 
 	-- byte counter
 	signal bcnt: std_logic_vector(15 downto 0) := (others => '0');
 	signal decbcnt, ldbcnt : std_logic := '0';
 
 	-- addr :
-	signal addr, bpl: std_logic_vector(15 downto 0) := (others => '0');
+	signal addr, bpl: std_logic_vector(15 downto 0) := 
+			(others => '0');
 	signal addrinc, rstaddr : std_logic := '0';
 
-	signal ldata, data: std_logic_vector(7 downto 0) := (others => '0');
+	signal ldata, data, datal, rdata: std_logic_vector(7 downto 0) := 
+			(others => '0');
 	
 
 
 	-- crc-related:
-	signal crc, crcl : std_logic_vector(31 downto 0) := (others => '0');
+	signal crc, crcl, ncrcl : std_logic_vector(31 downto 0) := 
+			(others => '0');
 	signal crcrst, crcenl, crcen : std_logic := '0';
 
 	-- output
-	signal crcbyte, ltxd : std_logic_vector(7 downto 0) := (others => '0');
-	signal ltxen2, ltxen : std_logic := '0';
+	signal crcbyte, crcbytel, ltxd : std_logic_vector(7 downto 0) := 
+			(others => '0');
+	signal ltxen2, ltxen3, ltxen : std_logic := '0';
 
 	-- FSMs
 	type states is (none, incaddr, wait0, wait1, wait2, bcntrdy, 
@@ -60,13 +65,16 @@ architecture Behavioral of TXoutput is
 	end component;
 
 
+
 begin
     crc_loigc: crc_combinational port map (	
     			CI => crcl,
 			CO => crc,
 			D => data);
     AD <= addr; 
+    ncrcl <= not crcl; 
 
+    -- attempt at bit-reversal
     clock: process(CLK, RESET) is
     begin
 	  if RESET = '1' then
@@ -93,18 +101,26 @@ begin
 			crcenl <= crcen;
 			outsell <= outsel;
 			ltxen2 <= ltxen;
+			ltxen3 <= ltxen2; 
 			bpl <= BP;
 			
 			-- crc reg:
 			if crcrst = '1' then 
-				crcl <= (others => '0');
+				crcl <= (others => '1');
 			elsif crcenl = '1' then
 				crcl <= crc;
 			end if; 
 
 			-- output latches
-			TXEN <= ltxen2;
+			TXEN <= ltxen3;
 			TXD <= ltxd;
+
+
+			-- lame pipelining attempt:
+			crcbytel <= crcbyte;
+			datal <= data;
+			outselll <= outsell; 
+			crcsell <= crcsel;
 		end if; 
 	 end if;
    end process clock;
@@ -115,16 +131,17 @@ begin
 		  QD(23 downto 16) when dsel = 2 else
 		  QD(31 downto 24) when dsel = 3;
  
-   crcbyte <= not crcl(7 downto 0) when crcsel = 0 else
-   		    not crcl(15 downto 8) when crcsel = 1 else
-		    not crcl(23 downto 16) when crcsel = 2 else
-		    not crcl(31 downto 24) when crcsel = 3;
+   crcbyte <= not crcl(7 downto 0) when crcsell = 0 else
+   		    not crcl(15 downto 8) when crcsell = 1 else
+		    not crcl(23 downto 16) when crcsell = 2 else
+		    not crcl(31 downto 24) when crcsell = 3;
 
-
-   ltxd <= data(7 downto 0) when outsell = 0 else
-   		 "10101010" when outsell = 1 else
-		 "10101011" when outsell = 2 else
-		 crcbyte when outsell = 3; 
+   -- remember that the 802.3 spec shows these transmitted LSB
+   -- first, so they look reversed. 
+   ltxd <= datal when outselll = 0 else
+   		 "01010101" when outselll = 1 else
+		 "11010101" when outselll = 2 else
+		 crcbytel when outselll = 3; 
 
 
    fsm: process(cs, ns, CLKEN, addr, bpl, bcnt) is 
@@ -234,7 +251,7 @@ begin
 			 ltxen <= '1';
 			 ns <= databyte0;   
 	   	 when databyte0 => 
-		      addrinc <= '0'; 
+		      addrinc <= '1'; 
 			 outsel <= 0;
 			 crcsel <= 0;
 			 dsel <= 0;
@@ -243,8 +260,8 @@ begin
 			 crcen <= '1';
 			 crcrst <= '0';
 			 ltxen <= '1';
-			 if bcnt = "0000000000000000" then
-			 	ns <= crc0;
+			 if bcnt = "0000000000000001" then
+			 	ns <= crc3;
 			 else 
 			 	ns <= databyte1;
 			 end if; 
@@ -258,8 +275,8 @@ begin
 			 crcen <= '1';
 			 crcrst <= '0';
 			 ltxen <= '1';
-			 if bcnt = "0000000000000000" then
-			 	ns <= crc0;
+			 if bcnt = "0000000000000001" then
+			 	ns <= crc3;
 			 else 
 			 	ns <= databyte2;
 			 end if; 
@@ -273,13 +290,13 @@ begin
 			 crcen <= '1';
 			 crcrst <= '0';
 			 ltxen <= '1';
-			 if bcnt = "0000000000000000" then
-			 	ns <= crc0;
+			 if bcnt = "0000000000000001" then
+			 	ns <= crc3;
 			 else 
 			 	ns <= databyte3;
 			 end if; 
 	   	 when databyte3 => 
-		      addrinc <= '1'; 
+		      addrinc <= '0'; 
 			 outsel <= 0;
 			 crcsel <= 0;
 			 dsel <= 3;
@@ -288,26 +305,15 @@ begin
 			 crcen <= '1';
 			 crcrst <= '0';
 			 ltxen <= '1';
-			 if bcnt = "0000000000000000" then
-			 	ns <= crc0;
+			 if bcnt = "0000000000000001" then
+			 	ns <= crc3;
 			 else 
 			 	ns <= databyte0;
 			 end if; 
-	   	 when crc0 => 
+	   	 when crc3 => 
 		      addrinc <= '0'; 
 			 outsel <= 3;
-			 crcsel <= 0;
-			 dsel <= 0;
-			 decbcnt <= '0';
-			 ldbcnt <= '0';
-			 crcen <= '0';
-			 crcrst <= '0';
-			 ltxen <= '1';
-			 ns <= crc1;
-	   	 when crc1 => 
-		      addrinc <= '0'; 
-			 outsel <= 3;
-			 crcsel <= 1;
+			 crcsel <= 3;
 			 dsel <= 0;
 			 decbcnt <= '0';
 			 ldbcnt <= '0';
@@ -325,11 +331,22 @@ begin
 			 crcen <= '0';
 			 crcrst <= '0';
 			 ltxen <= '1';
-			 ns <= crc3;
-	   	 when crc3 => 
+			 ns <= crc1;
+	   	 when crc1 => 
+		      addrinc <= '0'; 
+			 outsel <= 3;
+			 crcsel <= 1;
+			 dsel <= 0;
+			 decbcnt <= '0';
+			 ldbcnt <= '0';
+			 crcen <= '0';
+			 crcrst <= '0';
+			 ltxen <= '1';
+			 ns <= crc0;
+	   	 when crc0 => 
 		      addrinc <= '1'; 
 			 outsel <= 3;
-			 crcsel <=3;
+			 crcsel <=0;
 			 dsel <= 0;
 			 decbcnt <= '0';
 			 ldbcnt <= '0';

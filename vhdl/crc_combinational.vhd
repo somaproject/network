@@ -40,7 +40,7 @@ begin
 		    D(3) xor CI(28) xor D(5) xor CI(26) xor
 		    D(6) xor Ci(25) xor D(0) xor CI(31);
 	CO(7) <= D(0) xor CI(31) xor D(2) xor CI(29) xor
-		    D(4) xor CI(28) xor D(5) xor CI(26) xor
+		    D(4) xor CI(27) xor D(5) xor CI(26) xor
 		    D(7) xor CI(24);
 	CO(8) <= CI(0) xor D(3) xor CI(28) xor D(4) xor 
 		    CI(27) xor D(6) xor CI(25) xor D(7) xor
