@@ -9,14 +9,15 @@ library UNISIM;
 use UNISIM.VComponents.all;
 
  entity regfile is 
- port (clk  : in std_logic; 
- 	we   : in std_logic; 
- 	ADDRA   : in std_logic_vector(4 downto 0);
-	ADDRB	  : in std_logic_vector(4 downto 0);  
- 	ADDRW   : in std_logic_vector(4 downto 0); 
- 	DATAA   : out std_logic_vector(15 downto 0); 
- 	DATAB  : out std_logic_vector(15 downto 0); 
- 	DATAW  : in std_logic_vector(15 downto 0)); 
+ port (CLK  : in std_logic;
+ 		CLKEN : in std_logic;  
+ 		WE   : in std_logic; 
+ 		ADDRA   : in std_logic_vector(4 downto 0);
+		ADDRB	  : in std_logic_vector(4 downto 0);  
+ 		ADDRW   : in std_logic_vector(4 downto 0); 
+ 		DATAA   : out std_logic_vector(15 downto 0); 
+ 		DATAB  : out std_logic_vector(15 downto 0); 
+ 		DATAW  : in std_logic_vector(15 downto 0)); 
  end regfile;
  
  architecture syn of regfile is 

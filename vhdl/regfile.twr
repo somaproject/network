@@ -20,90 +20,90 @@ NONE                      No environment variables were set
 Timing constraint: TS_P2P = MAXDELAY FROM TIMEGRP "PADS" TO TIMEGRP "PADS" 8 nS  ; 
 
  288 items analyzed, 32 timing errors detected.
- Maximum delay is  12.737ns.
+ Maximum delay is  12.844ns.
 --------------------------------------------------------------------------------
-Slack:                  -4.737ns (requirement - data path)
+Slack:                  -4.844ns (requirement - data path)
   Source:               addrb<3> (PAD)
-  Destination:          datab<0> (PAD)
+  Destination:          datab<5> (PAD)
   Requirement:          8.000ns
-  Data Path Delay:      12.737ns (Levels of Logic = 4)
+  Data Path Delay:      12.844ns (Levels of Logic = 4)
 
-  Data Path: addrb<3> to datab<0>
+  Data Path: addrb<3> to datab<5>
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    P63.I                Tiopi                 0.797   addrb<3>
+    P57.I                Tiopi                 0.797   addrb<3>
                                                        addrb<3>
                                                        addrb_3_ibuf
-    CLB_R12C11.S0.F4     net (fanout=32)       2.380   addrb_3_ibuf
-    CLB_R12C11.S0.X      Tilo                  0.468   mram_ram__net5
-                                                       mram_ram_inst_ramx_1.F
-    CLB_R12C19.S0.G3     net (fanout=1)        1.450   mram_ram__net5
-    CLB_R12C19.S0.Y      Tilo                  0.468   datab_15_obuf
-                                                       mram_ram_inst_lut3_110
-    P77.O                net (fanout=1)        2.573   datab_0_obuf
-    P77.PAD              Tioop                 4.601   datab<0>
-                                                       datab_0_obuf
-                                                       datab<0>
+    CLB_R7C12.S0.F4      net (fanout=32)       2.377   addrb_3_ibuf
+    CLB_R7C12.S0.X       Tilo                  0.468   mram_ram__net25
+                                                       mram_ram_inst_ramx_11.F
+    CLB_R9C6.S0.G4       net (fanout=1)        1.511   mram_ram__net25
+    CLB_R9C6.S0.Y        Tilo                  0.468   datab_14_obuf
+                                                       mram_ram_inst_lut3_111
+    P27.O                net (fanout=1)        2.622   datab_5_obuf
+    P27.PAD              Tioop                 4.601   datab<5>
+                                                       datab_5_obuf
+                                                       datab<5>
     -------------------------------------------------  ---------------------------
-    Total                                     12.737ns (6.334ns logic, 6.403ns route)
-                                                       (49.7% logic, 50.3% route)
+    Total                                     12.844ns (6.334ns logic, 6.510ns route)
+                                                       (49.3% logic, 50.7% route)
 
 --------------------------------------------------------------------------------
-Slack:                  -4.499ns (requirement - data path)
-  Source:               addra<0> (PAD)
-  Destination:          dataa<1> (PAD)
+Slack:                  -4.675ns (requirement - data path)
+  Source:               addrb<1> (PAD)
+  Destination:          datab<5> (PAD)
   Requirement:          8.000ns
-  Data Path Delay:      12.499ns (Levels of Logic = 4)
+  Data Path Delay:      12.675ns (Levels of Logic = 4)
 
-  Data Path: addra<0> to dataa<1>
+  Data Path: addrb<1> to datab<5>
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    P60.I                Tiopi                 0.797   addra<0>
-                                                       addra<0>
-                                                       addra_0_ibuf
-    CLB_R9C10.S0.G1      net (fanout=32)       2.545   addra_0_ibuf
-    CLB_R9C10.S0.Y       Tilo                  0.468   mram_ram__net9
-                                                       mram_ram_inst_ramx_3.G
-    CLB_R12C7.S0.G3      net (fanout=1)        1.474   mram_ram__net8
-    CLB_R12C7.S0.Y       Tilo                  0.468   dataa_12_obuf
-                                                       mram_ram_inst_lut3_210
-    P11.O                net (fanout=1)        2.146   dataa_1_obuf
-    P11.PAD              Tioop                 4.601   dataa<1>
-                                                       dataa_1_obuf
-                                                       dataa<1>
+    P56.I                Tiopi                 0.797   addrb<1>
+                                                       addrb<1>
+                                                       addrb_1_ibuf
+    CLB_R7C12.S0.F2      net (fanout=32)       2.208   addrb_1_ibuf
+    CLB_R7C12.S0.X       Tilo                  0.468   mram_ram__net25
+                                                       mram_ram_inst_ramx_11.F
+    CLB_R9C6.S0.G4       net (fanout=1)        1.511   mram_ram__net25
+    CLB_R9C6.S0.Y        Tilo                  0.468   datab_14_obuf
+                                                       mram_ram_inst_lut3_111
+    P27.O                net (fanout=1)        2.622   datab_5_obuf
+    P27.PAD              Tioop                 4.601   datab<5>
+                                                       datab_5_obuf
+                                                       datab<5>
     -------------------------------------------------  ---------------------------
-    Total                                     12.499ns (6.334ns logic, 6.165ns route)
-                                                       (50.7% logic, 49.3% route)
+    Total                                     12.675ns (6.334ns logic, 6.341ns route)
+                                                       (50.0% logic, 50.0% route)
 
 --------------------------------------------------------------------------------
-Slack:                  -4.420ns (requirement - data path)
-  Source:               addrb<3> (PAD)
-  Destination:          datab<0> (PAD)
+Slack:                  -4.512ns (requirement - data path)
+  Source:               addrb<2> (PAD)
+  Destination:          datab<5> (PAD)
   Requirement:          8.000ns
-  Data Path Delay:      12.420ns (Levels of Logic = 4)
+  Data Path Delay:      12.512ns (Levels of Logic = 4)
 
-  Data Path: addrb<3> to datab<0>
+  Data Path: addrb<2> to datab<5>
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    P63.I                Tiopi                 0.797   addrb<3>
-                                                       addrb<3>
-                                                       addrb_3_ibuf
-    CLB_R12C11.S1.F4     net (fanout=32)       2.091   addrb_3_ibuf
-    CLB_R12C11.S1.X      Tilo                  0.468   mram_ram__net3
-                                                       mram_ram_inst_ramx_0.F
-    CLB_R12C19.S0.G4     net (fanout=1)        1.422   mram_ram__net3
-    CLB_R12C19.S0.Y      Tilo                  0.468   datab_15_obuf
-                                                       mram_ram_inst_lut3_110
-    P77.O                net (fanout=1)        2.573   datab_0_obuf
-    P77.PAD              Tioop                 4.601   datab<0>
-                                                       datab_0_obuf
-                                                       datab<0>
+    P49.I                Tiopi                 0.797   addrb<2>
+                                                       addrb<2>
+                                                       addrb_2_ibuf
+    CLB_R7C12.S0.F3      net (fanout=32)       2.045   addrb_2_ibuf
+    CLB_R7C12.S0.X       Tilo                  0.468   mram_ram__net25
+                                                       mram_ram_inst_ramx_11.F
+    CLB_R9C6.S0.G4       net (fanout=1)        1.511   mram_ram__net25
+    CLB_R9C6.S0.Y        Tilo                  0.468   datab_14_obuf
+                                                       mram_ram_inst_lut3_111
+    P27.O                net (fanout=1)        2.622   datab_5_obuf
+    P27.PAD              Tioop                 4.601   datab<5>
+                                                       datab_5_obuf
+                                                       datab<5>
     -------------------------------------------------  ---------------------------
-    Total                                     12.420ns (6.334ns logic, 6.086ns route)
-                                                       (51.0% logic, 49.0% route)
+    Total                                     12.512ns (6.334ns logic, 6.178ns route)
+                                                       (50.6% logic, 49.4% route)
 
 --------------------------------------------------------------------------------
 
@@ -119,180 +119,180 @@ Pad to Pad
 ---------------+---------------+---------+
 Source Pad     |Destination Pad|  Delay  |
 ---------------+---------------+---------+
-addra<0>       |dataa<0>       |   11.894|
-addra<0>       |dataa<10>      |   12.006|
-addra<0>       |dataa<11>      |   10.896|
-addra<0>       |dataa<12>      |   11.334|
-addra<0>       |dataa<13>      |   11.729|
-addra<0>       |dataa<14>      |   12.060|
-addra<0>       |dataa<15>      |   11.911|
-addra<0>       |dataa<1>       |   12.499|
-addra<0>       |dataa<2>       |   12.076|
-addra<0>       |dataa<3>       |   11.986|
-addra<0>       |dataa<4>       |   11.952|
-addra<0>       |dataa<5>       |   11.999|
-addra<0>       |dataa<6>       |   12.158|
-addra<0>       |dataa<7>       |   12.231|
-addra<0>       |dataa<8>       |   12.098|
-addra<0>       |dataa<9>       |   11.644|
-addra<1>       |dataa<0>       |   11.538|
-addra<1>       |dataa<10>      |   11.419|
-addra<1>       |dataa<11>      |   10.601|
-addra<1>       |dataa<12>      |   10.620|
-addra<1>       |dataa<13>      |   11.318|
-addra<1>       |dataa<14>      |   11.660|
-addra<1>       |dataa<15>      |   11.988|
-addra<1>       |dataa<1>       |   12.221|
-addra<1>       |dataa<2>       |   11.834|
-addra<1>       |dataa<3>       |   11.461|
-addra<1>       |dataa<4>       |   11.524|
-addra<1>       |dataa<5>       |   11.791|
-addra<1>       |dataa<6>       |   11.882|
-addra<1>       |dataa<7>       |   11.780|
-addra<1>       |dataa<8>       |   11.827|
-addra<1>       |dataa<9>       |   11.180|
-addra<2>       |dataa<0>       |   11.640|
-addra<2>       |dataa<10>      |   11.675|
-addra<2>       |dataa<11>      |   10.644|
-addra<2>       |dataa<12>      |   10.644|
-addra<2>       |dataa<13>      |   11.270|
-addra<2>       |dataa<14>      |   11.351|
-addra<2>       |dataa<15>      |   11.258|
-addra<2>       |dataa<1>       |   11.687|
-addra<2>       |dataa<2>       |   11.458|
-addra<2>       |dataa<3>       |   11.335|
-addra<2>       |dataa<4>       |   11.309|
-addra<2>       |dataa<5>       |   11.461|
-addra<2>       |dataa<6>       |   11.694|
-addra<2>       |dataa<7>       |   11.852|
-addra<2>       |dataa<8>       |   11.513|
-addra<2>       |dataa<9>       |   11.225|
-addra<3>       |dataa<0>       |   11.515|
-addra<3>       |dataa<10>      |   11.440|
-addra<3>       |dataa<11>      |   10.516|
-addra<3>       |dataa<12>      |   10.655|
-addra<3>       |dataa<13>      |   11.140|
-addra<3>       |dataa<14>      |   11.473|
-addra<3>       |dataa<15>      |   11.750|
-addra<3>       |dataa<1>       |   11.893|
-addra<3>       |dataa<2>       |   11.675|
-addra<3>       |dataa<3>       |   11.143|
-addra<3>       |dataa<4>       |   11.180|
-addra<3>       |dataa<5>       |   11.599|
-addra<3>       |dataa<6>       |   11.878|
-addra<3>       |dataa<7>       |   11.956|
-addra<3>       |dataa<8>       |   11.665|
-addra<3>       |dataa<9>       |   11.339|
-addra<4>       |dataa<0>       |    9.760|
-addra<4>       |dataa<10>      |    9.470|
-addra<4>       |dataa<11>      |    9.894|
-addra<4>       |dataa<12>      |    9.575|
-addra<4>       |dataa<13>      |    9.712|
-addra<4>       |dataa<14>      |    9.822|
-addra<4>       |dataa<15>      |    9.725|
-addra<4>       |dataa<1>       |    9.899|
-addra<4>       |dataa<2>       |    9.863|
-addra<4>       |dataa<3>       |    9.714|
-addra<4>       |dataa<4>       |    9.464|
-addra<4>       |dataa<5>       |    9.562|
-addra<4>       |dataa<6>       |    9.626|
-addra<4>       |dataa<7>       |    9.357|
-addra<4>       |dataa<8>       |    9.047|
-addra<4>       |dataa<9>       |   10.282|
-addrb<0>       |datab<0>       |   12.385|
-addrb<0>       |datab<10>      |   11.181|
-addrb<0>       |datab<11>      |   11.172|
-addrb<0>       |datab<12>      |   11.717|
-addrb<0>       |datab<13>      |   11.496|
-addrb<0>       |datab<14>      |   11.267|
-addrb<0>       |datab<15>      |   11.745|
-addrb<0>       |datab<1>       |   11.610|
-addrb<0>       |datab<2>       |   11.724|
-addrb<0>       |datab<3>       |   11.294|
-addrb<0>       |datab<4>       |   11.293|
-addrb<0>       |datab<5>       |   11.178|
-addrb<0>       |datab<6>       |   11.731|
-addrb<0>       |datab<7>       |   11.002|
-addrb<0>       |datab<8>       |   11.833|
-addrb<0>       |datab<9>       |   10.842|
-addrb<1>       |datab<0>       |   12.087|
-addrb<1>       |datab<10>      |   11.475|
-addrb<1>       |datab<11>      |   11.056|
-addrb<1>       |datab<12>      |   12.083|
-addrb<1>       |datab<13>      |   11.490|
-addrb<1>       |datab<14>      |   11.424|
-addrb<1>       |datab<15>      |   11.655|
-addrb<1>       |datab<1>       |   11.872|
-addrb<1>       |datab<2>       |   11.540|
-addrb<1>       |datab<3>       |   11.452|
-addrb<1>       |datab<4>       |   11.521|
-addrb<1>       |datab<5>       |   11.219|
-addrb<1>       |datab<6>       |   11.868|
-addrb<1>       |datab<7>       |   10.916|
-addrb<1>       |datab<8>       |   12.093|
-addrb<1>       |datab<9>       |   10.711|
-addrb<2>       |datab<0>       |   12.116|
-addrb<2>       |datab<10>      |   11.290|
-addrb<2>       |datab<11>      |   10.638|
-addrb<2>       |datab<12>      |   11.559|
-addrb<2>       |datab<13>      |   11.014|
-addrb<2>       |datab<14>      |   10.989|
-addrb<2>       |datab<15>      |   11.769|
-addrb<2>       |datab<1>       |   11.783|
-addrb<2>       |datab<2>       |   11.343|
-addrb<2>       |datab<3>       |   11.285|
-addrb<2>       |datab<4>       |   11.298|
-addrb<2>       |datab<5>       |   10.954|
-addrb<2>       |datab<6>       |   11.393|
-addrb<2>       |datab<7>       |   10.746|
-addrb<2>       |datab<8>       |   11.992|
-addrb<2>       |datab<9>       |   10.373|
-addrb<3>       |datab<0>       |   12.737|
-addrb<3>       |datab<10>      |   11.320|
-addrb<3>       |datab<11>      |   10.904|
-addrb<3>       |datab<12>      |   11.872|
-addrb<3>       |datab<13>      |   11.261|
-addrb<3>       |datab<14>      |   11.198|
-addrb<3>       |datab<15>      |   11.923|
-addrb<3>       |datab<1>       |   12.118|
-addrb<3>       |datab<2>       |   11.740|
-addrb<3>       |datab<3>       |   11.298|
-addrb<3>       |datab<4>       |   11.474|
-addrb<3>       |datab<5>       |   11.431|
-addrb<3>       |datab<6>       |   11.674|
-addrb<3>       |datab<7>       |   11.114|
-addrb<3>       |datab<8>       |   12.382|
-addrb<3>       |datab<9>       |   10.629|
-addrb<4>       |datab<0>       |   10.193|
-addrb<4>       |datab<10>      |    9.629|
-addrb<4>       |datab<11>      |   10.010|
-addrb<4>       |datab<12>      |   10.584|
-addrb<4>       |datab<13>      |    9.883|
-addrb<4>       |datab<14>      |    9.699|
-addrb<4>       |datab<15>      |    9.415|
-addrb<4>       |datab<1>       |   10.145|
-addrb<4>       |datab<2>       |    8.586|
-addrb<4>       |datab<3>       |    8.623|
-addrb<4>       |datab<4>       |   10.076|
-addrb<4>       |datab<5>       |    9.512|
-addrb<4>       |datab<6>       |   10.262|
-addrb<4>       |datab<7>       |    9.448|
-addrb<4>       |datab<8>       |    9.855|
-addrb<4>       |datab<9>       |    9.371|
+addra<0>       |dataa<0>       |   10.078|
+addra<0>       |dataa<10>      |    9.902|
+addra<0>       |dataa<11>      |   11.726|
+addra<0>       |dataa<12>      |   12.206|
+addra<0>       |dataa<13>      |   11.844|
+addra<0>       |dataa<14>      |   10.694|
+addra<0>       |dataa<15>      |   11.424|
+addra<0>       |dataa<1>       |   10.723|
+addra<0>       |dataa<2>       |   10.775|
+addra<0>       |dataa<3>       |   11.051|
+addra<0>       |dataa<4>       |   11.039|
+addra<0>       |dataa<5>       |   11.032|
+addra<0>       |dataa<6>       |   10.344|
+addra<0>       |dataa<7>       |   11.225|
+addra<0>       |dataa<8>       |   10.531|
+addra<0>       |dataa<9>       |   10.800|
+addra<1>       |dataa<0>       |   10.097|
+addra<1>       |dataa<10>      |    9.800|
+addra<1>       |dataa<11>      |   11.436|
+addra<1>       |dataa<12>      |   12.196|
+addra<1>       |dataa<13>      |   11.736|
+addra<1>       |dataa<14>      |   10.810|
+addra<1>       |dataa<15>      |   11.294|
+addra<1>       |dataa<1>       |   10.438|
+addra<1>       |dataa<2>       |   10.618|
+addra<1>       |dataa<3>       |   11.073|
+addra<1>       |dataa<4>       |   10.897|
+addra<1>       |dataa<5>       |   11.090|
+addra<1>       |dataa<6>       |   10.316|
+addra<1>       |dataa<7>       |   11.308|
+addra<1>       |dataa<8>       |   10.537|
+addra<1>       |dataa<9>       |   10.969|
+addra<2>       |dataa<0>       |   10.017|
+addra<2>       |dataa<10>      |   10.000|
+addra<2>       |dataa<11>      |   11.293|
+addra<2>       |dataa<12>      |   11.812|
+addra<2>       |dataa<13>      |   11.164|
+addra<2>       |dataa<14>      |   10.473|
+addra<2>       |dataa<15>      |   11.050|
+addra<2>       |dataa<1>       |   10.216|
+addra<2>       |dataa<2>       |   10.894|
+addra<2>       |dataa<3>       |   10.959|
+addra<2>       |dataa<4>       |   11.092|
+addra<2>       |dataa<5>       |   10.954|
+addra<2>       |dataa<6>       |   10.195|
+addra<2>       |dataa<7>       |   10.834|
+addra<2>       |dataa<8>       |   10.660|
+addra<2>       |dataa<9>       |   10.552|
+addra<3>       |dataa<0>       |    9.902|
+addra<3>       |dataa<10>      |    9.859|
+addra<3>       |dataa<11>      |   11.329|
+addra<3>       |dataa<12>      |   12.076|
+addra<3>       |dataa<13>      |   11.725|
+addra<3>       |dataa<14>      |   10.827|
+addra<3>       |dataa<15>      |   11.080|
+addra<3>       |dataa<1>       |   10.296|
+addra<3>       |dataa<2>       |   10.792|
+addra<3>       |dataa<3>       |   10.899|
+addra<3>       |dataa<4>       |   10.819|
+addra<3>       |dataa<5>       |   11.027|
+addra<3>       |dataa<6>       |   10.132|
+addra<3>       |dataa<7>       |   10.990|
+addra<3>       |dataa<8>       |   10.280|
+addra<3>       |dataa<9>       |   10.617|
+addra<4>       |dataa<0>       |    9.276|
+addra<4>       |dataa<10>      |    9.689|
+addra<4>       |dataa<11>      |   10.340|
+addra<4>       |dataa<12>      |   10.525|
+addra<4>       |dataa<13>      |   10.992|
+addra<4>       |dataa<14>      |   10.322|
+addra<4>       |dataa<15>      |    9.939|
+addra<4>       |dataa<1>       |    9.400|
+addra<4>       |dataa<2>       |   10.313|
+addra<4>       |dataa<3>       |    9.917|
+addra<4>       |dataa<4>       |   10.091|
+addra<4>       |dataa<5>       |    9.888|
+addra<4>       |dataa<6>       |    9.840|
+addra<4>       |dataa<7>       |    9.354|
+addra<4>       |dataa<8>       |    9.308|
+addra<4>       |dataa<9>       |    9.379|
+addrb<0>       |datab<0>       |   11.625|
+addrb<0>       |datab<10>      |   11.815|
+addrb<0>       |datab<11>      |   12.310|
+addrb<0>       |datab<12>      |   11.915|
+addrb<0>       |datab<13>      |   11.999|
+addrb<0>       |datab<14>      |   11.954|
+addrb<0>       |datab<15>      |   11.950|
+addrb<0>       |datab<1>       |   11.768|
+addrb<0>       |datab<2>       |   10.827|
+addrb<0>       |datab<3>       |   11.723|
+addrb<0>       |datab<4>       |   11.793|
+addrb<0>       |datab<5>       |   12.485|
+addrb<0>       |datab<6>       |   11.901|
+addrb<0>       |datab<7>       |   10.859|
+addrb<0>       |datab<8>       |   11.602|
+addrb<0>       |datab<9>       |   12.285|
+addrb<1>       |datab<0>       |   11.823|
+addrb<1>       |datab<10>      |   11.774|
+addrb<1>       |datab<11>      |   12.167|
+addrb<1>       |datab<12>      |   11.762|
+addrb<1>       |datab<13>      |   11.732|
+addrb<1>       |datab<14>      |   11.871|
+addrb<1>       |datab<15>      |   11.560|
+addrb<1>       |datab<1>       |   11.668|
+addrb<1>       |datab<2>       |   10.780|
+addrb<1>       |datab<3>       |   11.544|
+addrb<1>       |datab<4>       |   11.262|
+addrb<1>       |datab<5>       |   12.675|
+addrb<1>       |datab<6>       |   11.706|
+addrb<1>       |datab<7>       |   11.158|
+addrb<1>       |datab<8>       |   11.774|
+addrb<1>       |datab<9>       |   12.167|
+addrb<2>       |datab<0>       |   11.481|
+addrb<2>       |datab<10>      |   11.410|
+addrb<2>       |datab<11>      |   12.110|
+addrb<2>       |datab<12>      |   11.360|
+addrb<2>       |datab<13>      |   11.627|
+addrb<2>       |datab<14>      |   11.511|
+addrb<2>       |datab<15>      |   11.485|
+addrb<2>       |datab<1>       |   11.586|
+addrb<2>       |datab<2>       |   10.709|
+addrb<2>       |datab<3>       |   11.200|
+addrb<2>       |datab<4>       |   11.178|
+addrb<2>       |datab<5>       |   12.512|
+addrb<2>       |datab<6>       |   11.559|
+addrb<2>       |datab<7>       |   11.233|
+addrb<2>       |datab<8>       |   11.338|
+addrb<2>       |datab<9>       |   12.249|
+addrb<3>       |datab<0>       |   11.691|
+addrb<3>       |datab<10>      |   11.876|
+addrb<3>       |datab<11>      |   12.438|
+addrb<3>       |datab<12>      |   11.886|
+addrb<3>       |datab<13>      |   11.737|
+addrb<3>       |datab<14>      |   12.081|
+addrb<3>       |datab<15>      |   11.750|
+addrb<3>       |datab<1>       |   11.560|
+addrb<3>       |datab<2>       |   10.758|
+addrb<3>       |datab<3>       |   11.436|
+addrb<3>       |datab<4>       |   11.582|
+addrb<3>       |datab<5>       |   12.844|
+addrb<3>       |datab<6>       |   11.845|
+addrb<3>       |datab<7>       |   11.369|
+addrb<3>       |datab<8>       |   11.969|
+addrb<3>       |datab<9>       |   12.265|
+addrb<4>       |datab<0>       |    9.678|
+addrb<4>       |datab<10>      |    9.288|
+addrb<4>       |datab<11>      |   10.148|
+addrb<4>       |datab<12>      |    9.644|
+addrb<4>       |datab<13>      |    9.316|
+addrb<4>       |datab<14>      |    9.086|
+addrb<4>       |datab<15>      |    9.597|
+addrb<4>       |datab<1>       |    8.766|
+addrb<4>       |datab<2>       |    8.995|
+addrb<4>       |datab<3>       |   10.366|
+addrb<4>       |datab<4>       |    8.389|
+addrb<4>       |datab<5>       |   10.126|
+addrb<4>       |datab<6>       |    9.592|
+addrb<4>       |datab<7>       |    9.374|
+addrb<4>       |datab<8>       |   10.208|
+addrb<4>       |datab<9>       |    9.960|
 ---------------+---------------+---------+
 
 
 Timing summary:
 ---------------
 
-Timing errors: 32  Score: 121328
+Timing errors: 32  Score: 110838
 
-Constraints cover 288 paths, 0 nets, and 384 connections (79.2% coverage)
+Constraints cover 288 paths, 0 nets, and 384 connections (45.9% coverage)
 
 Design statistics:
-   Maximum path delay from/to any node:  12.737ns
+   Maximum path delay from/to any node:  12.844ns
 
 
-Analysis completed Sat Mar 29 20:40:04 2003
+Analysis completed Sat Mar 29 22:08:14 2003
 --------------------------------------------------------------------------------
 

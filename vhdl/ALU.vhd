@@ -32,22 +32,29 @@ architecture Behavioral of ALU is
 -- 110		  Y = 0 & B[15:1]
 -- 111		  Y = B[14:0] & 0
 
-	signal adderout, logicout, shiftout: std_logic_vector(15 downto 0);
-
+	signal adderout, logicout, shiftout, Yint: std_logic_vector(15 downto 0);
 
 	
 		  
 
 begin
+   -- special flags
+	Z <= '1' when Yint = "0000000000000000" else '0';
+	N <= '1' when Yint(15) = '1' else '0'; 
+
+
 
    main: process(A, B, AF, CIN) is
 	begin
 	-- new approach: do three things, only care about output on one of them.
+
 		if AF(0) = '0' then
-			adderout <= A + B;
+			adderout <= A + B + CIN;
 		else 
-			adderout <= A - B;
+			adderout <= A - B + CIN; 
 		end if;
+
+		
 		
 		-- now the logic section
 		case AF(1 downto 0) is
@@ -72,16 +79,18 @@ begin
 
 		case AF(2 downto 1) is
 			when "00" =>
-			   Y <= adderout; 
+			   Yint <= adderout; 
 			when "01"  =>
-				Y <= logicout; 
+				Yint <= logicout; 
 			when "10" =>
-				Y <= logicout; 
+				Yint <= logicout; 
 			when "11" =>
-				Y <= shiftout;
+				Yint <= shiftout;
 			when others =>
-			   Y <= logicout;
+			   Yint <= logicout;
 		end case; 	
+
+		Y <= Yint; 
 
 	end process main; 
 

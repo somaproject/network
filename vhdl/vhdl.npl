@@ -21,19 +21,26 @@ MODULE memctl.vhd
 MODSTYLE memctl Normal
 MODULE ALU.vhd
 MODSTYLE alu Normal
+MODULE ALU_PLUS_REGFILE.vhd
+MODSTYLE alu_plus_regfile Normal
 MODULE regfile.vhd
 MODSTYLE regfile Normal
+MODULE CPU.vhd
+MODSTYLE cpu Normal
 MODULE mt55l128l32p.vhd
 MODSTYLE mt55l128l32p Normal
-DEPASSOC regfile regfile.ucf SYSTEM
-DEPASSOC alu ALU.ucf SYSTEM
+MODULE ADDER.vhd
+MODSTYLE adder Normal
+DEPASSOC regfile regfile.ucf Normal
+DEPASSOC instructions instructions.ucf SYSTEM
+DEPASSOC alu_plus_regfile test.ucf SYSTEM
+DEPASSOC alu ALU.ucf Normal
 [Normal]
-xilxPAReffortLevel=xstvhd, virtex2, Implementation.t_placeAndRouteDes, 1048998394, Normal
-xilxSynthKeepHierarchy=xstvhd, virtex2, Schematic.t_synthesize, 1048835002, True
-_SynthOptEffort=xstvhd, virtex2, Schematic.t_synthesize, 1048985872, High
+xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1048998394, Normal
+xilxSynthKeepHierarchy=xstvhd, spartan2e, VHDL.t_synthesize, 1048835002, True
+_SynthOptEffort=xstvhd, spartan2e, VHDL.t_synthesize, 1048985872, High
 [STATUS-ALL]
-alu.ncdFile=WARNINGS,1049000803
-alu.ngcFile=WARNINGS,1049000803
-mt55l128l32p.ngcFile=ERRORS,1049000803
+alu.ngcFile=WARNINGS,1049063986
+mt55l128l32p.ngcFile=ERRORS,1049063986
 [STRATEGY-LIST]
 Normal=True

@@ -12,13 +12,13 @@ entity instructions is
     Port ( CLK : in std_logic;
            CLKEN : in std_logic;
            ID : out std_logic_vector(31 downto 0);
-           PCSEL : in std_logic;
            JTYPE : in std_logic;
            Z : in std_logic;
            DATAW : in std_logic_vector(15 downto 0);
            ADDRW : in std_logic_vector(8 downto 0);
-			  ADDRROUT: out std_logic_vector(7 downto 0); 
 			  RESET : in std_logic;
+			  IMSEL : out std_logic;
+			  AF : out std_logic_vector(2 downto 0); 
            WE : in std_logic);
 end instructions;
 
@@ -34,7 +34,7 @@ architecture Behavioral of instructions is
 
 	signal addrr, pcin, pcout : std_logic_vector(7 downto 0) := "00000000";
 	signal dout : std_logic_vector(31 downto 0) := (others => '0');
-	signal pcmux: std_logic; 
+	signal pcmux, pcsel: std_logic; 
 
 	component RAMB4_S8_S16
 	  generic (
@@ -74,7 +74,7 @@ architecture Behavioral of instructions is
 begin
 
 	ID <= DOUT; 
-	ADDRROUT <= ADDRR; 
+	
 	-- program counter logic
 	PC: process (CLK, CLKEN, PCSEL, JTYPE, Z, pcout, pcmux, dout, addrr, pcin) is
 	begin
@@ -98,6 +98,37 @@ begin
 			end if;
 		end if; 
 	end process PC; 
+
+	-- special decoding 
+	IMSEL <= DOUT(28);
+	AFSRC <= '1' when DOUT(31 downto 28) = "1000" else
+				'0';
+	PCSEL <= '1' when DOUT(31 downto 28) = "1001" else
+				'0'; 	 
+	process(ID) is
+	begin
+		case ID(31 downto 28) is
+			when "0000" => CAF <= "000";
+			when "0001" => CAF <= "001";
+			when "0010" => CAF <= "010";
+			when "0011" => CAF <= "011";
+			when "0100" => CAF <= "000";
+			when "0101" => CAF <= "001";
+			when "0110" => CAF <= "010";
+			when "0111" => CAF <= "011";
+			when "1000" => CAF <= "100";
+			when "1001" => CAF <= "000";
+			when "1010" => CAF <= "100";
+			when "1011" => CAF <= "100";
+			when "1100" => CAF <= "100";
+			when "1101" => CAF <= "100";
+			when "1110" => CAF <= "100";
+			when "1111" => CAF <= "100";
+			when others => NULL;
+		end case; 
+	end process;
+	 	
+		
 
 	-- RAMs
 	RAMh:  RAMB4_S8_S16
