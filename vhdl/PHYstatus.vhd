@@ -10,6 +10,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity PHYstatus is
     Port ( CLK : in std_logic;
+	 		  CLKSLEN : in std_logic; 
            PHYDIN : in std_logic_vector(15 downto 0);
            PHYDOUT : out std_logic_vector(15 downto 0);
            PHYADDRSTATUS : out std_logic;
@@ -49,6 +50,7 @@ architecture Behavioral of PHYstatus is
 
 	component MII is
     Port ( CLK : in std_logic;
+	 		  CLKSLEN : in std_logic; 
     		  RESET : in std_logic; 
            MDIO : inout std_logic;
 		     MDC : out std_logic; 
@@ -64,6 +66,7 @@ begin
 
    MII_Interface: MII port map (
 			 CLK => CLK,
+			 CLKSLEN => CLKSLEN, 
 			 RESET => RESET,
 			 MDIO => MDIO,
 			 MDC => MDC, 
@@ -82,48 +85,49 @@ begin
 			cs <= read1k;
 		else
 			if rising_edge(CLK) then
-				cs <= ns;
+				if CLKSLEN = '1' then 
+					cs <= ns;
 
-				-- phyaddr latches
-				if cs = phyl then
-					addrl <= PHYADDR(4 downto 0);
-					rwl <= PHYADDR(5);
-				end if;
-
-				-- din and dout latches
-				if cs = phyl then
-					din <= PHYDIN;
-				end if; 
-
-				-- phy addr write set				
-				if phyaddrdone = '1' then
-					phyaddrws <= '0';
-				else
-					if phyaddrw = '1' then
-						phyaddrws <= '1';
+					-- phyaddr latches
+					if cs = phyl then
+						addrl <= PHYADDR(4 downto 0);
+						rwl <= PHYADDR(5);
 					end if;
-				end if; 
 
-				if PHYADDRR = '1' then
-					phyaddrstatus <= '0'; 
-				else
-					if phyaddrdone = '1' then
-						phyaddrstatus <= '1';
+					-- din and dout latches
+					if cs = phyl then
+						din <= PHYDIN;
 					end if; 
-				end if; 		
 
-				if done = '1' and miisel = 0 then
-					PHYSTAT(15 downto 0) <= dout;
-				end if;
+					-- phy addr write set				
+					if phyaddrdone = '1' then
+						phyaddrws <= '0';
+					else
+						if phyaddrw = '1' then
+							phyaddrws <= '1';
+						end if;
+					end if; 
+
+					if PHYADDRR = '1' then
+						phyaddrstatus <= '0'; 
+					else
+						if phyaddrdone = '1' then
+							phyaddrstatus <= '1';
+						end if; 
+					end if; 		
+
+					if done = '1' and miisel = 0 then
+						PHYSTAT(15 downto 0) <= dout;
+					end if;
 				
-				if done='1' and miisel = 1 then
-					PHYSTAT(31 downto 16) <= dout; 
-				end if;  
+					if done='1' and miisel = 1 then
+						PHYSTAT(31 downto 16) <= dout; 
+					end if;  
 
-				if done='1' and miisel = 2 then 
-					PHYDOUT <= dout;
+					if done='1' and miisel = 2 then 
+						PHYDOUT <= dout;
+					end if; 
 				end if; 
-
 			end if;
 		end if; 
 	end process clock; 

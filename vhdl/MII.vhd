@@ -11,6 +11,7 @@ use UNISIM.VComponents.all;
 
 entity MII is
     Port ( CLK : in std_logic;
+	 		  CLKSLEN : in std_logic; 
     		  RESET : in std_logic; 
            MDIO : inout std_logic;
 		     MDC : out std_logic; 
@@ -50,37 +51,39 @@ begin
 	   cs <= none;
 	else
 	   if rising_edge(CLK) then
-	      cs <= ns; 
+			if CLKSLEN = '1' then 
+		      cs <= ns; 
 
-		 if cs = resetcnt then 
-		    mdccnt <= (others => '0');
-		 else
-		    if cs = waiting or cs = firstinc then
-		       mdccnt <= mdccnt + 1;
-		    end if;
-		 end if; 
+				 if cs = resetcnt then 
+				    mdccnt <= (others => '0');
+				 else
+				    if cs = waiting or cs = firstinc then
+				       mdccnt <= mdccnt + 1;
+				    end if;
+				 end if; 
 
-		 if cs = resetcnt then 
-		    statecnt <= 0;
-		 else
-		    if clken = '1'  then
-		       if statecnt = 63 then 
-			  	statecnt <= 0; 
-			  else
-		          statecnt <= statecnt + 1;
- 			  end if; 
-		    end if;
-		 end if; 
+				 if cs = resetcnt then 
+				    statecnt <= 0;
+				 else
+				    if clken = '1'  then
+				       if statecnt = 63 then 
+					  	statecnt <= 0; 
+					  else
+				          statecnt <= statecnt + 1;
+		 			  end if; 
+				    end if;
+				 end if; 
 
-		 mdcint <= mdccnt(5); 
+				 mdcint <= mdccnt(5); 
 
-		 if (cs = waiting or cs = firstinc) and mdccnt="100000" then 
-		 	dreg <= dreg(14 downto 0) & SIN;
-		 end if; 
+				 if (cs = waiting or cs = firstinc) and mdccnt="100000" then 
+				 	dreg <= dreg(14 downto 0) & SIN;
+				 end if; 
 
-		 if cs = ldout then
-		 	DOUT <= dreg;
-		 end if; 
+				 if cs = ldout then
+				 	DOUT <= dreg;
+				 end if; 
+			end if; 
 	   end if;
      end if; 
    end process clock;

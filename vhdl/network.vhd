@@ -49,11 +49,10 @@ architecture Behavioral of network is
 
 
 	-- clock and timing signals
-	signal clk, clkio, clksl, clkrx: std_logic := '0';
-	signal clk_to_bufg, clkio_to_bufg, clksl_to_bufg,
-			clksl_fb, clkrx_to_bufg: std_logic := '0';
-
-     signal clken1, clken2, clken3, clken4 : std_logic := '0';
+	signal clk, clkio, clkrx: std_logic := '0';
+	signal clk_to_bufg, clkio_to_bufg, clkrx_to_bufg: std_logic := '0';
+	signal clkslen, clkslen_to_bufg : std_logic := '0';
+   signal clken1, clken2, clken3, clken4 : std_logic := '0';
 	
 	-- data
 	signal d1, d2, d3, d4, q1, q2, q3, q4 : 
@@ -69,7 +68,9 @@ architecture Behavioral of network is
 	signal rxcrcerr, rxoferr, rxphyerr, rxf, txf, 
 	        txi_mwen, txfifowerr, rxfifowerr :
 				std_logic := '0';
-
+	signal rxcrcerrsr, rxoferrsr, rxphyerrsr, rxfsr, txfsr, 
+	         txfifowerrsr, rxfifowerrsr :
+				std_logic := '0';
 	-- base pointers 
 	signal rxbp, txbp : std_logic_vector(15 downto 0) :=
 			(others => '0');
@@ -85,8 +86,7 @@ architecture Behavioral of network is
 
 	component memory is
 	    Port ( CLK : in std_logic;
-	           CLKOUT : out std_logic;
-			 RESET : in std_logic;
+			 		RESET : in std_logic;
 	           DQEXT : inout std_logic_vector(31 downto 0) ;
 	           WEEXT : out std_logic;
 	           ADDREXT : out std_logic_vector(16 downto 0);
@@ -187,8 +187,8 @@ architecture Behavioral of network is
 
 	component control is
 	    Port (	CLK : in std_logic;
+		 			CLKSLEN : in std_logic;
 		 			RESET : in std_logic;
-					CLKSL : in std_logic; 
 					SCLK : in std_logic;
 					SCS : in std_logic;
 					SIN : in std_logic;
@@ -216,8 +216,28 @@ architecture Behavioral of network is
 					MDC : out std_logic);
 	end component;
 
+	component clockenable is
+	    Port ( CLK : in std_logic;
+	           RESET : in std_logic;
+	           CLKSLEN : out std_logic;
+	           TXF : in std_logic;
+	           TXFSR : out std_logic;
+	           RXF : in std_logic;
+	           RXFSR : out std_logic;
+	           TXFIFOWERR : in std_logic;
+	           TXFIFOWERRSR : out std_logic;
+				  RXFIFOWERR : in std_logic;
+				  RXFIFOWERRSR : out std_logic; 
+	           RXPHYERR : in std_logic;
+	           RXPHYERRSR : out std_logic;
+	           RXOFERR : in std_logic;
+	           RXOFERRSR : out std_logic;
+	           RXCRCERR : in std_logic;
+	           RXCRCERRSR : out std_logic);
+	end component;
+
+
 	component CLKDLL
-			generic (CLKDV_DIVIDE : in real := 4.0); 
 	      port (CLKIN, CLKFB, RST : in STD_LOGIC;
 	      CLK0, CLK90, CLK180, CLK270, CLK2X, CLKDV, LOCKED : out std_logic);
 	end component;
@@ -236,9 +256,7 @@ begin
     addr3ext <= ('1' & addr3);
     addr4ext <= ('0' & addr4);
 
-    clkio_dll : CLKDLL generic map (
-	 		clkdv_divide => 4.0)
-			port map (
+    clkio_dll : CLKDLL port map (
     		CLKIN => CLKIOIN,
 			CLKFB => clkio,
 			RST => RESET,
@@ -250,23 +268,19 @@ begin
 			O => clkio); 
 
 
-    clk_dll : CLKDLL generic map (
-	 		clkdv_divide => 4.0)
-			port map (
+    clk_dll : CLKDLL port map (
     		CLKIN => CLKIN,
 			CLKFB => clk,
 			RST => RESET,
 			CLK0 => clk_to_bufg, 
-			CLKDV => clksl);
+			CLKDV => open);
 
     clk_bufg : BUFG port map (
     		I => clk_to_bufg,
 			O => clk); 
 
     -- receive in clock
-    clkrx_dll : CLKDLL generic map (
-	 		clkdv_divide => 4.0)
-			port map (
+    clkrx_dll : CLKDLL port map (
     		CLKIN => RX_CLK,
 			CLKFB => clkrx,
 			RST => RESET,
@@ -277,10 +291,30 @@ begin
     		I => clkrx_to_bufg,
 			O => clkrx); 
 
-     
+    MCLK <= clk;  
+	 
+	 slowclock: clockenable port map (
+	 			CLK => clk,
+				RESET => RESET,
+				CLKSLEN => clkslen,
+				TXF => txf,
+				TXFSR => txfsr,
+				RXF => rxf,
+				RXFSR => rxfsr,
+				TXFIFOWERR => txfifowerr,
+				TXFIFOWERRSR => txfifowerrsr,
+				RXFIFOWERR => rxfifowerr,
+				RXFIFOWERRSR => rxfifowerrsr,
+				RXPHYERR => rxphyerr,
+				RXPHYERRSR => rxphyerrsr,
+				RXOFERR => rxoferr,
+				RXOFERRSR => rxoferrsr,
+				RXCRCERR => rxcrcerr,
+				RXCRCERRSR => rxcrcerrsr); 
+
+
     memcontroller: memory port map (
-    			  CLK => clk,
-			  CLKOUT => MCLK,
+    		  CLK => clk,
 			  RESET => RESET,
 			  DQEXT => MD,
 			  WEEXT => MWE,
@@ -379,8 +413,8 @@ begin
 
 	mac_control: control port map (
 				CLK => clk,
+				CLKSLEN => clkslen, 
 				RESET => RESET,
-				CLKSL => clksl,
 				SCLK => SCLK,
 				SCS => SCS, 
 				SIN => SIN,
@@ -392,13 +426,13 @@ begin
 				LED1000 => LED1000,
 				LEDDPX => LEDDPX,
 				PHYRESET => PHYRESET,
-				TXF => txf,
-				RXF => rxf,
-				TXFIFOWERR => txfifowerr,
-				RXFIFOWERR => rxfifowerr,
-				RXPHYERR => rxphyerr,
-		 		RXOFERR => rxoferr,
-				RXCRCERR => rxcrcerr,
+				TXF => txfsr,
+				RXF => rxfsr,
+				TXFIFOWERR => txfifowerrsr,
+				RXFIFOWERR => rxfifowerrsr,
+				RXPHYERR => rxphyerrsr,
+		 		RXOFERR => rxoferrsr,
+				RXCRCERR => rxcrcerrsr,
 				RXBCAST => rxbcast,
 				RXMCAST => rxmcast,
 				RXUCAST => rxucast,
@@ -406,9 +440,5 @@ begin
 				MACADDR => macaddr,
 				MDIO => MDIO,
 				MDC => MDC); 
-	RX_CLK <= 'Z';
-	RX_DV <= 'Z';
-	RXD <= (others => 'Z');
-	RX_ER <= 'Z';
 		  	
 end Behavioral;

@@ -10,8 +10,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity control is
     Port (	CLK : in std_logic;
-	 			RESET : in std_logic;
-				CLKSL : in std_logic; 
+	 			CLKSLEN : in std_logic; 
+	 			RESET : in std_logic; 
 				SCLK : in std_logic;
 				SCS : in std_logic;
 				SIN : in std_logic;
@@ -45,9 +45,8 @@ architecture Behavioral of control is
 -- track of counters, and toggling the blinkenlights . It also
 -- lets the external interface deal with all of these things.
 -- 
--- now keep in mind that we have two clocks here, CLK and CLKSL,
--- where CLKSL is CLK / 4
--- 
+-- now keep in mind that we have EVERYTHING IN THIS MODULE gated
+-- to the /8 clock enable-- 
 --
  
 
@@ -80,6 +79,10 @@ architecture Behavioral of control is
    		rxphyerr_rst, rxoferr_rst, rxcrcerr_rst :
 		std_logic := '0';
 
+	-- latches for SR
+	signal txf_sr, rxf_sr, txfifowerr_sr, rxfifowerr_sr,
+			rxphyerr_sr, rxoferr_sr, rxcrcerr_sr : std_logic := '0';
+
 
    -- muxing...
    signal doutmux, doutmuxl
@@ -107,6 +110,7 @@ architecture Behavioral of control is
 
 	component PHYstatus is
 	    Port ( CLK : in std_logic;
+		 		  CLKSLEN : in std_logic; 
 	           PHYDIN : in std_logic_vector(15 downto 0);
 	           PHYDOUT : out std_logic_vector(15 downto 0);
 	           PHYADDRSTATUS : out std_logic;
@@ -119,11 +123,13 @@ architecture Behavioral of control is
 				  MDC : out std_logic );
 	end component;
 
+
 begin
 
 
 	PHY_status : PHYstatus port map (
-					CLK => CLKSL,	 -- changed from CLK!!
+					CLK => CLK,
+					CLKSLEN => CLKSLEN, 
 					PHYDIN => phydi(15 downto 0),
 					PHYDOUT => phydo(15 downto 0),
 					PHYADDRSTATUS => phyaddr(31),
@@ -135,219 +141,223 @@ begin
 					MDIO => MDIO,
 					MDC => MDC);
 
-   slow_clock: process(CLKSL, RESET) is
+
+
+   slow_clock: process(CLK, RESET) is
    begin
 		if RESET = '1' then
 			lrxallf <= '1';
 		else
-	   	if rising_edge(CLKSL) then
-		    -- sclk:
-		    sclkl <= SCLK;
-		    sclkll <= sclkl;
-		    sclkdelta <= lsclkdelta; 
-		    sclkdeltal <= sclkdelta; 
-		    sclkdeltall <= sclkdeltal; 
+	   	if rising_edge(CLK) then
+				if CLKSLEN = '1' then 
+				    -- sclk:
+				    sclkl <= SCLK;
+				    sclkll <= sclkl;
+				    sclkdelta <= lsclkdelta; 
+				    sclkdeltal <= sclkdelta; 
+				    sclkdeltall <= sclkdeltal; 
 
-		    -- cs:
-		    scsl <= SCS;
-		    scsll <= scsl;
-		    scslll <= scsll; 
+				    -- cs:
+				    scsl <= SCS;
+				    scsll <= scsl;
+				    scslll <= scsll; 
 
-		    -- sin
-		    sinl <= sin;
-		    sinll <= sinl;
-		    sinlll <= sinll;
+				    -- sin
+				    sinl <= sin;
+				    sinll <= sinl;
+				    sinlll <= sinll;
 
-		    -- dout
-		    SOUT <= dout(31); 
-
-
-
-		    if scslll = '1' then
-		    	   bitcnt <= "000000";
-		    else
-		        if sclkdelta = '1' then 
-			      bitcnt <= bitcnt + 1;
-			   end if; 
-		    end if; 
-
-		    -- address register
-		    if sclkdelta = '1' and bitcnt < 8 then
-		    	  addr <= addr(6 downto 0) & sinlll;
-		    end if; 
-
-		    -- data in register
-		    if sclkdelta = '1' and bitcnt > 7 then
-		    	  din <= din(30 downto 0) & sinlll;
-		    end if; 
+				    -- dout
+				    SOUT <= dout(31); 
 
 
-		    -- data in register
-		    if sclkdeltall = '1' and bitcnt = 8 then
-			  dout <= doutmux; 
-		    else
-		       if sclkdelta = '1' and bitcnt > 7 and rw = '0' then
-				dout <= dout(30 downto 0)  & '0'; 
-			  end if; 
-		    end if;
+
+				    if scslll = '1' then
+				    	   bitcnt <= "000000";
+				    else
+				        if sclkdelta = '1' then 
+					      bitcnt <= bitcnt + 1;
+					   end if; 
+				    end if; 
+
+				    -- address register
+				    if sclkdelta = '1' and bitcnt < 8 then
+				    	  addr <= addr(6 downto 0) & sinlll;
+				    end if; 
+
+				    -- data in register
+				    if sclkdelta = '1' and bitcnt > 7 then
+				    	  din <= din(30 downto 0) & sinlll;
+				    end if; 
+
+
+				    -- data in register
+				    if sclkdeltall = '1' and bitcnt = 8 then
+					  dout <= doutmux; 
+				    else
+				       if sclkdelta = '1' and bitcnt > 7 and rw = '0' then
+						dout <= dout(30 downto 0)  & '0'; 
+					  end if; 
+				    end if;
 	    
 	    
 
-		    -- resetting the counters
-			if DIN(0) = '1' and newcmd = '1' and
-		    	  addr(4 downto 0) = "10000" then
-					txf_rst <= '1'; 
-		    else
-		    	  txf_rst <= '0';
-		    end if;
+				    -- resetting the counters
+					if DIN(0) = '1' and newcmd = '1' and
+				    	  addr(4 downto 0) = "10000" then
+							txf_rst <= '1'; 
+				    else
+				    	  txf_rst <= '0';
+				    end if;
 
-		    if DIN(1) = '1' and newcmd = '1' and
-		    	  addr(4 downto 0) = "10000" then
-			  rxf_rst <= '1'; 
-		    else
-		    	  rxf_rst <= '0';
-		    end if;
+				    if DIN(1) = '1' and newcmd = '1' and
+				    	  addr(4 downto 0) = "10000" then
+					  rxf_rst <= '1'; 
+				    else
+				    	  rxf_rst <= '0';
+				    end if;
 
-		    if DIN(2) = '1' and newcmd = '1' and
-		    	  addr(4 downto 0) = "10000" then
-			  txfifowerr_rst <= '1'; 
-		    else
-		    	  txfifowerr_rst <= '0';
-		    end if;
+				    if DIN(2) = '1' and newcmd = '1' and
+				    	  addr(4 downto 0) = "10000" then
+					  txfifowerr_rst <= '1'; 
+				    else
+				    	  txfifowerr_rst <= '0';
+				    end if;
 
-		    if DIN(3) = '1' and newcmd = '1' and
-		    	  addr(4 downto 0) = "10000" then
-			  rxfifowerr_rst <= '1'; 
-		    else
-		    	  rxfifowerr_rst <= '0';
-		    end if;
+				    if DIN(3) = '1' and newcmd = '1' and
+				    	  addr(4 downto 0) = "10000" then
+					  rxfifowerr_rst <= '1'; 
+				    else
+				    	  rxfifowerr_rst <= '0';
+				    end if;
 
-		    if DIN(4) = '1' and newcmd = '1' and
-		    	  addr(4 downto 0) = "10000" then
-			     rxphyerr_rst <= '1'; 
-		    else
-		    	  rxphyerr_rst <= '0';
-		    end if;
+				    if DIN(4) = '1' and newcmd = '1' and
+				    	  addr(4 downto 0) = "10000" then
+					     rxphyerr_rst <= '1'; 
+				    else
+				    	  rxphyerr_rst <= '0';
+				    end if;
 
-		    if DIN(5) = '1' and newcmd = '1' and
-		    	  	addr(4 downto 0) = "10000" then
-			  		rxoferr_rst <= '1'; 
-		    else
-		    	  rxoferr_rst <= '0';
-		    end if;
+				    if DIN(5) = '1' and newcmd = '1' and
+				    	  	addr(4 downto 0) = "10000" then
+					  		rxoferr_rst <= '1'; 
+				    else
+				    	  rxoferr_rst <= '0';
+				    end if;
 
-		    if DIN(6) = '1' and newcmd = '1' and
-		    	  	addr(4 downto 0) = "10000" then
-			  		rxcrcerr_rst <= '1'; 
-		    else
-		    	  rxcrcerr_rst <= '0';
-		    end if;
+				    if DIN(6) = '1' and newcmd = '1' and
+				    	  	addr(4 downto 0) = "10000" then
+					  		rxcrcerr_rst <= '1'; 
+				    else
+				    	  rxcrcerr_rst <= '0';
+				    end if;
 
 
-			 -- phy-related registers
-				if addr(4 downto 0) = "01000" and rw = '1' and
-					newcmd = '1' then 
-			  		phyaddr(30 downto 0) <= din(30 downto 0);
-		    	end if; 
+				 -- phy-related registers
+					if addr(4 downto 0) = "01000" and rw = '1' and
+						newcmd = '1' then 
+				  		phyaddr(30 downto 0) <= din(30 downto 0);
+			    	end if; 
 
-				if addr(4 downto 0) = "01001" and rw = '1' and
-					newcmd = '1' then 
-			  		phydi(31 downto 0) <= din(31 downto 0);
-		    	end if;
+					if addr(4 downto 0) = "01001" and rw = '1' and
+						newcmd = '1' then 
+				  		phydi(31 downto 0) <= din(31 downto 0);
+			    	end if;
 			 
 
 
-		    -- latching the counters into our time frame
-		    txf_cntl <= txf_cnt;
-		    rxf_cntl <= rxf_cnt;
-		    txfifowerr_cntl <= txfifowerr_cnt;
-		    rxfifowerr_cntl <= rxfifowerr_cnt;
-		    rxphyerr_cntl <= rxphyerr_cnt;
-		    rxoferr_cntl <= rxoferr_cnt;
-		    rxcrcerr_cntl <= rxcrcerr_cnt;
+				    -- latching the counters into our time frame
+				    txf_cntl <= txf_cnt;
+				    rxf_cntl <= rxf_cnt;
+				    txfifowerr_cntl <= txfifowerr_cnt;
+				    rxfifowerr_cntl <= rxfifowerr_cnt;
+				    rxphyerr_cntl <= rxphyerr_cnt;
+				    rxoferr_cntl <= rxoferr_cnt;
+				    rxcrcerr_cntl <= rxcrcerr_cnt;
 
 
-		    -- mac packet types
-		    if addr(4 downto 0) = "11010" and rw = '1' and
-		    	  newcmd = '1' then 
-			  lrxbcast <= din(0);
-		    end if; 
-		    if addr(4 downto 0) = "11011" and rw = '1' and
-		    	  newcmd = '1' then 
-			  lrxmcast <= din(0);
-		    end if; 
-		    if addr(4 downto 0) = "11100" and rw = '1' and
-		    	  newcmd = '1' then 
-			  lrxucast <= din(0);
-		    end if; 
-		    if addr(4 downto 0) = "11001" and rw = '1' and
-		    	  newcmd = '1' then 
-			  		lrxallf <= din(0);
-		    end if; 
+				    -- mac packet types
+				    if addr(4 downto 0) = "11010" and rw = '1' and
+				    	  newcmd = '1' then 
+					  lrxbcast <= din(0);
+				    end if; 
+				    if addr(4 downto 0) = "11011" and rw = '1' and
+				    	  newcmd = '1' then 
+					  lrxmcast <= din(0);
+				    end if; 
+				    if addr(4 downto 0) = "11100" and rw = '1' and
+				    	  newcmd = '1' then 
+					  lrxucast <= din(0);
+				    end if; 
+				    if addr(4 downto 0) = "11001" and rw = '1' and
+				    	  newcmd = '1' then 
+					  		lrxallf <= din(0);
+				    end if; 
 
-		    -- mac address parts
-		    if addr(4 downto 0) = "11101" and rw = '1' and
-		    	  newcmd = '1' then 
-			  		lmacaddr(15 downto 0) <= din(15 downto 0);
-		    end if; 
-		    if addr(4 downto 0) = "11110" and rw = '1' and
-		    	  newcmd = '1' then 
-			  	lmacaddr(31 downto 16) <= din(15 downto 0);
-		    end if; 
-		    if addr(4 downto 0) = "11111" and rw = '1' and
-		    	  newcmd = '1' then 
-			  lmacaddr(47 downto 32) <= din(15 downto 0);
-		    end if; 
+				    -- mac address parts
+				    if addr(4 downto 0) = "11101" and rw = '1' and
+				    	  newcmd = '1' then 
+					  		lmacaddr(15 downto 0) <= din(15 downto 0);
+				    end if; 
+				    if addr(4 downto 0) = "11110" and rw = '1' and
+				    	  newcmd = '1' then 
+					  	lmacaddr(31 downto 16) <= din(15 downto 0);
+				    end if; 
+				    if addr(4 downto 0) = "11111" and rw = '1' and
+				    	  newcmd = '1' then 
+					  lmacaddr(47 downto 32) <= din(15 downto 0);
+				    end if; 
 
-		    -- phy reset
-				if din(0) = '1' and addr(4 downto 0) = "00001" and 
-	   			rw = '1' and newcmd = '1' then
-					phyrstcnt <= 2000;
-		    	else
-		    		if phyrstcnt >0 then
-		    			phyrstcnt <= phyrstcnt - 1;
-				    	PHYRESET <= '0';  
+				    -- phy reset
+						if din(0) = '1' and addr(4 downto 0) = "00001" and 
+			   			rw = '1' and newcmd = '1' then
+							phyrstcnt <= 2000;
+				    	else
+				    		if phyrstcnt >0 then
+				    			phyrstcnt <= phyrstcnt - 1;
+						    	PHYRESET <= '0';  
+							else
+								PHYRESET <= '1';
+							end if; 	
+						end if; 
+
+
+					-- LEDS
+					LED1000 <= phystat(4) and (not phystat(3));
+					LED100 <= phystat(3) and (not phystat(4));
+					LEDDPX <= phystat(1);
+					LEDACT <= phystat(2); 
+
+					ledtx_rst <= txf_cross; 
+					if ledtx_rst = '1' then
+						ledtx_cnt <= X"FFF";
 					else
-						PHYRESET <= '1';
-					end if; 	
-				end if; 
+						if not (ledtx_cnt = X"000") then
+							ledtx_cnt <= ledtx_cnt - 1;
+						end if;
+					end if; 
 
+					if ledtx_cnt = X"000" then
+						LEDTX <= '0';
+					else
+						LEDTX <= '1';
+					end if;  					  	
 
-			-- LEDS
-			LED1000 <= phystat(4) and (not phystat(3));
-			LED100 <= phystat(3) and (not phystat(4));
-			LEDDPX <= phystat(1);
-			LEDACT <= phystat(2); 
+					ledrx_rst <= rxf_cross; 
+					if ledrx_rst = '1' then
+						ledrx_cnt <= X"FFF";
+					else
+						if not (ledrx_cnt = X"000") then
+							ledrx_cnt <= ledrx_cnt - 1;
+						end if;													  
+					end if; 
 
-			ledtx_rst <= txf_cross; 
-			if ledtx_rst = '1' then
-				ledtx_cnt <= X"FFF";
-			else
-				if not (ledtx_cnt = X"000") then
-					ledtx_cnt <= ledtx_cnt - 1;
-				end if;
-			end if; 
-
-			if ledtx_cnt = X"000" then
-				LEDTX <= '0';
-			else
-				LEDTX <= '1';
-			end if;  					  	
-
-			ledrx_rst <= rxf_cross; 
-			if ledrx_rst = '1' then
-				ledrx_cnt <= X"FFF";
-			else
-				if not (ledrx_cnt = X"000") then
-					ledrx_cnt <= ledrx_cnt - 1;
-				end if;													  
-			end if; 
-
-			if ledrx_cnt = X"000" then
-				LEDRX <= '0';
-			else
-				LEDRX <= '1';
-			end if;  					  	
+					if ledrx_cnt = X"000" then
+						LEDRX <= '0';
+					else
+						LEDRX <= '1';
+					end if;
+			end if;   					  	
 	  end if; 
 	end if; 
    end process slow_clock; 
@@ -396,75 +406,75 @@ begin
    counters: process(CLK) is
    begin
    	if rising_edge(CLK) then
+			if CLKSLEN = '1' then
+			   if txf_rst = '1' then
+			   	txf_cnt <= (others => '0'); 
+			   else
+			   	if TXF = '1' then
+				   txf_cnt <= txf_cnt + 1;
+				end if;
+			   end if;
 
-	   if txf_rst = '1' then
-	   	txf_cnt <= (others => '0'); 
-	   else
-	   	if TXF = '1' then
-		   txf_cnt <= txf_cnt + 1;
-		end if;
-	   end if;
+			   if rxf_rst = '1' then
+			   	rxf_cnt <= (others => '0'); 
+			   else
+			   	if RXF = '1' then
+				   rxf_cnt <= rxf_cnt + 1;
+				end if;
+			   end if;
 
-	   if rxf_rst = '1' then
-	   	rxf_cnt <= (others => '0'); 
-	   else
-	   	if RXF = '1' then
-		   rxf_cnt <= rxf_cnt + 1;
-		end if;
-	   end if;
+			   if txfifowerr_rst = '1' then
+			   	txfifowerr_cnt <= (others => '0'); 
+			   else
+			   	if TXFIFOWERR = '1' then
+				   	txfifowerr_cnt <= txfifowerr_cnt + 1;
+					end if;
+			   end if;
 
-	   if txfifowerr_rst = '1' then
-	   	txfifowerr_cnt <= (others => '0'); 
-	   else
-	   	if TXFIFOWERR = '1' then
-		   txfifowerr_cnt <= txfifowerr_cnt + 1;
-		end if;
-	   end if;
+			   if rxfifowerr_rst = '1' then
+			   	rxfifowerr_cnt <= (others => '0'); 
+			   else
+			   	if RXFIFOWERR = '1' then
+				   rxfifowerr_cnt <= rxfifowerr_cnt + 1;
+				end if;
+			   end if;
 
-	   if rxfifowerr_rst = '1' then
-	   	rxfifowerr_cnt <= (others => '0'); 
-	   else
-	   	if RXFIFOWERR = '1' then
-		   rxfifowerr_cnt <= rxfifowerr_cnt + 1;
-		end if;
-	   end if;
+			   if rxphyerr_rst = '1' then
+			   	rxphyerr_cnt <= (others => '0'); 
+			   else
+			   	if RXPHYERR = '1' then
+				   rxphyerr_cnt <= rxphyerr_cnt + 1;
+				end if;
+			   end if;
 
-	   if rxphyerr_rst = '1' then
-	   	rxphyerr_cnt <= (others => '0'); 
-	   else
-	   	if RXPHYERR = '1' then
-		   rxphyerr_cnt <= rxphyerr_cnt + 1;
-		end if;
-	   end if;
+			   if rxoferr_rst = '1' then
+			   	rxoferr_cnt <= (others => '0'); 
+			   else
+			   	if RXOFERR = '1' then
+				   rxoferr_cnt <= rxoferr_cnt + 1;
+				end if;
+			   end if;
 
-	   if rxoferr_rst = '1' then
-	   	rxoferr_cnt <= (others => '0'); 
-	   else
-	   	if RXOFERR = '1' then
-		   rxoferr_cnt <= rxoferr_cnt + 1;
-		end if;
-	   end if;
+			   if rxcrcerr_rst = '1' then
+			   	rxcrcerr_cnt <= (others => '0'); 
+			   else
+			   	if RXCRCERR = '1' then
+				   rxcrcerr_cnt <= rxcrcerr_cnt + 1;
+				end if;
+			   end if;
 
-	   if rxcrcerr_rst = '1' then
-	   	rxcrcerr_cnt <= (others => '0'); 
-	   else
-	   	if RXCRCERR = '1' then
-		   rxcrcerr_cnt <= rxcrcerr_cnt + 1;
-		end if;
-	   end if;
+	   
+			   RXBCAST <= lrxbcast;
+			   RXMCAST <= lrxmcast;
+			   RXUCAST <= lrxucast;
+				RXALLF  <= lrxallf; 
+			   MACADDR <= lmacaddr; 
 
-	   -- clock-boundary transfer
-	   RXBCAST <= lrxbcast;
-	   RXMCAST <= lrxmcast;
-	   RXUCAST <= lrxucast;
-		RXALLF  <= lrxallf; 
-	   MACADDR <= lmacaddr; 
-
-		-- LED-based clock transfer
-		txf_cross <= TXF;
-		rxf_cross <= RXF; 
-
-	end if; 
+				-- LED-based clock transfer
+				txf_cross <= TXF;
+				rxf_cross <= RXF; 
+		  end if; 
+		end if; 
    end process counters; 
 
 end Behavioral;
