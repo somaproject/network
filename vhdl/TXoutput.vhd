@@ -47,8 +47,8 @@ architecture Behavioral of TXoutput is
 	signal crcrst, crcenl, crcen : std_logic := '0';
 
 	-- output
-	signal crcbyte, crcbytel, ltxd : std_logic_vector(7 downto 0) := 
-			(others => '0');
+	signal ncrcbyte, ncrcbytel, ncrcbytelflip, ltxd : 
+		std_logic_vector(7 downto 0) := (others => '0');
 	signal ltxen2, ltxen3, ltxen : std_logic := '0';
 
 	-- FSMs
@@ -117,7 +117,7 @@ begin
 
 
 			-- lame pipelining attempt:
-			crcbytel <= crcbyte;
+			ncrcbytel <= ncrcbyte;
 			datal <= data;
 			outselll <= outsell; 
 			crcsell <= crcsel;
@@ -131,7 +131,7 @@ begin
 		  QD(23 downto 16) when dsel = 2 else
 		  QD(31 downto 24) when dsel = 3;
  
-   crcbyte <= not crcl(7 downto 0) when crcsell = 0 else
+   ncrcbyte <= not crcl(7 downto 0) when crcsell = 0 else
    		    not crcl(15 downto 8) when crcsell = 1 else
 		    not crcl(23 downto 16) when crcsell = 2 else
 		    not crcl(31 downto 24) when crcsell = 3;
@@ -141,7 +141,18 @@ begin
    ltxd <= datal when outselll = 0 else
    		 "01010101" when outselll = 1 else
 		 "11010101" when outselll = 2 else
-		 crcbytel when outselll = 3; 
+		 ncrcbytelflip when outselll = 3; 
+ 
+   -- flip the bits of the latched, negated crcbyte:
+   ncrcbytelflip(0) <= ncrcbytel(7);
+   ncrcbytelflip(1) <= ncrcbytel(6);
+   ncrcbytelflip(2) <= ncrcbytel(5);
+   ncrcbytelflip(3) <= ncrcbytel(4);
+   ncrcbytelflip(4) <= ncrcbytel(3);
+   ncrcbytelflip(5) <= ncrcbytel(2);
+   ncrcbytelflip(6) <= ncrcbytel(1);
+   ncrcbytelflip(7) <= ncrcbytel(0);
+
 
 
    fsm: process(cs, ns, CLKEN, addr, bpl, bcnt) is 
