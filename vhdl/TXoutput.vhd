@@ -32,7 +32,7 @@ architecture Behavioral of TXoutput is
 	-- byte counter
 	signal bcnt, bcntl: std_logic_vector(15 downto 0) := (others => '0');
 	signal decbcnt, ldbcnt : std_logic := '0';
-
+	signal bcntlgt10 : std_logic := '0'; 
 	-- addr :
 	signal addr, bpl, addrl: std_logic_vector(15 downto 0) := 
 			(others => '0');
@@ -102,6 +102,12 @@ begin
 		    end if; 
 			
 			 bcntl <= bcnt; 
+
+		 	 if bcntl > "0000000000001010" then
+			    bcntlgt10 <= '1'; 
+			 else
+			    bcntlgt10 <= '0';
+			 end if; 
 
 		    -- addr counter
 		    if addrinc = '1' then
@@ -264,35 +270,35 @@ begin
 			 ltxen <= '1';
 			 ns <= wait5;		 	
 	   	 when wait5 => 
-		      addrinc <= '0'; 
-			 outsel <= 2;
-			 crcsel <= 0;
-			 dsel <= 0;
-			 decbcnt <= '0';
-			 ldbcnt <= '0';
-			 crcen <= '0';
-			 crcrst <= '0';
-			 ltxen <= '1';
-			 ns <= databyte0;   
+			    addrinc <= '0'; 
+				 outsel <= 2;
+				 crcsel <= 0;
+				 dsel <= 0;
+				 decbcnt <= '0';
+				 ldbcnt <= '0';
+				 crcen <= '0';
+				 crcrst <= '0';
+				 ltxen <= '1';
+				 ns <= databyte0;   
 	   	 when databyte0 => 
-		 	 if bcntl > "0000000000001001" then
-			    addrinc <= '1'; 
-			 else
-			    addrinc <= '0';
-			 end if;  
-			 outsel <= 0;
-			 crcsel <= 0;
-			 dsel <= 0;
-			 decbcnt <= '1';
-			 ldbcnt <= '0';
-			 crcen <= '1';
-			 crcrst <= '0';
-			 ltxen <= '1';
-			 if bcnt = "0000000000000001" then
-			 	ns <= crc3;
-			 else 
-			 	ns <= databyte1;
-			 end if; 
+			 	 if bcntlgt10 = '1'  then
+				    addrinc <= '1'; 
+				 else
+				    addrinc <= '0';
+				 end if;  
+				 outsel <= 0;
+				 crcsel <= 0;
+				 dsel <= 0;
+				 decbcnt <= '1';
+				 ldbcnt <= '0';
+				 crcen <= '1';
+				 crcrst <= '0';
+				 ltxen <= '1';
+				 if bcnt = "0000000000000001" then
+				 	ns <= crc3;
+				 else 
+				 	ns <= databyte1;
+				 end if; 
 	   	 when databyte1 => 
 		      addrinc <= '0'; 
 			 outsel <= 0;

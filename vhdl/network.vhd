@@ -48,7 +48,7 @@ architecture Behavioral of network is
 
 
 	-- clock and timing signals
-	signal clk, clkio, clkrx: std_logic := '0';
+	signal clk, clkio, clkrx, clk90, clk180, clk270: std_logic := '0';
 	signal clk_to_bufg, clkio_to_bufg, clkrx_to_bufg: std_logic := '0';
 	signal clkslen, clkslen_to_bufg : std_logic := '0';
    signal clken1, clken2, clken3, clken4 : std_logic := '0';
@@ -272,8 +272,10 @@ begin
 			CLKFB => clk,
 			RST => RESET,
 			CLK0 => clk_to_bufg, 
-			CLKDV => open, 
-			CLK90 => MCLK);
+			CLKDV => open,
+			CLK270 => clk270,
+			CLK180 => clk180, 
+			CLK90 => clk90);
 	 --MCLK <= clk; 	-- should be clk90
     clk_bufg : BUFG port map (
     		I => clk_to_bufg,
@@ -286,12 +288,13 @@ begin
 			RST => RESET,
 			CLKDV => open,
 			CLK0 => clkrx_to_bufg);
-
+												 
     clkrx_bufg : BUFG port map (
     		I => clkrx_to_bufg,
 			O => clkrx); 
 
-
+	 U1: OBUF port map (I => clk270, O => MCLK);
+ 	 U2: OBUF port map (I => clk180, O => GTX_CLK);
 	 
 	 slowclock: clockenable port map (
 	 			CLK => clk,
@@ -384,7 +387,7 @@ begin
 			  TXF => txf,
 			  FBBP => txfbbp, 
 			  CLKEN => clken2, 
-			  GTX_CLK => GTX_CLK);
+			  GTX_CLK => open);
    tx_input: txinput port map (
    			  CLK => clk,
 			  CLKIO => clkio,

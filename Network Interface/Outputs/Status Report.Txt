@@ -1,5 +1,37 @@
+Output: Gerber Files
+Type  : Gerber
+From  : PCB [NIC.PCBDOC]
+   Generated File[NIC.GTL]
+   Generated File[NIC.GBL]
+   Generated File[NIC.GTO]
+   Generated File[NIC.GTS]
+   Generated File[NIC.GBS]
+   Generated File[NIC.GP1]
+   Generated File[NIC.GP2]
+   Generated File[NIC.GM4]
+   Generated File[NIC.RUL]
+   Generated File[NIC.REP]
 
-Files Generated   : 0
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB [NIC.PCBDOC]
+   Generated File[NIC.TXT]
+   Generated File[NIC.DRL]
+   Generated File[NIC.LDP]
+   Generated File[NIC.DRR]
+
+Output: Bill of Materials
+Type  : ReportComponents
+From  : Project [Network Interface.PRJPCB]
+   Generated File[Bill of Materials-Network Interface.csv]
+
+Output: Good BOM
+Type  : ReportComponents
+From  : Project [Network Interface.PRJPCB]
+   Generated File[Good BOM-Network Interface.csv]
+
+
+Files Generated   : 16
 Documents Printed : 0
 
-Finished Output Generation At 1:46:15 PM On 10/24/2003
+Finished Output Generation At 3:53:08 PM On 11/20/2003

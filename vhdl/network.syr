@@ -1,0 +1,131 @@
+Release 6.1.02i - xst G.25a
+Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to __projnav
+CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 1.00 s
+ 
+--> Parameter xsthdpdir set to ./xst
+CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 1.00 s
+ 
+--> Reading design: network.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) HDL Analysis
+  4) HDL Synthesis
+     4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+  6) Low Level Synthesis
+  7) Final Report
+     7.1) Device utilization summary
+     7.2) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : network.prj
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : YES
+Verilog Include Directory          : 
+
+---- Target Parameters
+Output File Name                   : network
+Output Format                      : NGC
+Target Device                      : xc2s200e-6-pq208
+
+---- Source Options
+Top Module Name                    : network
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+Resource Sharing                   : YES
+Multiplier Style                   : lut
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 150
+Add Generic Clock Buffer(BUFG)     : 4
+Register Duplication               : YES
+Equivalent register Removal        : NO
+Slice Packing                      : YES
+Pack IO Registers into IOBs        : true
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 2
+Keep Hierarchy                     : YES
+Global Optimization                : AllClockNets
+RTL Output                         : Yes
+Write Timing Constraints           : NO
+Hierarchy Separator                : _
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+lso                                : network.lso
+Read Cores                         : YES
+cross_clock_analysis               : NO
+verilog2001                        : YES
+Optimize Instantiated Primitives   : NO
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file C:/desktop/network/vhdl/MII.vhd in Library work.
+Architecture behavioral of Entity mii is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/rxinput_fifocontrol.vhd in Library work.
+Architecture behavioral of Entity rxinput_fifocontrol is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/crc_combinational.vhd in Library work.
+Architecture behavioral of Entity crc_combinational is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/RXinput_addrchk.vhd in Library work.
+Architecture behavioral of Entity rxinput_addrchk is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/PHYstatus.vhd in Library work.
+Architecture behavioral of Entity phystatus is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/RXinput_GMII.vhd in Library work.
+Architecture behavioral of Entity rxinput_gmii is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/RXinput_memio.vhd in Library work.
+Architecture behavioral of Entity rxinput_memio is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/RXinput_fifo.vhd in Library work.
+Architecture behavioral of Entity rxinput_fifo is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/clockenable.vhd in Library work.
+Architecture behavioral of Entity clockenable is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/memory.vhd in Library work.
+Architecture behavioral of Entity memory is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/RXinput.vhd in Library work.
+Architecture behavioral of Entity rxinput is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/RXoutput.vhd in Library work.
+Architecture behavioral of Entity rxoutput is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/TXoutput.vhd in Library work.
+Architecture behavioral of Entity txoutput is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/TXinput.vhd in Library work.
+Architecture behavioral of Entity txinput is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/FIFOcheck.vhd in Library work.
+Architecture behavioral of Entity fifocheck is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/control.vhd in Library work.
+Architecture behavioral of Entity control is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/network.vhd in Library work.
+ERROR:HDLParsers:164 - C:/desktop/network/vhdl/network.vhd Line 291. parse error, unexpected MULT
+--> 
+
+Total memory usage is 50716 kilobytes
+
+

@@ -429,3 +429,8 @@ You need to clear the "isolate" bit in PHY register zero.
 
 Attempts to debug why we can't read the actual packets...
 
+
+
+17 November 2003: Signal integrity issues:
+
+So, we're at the point where it looks like memory read errors are going to force us to 
