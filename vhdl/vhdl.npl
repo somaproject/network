@@ -4,8 +4,8 @@ PROJECT vhdl
 DESIGN vhdl Normal
 DEVFAM spartan2e
 DEVFAMTIME 0
-DEVICE xc2s50e
-DEVICETIME 1049068086
+DEVICE xc2s200e
+DEVICETIME 1049068541
 DEVPKG pq208
 DEVPKGTIME 1049067627
 DEVSPEED -6
@@ -41,7 +41,7 @@ xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1048998394, Norma
 xilxSynthKeepHierarchy=xstvhd, spartan2e, VHDL.t_synthesize, 1048835002, True
 _SynthOptEffort=xstvhd, spartan2e, VHDL.t_synthesize, 1048985872, High
 [STATUS-ALL]
-cpu.ncdFile=WARNINGS,1049068432
-cpu.twrFile=WARNINGS,1049068432
+alu_plus_regfile.ngcFile=ERRORS,1049069298
+cpu.ncdFile=WARNINGS,1049069298
 [STRATEGY-LIST]
 Normal=True

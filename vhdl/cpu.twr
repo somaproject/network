@@ -6,7 +6,7 @@ C:/xilinx/bin/nt/trce.exe -quiet -e 3 -l 3 -xml cpu cpu.ncd -o cpu.twr cpu.pcf
 
 Design file:              cpu.ncd
 Physical constraint file: cpu.pcf
-Device,speed:             xc2s50e,-6 (PRODUCTION 1.16 2002-11-01)
+Device,speed:             xc2s200e,-6 (PRODUCTION 1.16 2002-11-01)
 Report level:             error report
 
 Environment Variable      Effect 
@@ -28,14 +28,14 @@ Timing constraint: TS_P2P = MAXDELAY FROM TIMEGRP "PADS" TO TIMEGRP "PADS" 20 nS
 Timing constraint: TS_CLK_FULL = PERIOD TIMEGRP "CLK_GRP"  25 nS   HIGH 50.000000 % ;
 
  31757 items analyzed, 0 timing errors detected.
- Minimum period is  24.680ns.
+ Minimum period is  24.586ns.
 --------------------------------------------------------------------------------
 
 ================================================================================
 Timing constraint: OFFSET = OUT 30 nS  AFTER COMP "clk" ;
 
  6040 items analyzed, 0 timing errors detected.
- Minimum allowable offset is  28.380ns.
+ Minimum allowable offset is  29.343ns.
 --------------------------------------------------------------------------------
 
 
@@ -51,22 +51,22 @@ Clock clk to Pad
                | clk (edge) |
 Destination Pad|   to PAD   |
 ---------------+------------+
-yout<0>        |   26.469(R)|
-yout<10>       |   28.380(R)|
-yout<11>       |   28.258(R)|
-yout<12>       |   28.315(R)|
-yout<13>       |   27.729(R)|
-yout<14>       |   27.794(R)|
-yout<15>       |   27.478(R)|
-yout<1>        |   26.877(R)|
-yout<2>        |   27.322(R)|
-yout<3>        |   26.048(R)|
-yout<4>        |   26.699(R)|
-yout<5>        |   27.552(R)|
-yout<6>        |   27.881(R)|
-yout<7>        |   27.815(R)|
-yout<8>        |   27.756(R)|
-yout<9>        |   27.636(R)|
+yout<0>        |   28.427(R)|
+yout<10>       |   29.219(R)|
+yout<11>       |   28.760(R)|
+yout<12>       |   28.698(R)|
+yout<13>       |   28.980(R)|
+yout<14>       |   29.202(R)|
+yout<15>       |   29.127(R)|
+yout<1>        |   27.936(R)|
+yout<2>        |   28.962(R)|
+yout<3>        |   27.993(R)|
+yout<4>        |   28.073(R)|
+yout<5>        |   28.818(R)|
+yout<6>        |   29.343(R)|
+yout<7>        |   28.807(R)|
+yout<8>        |   28.916(R)|
+yout<9>        |   28.295(R)|
 ---------------+------------+
 
 Clock to Setup on destination clock clk
@@ -74,7 +74,7 @@ Clock to Setup on destination clock clk
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clk            |   24.680|         |         |         |
+clk            |   24.586|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
@@ -86,10 +86,10 @@ Timing errors: 0  Score: 0
 Constraints cover 37797 paths, 0 nets, and 1464 connections (99.9% coverage)
 
 Design statistics:
-   Minimum period:  24.680ns (Maximum frequency:  40.519MHz)
-   Minimum output required time after clock:  28.380ns
+   Minimum period:  24.586ns (Maximum frequency:  40.674MHz)
+   Minimum output required time after clock:  29.343ns
 
 
-Analysis completed Sun Mar 30 15:53:51 2003
+Analysis completed Sun Mar 30 16:06:10 2003
 --------------------------------------------------------------------------------
 
