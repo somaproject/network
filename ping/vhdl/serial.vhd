@@ -125,7 +125,7 @@ begin
 				rwl <= RW;
 				addrl <= ADDR;
 				din <= DATA;
-				doutl <=	dout;
+				doutl <= dout;	 
 				 
 
 				-- things latched by cmdl

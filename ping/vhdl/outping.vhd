@@ -26,7 +26,10 @@ entity outping is
 			  CMD : in std_logic;
 			  SAMPLE : out std_logic;  
 			  DONE : out std_logic;										  
-			  TESTOUT : out std_logic );
+			  TESTOUT : out std_logic;
+			  RWDEBUG : out std_logic;
+			  CMDDEBUG : out std_logic;
+			  DONEDEBUG : out std_logic );
 end outping;
 
 architecture Behavioral of outping is
@@ -41,6 +44,8 @@ architecture Behavioral of outping is
 	signal lnewframe : std_logic := '0';
 
 	signal lfsr, llfsr : std_logic_vector(15 downto 0) := (others => '0'); 
+
+	signal doneint : std_logic := '0';
 
 	component NICserial is
 	    Port ( IFCLK : in std_logic;
@@ -136,7 +141,7 @@ begin
 			RW => RW,
 			CMD => CMD,
 			SAMPLE => SAMPLE,
-			DONE => DONE,
+			DONE => doneint,
 			SETBIT => starttx); 
 
 	 clk_DLL : CLKDLL generic map (
@@ -154,9 +159,25 @@ begin
 	clksl_bufg : BUFG port map (
 			I => clksl_to_bufg,
 			O => clksl); 
+	DONE <= doneint; 
 
+	process(clksl) is
+		variable toggle: std_logic := '0'; 
 
+	begin
+		if rising_edge(clksl) then
 
+			if toggle = '1' then
+				toggle := '0';
+				CMDDEBUG <= '0';
+			else
+				toggle := '1';
+				CMDDEBUG <= '1';
+			end if; 
+		end if; 
+	end process; 
+			DONEDEBUG <= clksl; 
+			RWDEBUG <= clksl; 		
 	clock : process(clksl) is
 	begin
 		if rising_edge(clksl) then

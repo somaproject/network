@@ -612,3 +612,5 @@ what could this mean? that there are fundamental read errors?
 
 I don't understand -- some bytes go across okay, some live in much pain. 
 I think i will work on something else for the time being. 
+
+

@@ -4,8 +4,8 @@ PROJECT vhdl
 DESIGN vhdl
 DEVFAM spartan2e
 DEVFAMTIME 0
-DEVICE xc2s200e
-DEVICETIME 0
+DEVICE xc2s300e
+DEVICETIME 1074616298
 DEVPKG pq208
 DEVPKGTIME 0
 DEVSPEED -6
@@ -28,9 +28,9 @@ DEPASSOC ping ping.ucf
 DEPASSOC outping outping.ucf
 [Normal]
 xilxBitgCfg_GenOpt_ASCIIFile=xstvhd, spartan2e, Implementation.t_bitFile, 1068819097, True
-xilxMapAllowLogicOpt=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1068937080, True
+xilxMapAllowLogicOpt=xstvhd, spartan2e, Implementation.t_map, 1068937080, True
 [STATUS-ALL]
-outping.ngcFile=WARNINGS,1073407373
-outping.ngdFile=WARNINGS,1073407380
+outping.ngcFile=WARNINGS,1074619093
+outping.ngdFile=WARNINGS,1074619101
 [STRATEGY-LIST]
 Normal=True
