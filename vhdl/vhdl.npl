@@ -18,6 +18,7 @@ STIMULUS RXinput_memio_test.tbw Normal
 STIMULUS RXinput_GMII_test.tbw Normal
 STIMULUS TXinput_test.tbw Normal
 STIMULUS rxinput_fifo_test.tbw Normal
+STIMULUS test_NoBLSRAM_test.tbw Normal
 MODULE rxoutput_async_fifo.xco
 MODSTYLE rxoutput_async_fifo Normal
 MODULE RXinput_memio.vhd
@@ -46,23 +47,25 @@ MODULE RXinput_GMII.vhd
 MODSTYLE rxinput_gmii Normal
 MODULE RXinput_fifo.vhd
 MODSTYLE rxinput_fifo Normal
+MODULE test_NoBLSRAM.vhd
+MODSTYLE test_noblsram Normal
 DEPASSOC rxinput_fifocontrol txinput_fifocontrol.ucf Normal
-DEPASSOC rxoutput rxoutput.ucf SYSTEM
-DEPASSOC network network.ucf SYSTEM
+DEPASSOC rxoutput rxoutput.ucf Normal
+DEPASSOC network network.ucf Normal
 DEPASSOC rxinput_gmii RXinput_GMII.ucf Normal
 DEPASSOC rxinput_memio RXinput_memio.ucf Normal
 DEPASSOC txoutput TXoutput.ucf Normal
 DEPASSOC rxinput RXinput.ucf Normal
 DEPASSOC rxinput_fifo rxinput_fifo.ucf Normal
-DEPASSOC memory memory.ucf SYSTEM
+DEPASSOC memory memory.ucf Normal
 DEPASSOC txinput TXinput.ucf Normal
 [Normal]
 p_ModelSimSimRunTime_tb=xstvhd, spartan2e, Module VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1061769469, 10000ns
 p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1062287314, Yes
-xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1062367111, High
+xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_par, 1062367111, High
 [STATUS-ALL]
-memory.ngcFile=WARNINGS,1064088650
-network.ngdFile=WARNINGS,1064088650
-rxinput_memio.ngcFile=WARNINGS,1064088650
+memory.ngcFile=WARNINGS,1064100878
+network.ngdFile=WARNINGS,1064100878
+rxinput_memio.ngcFile=WARNINGS,1064100878
 [STRATEGY-LIST]
 Normal=True
