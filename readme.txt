@@ -132,6 +132,8 @@ This allows multiple things. First, it allows us to have MEN=1 in BYTE0 and not 
 Second, by keeping MEN high at the end of a cycle (through NONE), we prevent the first BYTE0 of actually causing a memory write. This guarantees that previous MA/MD (from writing the BP for the last frame) will be stable for 4 ticks, guaranteeing their validity. 
 
 
+The timing for this thing is a total bitch; who let the FSM get so damn large?
+
 
 
 
