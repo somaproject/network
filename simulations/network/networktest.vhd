@@ -250,7 +250,7 @@ BEGIN
 					(rdata(7 downto 0) /= DOUT(7 downto 0)))then
 					assert false
 						report "RXOUTPUT : error reading data"
-						severity failure;   
+						severity error;   
 				end if; 
 		
 			end loop; 
@@ -317,7 +317,7 @@ BEGIN
 			     if txerrors /= 0 then
 					assert false
 						report "TXOUTPUT: error reading frame on gmii"
-						severity failure;   
+						severity error;   
 				end if;  
 
 			elsif txenl = '1' and TX_EN = '1' then
@@ -325,7 +325,7 @@ BEGIN
 				if TXD /= indata then
 					assert false
 						report "TXOUTPUT: error reading frame on gmii"
-						severity failure;   					
+						severity error;   					
 				end if; 
 	
 				expected_gmiiout <= indata; 

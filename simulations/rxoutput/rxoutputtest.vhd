@@ -216,18 +216,18 @@ BEGIN
 				wcnt := wcnt + 1;
 				hread(L, rdata); 
 				DOUTEXPECTED <= rdata; 
-				if rdata /= DOUT then
-					assert false
+				assert rdata = DOUT 
 						report "error reading data"
-						severity failure;   
-				end if; 
+						severity error; 
 		
 			end loop; 
 			NEXTFRAME <= '0' after 10 ns; 
 
 		end loop; 
 
-		wait; 
+		assert false
+			report "End of Simulation"
+			severity failure;  
 			
 	end process checkdata; 	
 

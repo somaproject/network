@@ -239,9 +239,10 @@ BEGIN
 		wait until PHYRESET = '1'; 
 		-- first, we test the debug readout
 		sread(0); 
-		if serialdout /= X"01234567" then
-			report "Error reading debug output at address 0";
-		end if; 
+		assert serialdout = X"01234567" 
+			report "Error reading debug output at address 0"
+			severity error; 
+
 		-- test the phy reset
 	     swrite(1, X"00000001"); 
 		wait until rising_edge(PHYRESET); 
@@ -356,76 +357,76 @@ BEGIN
 		RXCRCERR <= '0'; 
 
 		sread(17); 
-		if serialdout /= X"00008000"	then
-			report "Error counting TXF";
-		end if; 
+		assert serialdout = X"00008000"
+			report "Error counting TXF"
+			severity error; 
 
 		sread(18); 
-		if serialdout /= X"00004000"	then
-			report "Error counting RXF";
-		end if; 
+		assert serialdout = X"00004000" 
+			report "Error counting RXF"
+			severity error; 
 
 		sread(19); 
-		if serialdout /= X"00002000"	then
-			report "Error counting TXFIFOWERR";
-		end if; 
+		assert serialdout = X"00002000"	
+			report "Error counting TXFIFOWERR"
+			severity error; 
 
 		sread(20); 
-		if serialdout /= X"00001000"	then
-			report "Error counting RXFIFOWERR";
-		end if; 
+		assert serialdout = X"00001000"	
+			report "Error counting RXFIFOWERR"
+			severity error; 
 
 
 		sread(21); 
-		if serialdout /= X"00000800"	then
-			report "Error counting RXPHYERR";
-		end if; 
+		assert serialdout = X"00000800"	
+			report "Error counting RXPHYERR"
+			severity error; 
 
 		sread(22); 
-		if serialdout /= X"00000400"	then
-			report "Error counting RXOFERR";
-		end if; 
+		assert serialdout = X"00000400"	
+			report "Error counting RXOFERR"
+			severity error; 
 
 		sread(23); 
-		if serialdout /= X"00000200"	then
-			report "Error counting RXCRCERR";
-		end if; 
+		assert serialdout = X"00000200"	
+			report "Error counting RXCRCERR"
+			severity error; 
 
 		swrite(16, X"00000001");
 		sread(17); 
-		if serialdout /= X"00000000"	then
-			report "TXF Reset Failed";
-		end if; 
+		assert serialdout = X"00000000"	
+			report "TXF Reset Failed"
+			severity error; 
 
 		swrite(16, X"00000002");
 		sread(18); 
-		if serialdout /= X"00000000"	then
-			report "RXF Reset Failed";
-		end if; 
+		assert serialdout = X"00000000"	
+			report "RXF Reset Failed"
+			severity error; 
 
 		swrite(16, X"00000004");
 		sread(19); 
-		if serialdout /= X"00000000"	then
-			report "TXFIFOWERR Reset Failed";
-		end if; 
+		assert serialdout = X"00000000"	
+			report "TXFIFOWERR Reset Failed"
+			severity error; 
 
 		swrite(16, X"00000008");
 		sread(20); 
-		if serialdout /= X"00000000"	then
-			report "RXFIFOWERR Reset Failed";
-		end if; 
+		assert serialdout = X"00000000"	
+			report "RXFIFOWERR Reset Failed"
+			severity error; 
 
 		swrite(16, X"00000010");
 		sread(21); 
-		if serialdout /= X"00000000"	then
-			report "RXPHYERR Reset Failed";
-		end if; 
+		assert serialdout = X"00000000"	
+			report "RXPHYERR Reset Failed"
+			severity error; 
 
 		swrite(16, X"00000020");
 		sread(22); 
-		if serialdout /= X"00000000"	then
-			report "RXOFERR Reset Failed";
-		end if; 
+		assert serialdout = X"00000000"	
+			report "RXOFERR Reset Failed"
+			severity error; 
 
 		 
 		-- now, try setting the mac addresses
@@ -433,19 +434,21 @@ BEGIN
 		swrite(30, X"00005678");
 		swrite(31, X"0000ABCD"); 
 		sread(29);
-		if serialdout /= X"00001234"	then
-			report "MACADDR low-word write failed";
-		end if; 
+		assert serialdout = X"00001234"	
+			report "MACADDR low-word write failed"
+			severity error; 
 		sread(30);
-		if serialdout /= X"00005678"	then
-			report "MACADDR mid-word write failed";
-		end if; 
+		assert serialdout = X"00005678"	
+			report "MACADDR mid-word write failed"
+			severity error; 
 		sread(31);
-		if serialdout /= X"0000ABCD"	then
-			report "MACADDR high-word write failed";
-		end if; 
+		assert serialdout = X"0000ABCD"	
+			report "MACADDR high-word write failed"
+			severity error; 
 
-
+		assert false
+			report "End of Simulation"
+			severity failure; 
 		
 
 				

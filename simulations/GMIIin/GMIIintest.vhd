@@ -97,15 +97,15 @@ BEGIN
 				   if ENDFOUT = '0' then
 				   	-- normal data read
 					bcnt := bcnt + 1; 
-					if DOUT(7 downto 0) /= data then
-						report "Data read error";
-					end if; 
+					assert DOUT(7 downto 0) = data 
+					  report "Data read error"
+							severity error; 
 
  				   else
 				     if EROUT = '1' or OFOUT = '1' then
-					   if errorf = 0 then
-					   	report "Frame was an unexpected error";
-					   end if;  
+					   assert errorf /= 0 
+					    report "Frame was an unexpected error"
+					   severity error;   
 					end if;  
 					done := 1; 
 				   end if; 
@@ -127,7 +127,6 @@ BEGIN
 		wait for 10 ns; 
 		readFIFO(200, X"F1");
 		readFIFO(300, X"4C"); 
-		
 		readFIFO(50, X"05", 1); 
 		outstate <= 1;
 		wait until instate = 4; 
@@ -193,7 +192,7 @@ BEGIN
 		wait until outstate = 4; 
 		writeFIFO(400, X"7B");  
 
-
+		assert false report "End of Simulation" severity failure; 
 		wait; 
 	end process datain; 
 

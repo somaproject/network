@@ -191,7 +191,7 @@ BEGIN
 
 
 		assert false
-			report "End of simulation"
+			report "End of Simulation"
 			severity failure;   
 
 	end process main; 
@@ -221,11 +221,9 @@ BEGIN
 					end if; 
 					gmii_verify_ack <= '0';
 				elsif txenl = '1' and txen = '0' then
-				     if txerrors = 0 then
-						  
-					else
-						report "There was an error reading this frame";
-					end if;  
+				     assert txerrors = 0 
+						report "There was an error reading this frame"
+						severity error;  
 					gmii_verify_ack <= '1';
 
 					if endfile(gmiifile) then

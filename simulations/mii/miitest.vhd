@@ -132,9 +132,9 @@ BEGIN
 		wait until rising_edge(CLK) 
 			and CLKSLEN = '1'
 			and DONE = '1'; 
-		if DOUT /= X"ABCD" then
-			report "Error reading data at address 0"; 
-		end if; 
+		assert DOUT = X"ABCD" 
+			report "Error reading data at address 0"
+			severity error; 
 
 		wait for 10 us; 
 		DIN <= X"7777";
@@ -147,11 +147,14 @@ BEGIN
 		wait until rising_edge(CLK) 
 			and CLKSLEN = '1'
 			and DONE = '1'; 
-		if DOUT /= X"1234" then
-			report "Error reading data at address 0"; 
-		end if;
-
-		wait ; 
+		assert DOUT = X"1234" 
+			report "Error reading data at address 0"
+			severity error; 
+		
+		assert false
+			report "End of Simulation"
+			severity failure; 
+		 
 
 	end process main; 
 

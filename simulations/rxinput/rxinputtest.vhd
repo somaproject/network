@@ -137,9 +137,9 @@ BEGIN
 				readline(memfile, L);
 				while bpl /= BPOUT loop	
 					hread(L, memdata); 
-					if memdata /= std_logic_vector(to_signed(ram(to_integer(unsigned(bpl))), 32)) then
-						report "Error in ram data";
-					end if; 
+					assert memdata = std_logic_vector(to_signed(ram(to_integer(unsigned(bpl))), 32)) 
+						report "Error in ram data"
+						severity error; 
 
 					-- yea, this is ugly, but it works
 					bpl := std_logic_vector(to_unsigned(
@@ -171,9 +171,9 @@ BEGIN
 				readline(memfile, L);
 				while bpl /= BPOUT loop	
 					hread(L, memdata); 
-					if memdata /= std_logic_vector(to_signed(ram(to_integer(unsigned(bpl))), 32)) then
-						report "Error in ram data";
-					end if; 
+					assert memdata= std_logic_vector(to_signed(ram(to_integer(unsigned(bpl))), 32))
+						report "Error in ram data"
+						severity error; 
 
 					-- yea, this is ugly, but it works
 					bpl := std_logic_vector(to_unsigned(

@@ -119,27 +119,27 @@ BEGIN
 		if RESET = '0' and rising_edge(clk) then
 			if memaddrl /= MA then
 				memaddrl := MA; 
-				if matick < 3 then
-					report "Memory state error: MA was not constant for at least 4 ticks"; 
-				end if; 
+				assert matick >2 
+					report "Memory state error: MA was not constant for at least 4 ticks"
+					severity error; 
 				matick := 0;
 			else
 				matick := matick + 1;
 			end if; 
 			if memdatal /= MD then
 				memdatal := MD; 
-				if mdtick < 3 then
-					report "Memory state error: MD was not constant for at least 4 ticks";
-				end if; 
+				assert mdtick > 2 
+					report "Memory state error: MD was not constant for at least 4 ticks"
+					severity error; 
 				mdtick := 0;
 			else
 				mdtick := mdtick + 1;
 			end if; 
 			if mwel /= MWEN then
 				mwel := MWEN; 
-				if mwetick < 3 then
-					report "Memory state error: MWE was not constant for at least 4 ticks";
-				end if; 
+				assert mwetick > 2 
+					report "Memory state error: MWE was not constant for at least 4 ticks"
+					severity error; 
 				mwetick := 0;
 			else
 				mwetick := mwetick + 1;
@@ -180,9 +180,9 @@ BEGIN
 						--	severity failure;   
 					end if;
 
-					if MD /= data then
-						report "Memory data write error";
-					end if; 
+					assert MD = data 
+						report "Memory data write error"
+						severity error; 
 				end if; 
 				mdl := MD;
 				mal := MA; 
