@@ -69,45 +69,33 @@ AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 [GeneratedDocument1]
-DocumentPath=Outputs\Bill of Materials-Network Interface.csv
-[GeneratedDocument2]
-DocumentPath=Outputs\Good BOM-Network Interface.csv
-[GeneratedDocument3]
 DocumentPath=Outputs\NIC.DRL
-[GeneratedDocument4]
-DocumentPath=Project Outputs for Network Interface\NIC.DRL
-[GeneratedDocument5]
+[GeneratedDocument2]
 DocumentPath=Outputs\NIC.DRR
-[GeneratedDocument6]
-DocumentPath=Project Outputs for Network Interface\NIC.DRR
-[GeneratedDocument7]
+[GeneratedDocument3]
 DocumentPath=Outputs\NIC.GBL
-[GeneratedDocument8]
+[GeneratedDocument4]
 DocumentPath=Outputs\NIC.GBS
-[GeneratedDocument9]
+[GeneratedDocument5]
 DocumentPath=Outputs\NIC.GM4
-[GeneratedDocument10]
+[GeneratedDocument6]
 DocumentPath=Outputs\NIC.GP1
-[GeneratedDocument11]
+[GeneratedDocument7]
 DocumentPath=Outputs\NIC.GP2
-[GeneratedDocument12]
+[GeneratedDocument8]
 DocumentPath=Outputs\NIC.GTL
-[GeneratedDocument13]
+[GeneratedDocument9]
 DocumentPath=Outputs\NIC.GTO
-[GeneratedDocument14]
+[GeneratedDocument10]
 DocumentPath=Outputs\NIC.GTS
-[GeneratedDocument15]
+[GeneratedDocument11]
 DocumentPath=Outputs\NIC.LDP
-[GeneratedDocument16]
-DocumentPath=Project Outputs for Network Interface\NIC.LDP
-[GeneratedDocument17]
+[GeneratedDocument12]
 DocumentPath=Outputs\NIC.REP
-[GeneratedDocument18]
+[GeneratedDocument13]
 DocumentPath=Outputs\NIC.RUL
-[GeneratedDocument19]
+[GeneratedDocument14]
 DocumentPath=Outputs\NIC.TXT
-[GeneratedDocument20]
-DocumentPath=Project Outputs for Network Interface\NIC.TXT
 [OutputGroup1]
 Name=Netlist Outputs
 Description=

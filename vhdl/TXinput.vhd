@@ -360,8 +360,8 @@ begin
 			cpen <= '0';
 			DONE <= '1';
 			TXFIFOWERR <= '0';
-			if newfinit = '1' then
-				ns <= pktdone3
+			if newfint = '1' then
+				ns <= pktdone3;
 			else
 				ns <= none; 
 			end if; 

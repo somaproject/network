@@ -114,3 +114,10 @@ Then, we reset both LFSRs and try to read.
 Wow, it actually works. That's amazing! 
 
 Uhh, make sure you get the 9.67k resistor working or the PHY won't boot. Now we get link. 
+
+testsuite_datain: use a NEWFRAME-triggered LFSR to test data thats read-in. 
+   NEWFRAME low causes a reset to the initial state
+   NEWFRAME high advances the LFSR, and latches DIN, and we compare it to the previous one, and set ERROR high if there's an error. 
+   ERROR is reset on the next NEWFRAME low-to-high transition
+
+Okay, it's really sweet that I couldn't actually make this work. 

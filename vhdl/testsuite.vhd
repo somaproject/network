@@ -46,9 +46,9 @@ entity testsuite is
 			  SIN : in std_logic;
 			  SOUT : out std_logic; 
 			  SCS : in std_logic;
-			  MACADDR : in std_logic_vector(7 downto 0);
-			  MACDATA : out std_logic_vector(15 downto 0);
-			  IFCLK : in std_logic;
+			  --MACADDR : in std_logic_vector(7 downto 0);
+			  --MACDATA : out std_logic_vector(15 downto 0);
+			  --IFCLK : in std_logic;
 			  NEXTF : in std_logic;
 			  TESTOUT : out std_logic  		  
 			   );
@@ -61,7 +61,7 @@ architecture Behavioral of testsuite is
 	signal clk, clkio, clksl, clkrx: std_logic := '0';
 	signal clk_to_bufg, clkio_to_bufg, clksl_to_bufg, clksl_in,
 			clksl_fb, clkrx_to_bufg, rx_clk_int, ifclk_int, ifclk_to_bufg,
-			clkslen, rx_clk_to_bufg, clk180, clk90: std_logic := '0';
+			clkslen, rx_clk_to_bufg, clk180, clk90, clkio180: std_logic := '0';
 
      signal clken1, clken2, clken3, clken4 : std_logic := '0';
 	
@@ -173,17 +173,17 @@ architecture Behavioral of testsuite is
 	end component;
 
 
-	component testsuite_rx is
-	    Port ( CLK : in std_logic;
-		 		  RX_CLK : in std_logic;
-				  RX_DV : in std_logic;
-				  RXD : in std_logic_vector(7 downto 0) ;  
-				  RESET : in std_logic;  
-	           MACADDR : in std_logic_vector(7 downto 0);
-	           MACDATA : out std_logic_vector(15 downto 0);
-				  NEXTF : in std_logic;
-				  TESTOUT : out std_logic);
-	end component;
+	--component testsuite_rx is
+	--   Port ( CLK : in std_logic;
+	--	 		  RX_CLK : in std_logic;
+	--			  RX_DV : in std_logic;
+	--			  RXD : in std_logic_vector(7 downto 0) ;  
+	--			  RESET : in std_logic;  
+	--           MACADDR : in std_logic_vector(7 downto 0);
+	--           MACDATA : out std_logic_vector(15 downto 0);
+	--			  NEXTF : in std_logic;
+	--			  TESTOUT : out std_logic);
+	--end component;
 
 
 	component testsuite_memory is
@@ -213,6 +213,15 @@ architecture Behavioral of testsuite is
 	           TX_EN : out std_logic;
 	           TXD : out std_logic_vector(7 downto 0));
 	end component;
+
+	component testsuite_datain is
+	    Port ( CLK : in std_logic;
+	           DIN : in std_logic_vector(15 downto 0);
+	           NEWFRAME : in std_logic;
+	           ERR : out std_logic);
+	end component;
+
+
 begin
 	 MOE <= '0'; 
 
@@ -233,6 +242,13 @@ begin
 		end if;
 	 end process flash; 
 
+	 datatest: testsuite_datain port map (
+	 		CLK => clkio,
+			DIN => DIN, 
+			NEWFRAME => NEWFRAME,
+			ERR => LED100); 
+
+
 	 clken : clockenable port map (
 	 		CLK => CLK,
 			RESET => RESET,
@@ -252,16 +268,16 @@ begin
 			RXCRCERR => '0',
 			RXCRCERRSR => open); 
 
-	testrx : testsuite_rx port map (
-		CLK => ifclk_int,
-		RESET => RESET,
-		MACDATA => MACDATA,
-		MACADDR => MACADDR,
-		RX_CLK => rx_clk_int,
-		RX_DV => RX_DV,
-		RXD => RXD,
-		NEXTF => NEXTF,
-	 	TESTOUT => open); 
+	--testrx : testsuite_rx port map (
+		--CLK => ifclk_int,
+		--RESET => RESET,
+		--MACDATA => MACDATA,
+		--MACADDR => MACADDR,
+		--RX_CLK => rx_clk_int,
+		--RX_DV => RX_DV,
+		--RXD => RXD,
+		--NEXTF => NEXTF,
+	 	--TESTOUT => open); 
 
 
     memcontroller: memory port map (
@@ -305,15 +321,16 @@ begin
 	clk_bufg : BUFG port map (
 			I => clk_to_bufg,
 			O => clk); 
-	 ifclk_DLL : CLKDLL
+	 clkioin_DLL : CLKDLL
 			port map (
-			CLKIN => ifclk,
+			CLKIN => clkioin,
 			RST => RESET,
-			CLKFB => IFclk_int,
-			CLK0 => ifclk_to_bufg); 
-	ifclk_bufg : BUFG port map (
-			I => ifclk_to_bufg,
-			O => ifclk_int); 
+			CLKFB => clkio,
+			CLK0 => clkio_to_bufg,
+			CLK180 => clkio180); 
+	clkio_bufg : BUFG port map (
+		I => clkio_to_bufg,
+		O => clkio); 
 
 	 rxclk_DLL : CLKDLL
 			port map (
@@ -339,7 +356,7 @@ begin
 				LEDACT => open,
 				LEDTX => LEDTX,
 				LEDRX => open,
-				LED100 => LED100,
+				LED100 => open,--LED100,
 				LED1000 => LED1000,
 				LEDDPX => LEDDPX,
 				PHYRESET => PHYRESET,

@@ -49,7 +49,7 @@ architecture Behavioral of network is
 
 
 	-- clock and timing signals
-	signal clk, clkio, clkrx, clk90, clk180, clk270: std_logic := '0';
+	signal clk, clkio, clkio180, clkrx, clk90, clk180, clk270: std_logic := '0';
 	signal clk_to_bufg, clkio_to_bufg, clkrx_to_bufg: std_logic := '0';
 	signal clkslen, clkslen_to_bufg : std_logic := '0';
    signal clken1, clken2, clken3, clken4 : std_logic := '0';
@@ -292,7 +292,8 @@ begin
 			CLKFB => clkio,
 			RST => RESET,
 			CLKDV => open,
-			CLK0 => clkio_to_bufg);
+			CLK0 => clkio_to_bufg, 
+			CLK180 => clkio180);
 
     clkio_bufg : BUFG port map (
     		I => clkio_to_bufg,
@@ -354,19 +355,19 @@ begin
 			  DQEXT => MD,
 			  WEEXT => MWE,
 			  ADDREXT => MA,
-			  ADDR1 => debugaddr, ---addr1ext,
+			  ADDR1 => addr1ext,
 			  ADDR2 => addr2ext,
-			  ADDR3 => addr3ext,
+			  ADDR3 => debugaddr,--addr3ext,
 			  ADDR4 => addr4ext,
-			  D1 => X"00000000", --d1,
+			  D1 => d1,
 			  D2 => d2, 
-			  D3 => X"00000000", --d3,
+			  D3 => d3,
 			  D4 => d4,
-			  Q1 => debugdata, --q1,
+			  Q1 => q1,
 			  Q2 => q2,
-			  Q3 => q3,
-			  Q4 => open, --q4,
-			  WE1 => '0', --'1', 
+			  Q3 => debugdata,--q3,
+			  Q4 => q4,
+			  WE1 => '0',--'1', 
 			  WE2 => '0',
 			  WE3 => '0',
 			  WE4 =>  '1',
@@ -422,7 +423,7 @@ begin
 			  GTX_CLK => open);
    tx_input: txinput port map (
    			  CLK => clk,
-			  CLKIO => clkio,
+			  CLKIO => clkio180,
 			  RESET => reset, 
 			  DIN => DIN,
 			  NEWFRAME => NEWFRAME,

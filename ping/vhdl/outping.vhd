@@ -25,7 +25,7 @@ entity outping is
 			  RW : in std_logic; 
 			  CMD : in std_logic;
 			  SAMPLE : out std_logic;  
-			  DONE : out std_logic;
+			  DONE : out std_logic;										  
 			  TESTOUT : out std_logic );
 end outping;
 
@@ -40,6 +40,7 @@ architecture Behavioral of outping is
 	signal ramdata : std_logic_vector(15 downto 0) := (others => '0');
 	signal lnewframe : std_logic := '0';
 
+	signal lfsr, llfsr : std_logic_vector(15 downto 0) := (others => '0'); 
 
 	component NICserial is
 	    Port ( IFCLK : in std_logic;
@@ -93,7 +94,7 @@ architecture Behavioral of outping is
 begin
 
 	rom : RAMB4_S16 generic map (
-			INIT_00 => X"0100A8C058B8014000400000540000450008E38B18E90700FFFFFFFFFFFFFE00",
+			INIT_00 => X"0100A8C0de59014000400000540000450008E38B18E90700FFFFFFFFFFFFFE00",
 			INIT_01 => X"0E0D0C0B0A0908000756AF3FB2A2791D2048265EE40008FF00A8C0131211100F",
 			INIT_02 => X"333231302F2E2D2C2B2A292827262524232221201F1E1D1C1B1A191817161514",
 			INIT_03 => X"0000000000000000000000000000000000000000000000000000000037363534",
@@ -139,13 +140,14 @@ begin
 			SETBIT => starttx); 
 
 	 clk_DLL : CLKDLL generic map (
-	 		CLKDV_DIVIDE => 8.0)
+	 		CLKDV_DIVIDE => 4.0)
 			port map (
 			CLKIN => CLKIN,
 			RST => RESET,
 			CLKFB => clk,
 			CLK0 => clk_to_bufg,
 			CLKDV => clksl_to_bufg); 
+
 	clk_bufg : BUFG port map (
 			I => clk_to_bufg,
 			O => clk); 
@@ -153,30 +155,40 @@ begin
 			I => clksl_to_bufg,
 			O => clksl); 
 
+
+
 	clock : process(clksl) is
 	begin
 		if rising_edge(clksl) then
 			
 			DOUT <= ramdata(7 downto 0) & ramdata(15 downto 8); 
-
+			--DOUT <= llfsr;
+			llfsr <= lfsr; 
 			if starttx = '1' then
 				ramaddr <= X"FF";
+				lfsr <= (others => '0'); 
 			else
 				if not(ramaddr = X"FE") then
 					ramaddr <= ramaddr + 1;
+					lfsr(0) <= lfsr(15) xnor lfsr(14) xnor
+					 				lfsr(12) xnor lfsr(3); 
+					lfsr(15 downto 1) <= lfsr(14 downto 0);
 				end if; 
 			end if; 
 
 			if ramaddr = X"00" then
 				lnewframe <= '1';
-			elsif ramaddr = X"80" then
+			elsif ramaddr = X"82" then
+			--elsif ramaddr = X"08" then
 				lnewframe <= '0'; 
 			end if; 
-
+			TESTOUT <= lnewframe; 
 			NEWFRAME <= lnewframe; 
-			TESTOUT <= starttx; 
 		end if; 
 	end process clock; 
 
-						
+	
+	
+	
+					
 end Behavioral;

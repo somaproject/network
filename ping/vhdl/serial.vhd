@@ -113,7 +113,7 @@ begin
     
 
 
-	 clock: process(RESET, clk, CMD) is
+	 clock: process(RESET, clk) is
 	 begin
 	 	if RESET = '1' then
 			cs <= none; 
@@ -156,10 +156,9 @@ begin
 
 				if macreadcnt = "00010" then
 					SETBIT <= '1';
-				else
+				elsif macreadcnt = "00000" then
 					SETBIT <= '0';
 				end if;  
-
 
 
 			end if;
