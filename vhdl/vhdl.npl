@@ -5,11 +5,11 @@ DESIGN vhdl Normal
 DEVFAM spartan2e
 DEVFAMTIME 0
 DEVICE xc2s150e
-DEVICETIME 1049416762
+DEVICETIME 1049669598
 DEVPKG pq208
 DEVPKGTIME 1049314716
-DEVSPEED -6
-DEVSPEEDTIME 1049608133
+DEVSPEED -7
+DEVSPEEDTIME 1049672169
 FLOW XST VHDL
 FLOWTIME 0
 STIMULUS ALU_test.tbw Normal
@@ -20,6 +20,8 @@ STIMULUS instructions_test.tbw Normal
 STIMULUS cpu_test1.tbw Normal
 MODULE memctl.vhd
 MODSTYLE memctl Normal
+MODULE logical.vhd
+MODSTYLE logical Normal
 MODULE ALU.vhd
 MODSTYLE alu Normal
 MODULE CPU.vhd
@@ -43,14 +45,11 @@ DEPASSOC serin serin.ucf Normal
 DEPASSOC alu ALU.ucf Normal
 [Normal]
 xilxMapTimingDrivenPacking=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1049578870, True
-xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1049607886, Normal
+xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1049669739, High
 xilxSynthKeepHierarchy=xstvhd, spartan2e, Schematic.t_synthesize, 1048835002, True
 xilxTriStateBuffTXMode=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1049096843, On
 _SynthOptEffort=xstvhd, spartan2e, Schematic.t_synthesize, 1048985872, High
 [STATUS-ALL]
-alu.ncdFile=ERRORS,1049608387
-cpu.ncdFile=ERRORS,1049608387
-cpu.ngcFile=WARNINGS,1049608387
-cpu.ngdFile=WARNINGS,1049608387
+mt55l128l32p.ngcFile=ERRORS,1053302617
 [STRATEGY-LIST]
 Normal=True

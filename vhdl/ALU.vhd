@@ -40,7 +40,12 @@ architecture Behavioral of ALU is
 			  OP: in std_logic; 
            COUT : out std_logic);
     end component;
-		  
+	component logical is
+	    Port ( A : in std_logic_vector(31 downto 0);
+	           B : in std_logic_vector(31 downto 0);
+	           AF : in std_logic_vector(1 downto 0);
+	           logicout : out std_logic_vector(31 downto 0));
+	end component;		  
 
 begin
    -- special flags
@@ -56,26 +61,21 @@ begin
 					OP => AF(0),
 					COUT => COUT);  
 
+	-- instantiate logical portion
+	logical_inst: logical port map(
+					A => A,
+					B => B,
+					AF => AF(1 downto 0),
+					logicout => logicout ); 
+
+
    main: process(A, B, AF, adderout, logicout, shiftout, Yint) is
 	begin
 	-- new approach: do three things, only care about output on one of them.
 
 		
 		
-		-- now the logic section
-		case AF(1 downto 0) is
-			when "00" =>
-			   logicout <= NOT B;
-			when "01"  =>
-				logicout <= B(15 downto 0) & B(31 downto 16);
-			when "10" =>
-				logicout <= A AND B;
-			when "11" =>
-				logicout <= A OR B;
-			when others =>
-				logicout <= B;
-		end case; 
-		
+
 		-- and a shifter 
 		if AF(0) = '0' then 
 			shiftout <= '0' & B(31 downto 1); 

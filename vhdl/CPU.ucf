@@ -1,4 +1,6 @@
 NET CLK TNM_NET = CLK_GRP;
-TIMESPEC "TS_CLK_FULL" = PERIOD "CLK_GRP" 29 ns ;
-
-
+TIMESPEC "TS_CLK_FULL" = PERIOD "CLK_GRP" 28 ns ;
+NET "id<17>" uselowskewlines;
+NET "id<16>" uselowskewlines;
+NET "id<23>" uselowskewlines;
+NET "id<24>" uselowskewlines;

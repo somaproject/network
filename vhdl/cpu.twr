@@ -16,10 +16,10 @@ NONE                      No environment variables were set
 
 
 ================================================================================
-Timing constraint: TS_CLK_FULL = PERIOD TIMEGRP "CLK_GRP"  29 nS   HIGH 50.000000 % ;
+Timing constraint: TS_CLK_FULL = PERIOD TIMEGRP "CLK_GRP"  28 nS   HIGH 50.000000 % ;
 
  2408665 items analyzed, 0 timing errors detected.
- Minimum period is  28.955ns.
+ Minimum period is  27.984ns.
 --------------------------------------------------------------------------------
 
 
@@ -35,7 +35,7 @@ Clock to Setup on destination clock clk
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clk            |   28.955|         |         |         |
+clk            |   27.984|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
@@ -44,12 +44,12 @@ Timing summary:
 
 Timing errors: 0  Score: 0
 
-Constraints cover 2408665 paths, 0 nets, and 3547 connections (98.9% coverage)
+Constraints cover 2408665 paths, 0 nets, and 3546 connections (98.9% coverage)
 
 Design statistics:
-   Minimum period:  28.955ns (Maximum frequency:  34.536MHz)
+   Minimum period:  27.984ns (Maximum frequency:  35.735MHz)
 
 
-Analysis completed Sat Apr 05 21:46:45 2003
+Analysis completed Sun Apr 06 16:38:54 2003
 --------------------------------------------------------------------------------
 
