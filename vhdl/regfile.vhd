@@ -10,11 +10,12 @@ use UNISIM.VComponents.all;
 
  entity regfile is 
  port (CLK  : in std_logic;
- 		CLKEN : in std_logic;  
+ 		CLKEN : in std_logic; 
+		RESET : in std_logic;  
  		WE   : in std_logic; 
- 		ADDRA   : in std_logic_vector(4 downto 0);
-		ADDRB	  : in std_logic_vector(4 downto 0);  
- 		ADDRW   : in std_logic_vector(4 downto 0); 
+ 		ADDRA   : in std_logic_vector(4 downto 0) := "00000";
+		ADDRB	  : in std_logic_vector(4 downto 0) := "00000";  
+ 		ADDRW   : in std_logic_vector(4 downto 0) := "00000"; 
  		DATAA   : out std_logic_vector(31 downto 0); 
  		DATAB  : out std_logic_vector(31 downto 0); 
  		DATAW  : in std_logic_vector(31 downto 0)); 
@@ -29,13 +30,13 @@ use UNISIM.VComponents.all;
 -- are always the same, but a2 can be whatever we want it to be. 
 
  type ram_type is array (31 downto 0) of std_logic_vector (31 downto 0); 
- signal RAM : ram_type; 
+ signal RAM : ram_type := (others => "00000000000000000000000000000000"); 
  
  begin 
- process (clk) 
+ process (clk, we, CLKEN, DATAW) 
  begin 
  	if (clk'event and clk = '1') then  
- 		if (we = '1' and CLKEN = '1') then 
+ 		if (we = '0' and CLKEN = '1' and RESET = '0')  then 
  			RAM(conv_integer(ADDRW)) <= DATAW; 
  		end if; 
  	end if; 

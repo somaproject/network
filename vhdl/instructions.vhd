@@ -11,7 +11,7 @@ use UNISIM.VComponents.all;
 entity instructions is
     Port ( CLK : in std_logic;
            CLKEN : in std_logic;
-           ID : out std_logic_vector(31 downto 0);
+           ID : out std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
            Z : in std_logic;
            IMDIN : in std_logic_vector(15 downto 0);
            IMADDRW : in std_logic_vector(8 downto 0);
@@ -33,9 +33,9 @@ architecture Behavioral of instructions is
 
 	signal addrr, pcin, pcout : std_logic_vector(7 downto 0) := "00000000";
 	signal dout : std_logic_vector(31 downto 0) := (others => '0');
-	signal pcmux, pcsel, jtype : std_logic; 
-	signal afsrc: std_logic; 
-	signal caf : std_logic_vector(2 downto 0);
+	signal pcmux, pcsel, jtype : std_logic := '0'; 
+	signal afsrc: std_logic := '0'; 
+	signal caf : std_logic_vector(2 downto 0) := "000";
 
 	component RAMB4_S8_S16
 	  generic (
@@ -116,12 +116,12 @@ begin
 	begin
 		case DOUT(31 downto 28) is
 			when "0000" => CAF <= "000";
-			when "0001" => CAF <= "001";
-			when "0010" => CAF <= "010";
-			when "0011" => CAF <= "011";
-			when "0100" => CAF <= "000";
-			when "0101" => CAF <= "001";
-			when "0110" => CAF <= "010";
+			when "0010" => CAF <= "001";
+			when "0100" => CAF <= "010";
+			when "0110" => CAF <= "011";
+			when "0001" => CAF <= "000";
+			when "0011" => CAF <= "001";
+			when "0101" => CAF <= "010";
 			when "0111" => CAF <= "011";
 			when "1000" => CAF <= "100";
 			when "1001" => CAF <= "000";
@@ -140,7 +140,7 @@ begin
 	-- RAMs
 	RAMh:  RAMB4_S8_S16
 	  generic map (
-	       INIT_00 => X"0000000000000000000000000000000000000000000000010000000300020001",
+	       INIT_00 => X"0000000000000000000000000000000000000000000000000081106010200800",
 	       INIT_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
 	       INIT_02 => X"0000000000000000000000000000000000000000000000000000000000000000",
 	       INIT_03 => X"0000000000000000000000000000000000000000000000000000000000000000",
@@ -177,7 +177,7 @@ begin
 
 	RAMl:  RAMB4_S8_S16
 	  generic map (
-	       INIT_00 => X"000000000000000000000000000000000000000000000001000D000C000B000A",
+	       INIT_00 => X"0000000000000000000000000000000000000000000000000000000200010000",
 	       INIT_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
 	       INIT_02 => X"0000000000000000000000000000000000000000000000000000000000000000",
 	       INIT_03 => X"0000000000000000000000000000000000000000000000000000000000000000",

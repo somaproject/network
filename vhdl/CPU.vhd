@@ -13,7 +13,7 @@ entity CPU is
            CLKEN : in std_logic;
            IMDIN : in std_logic_vector(15 downto 0);
            IMADDRW : in std_logic_vector(8 downto 0);
-			  RESET : in std_logic; 
+			  RESET : in std_logic;
            IMWE : in std_logic;
            YOUT : out std_logic_vector(31 downto 0));
 end CPU;
@@ -24,13 +24,13 @@ architecture Behavioral of CPU is
 --  under docs/hardware/network for a good overview of what this does.
 
 -- necessary signals
-	signal id: std_logic_vector(31 downto 0);
-	signal imsel : std_logic;
-	signal sfr : std_logic_vector(31 downto 0); 
-	signal z, zout, n, nout, c, cout : std_logic; 
-	signal af: std_logic_vector(2 downto 0); 
-	signal ra, rb, rc : std_logic_vector(5 downto 0); -- renamed lines of id
-	signal dataa, datab, a, b, y: std_logic_vector(31 downto 0);
+	signal id: std_logic_vector(31 downto 0)  := (others=> '0');
+	signal imsel : std_logic := '0';
+	signal sfrout : std_logic_vector(31 downto 0)  := (others=> '0'); 
+	signal z, zout, n, nout, c, cout : std_logic := '0'; 
+	signal af: std_logic_vector(2 downto 0) := "000"; 
+	signal ra, rb, rc : std_logic_vector(5 downto 0) := (others=> '0'); -- renamed lines of id
+	signal dataa, datab, a, b, y: std_logic_vector(31 downto 0)  := (others=> '0');
 
 
 -- ALU component definition
@@ -60,6 +60,7 @@ architecture Behavioral of CPU is
 	 component regfile is 
 	 port (CLK  : in std_logic;
 	 		CLKEN : in std_logic;  
+			RESET : in std_logic; 
 	 		WE   : in std_logic; 
 	 		ADDRA   : in std_logic_vector(4 downto 0);
 			ADDRB	  : in std_logic_vector(4 downto 0);  
@@ -69,6 +70,13 @@ architecture Behavioral of CPU is
 	 		DATAW  : in std_logic_vector(31 downto 0)); 
 	 end component;
 
+	component SFR is
+	    Port ( CLK : in std_logic;
+	           CLKEN : in std_logic;
+	           Y : in std_logic_vector(31 downto 0);
+	           SFROUT : out std_logic_vector(31 downto 0);
+	           Rb : in std_logic_vector(5 downto 0));
+	end component;
 begin
 
 	-- decode ID lines into standard register address lines. 
@@ -96,6 +104,7 @@ begin
 	regfile_inst: regfile port map (
 				CLK => CLK,
 				CLKEN => CLKEN,
+				RESET => RESET,
 				WE => rc(5),
 				ADDRA => ra(4 downto 0),
 				ADDRB => rb(4 downto 0),
@@ -116,19 +125,26 @@ begin
 				cout => cout);
 
 
-	
+	-- instantiate, connect special function registers. 
+	SFR_inst : SFR port map (
+				CLK => CLK,
+				CLKEN => CLKEN, 
+				Y => y,
+				SFROUT => sfrout,
+				Rb => rb);
+		  	
 	-- combinational selection of inputs for ALU
 	a <= dataa when imsel = '0' else
 			(id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & 
 			id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & 
 				id(15 downto 0));
 	b <= datab when rb(5) = '0' else
-			sfr;
+			sfrout;
 
 	-- miscellaneous glue logic
 	YOUT <= y; 
 				 
-	glue: process(imsel, CLK, id, dataa, datab, sfr, rb, zout, nout, cout) is
+	glue: process(imsel, CLK, id, dataa, datab, sfrout, rb, zout, nout, cout) is
 	begin 
 
 
@@ -136,9 +152,16 @@ begin
 		-- latch bits for flags;
 		if rising_edge(CLK) then
 			if clken = '1' then
-				z <= zout;
-				n <= nout;
-				c <= cout;
+				if reset = '0' then
+					z <= '0';
+					n <= '0';
+					c <= '0';
+				else
+
+					z <= zout;
+					n <= nout;
+					c <= cout;
+				end if; 
 			end if;
 		end if; 
 

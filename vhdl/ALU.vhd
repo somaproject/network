@@ -9,10 +9,10 @@ library UNISIM;
 use UNISIM.VComponents.all;
 
 entity ALU is
-    Port ( A : in std_logic_vector(31 downto 0);
-           B : in std_logic_vector(31 downto 0);
-           Y : out std_logic_vector(31 downto 0);
-           AF : in std_logic_vector(2 downto 0);
+    Port ( A : in std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
+           B : in std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
+           Y : out std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
+           AF : in std_logic_vector(2 downto 0) := "000";
            Z : out std_logic;
            N : out std_logic;
            CIN : in std_logic;
@@ -59,7 +59,7 @@ begin
 					CIN => CIN,
 					COUT => COUT);  
 
-   main: process(A, B, AF, CIN) is
+   main: process(A, B, AF, CIN, adderout, logicout, shiftout, Yint) is
 	begin
 	-- new approach: do three things, only care about output on one of them.
 
