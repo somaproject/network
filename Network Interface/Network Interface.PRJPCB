@@ -2,7 +2,7 @@
 Version=1.0
 HierarchyMode=2
 ChannelRoomNamingStyle=0
-OutputPath=
+OutputPath=Outputs
 ChannelDesignatorFormatString=$Component_$RoomName
 ChannelRoomLevelSeperator=_
 OpenOutputs=1
@@ -61,6 +61,69 @@ AnnotateStartValue=1
 AnnotateSuffix=
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
+[Document8]
+DocumentPath=output control.OUTJOB
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotateSuffix=
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+[GeneratedDocument1]
+DocumentPath=Outputs\NIC.DRL
+[GeneratedDocument2]
+DocumentPath=Project Outputs for Network Interface\NIC.DRL
+[GeneratedDocument3]
+DocumentPath=Outputs\NIC.DRR
+[GeneratedDocument4]
+DocumentPath=Project Outputs for Network Interface\NIC.DRR
+[GeneratedDocument5]
+DocumentPath=Outputs\NIC.GBL
+[GeneratedDocument6]
+DocumentPath=Project Outputs for Network Interface\NIC.GBL
+[GeneratedDocument7]
+DocumentPath=Outputs\NIC.GBS
+[GeneratedDocument8]
+DocumentPath=Project Outputs for Network Interface\NIC.GBS
+[GeneratedDocument9]
+DocumentPath=Outputs\NIC.GM4
+[GeneratedDocument10]
+DocumentPath=Project Outputs for Network Interface\NIC.GM4
+[GeneratedDocument11]
+DocumentPath=Outputs\NIC.GP1
+[GeneratedDocument12]
+DocumentPath=Project Outputs for Network Interface\NIC.GP1
+[GeneratedDocument13]
+DocumentPath=Outputs\NIC.GP2
+[GeneratedDocument14]
+DocumentPath=Project Outputs for Network Interface\NIC.GP2
+[GeneratedDocument15]
+DocumentPath=Outputs\NIC.GTL
+[GeneratedDocument16]
+DocumentPath=Project Outputs for Network Interface\NIC.GTL
+[GeneratedDocument17]
+DocumentPath=Outputs\NIC.GTO
+[GeneratedDocument18]
+DocumentPath=Project Outputs for Network Interface\NIC.GTO
+[GeneratedDocument19]
+DocumentPath=Outputs\NIC.GTS
+[GeneratedDocument20]
+DocumentPath=Project Outputs for Network Interface\NIC.GTS
+[GeneratedDocument21]
+DocumentPath=Outputs\NIC.LDP
+[GeneratedDocument22]
+DocumentPath=Project Outputs for Network Interface\NIC.LDP
+[GeneratedDocument23]
+DocumentPath=Outputs\NIC.REP
+[GeneratedDocument24]
+DocumentPath=Project Outputs for Network Interface\NIC.REP
+[GeneratedDocument25]
+DocumentPath=Outputs\NIC.RUL
+[GeneratedDocument26]
+DocumentPath=Project Outputs for Network Interface\NIC.RUL
+[GeneratedDocument27]
+DocumentPath=Outputs\NIC.TXT
+[GeneratedDocument28]
+DocumentPath=Project Outputs for Network Interface\NIC.TXT
 [OutputGroup1]
 Name=Netlist Outputs
 Description=

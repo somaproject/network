@@ -5,7 +5,7 @@ DESIGN vhdl Normal
 DEVFAM spartan2e
 DEVFAMTIME 0
 DEVICE xc2s100e
-DEVICETIME 1064257074
+DEVICETIME 1064323152
 DEVPKG pq208
 DEVPKGTIME 1060536737
 DEVSPEED -6
@@ -70,6 +70,7 @@ p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1062287314, Yes
 xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_par, 1062367111, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, Module Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064174813, network.do
 [STATUS-ALL]
-network.ngdFile=WARNINGS,1064277040
+network.ngcFile=WARNINGS,1064323681
+network.ngdFile=WARNINGS,1064323681
 [STRATEGY-LIST]
 Normal=True
