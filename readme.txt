@@ -113,16 +113,26 @@ If there's a "CEEN line" that, when high, allows a high on DRDY to cause a high 
 
 The SFD can let us transition from the none state, because the SFD 1. marks the start of the packet, and 2. will never be the last data byte at the end of a packet. 
     What if we get a frame that doesn't have a SFD? 
-       as we go through the bytes, we will encounter a byte == the SFD, and the FSM
-       will begin writing in bytes. But in this case, the checksum won't match, and
-       the packet will be aborted
-       or, as we go through the bytes, we never get a byte == the sfd, and we just
-       continue to stay in the NONE state. 
+       as we go through the bytes, we will encounter a byte == the SFD, 
+       and the FSM will begin writing in bytes. But in this case, the checksum won't match, and the packet will be aborted or, as we go through the bytes, we never get a byte == the sfd, and we just continue to stay in the NONE state. 
 
-I believe if you CRC over the entire frame, including the CRC, you end up with
-a constant value to let you know if the frame is good or not
+I believe if you CRC over the entire frame, including the CRC, you end up with a constant value to let you know if the frame is good or not
 
-This design is somewhat complicated. Basically, once you've read a byte that contains an end of frame bit, it disables the CRCEN. This is starting to get pretty complicated, 
+This design is somewhat complicated. Basically, once you've read a byte that contains an end of frame bit, it disables the CRCEN. This is starting to get pretty complicated. Unfortuantely, this locks the system into a no-new-bytes situation, hence CEFORCE=1 in the none state, such that we will get the new bytes.       
+
+
+ 
 In the state ERRCHK_AND_BPW we write the base pointer and check for errors. If there
-are any errors, we just don't update the BP. 
+are any errors, we just don't update the BP. Otherwise, we wait enough states to be sure the memory was written, and then go back to NONE. 
+
+We've simplified the FSM quite a bit. Since all byte-write states (BYTE0-BYTE3) might occur multiple times (since it's possible that we're waiting on the FIFo, and thus BRDY=0) we have created a MEMDELTA signal. This signal is only high when MEN is high and MEN was low the cycle before; i.e. it's the first temporal derivative of MEN. 
+
+This allows multiple things. First, it allows us to have MEN=1 in BYTE0 and not worry about multipel increments of MA.
+
+Second, by keeping MEN high at the end of a cycle (through NONE), we prevent the first BYTE0 of actually causing a memory write. This guarantees that previous MA/MD (from writing the BP for the last frame) will be stable for 4 ticks, guaranteeing their validity. 
+
+
+
+
+
 
