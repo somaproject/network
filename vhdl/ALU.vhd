@@ -9,9 +9,9 @@ library UNISIM;
 use UNISIM.VComponents.all;
 
 entity ALU is
-    Port ( A : in std_logic_vector(15 downto 0);
-           B : in std_logic_vector(15 downto 0);
-           Y : out std_logic_vector(15 downto 0);
+    Port ( A : in std_logic_vector(31 downto 0);
+           B : in std_logic_vector(31 downto 0);
+           Y : out std_logic_vector(31 downto 0);
            AF : in std_logic_vector(2 downto 0);
            Z : out std_logic;
            N : out std_logic;
@@ -32,12 +32,12 @@ architecture Behavioral of ALU is
 -- 110		  Y = 0 & B[15:1]
 -- 111		  Y = B[14:0] & 0
 
-	signal adderout, logicout, shiftout, Yint: std_logic_vector(15 downto 0);
+	signal adderout, logicout, shiftout, Yint: std_logic_vector(31 downto 0);
 
 	component ADDER is
-    Port ( A : in std_logic_vector(15 downto 0);
-           B : in std_logic_vector(15 downto 0);
-           Y : out std_logic_vector(15 downto 0);
+    Port ( A : in std_logic_vector(31 downto 0);
+           B : in std_logic_vector(31 downto 0);
+           Y : out std_logic_vector(31 downto 0);
 			  OP: in std_logic; 
            CIN : in std_logic;
            COUT : out std_logic);
@@ -46,8 +46,8 @@ architecture Behavioral of ALU is
 
 begin
    -- special flags
-	Z <= '1' when Yint = "0000000000000000" else '0';
-	N <= '1' when Yint(15) = '1' else '0'; 
+	Z <= '1' when Yint = "00000000000000000000000000000000" else '0';
+	N <= '1' when Yint(31) = '1' else '0'; 
 
 
 	-- instantiate the actual adder
@@ -81,9 +81,9 @@ begin
 		
 		-- and a shifter 
 		if AF(0) = '0' then 
-			shiftout <= '0' & B(15 downto 1); 
+			shiftout <= '0' & B(31 downto 1); 
 		else
-		 	shiftout <= B(14 downto 0) & '0';
+		 	shiftout <= B(30 downto 0) & '0';
 		end if; 
 
 		case AF(2 downto 1) is

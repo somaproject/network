@@ -15,7 +15,7 @@ entity CPU is
            IMADDRW : in std_logic_vector(8 downto 0);
 			  RESET : in std_logic; 
            IMWE : in std_logic;
-           YOUT : out std_logic_vector(15 downto 0));
+           YOUT : out std_logic_vector(31 downto 0));
 end CPU;
 
 architecture Behavioral of CPU is
@@ -26,18 +26,18 @@ architecture Behavioral of CPU is
 -- necessary signals
 	signal id: std_logic_vector(31 downto 0);
 	signal imsel : std_logic;
-	signal sfr : std_logic_vector(15 downto 0); 
+	signal sfr : std_logic_vector(31 downto 0); 
 	signal z, zout, n, nout, c, cout : std_logic; 
 	signal af: std_logic_vector(2 downto 0); 
 	signal ra, rb, rc : std_logic_vector(5 downto 0); -- renamed lines of id
-	signal dataa, datab, a, b, y: std_logic_vector(15 downto 0);
+	signal dataa, datab, a, b, y: std_logic_vector(31 downto 0);
 
 
 -- ALU component definition
 	component ALU is
-	    Port ( A : in std_logic_vector(15 downto 0);
-	           B : in std_logic_vector(15 downto 0);
-	           Y : out std_logic_vector(15 downto 0);
+	    Port ( A : in std_logic_vector(31 downto 0);
+	           B : in std_logic_vector(31 downto 0);
+	           Y : out std_logic_vector(31 downto 0);
 	           AF : in std_logic_vector(2 downto 0);
 	           Z : out std_logic;
 	           N : out std_logic;
@@ -64,9 +64,9 @@ architecture Behavioral of CPU is
 	 		ADDRA   : in std_logic_vector(4 downto 0);
 			ADDRB	  : in std_logic_vector(4 downto 0);  
 	 		ADDRW   : in std_logic_vector(4 downto 0); 
-	 		DATAA   : out std_logic_vector(15 downto 0); 
-	 		DATAB  : out std_logic_vector(15 downto 0); 
-	 		DATAW  : in std_logic_vector(15 downto 0)); 
+	 		DATAA   : out std_logic_vector(31 downto 0); 
+	 		DATAB  : out std_logic_vector(31 downto 0); 
+	 		DATAW  : in std_logic_vector(31 downto 0)); 
 	 end component;
 
 begin
@@ -119,7 +119,9 @@ begin
 	
 	-- combinational selection of inputs for ALU
 	a <= dataa when imsel = '0' else
-			id(15 downto 0);
+			(id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & 
+			id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & id(15) & 
+				id(15 downto 0));
 	b <= datab when rb(5) = '0' else
 			sfr;
 

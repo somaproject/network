@@ -8,8 +8,8 @@ DEVICE xc2s200e
 DEVICETIME 1049068541
 DEVPKG pq208
 DEVPKGTIME 1049067627
-DEVSPEED -6
-DEVSPEEDTIME 1048997863
+DEVSPEED -7
+DEVSPEEDTIME 1049095439
 FLOW XST VHDL
 FLOWTIME 0
 STIMULUS ALU_test.tbw Normal
@@ -37,11 +37,13 @@ DEPASSOC instructions instructions.ucf SYSTEM
 DEPASSOC alu_plus_regfile test.ucf SYSTEM
 DEPASSOC alu ALU.ucf Normal
 [Normal]
-xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1048998394, Normal
+xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_par, 1048998394, Normal
 xilxSynthKeepHierarchy=xstvhd, spartan2e, VHDL.t_synthesize, 1048835002, True
 _SynthOptEffort=xstvhd, spartan2e, VHDL.t_synthesize, 1048985872, High
 [STATUS-ALL]
-alu_plus_regfile.ngcFile=ERRORS,1049069298
-cpu.ncdFile=WARNINGS,1049069298
+alu.ncdFile=ERRORS,1049096005
+alu.ngcFile=WARNINGS,1049096005
+cpu.ncdFile=WARNINGS,1049096005
+cpu.twrFile=WARNINGS,1049096005
 [STRATEGY-LIST]
 Normal=True

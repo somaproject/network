@@ -9,9 +9,9 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 entity ADDER is
-    Port ( A : in std_logic_vector(15 downto 0);
-           B : in std_logic_vector(15 downto 0);
-           Y : out std_logic_vector(15 downto 0);
+    Port ( A : in std_logic_vector(31 downto 0);
+           B : in std_logic_vector(31 downto 0);
+           Y : out std_logic_vector(31 downto 0);
 			  OP: in std_logic; 
            CIN : in std_logic;
            COUT : out std_logic);
@@ -20,7 +20,7 @@ end ADDER;
 architecture Behavioral of ADDER is
 -- basic adder, so we can mess with the syntax such that the 
 -- synthesizer inferrs it to be small. 
-	signal Atmp, Btmp, Ytmp: std_logic_vector(16 downto 0); 
+	signal Atmp, Btmp, Ytmp: std_logic_vector(32 downto 0); 
 begin
 	adding: process(A,B,OP, CIN) is
 	begin
@@ -34,8 +34,8 @@ begin
 			Ytmp <= Atmp + (not Btmp ) + CIN;
 		end if; 
 
-		COUT <= Ytmp(16);
-		Y <= Ytmp(15 downto 0);	 
+		COUT <= Ytmp(32);
+		Y <= Ytmp(31 downto 0);	 
 
 
 	end process adding; 

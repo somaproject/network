@@ -6,7 +6,7 @@ C:/xilinx/bin/nt/trce.exe -quiet -e 3 -l 3 -xml cpu cpu.ncd -o cpu.twr cpu.pcf
 
 Design file:              cpu.ncd
 Physical constraint file: cpu.pcf
-Device,speed:             xc2s200e,-6 (PRODUCTION 1.16 2002-11-01)
+Device,speed:             xc2s200e,-7 (PRODUCTION 1.16 2002-11-01)
 Report level:             error report
 
 Environment Variable      Effect 
@@ -25,17 +25,17 @@ Timing constraint: TS_P2P = MAXDELAY FROM TIMEGRP "PADS" TO TIMEGRP "PADS" 20 nS
 --------------------------------------------------------------------------------
 
 ================================================================================
-Timing constraint: TS_CLK_FULL = PERIOD TIMEGRP "CLK_GRP"  25 nS   HIGH 50.000000 % ;
+Timing constraint: TS_CLK_FULL = PERIOD TIMEGRP "CLK_GRP"  28 nS   HIGH 50.000000 % ;
 
- 31757 items analyzed, 0 timing errors detected.
- Minimum period is  24.586ns.
+ 103825 items analyzed, 0 timing errors detected.
+ Minimum period is  26.728ns.
 --------------------------------------------------------------------------------
 
 ================================================================================
 Timing constraint: OFFSET = OUT 30 nS  AFTER COMP "clk" ;
 
- 6040 items analyzed, 0 timing errors detected.
- Minimum allowable offset is  29.343ns.
+ 20372 items analyzed, 0 timing errors detected.
+ Minimum allowable offset is  29.737ns.
 --------------------------------------------------------------------------------
 
 
@@ -51,22 +51,38 @@ Clock clk to Pad
                | clk (edge) |
 Destination Pad|   to PAD   |
 ---------------+------------+
-yout<0>        |   28.427(R)|
-yout<10>       |   29.219(R)|
-yout<11>       |   28.760(R)|
-yout<12>       |   28.698(R)|
-yout<13>       |   28.980(R)|
-yout<14>       |   29.202(R)|
-yout<15>       |   29.127(R)|
-yout<1>        |   27.936(R)|
-yout<2>        |   28.962(R)|
-yout<3>        |   27.993(R)|
-yout<4>        |   28.073(R)|
-yout<5>        |   28.818(R)|
-yout<6>        |   29.343(R)|
-yout<7>        |   28.807(R)|
-yout<8>        |   28.916(R)|
-yout<9>        |   28.295(R)|
+yout<0>        |   27.721(R)|
+yout<10>       |   28.298(R)|
+yout<11>       |   27.659(R)|
+yout<12>       |   28.128(R)|
+yout<13>       |   27.867(R)|
+yout<14>       |   28.672(R)|
+yout<15>       |   28.454(R)|
+yout<16>       |   28.149(R)|
+yout<17>       |   27.441(R)|
+yout<18>       |   28.371(R)|
+yout<19>       |   27.587(R)|
+yout<1>        |   27.831(R)|
+yout<20>       |   27.760(R)|
+yout<21>       |   27.908(R)|
+yout<22>       |   28.597(R)|
+yout<23>       |   27.271(R)|
+yout<24>       |   27.358(R)|
+yout<25>       |   28.659(R)|
+yout<26>       |   29.285(R)|
+yout<27>       |   28.466(R)|
+yout<28>       |   28.935(R)|
+yout<29>       |   29.303(R)|
+yout<2>        |   29.232(R)|
+yout<30>       |   29.737(R)|
+yout<31>       |   28.161(R)|
+yout<3>        |   27.986(R)|
+yout<4>        |   28.953(R)|
+yout<5>        |   26.548(R)|
+yout<6>        |   27.674(R)|
+yout<7>        |   26.573(R)|
+yout<8>        |   27.394(R)|
+yout<9>        |   27.645(R)|
 ---------------+------------+
 
 Clock to Setup on destination clock clk
@@ -74,7 +90,7 @@ Clock to Setup on destination clock clk
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clk            |   24.586|         |         |         |
+clk            |   26.728|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
@@ -83,13 +99,13 @@ Timing summary:
 
 Timing errors: 0  Score: 0
 
-Constraints cover 37797 paths, 0 nets, and 1464 connections (99.9% coverage)
+Constraints cover 124197 paths, 0 nets, and 2690 connections (99.9% coverage)
 
 Design statistics:
-   Minimum period:  24.586ns (Maximum frequency:  40.674MHz)
-   Minimum output required time after clock:  29.343ns
+   Minimum period:  26.728ns (Maximum frequency:  37.414MHz)
+   Minimum output required time after clock:  29.737ns
 
 
-Analysis completed Sun Mar 30 16:06:10 2003
+Analysis completed Sun Mar 30 23:31:15 2003
 --------------------------------------------------------------------------------
 

@@ -15,9 +15,9 @@ use UNISIM.VComponents.all;
  		ADDRA   : in std_logic_vector(4 downto 0);
 		ADDRB	  : in std_logic_vector(4 downto 0);  
  		ADDRW   : in std_logic_vector(4 downto 0); 
- 		DATAA   : out std_logic_vector(15 downto 0); 
- 		DATAB  : out std_logic_vector(15 downto 0); 
- 		DATAW  : in std_logic_vector(15 downto 0)); 
+ 		DATAA   : out std_logic_vector(31 downto 0); 
+ 		DATAB  : out std_logic_vector(31 downto 0); 
+ 		DATAW  : in std_logic_vector(31 downto 0)); 
  end regfile;
  
  architecture syn of regfile is 
@@ -28,7 +28,7 @@ use UNISIM.VComponents.all;
 -- and two read ports. The write address and first read address (a1)
 -- are always the same, but a2 can be whatever we want it to be. 
 
- type ram_type is array (31 downto 0) of std_logic_vector (15 downto 0); 
+ type ram_type is array (31 downto 0) of std_logic_vector (31 downto 0); 
  signal RAM : ram_type; 
  
  begin 
