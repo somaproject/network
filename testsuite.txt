@@ -15,3 +15,10 @@ The reader thread will follow the writing thread by some arbitrary number of tic
 For outputting to the PHY, it's easy: we just pre-load the PHY with a frame and a counter with the number of bytes to transmit; then every second we send out the frame. 
 
 We start out with the counter's lower 10 bits reading bytes from the BlockSelect RAM, and pull TX_EN low when CNT > (FRAMELEN-1) . We reset the counter when CNT=CNTRST; 
+
+For each cycle, we'll toggle the TX LED for the duration of TX_EN. 
+
+RX_DV is tied to the RX LED. 
+
+The Serial interface is configured, but mostly to convince myself that it works. 
+

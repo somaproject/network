@@ -1,9 +1,9 @@
-# Xilinx CORE Generator 6.1.01i
+# Xilinx CORE Generator 6.1.02i
 # Username = Eric Jonas
 # COREGenPath = C:\Xilinx\coregen
-# ProjectPath = C:\desktop\soma\hardware\network\vhdl
-# ExpandedProjectPath = C:\desktop\soma\hardware\network\vhdl
-# OverwriteFiles = True
+# ProjectPath = C:\desktop\network\vhdl
+# ExpandedProjectPath = C:\desktop\network\vhdl
+# OverwriteFiles = true
 # Core name: async_fifo
 # Number of Primitives in design: 280
 # Number of CLBs used in design: 37

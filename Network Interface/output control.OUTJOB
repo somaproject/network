@@ -156,7 +156,7 @@ Configuration22_Item2=LibRef=True|Footprint=True|Value=True
 Configuration22_Name3=SortOrder
 Configuration22_Item3=Designator=Up|Comment=Up|Footprint=Up
 Configuration22_Name4=VisibleOrder
-Configuration22_Item4=Description=194|Designator=100|Footprint=100|Quantity=100|Value=100
+Configuration22_Item4=Description=194|Designator=100|Footprint=100|Quantity=100|Value=100|Comment=100|Part=100
 OutputType23=ComponentCrossReference
 OutputName23=Component Cross Reference Report
 OutputDocumentPath23=

@@ -1,0 +1,5 @@
+Assembly / BOM notes:
+
+S588-5999-P3 Gigabit magnetics
+
+This part with the form-factor is very hard to find. The best replacement is the H5007 from Pulse Engineering Inc (www.pulseeng.com).  You can order this at the moment from arrow.com for $8.00 or so. 
