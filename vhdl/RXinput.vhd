@@ -56,7 +56,7 @@ architecture Behavioral of RXinput is
 	component RXinput_memio is
 	    Port ( CLK : in std_logic;
 	    		 RESET : in std_logic;
-	           CE : out std_logic;
+	           CEOUT : out std_logic;
 	           ENDF : in std_logic;
 	           INVALID : in std_logic;
 	           DATA : in std_logic_vector(7 downto 0);
@@ -100,7 +100,7 @@ begin
     memio: RXinput_memio port map (
     		 CLK => CLK,
 		 RESET => RESET,
-		 CE => ce,
+		 CEOUT => ce,
 		 ENDF => endf, 
 		 INVALID => invalid,
 		 DATA => data, 

@@ -4,7 +4,7 @@
 
 my $packetnum = $ARGV[0]; 
 my $min_pktlen = 16; 
-my $max_pktlen = 100; 
+my $max_pktlen = 1500; 
 
 
 

@@ -138,8 +138,16 @@ begin
 		 	fifo_nearfull <=  '0';
 		 end if; 
 		 
-		 nfl <= nf;  
+		 nfl <= nf;  	
 
+
+		 -- rounding of length for correct BP 
+		 case len(1 downto 0) is
+		 	when "00" => lenr <= len; 
+			when "01" => lenr <= len + 3; 
+			when "10" => lenr <= len + 2;
+			when others => lenr <= len + 1; 
+		 end case; 
         end if; 
 	end if; 
    end process int_clock;
@@ -149,10 +157,7 @@ begin
    lma <= mdl(15 downto 0) when lmasell = '0'
    		else mdl(31 downto 16); 
    lbp <= ("00" & lenr(15 downto 2))  + bp + X"0001";
-   lenr <= len when len(1 downto 0) = "00" else
-   		 len + 3 when len(1 downto 0) = "01" else
-		 len + 2 when len(1 downto 0) = "10" else
-		 len + 1 ;
+
 		  
    nfdelta <= nf and (not nfl);
 

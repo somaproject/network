@@ -164,6 +164,9 @@ we've combined all of This into a rxinput_fifo file, which now actually contins 
 
 Wed 3 September 2003: RXinput_fifo appears to work with behavioral simulation. 
 
+24 Sepember 2003: So, there are problems with bcnt, for situations where there is only a single tick between RX_DVs (i.e. the fastest possible rate of incoming packets) that results in MACCNT not counting correctly. Basically, we were depending on the ENDF staying high (and thus BRDY Staying low) until we started the next packet. However, this means that our CE logic is more complicated. So, we simply gate the bcnt on both ce and brdy. 
+
+
 --------------------------------------------------------------------------
 RXoutput
 --------------------------------------------------------------------------

@@ -11,7 +11,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity RXinput_memio is
     Port ( CLK : in std_logic;
     		 RESET : in std_logic;
-           CE : out std_logic;
+           CEOUT : out std_logic;
            ENDF : in std_logic;
            INVALID : in std_logic;
            DATA : in std_logic_vector(7 downto 0);
@@ -39,7 +39,8 @@ architecture Behavioral of RXinput_memio is
 
    -- byte counter
    signal bcnt, bcntl : std_logic_vector(15 downto 0) := (others => '0');
-   
+   signal bcnten : std_logic := '0';
+
    -- crc signals
    signal crc, crcl, crcll: std_logic_vector(31 downto 0) := 
    				 (others => '0');
@@ -53,6 +54,8 @@ architecture Behavioral of RXinput_memio is
    					  (others => '0');
 
    signal men, menl, mendelta, wbp, wbpl, newf, bpen: std_logic := '0';
+   
+   signal ce : std_logic := '0';
 
    -- fsms:
    type states is (none, byte0, byte1, byte2, byte3, memwait1,
@@ -66,6 +69,9 @@ architecture Behavioral of RXinput_memio is
 	           CO : out std_logic_vector(31 downto 0));
 	end component;
 begin
+	 
+    CEOUT <= ce; 
+
     crccomb: crc_combinational port map (
 			CI => crcl,
 			CO => crc,
@@ -88,14 +94,14 @@ begin
 			if wbp = '1' then
 
 			   bpl <= bp; 
-			   bcntl <= bcnt; 
+			   bcntl <= bcnt -4; 
 			end if;
 			 
 			MA <= lma;
 			MD <= lmd;
 
 			if bpen = '1' then
-			   bp <= macnt;
+			   bp <= macnt -1;
 
 			end if; 			
 			bpen <= wbp; 
@@ -158,7 +164,7 @@ begin
 			if newf = '1' then
 			   bcnt <= (others => '0');
 			else
-			   if brdy = '1' then 
+			   if brdy = '1' and ce = '1' then 
 			      bcnt <= bcnt + 1;
 			   end if; 
 		     end if; 	
@@ -225,10 +231,10 @@ begin
        case cs is
 	      when none => 
 		      men <= '1'; 
-			 CE <= '1'; 
+			 ce <= '1'; 
 			 newf <= '1';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0'; 
+			 FIFOW_ERR <= '0';
 			 if INVALID = '0' and DATA = "11010101" and ENDF = '0' then
 			    ns <= byte0;
   			 else
@@ -236,10 +242,10 @@ begin
 			 end if; 
 	      when byte0 => 
 		      men <= '1'; 
-			 CE <= '1'; 
+			 ce <= '1'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0'; 
+			 FIFOW_ERR <= '0';
 			 if INVALID = '0' then
 			    if ENDF = '0' then
 			       ns <= byte1;
@@ -251,7 +257,7 @@ begin
 			 end if; 
 	      when byte1 => 
 		      men <= '0'; 
-			 CE <= '1'; 
+			 ce <= '1'; 
 			 newf <= '0'; 
 			 wbp <= '0';
 			 FIFOW_ERR <= '0';
@@ -266,7 +272,7 @@ begin
 			 end if; 
 	      when byte2 => 
 		      men <= '0'; 
-			 CE <= '1'; 
+			 ce <= '1'; 
 			 newf <= '0'; 
 			 wbp <= '0';
 			 FIFOW_ERR <= '0';
@@ -281,10 +287,10 @@ begin
 			 end if; 
 	      when byte3 => 
 		      men <= '0'; 
-			 CE <= '1'; 
+			 ce <= '1'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0'; 
+			 FIFOW_ERR <= '0';
 			 if INVALID = '0' then
 			    if ENDF = '0' then
 			       ns <= byte0;
@@ -296,35 +302,35 @@ begin
 			 end if; 
 	      when memwait1 => 
 		      men <= '0'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0'; 
+			 FIFOW_ERR <= '0';
 			 ns <= memwait2; 
 	      when memwait2 => 
 		      men <= '0'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0'; 
+			 FIFOW_ERR <= '0';
 			 ns <= memwait3; 
 	      when memwait3 => 
 		      men <= '1'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0'; 
 			 wbp <= '0';
 			 FIFOW_ERR <= '0';
 			 ns <= wait0; 
 	      when wait0 => 
 		      men <= '1'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0'; 
+			 FIFOW_ERR <= '0';
 			 ns <= errchk; 
 	      when errchk => 
 		      men <= '1'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
 			 FIFOW_ERR <= '0';
@@ -339,35 +345,35 @@ begin
 			 end if;  
 	      when wait1 => 
 		      men <= '0'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
 			 FIFOW_ERR <= '0'; 
 			 ns <= incbp; 
 	      when incbp => 
 		      men <= '1'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '1';
 			 FIFOW_ERR <= '0';
 			 ns <= writebp; 
 	      when pktabort => 
 		      men <= '1'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
-			 FIFOW_ERR <= '0';  
+			 FIFOW_ERR <= '0'; 
 			 ns <= none; 
 	      when writebp => 
 		      men <= '1'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
 			 FIFOW_ERR <= '0';  
 			 ns <= none; 
 	      when others => 
 		      men <= '0'; 
-			 CE <= '0'; 
+			 ce <= '0'; 
 			 newf <= '0';
 			 wbp <= '0';
 			 FIFOW_ERR <= '0';  

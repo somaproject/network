@@ -32,11 +32,11 @@ ARCHITECTURE behavior OF testbench IS
 -- gmii.rx.*.dat is pushed into the RX* interface
 --    RX_DV RX_ER RXD (hex) 
 
-   constant FILE_GMII_RX : string := "testvectors/gmii.rx.1.dat";
-   constant FILE_GMII_TX : string := "testvectors/gmii.tx.1.dat";
+   constant FILE_GMII_RX : string := "testvectors/gmii.rx.2.dat";
+   constant FILE_GMII_TX : string := "testvectors/gmii.tx.2.dat";
    constant FILE_IO_RAW_TX : string := "testvectors/io.tx.raw.0.dat";
    constant FILE_IO_FRAME_TX : string := "testvectors/io.tx.frame.1.dat";
-   constant FILE_IO_RX : string := "testvectors/io.rx.1.dat";
+   constant FILE_IO_RX : string := "testvectors/io.rx.2.dat";
     
  
 	COMPONENT network
@@ -151,7 +151,7 @@ BEGIN
 -- SYSTEM CLOCKS
 --  Here's where we define our clocks;
    clkin <= not clkin after 8 ns;
-   rx_clk <= not rx_clk after 8 ns; 
+   rx_clk <= not rx_clk after 8.0 ns; 
    clkioin <= not clkioin after 17 ns; 
    
    reset <= '0' after 10 ns; 
@@ -382,31 +382,34 @@ BEGIN
 				    outstate := 2;
 				    write(L, frame_length);
 				    writeline(write_file, L);
+				    wordpos := 0; 
 				 end if; 
-			   end if; 
-			   
-			   if outstate = 2 then
+			   elsif outstate = 2 then
 			   	 if fcnt < 1 then
 				 	outstate := 3; 
 				  	if DOUTEN = '1' then
-					   hwrite(L, DOUT(7 downto 0));
-					   write(L, character(' ')); 
-					   hwrite(L, DOUT(15 downto 8));  
-					   writeline(write_file, L); 
+					   --hwrite(L, DOUT(7 downto 0));
+					   --write(L, character(' ')); 
+					   --hwrite(L, DOUT(15 downto 8));  
+					   if frame_length mod 16 /= 0 then
+					      writeline(write_file, L);
+					   end if;  
 					end if;
 				 else
 				  	if DOUTEN = '1' then
-					   fcnt := fcnt - 2;
+					   fcnt := fcnt - 1;
 					   hwrite(L, DOUT(7 downto 0));
-					   write(L, character(' ')); 
-					   hwrite(L, DOUT(15 downto 8));
-					   write(L, character(' '));  
-					   wordpos := wordpos + 1; 
-
+					   write(L, character(' '));
+					   fcnt := fcnt - 1;
+					   if fcnt >-1 then
+						   hwrite(L, DOUT(15 downto 8));
+						   write(L, character(' '));  
+						   wordpos := wordpos + 1; 
+					   end if; 
 					    
 					end if;
 				 end if;
-				 if wordpos = 16 then 
+				 if wordpos >7  then 
 				 	wordpos := 0;
 					writeline(write_file, L);
 				 end if; 
