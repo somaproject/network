@@ -150,7 +150,9 @@ begin
    		else mdl(31 downto 16); 
    lbp <= ("00" & lenr(15 downto 2))  + bp + X"0001";
    lenr <= len when len(1 downto 0) = "00" else
-   		 len + 1;
+   		 len + 3 when len(1 downto 0) = "01" else
+		 len + 2 when len(1 downto 0) = "10" else
+		 len + 1 ;
 		  
    nfdelta <= nf and (not nfl);
 

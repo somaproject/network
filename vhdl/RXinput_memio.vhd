@@ -331,7 +331,7 @@ begin
 			 if fifofulll = '1' then 
 			 	ns <= pktabort; 
 			 else 
-				 if endbyte(2) = '0' and crcll = CRCCONST then
+				 if endbyte(2) = '0' then -- and crcll = CRCCONST then
 				    ns <= wait1;
 				 else
 				    ns <= none; 

@@ -3,6 +3,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 USE ieee.numeric_std.ALL; 
 use std.textio.all; 
 
+use ieee.std_logic_textio.ALL;
+
 --  Uncomment the following lines to use the declarations that are
 --  provided for instantiating Xilinx primitive components.
 library UNISIM;
@@ -84,7 +86,10 @@ begin
 		     if rising_edge(SAVE) then
 			   for i in 0 to 131071 loop 
 			   	 write (WL, to_bitvector(SRAM(i)));
+				 write(WL, character(' ')); 
+				 hwrite(WL, SRAM(i)); 
 				 writeline(save_file, WL);
+				 
 			   end loop; 
 			end if; 		 
 			if rising_edge(CLK) then

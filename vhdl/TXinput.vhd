@@ -227,7 +227,7 @@ begin
 			cpen <= '1';
 			DONE <= '0';
 			FIFOW_ERR <= '0';
-			if cnt < 1 then
+			if cnt =0 or cnt = 65535 then --i.e. 0 or -1
 				ns <= waitlow;
 			else
 				ns <= high_w;
@@ -255,7 +255,7 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			FIFOW_ERR <= '0';
-			if  cnt < 1 then
+			if  cnt =0 or cnt = 65535 then --i.e. 0 or -1
 				ns <= pktdone1;
 			else
 				ns <= low_w;

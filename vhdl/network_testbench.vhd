@@ -32,10 +32,11 @@ ARCHITECTURE behavior OF testbench IS
 -- gmii.rx.*.dat is pushed into the RX* interface
 --    RX_DV RX_ER RXD (hex) 
 
-   constant FILE_GMII_RX : string := "testvectors/gmii.rx.0.dat";
-   constant FILE_GMII_TX : string := "testvectors/gmii.tx.0.dat";
-   constant FILE_IO_TX : string := "testvectors/io.tx.0.dat";
-   constant FILE_IO_RX : string := "testvectors/io.rx.0.dat";
+   constant FILE_GMII_RX : string := "testvectors/gmii.rx.1.dat";
+   constant FILE_GMII_TX : string := "testvectors/gmii.tx.1.dat";
+   constant FILE_IO_RAW_TX : string := "testvectors/io.tx.raw.0.dat";
+   constant FILE_IO_FRAME_TX : string := "testvectors/io.tx.frame.1.dat";
+   constant FILE_IO_RX : string := "testvectors/io.rx.1.dat";
     
  
 	COMPONENT network
@@ -84,7 +85,7 @@ ARCHITECTURE behavior OF testbench IS
 	SIGNAL din :  std_logic_vector(15 downto 0);
 	SIGNAL dinen :  std_logic := '0';
 
-
+	
 ---------------------------------------
 -- support components
 ---------------------------------------
@@ -101,6 +102,10 @@ ARCHITECTURE behavior OF testbench IS
 
 	signal sram_save : std_logic := '0'; 
 
+	signal io_input_mode : integer := 1; 
+	signal gmii_loopback : integer := 0; 
+	signal din_frame, din_raw : std_logic_vector(15 downto 0) := (others => '0');
+	signal newframe_frame, newframe_raw : std_logic := '0';
 
 
 
@@ -235,9 +240,15 @@ BEGIN
 
    end process gmii_tx;
 
-   io_input : process(clkioin) is
+
+   din <= din_raw when io_input_mode = 0 else
+   		din_frame when io_input_mode = 1;
+   newframe <= newframe_raw when io_input_mode = 0 else
+   		newframe_frame when io_input_mode = 1;
+
+   io_input_raw : process(clkioin) is
       
-	file load_file : text open read_mode is FILE_IO_TX;	
+	file load_file : text open read_mode is FILE_IO_RAW_TX;	
 
 	variable L : line;
 	
@@ -246,21 +257,82 @@ BEGIN
 	 
 
    begin
-     if rising_edge(clkioin) then
+     if rising_edge(clkioin) and io_input_mode = 0 then
  		if not endfile(load_file) then 
 			readline(load_file, L);
 			read(L, tx_newframe);
 		 	hread(L, tx_data);
 			
 			
-			newframe <= to_x01(tx_newframe);
-			din <= to_x01(tx_data); 
+			newframe_raw <= to_x01(tx_newframe);
+			din_raw <= to_x01(tx_data); 
 
 
 		end if;   
 
 	end if; 
-   end process io_input;
+   end process io_input_raw;
+
+   io_input_frame : process is
+      
+	file load_file : text open read_mode is FILE_IO_FRAME_TX;	
+
+	variable L : line;
+	
+	variable tx_newframe : bit := '0';
+	variable TX_data : std_logic_vector(15 downto 0) := (others => '0');
+	variable bytecount : integer := 0; 
+	variable byte : std_logic_vector(7 downto 0); 
+	 
+
+   begin
+     wait for 1 us; 
+     while not endfile(load_file) loop
+		wait until rising_edge(clkioin); 
+		if io_input_mode = 1 then
+		   readline(load_file, L); 
+		   read(L, bytecount); 
+		   newframe_frame <= '1' after 1 ns; 
+		   din_frame <= std_logic_vector(to_unsigned(bytecount, 16)) after 1 ns; 
+		   
+		   for i in  0 to (bytecount -1) loop
+			  if i mod 2 = 0 then 
+			    wait until rising_edge(clkioin); 
+			  end if; 
+
+ 			  if (i mod 16) = 0 then
+			  	readline(load_file, L);
+			  end if;
+			  
+			  hread(L, byte); 
+			  if i mod 2 = 0 then 
+				TX_data(7 downto 0) := byte;
+			  else
+			  	TX_data(15 downto 8) := byte; 			      
+			  end if; 
+			  din_frame <= TX_data; 
+		   end loop ;
+
+
+		   wait until rising_edge(clkioin);
+		   din_frame <= (others => '0') after 1 ns;
+		   newframe_frame<= '0' after 1 ns;
+
+		   wait until rising_edge(clkioin);
+		   wait until rising_edge(clkioin);
+		   wait until rising_edge(clkioin);
+		   wait until rising_edge(clkioin);
+		   wait until rising_edge(clkioin);
+		   wait until rising_edge(clkioin);
+		   wait until rising_edge(clkioin);
+		   wait until rising_edge(clkioin);
+		   wait until rising_edge(clkioin);
+		end if; 
+		wait until rising_edge(clkioin);
+	end loop; 
+	wait until rising_edge(clkioin);
+   end process io_input_frame;
+
 
 
   io_output : process(clkioin, reset) is
@@ -276,6 +348,8 @@ BEGIN
      variable outstate : integer := 0; 
 	variable frame_length : integer := 0;
 	variable fcnt : integer := 0;  
+
+	variable wordpos: integer; 
 
    begin
      if rising_edge(clkioin) then
@@ -315,16 +389,27 @@ BEGIN
 			   	 if fcnt < 1 then
 				 	outstate := 3; 
 				  	if DOUTEN = '1' then
-					   hwrite(L, DOUT); 
+					   hwrite(L, DOUT(7 downto 0));
+					   write(L, character(' ')); 
+					   hwrite(L, DOUT(15 downto 8));  
 					   writeline(write_file, L); 
 					end if;
 				 else
 				  	if DOUTEN = '1' then
 					   fcnt := fcnt - 2;
-					   hwrite(L, DOUT); 
-					   writeline(write_file, L); 
+					   hwrite(L, DOUT(7 downto 0));
+					   write(L, character(' ')); 
+					   hwrite(L, DOUT(15 downto 8));
+					   write(L, character(' '));  
+					   wordpos := wordpos + 1; 
+
+					    
 					end if;
 				 end if;
+				 if wordpos = 16 then 
+				 	wordpos := 0;
+					writeline(write_file, L);
+				 end if; 
 			  end if;
 		    end if; 
 	end if;   
