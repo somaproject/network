@@ -12,7 +12,12 @@ use UNISIM.VComponents.all;
 
 entity test_NoBLSRAM is
     Generic (  FILEIN : string := "SRAM_in.dat"; 
-    			FILEOUT : string := "SRAM_out.dat"); 
+    			FILEOUT : string := "SRAM_out.dat";
+				physical_sim : integer := 0;
+				TSU : time;
+				THD : time;
+				TKQ : time; 
+				TKQX : time); 
     Port ( CLK : in std_logic;
            DQ : inout std_logic_vector(31 downto 0);
            ADDR : in std_logic_vector(16 downto 0);
@@ -40,6 +45,10 @@ architecture Behavioral of test_NoBLSRAM is
 
 	signal lladdr, laddr, addr_now : std_logic_vector(16 downto 0) := (others => '0');
 	signal llwe, lwe, we_now : std_logic := '1'; 
+
+-- times, from cypress 133 MHz part:
+
+ 
 begin
 
    buffs: for i in 0 to 31 generate
@@ -50,6 +59,22 @@ begin
 		   T => T_ENABLE); 
 
    end generate; 
+
+
+	process(clk) is
+	begin
+		
+			if rising_edge(clk'delayed(THD))   then
+				assert DQ'last_Event >= THD
+					report("Hold violation on DQ"); 
+			end if;
+
+	end process; 
+
+	-- cancel timings if this isn't a physical simulation
+
+
+
    main: process is
 
    	type load_file_type is file of word;
@@ -95,10 +120,13 @@ begin
 			if rising_edge(CLK) then
 
 			     
-			     
-
+				 if physical_sim = 1 then
+				 	assert(din'last_event >= TSU);
+				 	report ("setup violation on din"); 
+				 end if; 
 			    numaddress := to_integer(unsigned(laddr));
-			    dout <= SRAM(numaddress) after 2 ns;
+				 dout <= (others => 'U') after TKQX;
+			    dout <= SRAM(numaddress) after TKQ;
 
 				T_ENABLE <= (not lwe) after 2 ns; 
 

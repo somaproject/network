@@ -84,10 +84,10 @@ ARCHITECTURE behavior OF network_testbench IS
 	SIGNAL txd :  std_logic_vector(7 downto 0);
 	SIGNAL tx_en :  std_logic;
 	SIGNAL gtx_clk :  std_logic;
-	SIGNAL ma :  std_logic_vector(16 downto 0);
-	SIGNAL md :  std_logic_vector(31 downto 0) := (others => 'Z');
-	SIGNAL mclk :  std_logic;
-	SIGNAL mwe :  std_logic := '1';
+	SIGNAL ma, ma_delay :  std_logic_vector(16 downto 0);
+	SIGNAL md, md_delay :  std_logic_vector(31 downto 0) := (others => 'Z');
+	SIGNAL mclk, mclk_delay :  std_logic;
+	SIGNAL mwe, mwe_delay :  std_logic := '1';
 	SIGNAL clkioin :  std_logic := '0';
 	SIGNAL nextframe :  std_logic := '0';
 	SIGNAL dout :  std_logic_vector(15 downto 0);
@@ -114,7 +114,9 @@ ARCHITECTURE behavior OF network_testbench IS
 ---------------------------------------
 	component test_NoBLSRAM is
 	    Generic (  FILEIN : string := "SRAM_in.dat"; 
-	    			FILEOUT : string := "SRAM_out.dat"); 
+	    				FILEOUT : string := "SRAM_out.dat";
+						physical_sim : integer := 0;
+						TSU, THD, TKQ, TKQX : time); 
 	    Port ( CLK : in std_logic;
 	           DQ : inout std_logic_vector(31 downto 0);
 	           ADDR : in std_logic_vector(16 downto 0);
@@ -133,6 +135,12 @@ ARCHITECTURE behavior OF network_testbench IS
 
 
 BEGIN
+	-- delay setups
+	ma_delay <= ma after 1 ns;
+	md_delay <= md after 1 ns; 
+	mclk_delay <= mclk after 1 ns;
+	mwe_delay <= mwe after 1 ns; 
+
 
 	uut: network PORT MAP(
 		clkin => clkin,
@@ -175,7 +183,13 @@ BEGIN
 ---------------------------------------
    sram: test_NoBLSRAM generic map (
    	FILEIN => "testvectors/sram.in.0.dat",
-		FILEOUT => "testvectors/sram.out.0.dat")
+		FILEOUT => "testvectors/sram.out.0.dat",
+		physical_sim => 0,
+		TSU => 0 ns,
+		THD => 0 ns,
+		TKQ => 0 ns,
+		TKQX => 0 ns
+		)
 		port map (
 		CLK => mclk,
 		DQ => md,

@@ -80,7 +80,5 @@ _SynthFsmEncode=xstvhd, spartan3, Schematic.t_synthesize, 1065530004, Auto
 _SynthOptEffort=xstvhd, spartan3, Schematic.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, Bencher Waveform.t_MSimulateBehavioralVhdlModel, 1064942493, True
-[STATUS-ALL]
-network.twrFile=WARNINGS,1065551010
 [STRATEGY-LIST]
 Normal=True
