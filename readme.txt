@@ -146,6 +146,56 @@ we've combined all of This into a rxinput_fifo file, which now actually contins 
 
 Wed 3 September 2003: RXinput_fifo appears to work with behavioral simulation. 
 
+RXoutput-------------------------------------------
+Signals: 
+NEXTFRAME
+DOUTEN
+DOUT
+
+The RXoutput side runs off the slower clock on the RX side, and is 16-bits
+wide. 
+
+The transition of NEXTFRAME from low-to-high signals that the receiving side is ready for the next frame. This system should be reentrant, i.e. 
+    When NEXTFRAME goes low, the MAC will stop sending data, and will abort
+    transmission of the current packet. 
+    The next time NEXTFRAME goes high, the MAC must start sending the next
+    frame. 
+
+The MAC places DOUTEN high when there is a valid frame word on the data lines. 
+
+Each frame is transmitted with it's lenth in bytes first. It's up to the receiver to count the incoming bytes and know when to deassert NEXTFRAME. It's not like i'm going to do _all_ the work here. 
+
+We'll have two signals related to NEXTFRAME on the pre-fifo side, the NFDELTAP and NFDELTAN for positive NEXTFRAME transitions and negative (high-to-low) NEXTFRAME Transitions. 
+
+Since the FIFO may become full during this time (if the output clock is really slow) we need to pause... how to do that? 
+
+what if FIFO_FULL signal disabled INCing the MAC and disabled writing the FIFO... it would effectively be a "pause". Problems are the pipelining.
+
+So, we're going to have a FIFO_full and a FIFO_NEARFULL signal. FIFO_FULL will put the FSM into a nop mode, and it will only return to clocking in bytes when FIFO_NEARFULL goes back to 0. 
+
+
+
+
+
+============================================================================
+TO DO / things to debug and test
+
+FIFO overflows, fifos overwriting each other, etc. Both in the ZBT sram
+and the various clock-boundary FIFOs
+
+System status interface -- how do we read all those counters, etc. 
+
+MAC booting, etc. via the stupid physical layer I2C interface thing
+
+Testing modes... 
+   Something that just spits out 1024-byte frames to a given MAC
+   
+Uhh, did we want to do any sort of MAC address filtering? 
+
+
+
+
+
 
 
 
