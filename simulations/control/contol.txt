@@ -1,0 +1,20 @@
+Control test....
+
+
+This is the control test... this is sufficiently complex that we're going to do it all in vhdl...
+
+Components to check:
+
+
+Can we write/read back from:
+
+mac-receive-dependent registers:
+   MACADDR, RXBCAST, RXMCAST, RXUCAST, RXALLF
+
+external LEDs: do we go high for the proper duration? 
+
+Counters: do we accurately count? can we read out the errors?
+
+PHY: We have a simulated PHY, and we set certain values for the LINK_AN and 1KSCR register
+
+
