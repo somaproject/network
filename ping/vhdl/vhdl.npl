@@ -30,8 +30,11 @@ DEPASSOC outping outping.ucf
 xilxBitgCfg_GenOpt_ASCIIFile=xstvhd, spartan2e, VHDL.t_bitFile, 1068819097, True
 xilxMapAllowLogicOpt=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1068937080, True
 [STATUS-ALL]
-outping.ncdFile=WARNINGS,1100905873
-outping.ngcFile=WARNINGS,1100905864
-outping.ngdFile=WARNINGS,1100905870
+outping.ncdFile=WARNINGS,1100977936
+outping.ngcFile=WARNINGS,1100977926
+outping.ngdFile=WARNINGS,1100977933
+ping.ncdFile=WARNINGS,1100971671
+ping.ngcFile=WARNINGS,1100971658
+ping.ngdFile=WARNINGS,1100971667
 [STRATEGY-LIST]
 Normal=True

@@ -245,7 +245,7 @@ begin
 				end if; 
 
 				-- output signal latches
-				if cs = validf then	
+				if cs = validf then	 
 					RXF <= '1';
 				else
 					RXF <= '0';
@@ -416,9 +416,16 @@ begin
 				else
 					ns <= validf;
 				end if;
-			when others =>
+
+			when validf =>
 				rd <= '0';
 				mwen <= '1';
+				nextf <= '0';
+				bpwen <= '0';
+				ns <= none; 
+			when others =>
+				rd <= '0';
+				mwen <= '0';
 				nextf <= '0';
 				bpwen <= '0';
 				ns <= none;

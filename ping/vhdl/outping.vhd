@@ -15,6 +15,9 @@ entity outping is
            CLKOUT : out std_logic;
            DOUT : out std_logic_vector(15 downto 0);
            NEWFRAME : out std_logic;
+           DIN : in std_logic_vector(15 downto 0);
+           DINEN : in std_logic;
+           NEXTFRAME : out std_logic;
 		  SCLK : out std_logic; 
 		  SIN : out std_logic; 
 		  SOUT : in std_logic; 
@@ -25,7 +28,9 @@ entity outping is
 		  CMD : in std_logic;
 		  SAMPLE : out std_logic;  
 		  DONE : out std_logic;
-		  STARTTX : in std_logic	);
+		  STARTTX : in std_logic;
+		  LEDS : out std_logic_vector(1 downto 0);
+		  LENOUT : out std_logic_vector(7 downto 0)	);
 end outping;
 
 architecture Behavioral of outping is
@@ -35,7 +40,13 @@ architecture Behavioral of outping is
 	signal ramaddr : std_logic_vector(7 downto 0) := (others => '0');
 	signal ramdata : std_logic_vector(15 downto 0) := (others => '0');
 	signal lnewframe, gotx, cnten : std_logic := '0'; 
-	signal cnt : integer range 0 to 2**18-1 := 0; 
+	signal cnt, incnt : integer range 0 to 2**26-1 := 0; 
+
+	type states is (none, getlen, donef, waitlen);
+	signal cs, ns : states := none; 
+	signal lnextframe, dinenl : std_logic := '0'; 
+	signal waitcnt, dinencnt : integer range 0 to 200 := 0;
+	signal dinl : std_logic_vector(15 downto 0) := (others => '0');  
 
 	component NICserial is
 	    Port ( IFCLK : in std_logic;
@@ -111,11 +122,11 @@ begin
 				EN => '1',
 				WE => '0',
 				RST => RESET,
-				CLK => clksl,
+				CLK => clk,
 				ADDR => ramaddr,
 				DO => ramdata); 
 
-	CLKOUT <= not clksl; 
+	CLKOUT <=  not clk;
 	serialio: NICserial port map (	
 			IFCLK => IFCLK,
 			RESET => RESET,
@@ -131,7 +142,7 @@ begin
 			DONE => DONE); 
 
 	 clk_DLL : CLKDLL generic map (
-	 		CLKDV_DIVIDE => 4.0)
+	 		CLKDV_DIVIDE => 2.0)
 			port map (
 			CLKIN => CLKIN,
 			RST => RESET,
@@ -146,9 +157,9 @@ begin
 			I => clksl_to_bufg,
 			O => clksl); 
 
-	clock : process(clksl) is
+	clock : process(clk) is
 	begin
-		if rising_edge(clksl) then
+		if rising_edge(clk) then
 			
 			DOUT <= ramdata; 
 
@@ -157,7 +168,7 @@ begin
 			end if; 
 
 			if cnten = '1' then
-				if cnt = 2**18-1 then
+				if cnt = 180 then
 					cnt <= 0;
 				else
 					cnt <= cnt + 1; 
@@ -180,10 +191,135 @@ begin
 			end if; 
 
 			NEWFRAME <= lnewframe; 
+
+
+			
 		end if; 
 	end process clock; 
 	
-	--DOUT <= (others => '0');
-	--NEWFRAME <= '0'; 
+     -- test input
+	inputtest: process(RESET, CLK) is
+	begin
+		if RESET = '1' then
+			cs <= none;
+		else
+			if rising_edge(CLK) then
+			    cs <= ns; 
+			    NEXTFRAME <= lnextframe; 
+
+			    dinenl <= DINEN;
+			    dinl <= DIN;   
+			    if cs = getlen and dinenl = '1' then
+			    	  lenout <= dinl(7 downto 0);
+			    end if; 
+
+			    if  dinenl = '1' then
+			    	  LEDS(0) <= '1';
+				else
+				  LEDS(0) <= '0';
+ 	              end if; 
+
+			   
+			   if cs = getlen then 
+			   	waitcnt <= 100;
+			   else 
+			   	  if cs = waitlen then
+				  	waitcnt <= waitcnt - 1;
+				  end if; 
+			   end if; 
+			   
+			   if cs = none then 
+			   	dinencnt <= 0;
+			   else
+			   	if dinenl = '1' then
+					dinencnt <= dinencnt + 1;
+				end if;
+			   end if;
+			   
+			   
+			   -- byte checks
+			   if dinenl = '1' then
+			   	if dinencnt = 0 then
+					if dinl = X"0062" then
+						LEDS(1) <= '1';
+					else 
+						LEDS(1) <= '0';
+					end if; 
+				end if; 
+			   	if dinencnt = 1 then
+					if dinl = X"FFFF" then
+						LEDS(1) <= '1';
+					else 
+						LEDS(1) <= '0';
+					end if; 
+				end if; 
+			   	if dinencnt = 2 then
+					if dinl = X"FFFF" then
+						LEDS(1) <= '1';
+					else 
+						LEDS(1) <= '0';
+					end if; 
+				end if; 
+			   	if dinencnt = 3 then
+					if dinl = X"FFFF" then
+						LEDS(1) <= '1';
+					else 
+						LEDS(1) <= '0';
+					end if; 
+				end if; 
+			   	if dinencnt = 4 then
+					if dinl = X"0700" then
+						LEDS(1) <= '1';
+					else 
+						LEDS(1) <= '0';
+					end if; 
+				end if; 
+			   	if dinencnt = 5 then
+					if dinl = X"18E9" then
+						LEDS(1) <= '1';
+					else 
+						LEDS(1) <= '0';
+					end if; 
+				end if;
+				if dinencnt = 6 then
+					LEDS (1) <= '0';
+				end if;  
+					 
+			  end if;  	
+
+			end if;
+		end if; 
+					 
+	end process; 
+
+	inputfsm : process(cs) is
+	begin
+		case cs is
+			when none =>
+				lnextframe <= '0';
+				ns <= getlen; 
+			when getlen => 
+				lnextframe <= '1'; 
+				if dinenl = '1' then 
+					ns <= waitlen;
+				else
+					ns <= getlen;
+				end if; 
+			when waitlen =>
+				lnextframe <= '1';  
+				if waitcnt = 0 then
+					ns <= donef; 
+				else
+					ns <= waitlen;
+				end if; 
+			when donef => 
+				lnextframe <= '0';
+				ns <= none;
+			when others =>
+				lnextframe <= '0';
+				ns <= none;
+		end case; 
+	end process inputfsm; 
+
 					
 end Behavioral;

@@ -259,6 +259,8 @@ architecture Behavioral of network is
 	      port (I : in STD_LOGIC; O : out std_logic);
 	end component;
 
+	-- debugging :
+	signal doutensig : std_logic := '0'; 
 
 
 begin
@@ -269,7 +271,7 @@ begin
     addr3ext <= ('1' & addr3);
     addr4ext <= ('0' & addr4);
 
-
+    DOUTEN <= doutensig; -- DEBUGGING!!!
 
     clkio_dll : CLKDLL port map (
     		CLKIN => CLKIOIN,
@@ -392,7 +394,7 @@ begin
 			  CLKIO => clkio,
 			  NEXTFRAME => NEXTFRAME,
 			  DOUT => DOUT,
-			  DOUTEN => DOUTEN);
+			  DOUTEN => doutensig);  -- DOUTEN);  DEBUGGING
 
    tx_output: txoutput port map (
    			  CLK => clk,
@@ -467,6 +469,5 @@ begin
 				TXBP => txbp,
 				RXFBBP => rxfbbp,
 				TXFBBP => txfbbp); 
-
 	  	
 end Behavioral;

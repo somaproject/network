@@ -27,7 +27,8 @@ entity ping is
 			  RW : in std_logic; 
 			  CMD : in std_logic;
 			  SAMPLE : out std_logic;  
-			  DONE : out std_logic
+			  DONE : out std_logic;
+		  LEDS : out std_logic_vector(1 downto 0)
 			  );
 end ping;
 
@@ -303,6 +304,21 @@ begin
 
 				ail <= ai; 
 				we <= dinenl; 
+
+
+				-- leds
+				if rcs = readf then
+					LEDS(0) <= '1';
+				else
+					LEDS(0) <= '0';
+				end if;
+				 
+				if rcs = validp then
+					LEDS(1) <= '1';
+				else
+					LEDS(1) <= '0';
+				end if; 
+
 
 			end if; 
 		end if; 
