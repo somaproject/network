@@ -147,8 +147,16 @@ OutputType22=BOM_PartType
 OutputName22=Bill of Materials
 OutputDocumentPath22=
 OutputVariantName22=
-OutputEnabled22=0
+OutputEnabled22=1
 OutputDefault22=0
+Configuration22_Name1=General
+Configuration22_Item1=OpenExported=False|ForceFit=False|TemplateFilename=|BatchMode=0|FormWidth=875|FormHeight=665
+Configuration22_Name2=GroupOrder
+Configuration22_Item2=LibRef=True|Footprint=True|Value=True
+Configuration22_Name3=SortOrder
+Configuration22_Item3=Designator=Up|Comment=Up|Footprint=Up
+Configuration22_Name4=VisibleOrder
+Configuration22_Item4=Description=194|Designator=100|Footprint=100|Quantity=100|Value=100
 OutputType23=ComponentCrossReference
 OutputName23=Component Cross Reference Report
 OutputDocumentPath23=
@@ -167,6 +175,12 @@ OutputDocumentPath25=
 OutputVariantName25=
 OutputEnabled25=0
 OutputDefault25=0
+OutputType26=BOM_PartType
+OutputName26=Good BOM
+OutputDocumentPath26=
+OutputVariantName26=
+OutputEnabled26=1
+OutputDefault26=0
 [CAMtasticOutputs]
 OpenODBOutput=False
 OpenGerberOutput=False

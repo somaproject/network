@@ -178,6 +178,15 @@ To avoid writing the 4 checksum bytes, we simply subtract 1 from the BP when we 
 
 We've created CRCRST, CRCEN as registered signals for the CRCL register. Go pipelining! We're also using CRCEQUAL to check . This requires us adding two states to our fsm. 
 
+MAC address filtering -- 
+We have RXBCAST, RXMCAST, and RXUCAST, which says we want to receive broadcast, multicast, and unicast packets, respectively. MACADDR is an input...
+
+Broadcast has FF:FF:FF:FF:FF:FF as a destiation
+Multicast has 01:* as a destination
+
+
+
+--
 
 
 --------------------------------------------------------------------------
@@ -263,12 +272,14 @@ Note that this means you should (for a write) WRITE the PHYDO register with the 
 
 
 and then we have (maybe someday) settings related to MAC address filtering
+19 ALLF	    1 if we wish to receive all packets (default 1)
 1A RXBCAST  1 if we wish to receive broadcast packets
 1B RXMCAST  1 if we wish to receive multicast packets
 1C RXUCAST  1 if we wish to receive unicast packets
 1D MACADDR1 bottom 16 bits of MAC address
 1E MACADDR2 middle 16 bits of MAC address
 1F MACADDR3 top 16 bits of MAC address
+
 
 
 This interface is basically FSM-free. We sample the incoming clock and try and detect whether it's gone from low-to-high or not, as indicated by SCLKDELTA. Things are pretty heavily pipelined, if only to help deal with potential metastability issues. 

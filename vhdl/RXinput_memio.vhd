@@ -23,7 +23,12 @@ entity RXinput_memio is
            RXPHYERR : out std_logic;
 		     RXFIFOWERR : out std_logic;
 		     FIFOFULL : in std_logic; 
-           RXF : out std_logic);
+           RXF : out std_logic;
+			  MACADDR : in std_logic_vector(47 downto 0);
+			  RXBCAST : in std_logic;
+			  RXMCAST : in std_logic;
+			  RXUCAST : in std_logic;
+			  RXALLF : in std_logic);
 end RXinput_memio;
 
 architecture Behavioral of RXinput_memio is
@@ -52,7 +57,7 @@ architecture Behavioral of RXinput_memio is
    signal crcequal : std_logic := '0'; 
    signal fifofulll : std_logic := '0'; 
 	signal crcrst, crcen : std_logic := '0';
-
+	signal destok : std_logic := '0'; 
 
    -- memory:
    signal bp, macnt, lma, bpl, lbpout, lbpout2, lbpout3, lbpout4, lbpout5
@@ -75,13 +80,40 @@ architecture Behavioral of RXinput_memio is
 	           CO : out std_logic_vector(31 downto 0));
 	end component;
 
+	component RXinput_addrchk is
+	    Port ( CLK : in std_logic;
+		 		  RESET : in std_logic; 
+	           NEWF : in std_logic;
+	           NEXTB : in std_logic;
+	           DATA : in std_logic_vector(7 downto 0);
+	           MACADDR : in std_logic_vector(47 downto 0);
+	           RXBCAST : in std_logic;
+	           RXMCAST : in std_logic;
+	           RXUCAST : in std_logic;
+				  RXALLF : in std_logic; 
+	           DESTOK : out std_logic);
+	end component;
+
 begin
     CEOUT <= ce; 
 
     crccomb: crc_combinational port map (
 			CI => crcl,
 			CO => crc,
-			D => datal);	
+			D => datal);
+			
+	 addrchk: RXinput_addrchk port map (
+	 		CLK => CLK,
+			RESET => RESET,
+			NEWF => newf,
+			NEXTB => brdy,
+			DATA => data,
+			MACADDR => MACADDR,
+			RXBCAST => RXBCAST,
+			RXMCAST => RXMCAST,
+			RXUCAST => RXUCAST,
+			RXALLF => RXALLF, 
+			DESTOK => destok); 	
     
     clock: process(CLK, RESET) is
     begin
@@ -246,7 +278,8 @@ begin
 
     
 
-    fsm : process(CS, NS, ENDF, INVALID, CRCLl, endbyte, data, fifofulll) is
+    fsm : process(CS, NS, ENDF, INVALID, CRCLl, 
+	 					endbyte, data, fifofulll, destok) is
     begin
        case cs is
 	      when none => 
@@ -358,7 +391,7 @@ begin
 			 newf <= '0';
 			 wbp <= '0';
 			 if fifofulll = '0' and endbyte(2) = '0' and 
-			 	crcequal = '1' then --crcll = CRCCONST then 
+			 	crcequal = '1' and destok = '1' then 
 				ns <= wait3; 
 			 else 
 				 ns <= pktabort; 

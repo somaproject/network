@@ -23,7 +23,12 @@ entity RXinput is
            RXPHYERR : out std_logic;
 		 	  RXFIFOWERR : out std_logic;
 		     FIFOFULL : in std_logic; 
-           RXF : out std_logic);
+           RXF : out std_logic;
+			  MACADDR : in std_logic_vector(47 downto 0);
+			  RXBCAST : in std_logic;
+			  RXMCAST : in std_logic;
+			  RXUCAST : in std_logic;
+			  RXALLF : in std_logic);
 end  RXinput;
 
 architecture Behavioral of RXinput is
@@ -68,7 +73,12 @@ architecture Behavioral of RXinput is
 	           RXPHYERR : out std_logic;
 		 	 RXFIFOWERR : out std_logic;
 		 	 FIFOFULL : in std_logic; 
-	           RXF : out std_logic);
+	           RXF : out std_logic;
+			  MACADDR : in std_logic_vector(47 downto 0);
+			  RXBCAST : in std_logic;
+			  RXMCAST : in std_logic;
+			  RXUCAST : in std_logic;
+			  RXALLF : in std_logic);
 	end component;
 
 	component RXinput_fifo is
@@ -112,7 +122,12 @@ begin
 		 RXPHYERR => RXPHYERR,
 		 FIFOFULL => FIFOFULL,
 		 RXFIFOWERR => RXFIFOWERR,
-		 RXF => RXF); 
+		 RXF => RXF,
+		 MACADDR => MACADDR,
+		 RXBCAST => RXBCAST,
+		 RXMCAST => RXMCAST,
+		 RXUCAST => RXUCAST,
+		 RXALLF => RXALLF); 
 
     fifo: RXinput_fifo port map (
     		 RX_CLK => RX_CLK,

@@ -3,11 +3,15 @@
 vlib work
 
 # actual hardware
+vcom -93 -explicit MII.vhd
+vcom -93 -explicit PHYstatus.vhd
+vcom -93 -explicit control.vhd
 vcom -93 -explicit crc_combinational.vhd 
 vcom -93 -explicit TXoutput.vhd
 vcom -93 -explicit rxoutput_async_fifo.vhd
 vcom -93 -explicit RXoutput.vhd
 vcom -93 -explicit async_fifo.vhd
+vcom -93 -explicit rxinput_addrchk.vhd
 vcom -93 -explicit rxinput_fifocontrol.vhd
 vcom -93 -explicit RXinput_fifo.vhd
 vcom -93 -explicit RXinput_GMII.vhd

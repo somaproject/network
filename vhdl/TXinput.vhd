@@ -182,7 +182,7 @@ begin
    end process clock; 
 
 
-   fsm: process(cs, ns, den, din, newfint, cnt, fifofulll) is
+   fsm: process(cs, ns, den, din, dinint, newfint, cnt, fifofulll) is
    begin
    	 case cs is 
 	 	when none => 

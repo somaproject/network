@@ -41,7 +41,8 @@ architecture Behavioral of memory is
 -- MEMORY.VHD -- multiplexed memory controller
    signal wen, we : std_logic := '1';
    signal addrn, addr : std_logic_vector(16 downto 0) := (others => '0');
-   signal oe, oel, ts: std_logic := '0';
+   signal oe, oel: std_logic := '0';
+   signal ts: std_logic := '1';
    signal dn, dnl1, dnl2, dnout : std_logic_vector(31 downto 0) :=
    							(others => '0');
    signal qn, q : std_logic_vector(31 downto 0) := (others => '0');

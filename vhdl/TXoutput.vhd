@@ -275,7 +275,7 @@ begin
 			 ltxen <= '1';
 			 ns <= databyte0;   
 	   	 when databyte0 => 
-		 	 if bcntl > "0000000000001000" then
+		 	 if bcntl > "0000000000001001" then
 			    addrinc <= '1'; 
 			 else
 			    addrinc <= '0';

@@ -49,7 +49,8 @@ architecture Behavioral of network is
 
 	-- clock and timing signals
 	signal clk, clkio, clksl: std_logic := '0';
-	signal clk_to_bufg, clkio_to_bufg : std_logic := '0';
+	signal clk_to_bufg, clkio_to_bufg, clksl_to_bufg,
+			clksl_fb: std_logic := '0';
 
      signal clken1, clken2, clken3, clken4 : std_logic := '0';
 	
@@ -78,7 +79,7 @@ architecture Behavioral of network is
 	signal txfifofull, rxfifofull : std_logic := '0';
 
 	-- mac address filtering
-	signal rxmcast, rxbcast, rxucast : std_logic := '0';
+	signal rxmcast, rxbcast, rxucast, rxallf : std_logic := '0';
 	signal macaddr : std_logic_vector(47 downto 0) := (others => '0');
 
 	component memory is
@@ -111,21 +112,26 @@ architecture Behavioral of network is
 	end component;
 
 	component RXinput is
-	    Port ( RX_CLK : in std_logic;
-	           CLK : in std_logic;
-	           RESET : in std_logic;
-	           RX_DV : in std_logic;
-	           RX_ER : in std_logic;
-	           RXD : in std_logic_vector(7 downto 0);
-	           MD : out std_logic_vector(31 downto 0);
-	           MA : out std_logic_vector(15 downto 0);
-	           BPOUT : out std_logic_vector(15 downto 0);
-	           RXCRCERR : out std_logic;
-	           RXOFERR : out std_logic;
-	           RXPHYERR : out std_logic;
-			 RXFIFOWERR : out std_logic;
-			 FIFOFULL : in std_logic; 
-	           RXF : out std_logic);
+	    Port ( 	RX_CLK : in std_logic;
+	           	CLK : in std_logic;
+	           	RESET : in std_logic;
+	           	RX_DV : in std_logic;
+	           	RX_ER : in std_logic;
+	           	RXD : in std_logic_vector(7 downto 0);
+	           	MD : out std_logic_vector(31 downto 0);
+	           	MA : out std_logic_vector(15 downto 0);
+	           	BPOUT : out std_logic_vector(15 downto 0);
+	           	RXCRCERR : out std_logic;
+	           	RXOFERR : out std_logic;
+	           	RXPHYERR : out std_logic;
+			 		RXFIFOWERR : out std_logic;
+			 		FIFOFULL : in std_logic; 
+	           	RXF : out std_logic;
+			  		MACADDR : in std_logic_vector(47 downto 0);
+			  		RXBCAST : in std_logic;
+			  		RXMCAST : in std_logic;
+			  		RXUCAST : in std_logic;
+			  		RXALLF : in std_logic);
 	end component;
 
 	component RXoutput is
@@ -203,12 +209,14 @@ architecture Behavioral of network is
 					RXBCAST : out std_logic;
 					RXMCAST : out std_logic;
 					RXUCAST : out std_logic;
+					RXALLF : out std_logic; 
 					MACADDR : out std_logic_vector(47 downto 0);
 					MDIO : inout std_logic;
 					MDC : out std_logic);
 	end component;
 
 	component CLKDLL
+			generic (CLKDV_DIVIDE : in string := "4"); 
 	      port (CLKIN, CLKFB, RST : in STD_LOGIC;
 	      CLK0, CLK90, CLK180, CLK270, CLK2X, CLKDV, LOCKED : out std_logic);
 	end component;
@@ -236,11 +244,14 @@ begin
 			O => clkio); 
 
 
-    clk_dll : CLKDLL port map (
+    clk_dll : CLKDLL generic map (
+	 		CLKDV_DIVIDE => "4") 
+			port map (
     		CLKIN => CLKIN,
 			CLKFB => clk,
 			RST => RESET,
-			CLK0 => clk_to_bufg);
+			CLK0 => clk_to_bufg, 
+			CLKDV => clksl);
 
     clk_bufg : BUFG port map (
     		I => clk_to_bufg,
@@ -290,7 +301,12 @@ begin
 			  RXPHYERR => rxphyerr,
 			  FIFOFULL => rxfifofull,
 			  RXFIFOWERR => rxfifowerr,
-			  RXF => rxf);
+			  RXF => rxf,
+			  MACADDR => macaddr,
+			  RXBCAST => rxbcast,
+			  RXMCAST => rxmcast,
+			  RXUCAST => rxucast,
+			  RXALLF => rxallf);
    rx_output : rxoutput port map (
    			  CLK => clk,
 			  CLKEN => clken3,
@@ -367,6 +383,7 @@ begin
 				RXBCAST => rxbcast,
 				RXMCAST => rxmcast,
 				RXUCAST => rxucast,
+				RXALLF => rxallf, 
 				MACADDR => macaddr,
 				MDIO => MDIO,
 				MDC => MDC); 

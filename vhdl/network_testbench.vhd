@@ -39,30 +39,41 @@ ARCHITECTURE behavior OF network_testbench IS
    constant FILE_IO_RX : string := "testvectors/io.rx.3.dat";
     
  
-	COMPONENT network
-	PORT(
-		clkin : IN std_logic;
-		reset : IN std_logic;
-		rx_dv : IN std_logic;
-		rx_er : IN std_logic;
-		rxd : IN std_logic_vector(7 downto 0);
-		rx_clk : IN std_logic;
-		clkioin : IN std_logic;
-		nextframe : IN std_logic;
-		newframe : IN std_logic;
-		din : IN std_logic_vector(15 downto 0);
-		dinen : IN std_logic;    
-		md : INOUT std_logic_vector(31 downto 0);      
-		txd : OUT std_logic_vector(7 downto 0);
-		tx_en : OUT std_logic;
-		gtx_clk : OUT std_logic;
-		ma : OUT std_logic_vector(16 downto 0);
-		mclk : OUT std_logic;
-		mwe : OUT std_logic;
-		dout : OUT std_logic_vector(15 downto 0);
-		douten : OUT std_logic
-		);
-	END COMPONENT;
+	component network is
+	    Port ( CLKIN : in std_logic;
+	           RESET : in std_logic;
+	           RX_DV : in std_logic;
+	           RX_ER : in std_logic;
+	           RXD : in std_logic_vector(7 downto 0);
+	           RX_CLK : in std_logic;
+	           TXD : out std_logic_vector(7 downto 0);
+	           TX_EN : out std_logic;
+	           GTX_CLK : out std_logic;
+	           MA : out std_logic_vector(16 downto 0);
+	           MD : inout std_logic_vector(31 downto 0);
+	           MCLK : out std_logic;
+	           MWE : out std_logic;
+	           CLKIOIN : in std_logic;
+	           NEXTFRAME : in std_logic;
+	           DOUT : out std_logic_vector(15 downto 0);
+	           DOUTEN : out std_logic;
+	           NEWFRAME : in std_logic;
+	           DIN : in std_logic_vector(15 downto 0);
+	           DINEN : in std_logic;
+				  MDIO : inout std_logic;
+				  MDC : out std_logic;
+				  LEDACT : out std_logic;
+				  LEDTX : out std_logic;
+				  LEDRX : out std_logic;
+				  LED100 : out std_logic;
+				  LED1000 : out std_logic;
+				  LEDDPX : out std_logic; 
+				  PHYRESET : out std_logic;
+				  SCLK : in std_logic;
+				  SIN : in std_logic;
+				  SOUT : out std_logic; 
+				  SCS : in std_logic );
+	end component;
 
 	SIGNAL clkin :  std_logic := '0';
 	SIGNAL reset :  std_logic := '1';
@@ -84,8 +95,20 @@ ARCHITECTURE behavior OF network_testbench IS
 	SIGNAL newframe :  std_logic := '0';
 	SIGNAL din :  std_logic_vector(15 downto 0);
 	SIGNAL dinen :  std_logic := '0';
+	SIGNAL mdio : std_logic := '0';
+	SIGNAL mdc : std_logic;
+	SIGNAL ledact : std_logic; 
+	SIGNAL ledtx : std_logic; 
+	SIGNAL ledrx : std_logic; 
+	SIGNAL led100 : std_logic; 
+	SIGNAL led1000 : std_logic; 
+	SIGNAL leddpx : std_logic; 
+	SIGNAL phyreset : std_logic; 
+	SIGNAL sclk : std_logic;
+	signal sin : std_logic;
+	signal sout : std_logic;
+	signal scs : std_logic; 
 
-	
 ---------------------------------------
 -- support components
 ---------------------------------------
@@ -131,7 +154,20 @@ BEGIN
 		douten => douten,
 		newframe => newframe,
 		din => din,
-		dinen => dinen
+		dinen => dinen,
+		mdio => mdio,
+		mdc => mdc,
+		ledact => ledact,
+		ledtx => ledtx,
+		ledrx => ledrx,
+		led100 => led100,
+		led1000 => led1000,
+		leddpx => leddpx,
+		phyreset => phyreset,
+		sclk => sclk,
+		sin => sin,
+		sout => sout,
+		scs => scs
 	);
 
 ---------------------------------------
