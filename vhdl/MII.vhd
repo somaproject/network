@@ -74,7 +74,7 @@ begin
 
 		 mdcint <= mdccnt(5); 
 
-		 if cs = waiting or cs = firstinc then 
+		 if (cs = waiting or cs = firstinc) and mdccnt="100000" then 
 		 	dreg <= dreg(14 downto 0) & SIN;
 		 end if; 
 
@@ -104,7 +104,11 @@ begin
 	   when 33 => sout <= '1';
 	   when 34 => sout <= not RW;
 	   when 35 => sout <= RW;
-	   when 36 to 40 => sout <= '0';
+		when 36 => sout <= '0';
+		when 37 => sout <= '0';
+		when 38 => sout <= '0';
+		when 39 => sout <= '0';
+		when 40 => sout <= '0';
 	   when 41 => sout <= addr(4);
 	   when 42 => sout <= addr(3);
 	   when 43 => sout <= addr(2);

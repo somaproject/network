@@ -45,6 +45,7 @@ architecture Behavioral of PHYstatus is
 	signal start, done : std_logic := '0';
 
 	signal miisel : integer := 0; 
+	signal counter : std_logic_vector(15 downto 0) := (others => '0'); 
 
 	component MII is
     Port ( CLK : in std_logic;
@@ -92,7 +93,6 @@ begin
 				-- din and dout latches
 				if cs = phyl then
 					din <= PHYDIN;
-					PHYDOUT <= dout; 
 				end if; 
 
 				-- phy addr write set				
@@ -104,7 +104,6 @@ begin
 					end if;
 				end if; 
 
-				-- phy addr done
 				if PHYADDRR = '1' then
 					phyaddrstatus <= '0'; 
 				else
@@ -121,14 +120,9 @@ begin
 					PHYSTAT(31 downto 16) <= dout; 
 				end if;  
 
-				if cs = phyl then 
+				if done='1' and miisel = 2 then 
 					PHYDOUT <= dout;
 				end if; 
-
-
-
-		
-				
 
 			end if;
 		end if; 
@@ -137,7 +131,9 @@ begin
 
 	miiaddr <= "10001" when miisel = 0 else
 				  "01111" when miisel = 1 else
-				  addrl;
+	  			  addrl;
+
+
 	miirw <= '0' when miisel = 0 else
 				  '0' when miisel = 1 else
 				  rwl;

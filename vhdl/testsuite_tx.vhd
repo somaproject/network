@@ -21,16 +21,16 @@ architecture Behavioral of testsuite_tx is
 	signal ramout, ltxd : std_logic_vector(7 downto 0);
 	signal llltx, lltx, ltx : std_logic; 
 	constant framelen : integer := 224; 
-	constant maxcnt : integer := 1000; 
+	constant maxcnt : integer := 159000; 
 	component RAMB4_S8
 		generic (
-	       INIT_00 : bit_vector := X"00000000000000000000000000030201EEFFC0FFFFFFFFFFFFD5555555555555";
+	       INIT_00 : bit_vector := X"00000000000000000000000000030201EEFFC0E38B18E90700D5555555555555";
 	       INIT_01 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
 	       INIT_02 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
 	       INIT_03 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
 	       INIT_04 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
 	       INIT_05 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
-	       INIT_06 : bit_vector := X"008E8308A5000000000000000000000000000000000000000000000000000000";
+	       INIT_06 : bit_vector := X"001463D72E000000000000000000000000000000000000000000000000000000";
 	       INIT_07 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
 	       INIT_08 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
 	       INIT_09 : bit_vector := X"0000000000000000000000000000000000000000000000000000000000000000";
@@ -59,6 +59,7 @@ begin
 		 if rising_edge(CLK) then
 			 if counter = maxcnt then 
 				 llltx <= '1';
+				 counter <= 0; 
 			 else
 			 	 counter <= counter + 1; 
 			 end if;
@@ -73,7 +74,14 @@ begin
 			 ltx <= lltx; 
 			 TX_EN <= ltx;
 			 ltxd <= ramout; 
-			 TXD <= ltxd; 
+			 TXD(7) <= ltxd(0); 
+			 TXD(6) <= ltxd(1); 
+			 TXD(5) <= ltxd(2); 
+			 TXD(4) <= ltxd(3); 
+			 TXD(3) <= ltxd(4); 
+			 TXD(2) <= ltxd(5); 
+			 TXD(1) <= ltxd(6); 
+			 TXD(0) <= ltxd(7); 
 			
 		 end if; 
    end process; 

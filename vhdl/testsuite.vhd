@@ -17,6 +17,7 @@ entity testsuite is
            RX_CLK : in std_logic;
            TXD : out std_logic_vector(7 downto 0);
            TX_EN : out std_logic;
+			  TX_ER : out std_logic; 
            GTX_CLK : out std_logic;
            MA : out std_logic_vector(16 downto 0);
            MD : inout std_logic_vector(31 downto 0);
@@ -43,7 +44,13 @@ entity testsuite is
 			  SCLK : in std_logic;
 			  SIN : in std_logic;
 			  SOUT : out std_logic; 
-			  SCS : in std_logic );
+			  SCS : in std_logic;
+			  MACADDR : in std_logic_vector(7 downto 0);
+			  MACDATA : out std_logic_vector(15 downto 0);
+			  IFCLK : in std_logic;
+			  NEXTF : in std_logic;
+			  TESTOUT : out std_logic  		  
+			   );
 end testsuite;
 
 
@@ -51,8 +58,9 @@ architecture Behavioral of testsuite is
 
 	-- clock and timing signals
 	signal clk, clkio, clksl, clkrx: std_logic := '0';
-	signal clk_to_bufg, clkio_to_bufg, clksl_to_bufg,
-			clksl_fb, clkrx_to_bufg: std_logic := '0';
+	signal clk_to_bufg, clkio_to_bufg, clksl_to_bufg, clksl_in,
+			clksl_fb, clkrx_to_bufg, rx_clk_int, ifclk_int,
+			clksl_to_dll: std_logic := '0';
 
      signal clken1, clken2, clken3, clken4 : std_logic := '0';
 	
@@ -142,6 +150,20 @@ architecture Behavioral of testsuite is
 	      port (I : in STD_LOGIC; O : out std_logic);
 	end component;
 
+
+	component testsuite_rx is
+	    Port ( CLK : in std_logic;
+		 		  RX_CLK : in std_logic;
+				  RX_DV : in std_logic;
+				  RXD : in std_logic_vector(7 downto 0) ;  
+				  RESET : in std_logic;  
+	           MACADDR : in std_logic_vector(7 downto 0);
+	           MACDATA : out std_logic_vector(15 downto 0);
+				  NEXTF : in std_logic;
+				  TESTOUT : out std_logic);
+	end component;
+
+
 	component testsuite_memory is
     Port ( CLK : in std_logic;
            MD : out std_logic_vector(31 downto 0);
@@ -159,7 +181,7 @@ architecture Behavioral of testsuite is
 	           TXD : out std_logic_vector(7 downto 0));
 	end component;
 begin
-
+	 TX_ER <= '0'; 
 	 MOE <= '1'; 
 
 	 -- random LED flashing:
@@ -177,6 +199,19 @@ begin
 			LEDPOWER <= t3;
 		end if;
 	 end process flash; 
+
+
+	--testrx : testsuite_rx port map (
+	--	CLK => ifclk_int,
+	--	RESET => RESET,
+	--	MACDATA => MACDATA,
+	--	MACADDR => MACADDR,
+	--	RX_CLK => rx_clk_int,
+	--	RX_DV => RX_DV,
+	--	RXD => RXD,
+	--	NEXTF => NEXTF,
+	--	TESTOUT => open); 
+
 
     memcontroller: memory port map (
     		  CLK => clk,
@@ -207,26 +242,32 @@ begin
 
 	 -- ledrx
 
-    clk_dll : CLKDLL generic map (
-	 		clkdv_divide => 8.0)
+    
+	 clk_DLL : CLKDLL generic map (
+	 		CLKDV_DIVIDE => 8.0) 
 			port map (
-    		CLKIN => CLKIN,
-			CLKFB => clk,
+			CLKIN => CLKIN,
 			RST => RESET,
-			CLK0 => clk_to_bufg, 
+			CLKFB => clk, 
 			CLKDV => clksl_to_bufg,
-			CLK270 => MCLK);
+			CLK0 => clk_to_bufg); 
+	clk_bufg : BUFG port map (
+			I => clk_to_bufg,
+			O => clk) ; 
 
-    clk_bufg : BUFG port map (
-    		I => clk_to_bufg,
-			O => clk); 
-    clk_slowbufg : BUFG port map (
-    		I => clksl_to_bufg,
-			O => clksl); 
- 
+	clksl_bufg : BUFG port map (
+		I => clksl_to_bufg,
+		O => clksl); 
 
-
-
+	rx_clk_dll : BUFGDLL  port map (
+			I => RX_CLK,
+			O => rx_clk_int); 
+	--rx_clk_int <= RX_CLK; 
+	--if_clk_dll : BUFGDLL port map (
+	--		I => IFCLK,
+	--		O => ifclk_int); 
+	--ifclk_int <= IFCLK; 
+	MCLK <= clk; 
 
 	mac_control: control port map (
 				CLK => clksl,
@@ -293,20 +334,25 @@ begin
 	 			RESET => RESET,
 	 			TX_EN => tx_en_out,
 	 			TXD => TXD);
- 
-	 
-		TX_EN <= tx_en_out; 
+	testout <= '0'; 
+ 	TX_EN <= tx_en_out; 
 		GTX_CLK <= clk; 
-	process(RX_CLK) is
+	process(rx_clk_int) is
 	begin 
-	   if rising_edge(RX_CLK) then
-			if RX_DV = '1' or RXD = "00000000" or RX_ER = '1' then
+	   if rising_edge(rx_clk_int) then
+			if RX_DV = '1' or RXD = "00000000" or MACADDR = "0000000" or
+				NEXTF = '1' or  RX_ER = '1' or IFCLK = '0'  then
 				LEDRX <= '1';
 			else
 				LEDRX <= '0';
 			end if;
+			
 		end if;
 	end process; 			 
+	MACDATA <= (others => '0'); 
+
+
+
 
 
 end Behavioral;

@@ -52,6 +52,9 @@ SOURCE testsuite.vhd
 SOURCE testsuite_memory.vhd
 STIMULUS testsuite_testbench.vhd
 SOURCE testsuite_tx.vhd
+STIMULUS phystatus_test.tbw
+SOURCE testsuite_rx.vhd
+STIMULUS testsuite_rx_test.tbw
 DEPASSOC rxinput_memio RXinput_memio.ucf
 DEPASSOC network network.ucf
 DEPASSOC rxinput RXinput.ucf
@@ -76,22 +79,22 @@ p_SimUseCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhd
 p_xstEquivRegRemoval=xstvhd, spartan2e, Schematic.t_synthesize, 1067741688, False
 p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1065491837, Yes
 xilxBitgCfg_GenOpt_ASCIIFile=xstvhd, spartan2e, Implementation.t_bitFile, 1067537310, True
-xilxMapAllowLogicOpt=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1067391367, False
-xilxMapCoverMode=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064958980, Balanced
-xilxMapPackfactor=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064958980, 100
-xilxMapReportDetail=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1067550771, True
-xilxMapTimingDrivenPacking=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1067391853, True
+xilxMapAllowLogicOpt=xstvhd, spartan2e, VHDL.t_map, 1068580303, True
+xilxMapCoverMode=xstvhd, spartan2e, VHDL.t_map, 1064958980, Balanced
+xilxMapPackfactor=xstvhd, spartan2e, VHDL.t_map, 1064958980, 100
+xilxMapReportDetail=xstvhd, spartan2e, VHDL.t_map, 1067550771, True
+xilxMapTimingDrivenPacking=xstvhd, spartan2e, VHDL.t_map, 1068583069, False
 xilxNgdbldNTType=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064958659, On
 xilxNgdbldPresHierarchy=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1065013129, False
-xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064934766, High
-xilxPARextraEffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064958980, None
+xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_par, 1064934766, High
+xilxPARextraEffortLevel=xstvhd, spartan2e, VHDL.t_par, 1064958980, None
 xilxSynthKeepHierarchy=xstvhd, spartan2e, Schematic.t_synthesize, 1065203996, Yes
 _SynthFsmEncode=xstvhd, spartan2e, Schematic.t_synthesize, 1065530004, Auto
 _SynthOptEffort=xstvhd, spartan2e, Schematic.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, True
 [STATUS-ALL]
-testsuite.ngcFile=WARNINGS,1068267020
-testsuite.ngdFile=WARNINGS,1068267063
+testsuite.ngcFile=WARNINGS,1068584870
+testsuite.ngdFile=WARNINGS,1068584914
 [STRATEGY-LIST]
 Normal=True

@@ -84,3 +84,10 @@ Ram apears to work... we'll see...
   Well, now the RAM doesn't appear to be working, but fuck it, I don't care at the moment, I want to know what's wrong with the PHY. All the options point to us trying to develop a serial interface, even though I _really really_ don't want to screw with the GPIF stuff at the moment. Oh well, maybe I can make an easy hack interface or something. 
   Punting ram for a while, setting OE\ high.  
 
+11 Nov 2003
+Okay, after a long hard battle, the PHY works. Turns out that, surprise, you need to set the Isolate bit to off! Who would have thought! Now we're struggling with reading actual frames.
+
+testsuite_rx : a simple system to read in a single <256-byte frame. The system reads in a frame and then sits on it until NEXTF is toggled high, at which point the address coutner is reset. Uses dual port block select ram to store the data. Outputs it on a simple parallel bus. 
+ 
+There are really strange issues when we try and bind the IFCLK Input to a BUFG. I have no freaking idea what's causing this. 
+

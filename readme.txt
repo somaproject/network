@@ -415,3 +415,17 @@ takes a new frame format
 randomize macs with addresses via
 perl -e '@a = <>; print splice @a, rand @a, 1 while @a' file1 file2 > file3; 
 
+Note that, on PCB, the symbol for C18 is reversed, so the screened component outline is reversed. 
+
+Pullup resistors between magnetics and PHY are correct size. 
+
+I just don't understand what's left to be wrong. Going to try tying the JTAG pins to the TRST 2k-ground pulldown. 
+
+IT WORKS! IT WORKS IT WORKS !!!!!!!!!!!!!!!!
+
+You need to clear the "isolate" bit in PHY register zero. 
+
+
+
+Attempts to debug why we can't read the actual packets...
+

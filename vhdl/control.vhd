@@ -57,6 +57,8 @@ architecture Behavioral of control is
    		std_logic := '0';
    signal bitcnt : std_logic_vector(5 downto 0) := (others => '0');
    signal scsl, scsll, scslll : std_logic := '0';
+	signal newcmd : std_logic := '0';
+
 
    -- data signals
    signal sinl, sinll, sinlll : std_logic := '0'; 
@@ -121,7 +123,7 @@ begin
 
 
 	PHY_status : PHYstatus port map (
-					CLK => CLK,
+					CLK => CLKSL,	 -- changed from CLK!!
 					PHYDIN => phydi(15 downto 0),
 					PHYDOUT => phydo(15 downto 0),
 					PHYADDRSTATUS => phyaddr(31),
@@ -192,49 +194,49 @@ begin
 	    
 
 		    -- resetting the counters
-			if DIN(0) = '1' and sclkdeltal = '1' and
+			if DIN(0) = '1' and newcmd = '1' and
 		    	  addr(4 downto 0) = "10000" then
 					txf_rst <= '1'; 
 		    else
 		    	  txf_rst <= '0';
 		    end if;
 
-		    if DIN(1) = '1' and sclkdeltal = '1' and
+		    if DIN(1) = '1' and newcmd = '1' and
 		    	  addr(4 downto 0) = "10000" then
 			  rxf_rst <= '1'; 
 		    else
 		    	  rxf_rst <= '0';
 		    end if;
 
-		    if DIN(2) = '1' and sclkdeltal = '1' and
+		    if DIN(2) = '1' and newcmd = '1' and
 		    	  addr(4 downto 0) = "10000" then
 			  txfifowerr_rst <= '1'; 
 		    else
 		    	  txfifowerr_rst <= '0';
 		    end if;
 
-		    if DIN(3) = '1' and sclkdeltal = '1' and
+		    if DIN(3) = '1' and newcmd = '1' and
 		    	  addr(4 downto 0) = "10000" then
 			  rxfifowerr_rst <= '1'; 
 		    else
 		    	  rxfifowerr_rst <= '0';
 		    end if;
 
-		    if DIN(4) = '1' and sclkdeltal = '1' and
+		    if DIN(4) = '1' and newcmd = '1' and
 		    	  addr(4 downto 0) = "10000" then
 			     rxphyerr_rst <= '1'; 
 		    else
 		    	  rxphyerr_rst <= '0';
 		    end if;
 
-		    if DIN(5) = '1' and sclkdeltal = '1' and
+		    if DIN(5) = '1' and newcmd = '1' and
 		    	  	addr(4 downto 0) = "10000" then
 			  		rxoferr_rst <= '1'; 
 		    else
 		    	  rxoferr_rst <= '0';
 		    end if;
 
-		    if DIN(6) = '1' and sclkdeltal = '1' and
+		    if DIN(6) = '1' and newcmd = '1' and
 		    	  	addr(4 downto 0) = "10000" then
 			  		rxcrcerr_rst <= '1'; 
 		    else
@@ -244,12 +246,12 @@ begin
 
 			 -- phy-related registers
 				if addr(4 downto 0) = "01000" and rw = '1' and
-					sclkdeltal = '1' then 
+					newcmd = '1' then 
 			  		phyaddr(30 downto 0) <= din(30 downto 0);
 		    	end if; 
 
 				if addr(4 downto 0) = "01001" and rw = '1' and
-					sclkdeltal = '1' then 
+					newcmd = '1' then 
 			  		phydi(31 downto 0) <= din(31 downto 0);
 		    	end if;
 			 
@@ -267,39 +269,39 @@ begin
 
 		    -- mac packet types
 		    if addr(4 downto 0) = "11010" and rw = '1' and
-		    	  sclkdeltal = '1' then 
+		    	  newcmd = '1' then 
 			  lrxbcast <= din(0);
 		    end if; 
 		    if addr(4 downto 0) = "11011" and rw = '1' and
-		    	  sclkdeltal = '1' then 
+		    	  newcmd = '1' then 
 			  lrxmcast <= din(0);
 		    end if; 
 		    if addr(4 downto 0) = "11100" and rw = '1' and
-		    	  sclkdeltal = '1' then 
+		    	  newcmd = '1' then 
 			  lrxucast <= din(0);
 		    end if; 
 		    if addr(4 downto 0) = "11001" and rw = '1' and
-		    	  sclkdeltal = '1' then 
+		    	  newcmd = '1' then 
 			  		lrxallf <= din(0);
 		    end if; 
 
 		    -- mac address parts
 		    if addr(4 downto 0) = "11101" and rw = '1' and
-		    	  sclkdeltal = '1' then 
+		    	  newcmd = '1' then 
 			  		lmacaddr(15 downto 0) <= din(15 downto 0);
 		    end if; 
 		    if addr(4 downto 0) = "11110" and rw = '1' and
-		    	  sclkdeltal = '1' then 
+		    	  newcmd = '1' then 
 			  	lmacaddr(31 downto 16) <= din(15 downto 0);
 		    end if; 
 		    if addr(4 downto 0) = "11111" and rw = '1' and
-		    	  sclkdeltal = '1' then 
+		    	  newcmd = '1' then 
 			  lmacaddr(47 downto 32) <= din(15 downto 0);
 		    end if; 
 
 		    -- phy reset
 				if din(0) = '1' and addr(4 downto 0) = "00001" and 
-	   			rw = '1' and sclkdeltal = '1' then
+	   			rw = '1' and newcmd = '1' then
 					phyrstcnt <= 2000;
 		    	else
 		    		if phyrstcnt >0 then
@@ -355,10 +357,12 @@ begin
    rw <= addr(7); 
    
 	phyaddrw <=  '1' when addr(4 downto 0) = "01000" and rw = '1' and
-						sclkdeltal = '1' else '0';
+						newcmd = '1' else '0';
 
 	phyaddrr <=  '1' when addr(4 downto 0) = "01000" and rw = '0' and
-						sclkdeltal = '1' else '0';
+						newcmd = '1' else '0';
+	newcmd <= '1' when sclkdeltal = '1' and bitcnt = 40 else
+				 '0'; 
 
 
 

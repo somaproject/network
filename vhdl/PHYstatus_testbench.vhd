@@ -34,17 +34,17 @@ ARCHITECTURE behavior OF phystatus_PHYstatus_testbench_vhd_tb IS
 	END COMPONENT;
 
 	SIGNAL CLK :  std_logic := '0';
-	SIGNAL PHYDIN :  std_logic_vector(15 downto 0);
+	SIGNAL PHYDIN :  std_logic_vector(15 downto 0) ;
 	SIGNAL PHYDOUT :  std_logic_vector(15 downto 0);
 	SIGNAL PHYADDRSTATUS :  std_logic;
-	SIGNAL PHYADDR :  std_logic_vector(5 downto 0);
-	SIGNAL PHYADDRR :  std_logic;
-	SIGNAL PHYADDRW :  std_logic;
+	SIGNAL PHYADDR :  std_logic_vector(5 downto 0) := (others => '0');
+	SIGNAL PHYADDRR :  std_logic := '0';
+	SIGNAL PHYADDRW :  std_logic := '0';
 	SIGNAL PHYSTAT :  std_logic_vector(31 downto 0);
 	SIGNAL RESET :  std_logic := '1';
 	SIGNAL MDIO :  std_logic;
 	SIGNAL MDC :  std_logic;
-
+	SIGNAL cnt : integer := 0;
 BEGIN
 
 	uut: phystatus PORT MAP(
@@ -71,5 +71,41 @@ BEGIN
       wait; -- will wait forever
    END PROCESS;
 -- *** End Test Bench - User Defined Section ***
+	
+	process(clk) is
+	  
+	begin
+	   if rising_edge(clk) then
+			cnt <= cnt + 1 ;
+			
+			if cnt = 70100 then
+				phyaddrw <= '1';
+			elsif cnt = 70101 then
+				phyaddrw <= '0';
+			end if;
+
+			if cnt = 100000 then
+				phyaddrr <= '1';
+			elsif cnt = 100001 then
+				phyaddrr <= '0';
+			end if;
+
+			if cnt = 32000 then
+				phyaddrw <= '1';
+				phyaddr <= "010011";
+			elsif cnt = 32001 then
+				phyaddrw <= '0';
+			end if;
+
+			if cnt = 60000 then
+				phyaddrr <= '1';
+			elsif cnt = 60001 then
+				phyaddrr <= '0';
+			end if;
+
+
+		end if;
+	end process; 
+
 
 END;

@@ -169,6 +169,8 @@ BEGIN
    END PROCESS;
 -- *** End Test Bench - User Defined Section ***
 
+
+	MDIO <= 'L'; 
 	serialtest: process(CLKIN) is
 	begin
 		if rising_edge(CLKIN) then 
