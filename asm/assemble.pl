@@ -8,7 +8,9 @@
 #       do forward codejumps. 
 
 # Register definitions
-%registers = ('r0', 0x0, 'r1', 0x1,'r2', 0x2); 
+%registers = ('r0', 0, 'r1', 1,'r2', 2, 'r3', 3, 
+	      'r4', 4, 'r5', 5, 'r6', 6, 'r7', 7,
+	      'r8', 8, 'r9', 9, 'r10', 10, 'r11', 11); 
 $registers{'rzero'} = 0x20; 
 
 # our program counter
@@ -16,10 +18,8 @@ my $pc = 0;
 
 #actually open the file
 ($filename) = @ARGV;
-print "Opening source from $filename...\n"; 
 open SOURCE, $filename || die "Couldn't open file $filename \n";
 
-print "|       |       |       |       |\n";
 while(<SOURCE>) {
 
     if(/(\w+)\W*(\w*)\W*(\w*)\W*(\w*)/i) {
@@ -45,7 +45,14 @@ while(<SOURCE>) {
 
 
 	chomp; 
-	print "$iw | $_";
+
+	# convert to hex
+	#print "$iw\n";
+	my $decimal = pack('B32', $iw);
+
+
+	my $iwhex =  unpack('H8', $decimal);
+	print "$iwhex | $_";
 	print "\n";
     }
 }
@@ -112,6 +119,7 @@ sub or_op {
 sub addc {
     my ($val, $Rb, $Rc) = @_;
     my $iw; 
+    #print "val: $val  Rb: $Rb, Rc: $Rc\n";
     $val = eval($val); 
     $iw .= "0001"; #opcode
     $iw .= sprintf("%.6b", $registers{$Rc});
@@ -177,7 +185,7 @@ sub orc {
 
 sub mov {
     # syntactic sugar
-    my ( $Rb, $Ra) = @_;
+    my ( $Ra, $Rb) = @_;
     add($registers{$Rb}, $registers{'rzero'}, $registers{$Ra});
 }
 
@@ -187,8 +195,8 @@ sub nop {
 }
 sub movc {
     #syntactic sugar
-    my ($Rc, $val) = @_;
-    addc($Rc, 'rzero', $val);
+    my  ($val, $Rc) = @_;
+    addc($val, 'rzero', $Rc);
 }
 
 
