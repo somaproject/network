@@ -155,6 +155,9 @@ int main (int argc, char **argv) {
 
   if (crcerr) {
     cout << " 1";
+    int j=1+(int) ((float)(crcable_len+4)*rand()/(RAND_MAX+1.0));
+    data[j] = ~data[j]; 
+
   } else {
     cout << " 0";
   }
