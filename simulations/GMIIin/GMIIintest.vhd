@@ -35,6 +35,8 @@ ARCHITECTURE behavior OF GMIIintest IS
 		);
 	END COMPONENT;
 
+
+
 	SIGNAL CLK :  std_logic := '0';
 	SIGNAL RX_CLK :  std_logic := '0';
 	SIGNAL RX_ER :  std_logic := '0';
@@ -49,7 +51,7 @@ ARCHITECTURE behavior OF GMIIintest IS
 
 	-- synchronization signals 
 	signal instate, outstate : integer := 0;
-
+	signal simdone  : std_logic := '0'; 
 
 BEGIN
 
@@ -70,7 +72,7 @@ BEGIN
 	CLK <= not CLK after 4 ns; 
 	RX_CLK <= not RX_CLK after 3.98 ns;  -- slightly faster
 
-	
+
 	-- input data:
 
 	dataout: process is
@@ -191,10 +193,6 @@ BEGIN
 		wait until outstate = 4; 
 		writeFIFO(400, X"7B");  
 
-
-		--assert false
-			--report "End of simulation"
-			--severity failure;
 
 		wait; 
 	end process datain; 

@@ -34,5 +34,7 @@ SOURCE ..\..\vhdl\PHYstatus.vhd
 SOURCE ..\..\vhdl\FIFOcheck.vhd
 STIMULUS networktest.vhd
 SOURCE ..\components\NoBLram\NoBLSRAM.vhd
+[STATUS-ALL]
+network.twrFile=WARNINGS,1100670247
 [STRATEGY-LIST]
 Normal=True
