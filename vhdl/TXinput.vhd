@@ -88,7 +88,7 @@ begin
    end process clock_external; 
 
    srl16_enable: srl16 port map (
-   			D => enable,
+   		D => enable,
 			CLK => clk,
 			A0 => '0',
 			A1 => '0',
@@ -126,7 +126,6 @@ begin
 		MA <= (others => '0');
 	else
 		if rising_edge(CLK) then
-			
 
 			cs <= ns;
 
@@ -269,7 +268,6 @@ begin
 					ns <= high_w;
 				end if;
 			end if; 
-		
 	 	when high => 
 			dlen <= '0';
 			dhen <= '1';
@@ -362,7 +360,11 @@ begin
 			cpen <= '0';
 			DONE <= '1';
 			TXFIFOWERR <= '0';
-			ns <= none;
+			if newfinit = '1' then
+				ns <= pktdone3
+			else
+				ns <= none; 
+			end if; 
 	 	when others => 
 			dlen <= '0';
 			dhen <= '0';

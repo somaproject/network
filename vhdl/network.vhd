@@ -76,6 +76,7 @@ architecture Behavioral of network is
 			(others => '0');
 	signal txfbbp, rxfbbp : std_logic_vector(15 downto 0) :=
 			(others => '0');
+	signal txinmwen : std_logic := '0'; 
 
 	-- fifo control
 	signal txfifofull, rxfifofull : std_logic := '0';
@@ -83,6 +84,14 @@ architecture Behavioral of network is
 	-- mac address filtering
 	signal rxmcast, rxbcast, rxucast, rxallf : std_logic := '0';
 	signal macaddr : std_logic_vector(47 downto 0) := (others => '0');
+
+	-- debugging
+	signal debugaddr : std_logic_vector(16 downto 0) := (others => '0');
+	signal debugdata : std_logic_vector(31 downto 0) := (others => '0'); 
+	signal debugwaddr : std_logic_vector(16 downto 0) := (others => '0');
+	signal debugwdata : std_logic_vector(31 downto 0) := (others => '0'); 
+	
+	 
 
 	component memory is
 	    Port ( CLK : in std_logic;
@@ -213,7 +222,13 @@ architecture Behavioral of network is
 					RXALLF : out std_logic; 
 					MACADDR : out std_logic_vector(47 downto 0);
 					MDIO : inout std_logic;
-					MDC : out std_logic);
+					MDC : out std_logic;
+					MDEBUGADDR : out std_logic_vector(16 downto 0);
+					MDEBUGDATA : in std_logic_vector(31 downto 0);
+					RXBP : in std_logic_vector(15 downto 0); 
+					TXBP : in std_logic_vector(15 downto 0);
+					RXFBBP : in std_logic_vector(15 downto 0);
+					TXFBBP : in std_logic_vector(15 downto 0));
 	end component;
 
 	component clockenable is
@@ -234,6 +249,13 @@ architecture Behavioral of network is
 	           RXOFERRSR : out std_logic;
 	           RXCRCERR : in std_logic;
 	           RXCRCERRSR : out std_logic);
+	end component;	
+
+	component memdebug is
+    Port ( CLK : in std_logic;
+           CLKEN : in std_logic; 
+			  DOUT : out std_logic_vector(31 downto 0); 
+			  ADDR : out std_logic_vector(16 downto 0));
 	end component;
 
 
@@ -255,6 +277,15 @@ begin
     addr2ext <= ('0' & addr2);
     addr3ext <= ('1' & addr3);
     addr4ext <= ('0' & addr4);
+
+
+	 -- debug instantiation
+	 memwdebug : memdebug port map (
+	 		CLK => CLK, 
+			CLKEN => CLKEN1,
+			DOUT => debugwdata,
+			ADDR => debugwaddr); 
+
 
     clkio_dll : CLKDLL port map (
     		CLKIN => CLKIOIN,
@@ -294,7 +325,7 @@ begin
     		I => clkrx_to_bufg,
 			O => clkrx); 
 
-	 U1: OBUF port map (I => clk, O => MCLK);
+	 U1: OBUF port map (I => clk90, O => MCLK);
  	 U2: OBUF port map (I => clk180, O => GTX_CLK);
 	 
 	 slowclock: clockenable port map (
@@ -323,19 +354,19 @@ begin
 			  DQEXT => MD,
 			  WEEXT => MWE,
 			  ADDREXT => MA,
-			  ADDR1 => addr1ext,
+			  ADDR1 => debugaddr, ---addr1ext,
 			  ADDR2 => addr2ext,
 			  ADDR3 => addr3ext,
 			  ADDR4 => addr4ext,
-			  D1 => d1,
+			  D1 => X"00000000", --d1,
 			  D2 => d2, 
-			  D3 => d3,
+			  D3 => X"00000000", --d3,
 			  D4 => d4,
-			  Q1 => q1,
+			  Q1 => debugdata, --q1,
 			  Q2 => q2,
 			  Q3 => q3,
-			  Q4 => q4,
-			  WE1 => '1', --'1',
+			  Q4 => open, --q4,
+			  WE1 => '0', --'1', 
 			  WE2 => '0',
 			  WE3 => '0',
 			  WE4 =>  '1',
@@ -395,7 +426,7 @@ begin
 			  RESET => reset, 
 			  DIN => DIN,
 			  NEWFRAME => NEWFRAME,
-			  MWEN => txi_mwen,
+			  MWEN => txinmwen,
 			  MA => addr4,
 			  MD => d4,
 			  BPOUT => txbp,
@@ -443,7 +474,13 @@ begin
 				RXALLF => rxallf, 
 				MACADDR => macaddr,
 				MDIO => MDIO,
-				MDC => MDC); 
+				MDC => MDC,
+				MDEBUGADDR => debugaddr,
+				MDEBUGDATA => debugdata,
+				RXBP => rxbp,
+				TXBP => txbp,
+				RXFBBP => rxfbbp,
+				TXFBBP => txfbbp); 
 
 -- debugging
 	process(clk) is

@@ -36,7 +36,14 @@ entity control is
 				RXALLF : out std_logic; 
 				MACADDR : out std_logic_vector(47 downto 0);
 				MDIO : inout std_logic;
-				MDC : out std_logic);
+				MDC : out std_logic;
+				MDEBUGADDR : out std_logic_vector(16 downto 0);
+				MDEBUGDATA : in std_logic_vector(31 downto 0);
+				RXBP : in std_logic_vector(15 downto 0);
+				RXFBBP : in std_logic_vector(15 downto 0);
+				TXBP : in std_logic_vector(15 downto 0);
+				TXFBBP : in std_logic_vector(15 downto 0));
+
 end control;
 
 architecture Behavioral of control is
@@ -47,8 +54,6 @@ architecture Behavioral of control is
 -- 
 -- now keep in mind that we have EVERYTHING IN THIS MODULE gated
 -- to the /8 clock enable-- 
---
- 
 
    -- clock-related
    signal sclkl, sclkll, lsclkdelta, sclkdelta, sclkdeltal,
@@ -107,6 +112,13 @@ architecture Behavioral of control is
 	signal ledtx_cnt : std_logic_vector(11 downto 0) := (others => '0');
 	signal rxf_cross, ledrx_rst : std_logic := '0';
 	signal ledrx_cnt : std_logic_vector(11 downto 0) := (others => '0');
+
+
+	-- debug signals
+	signal debugaddr : std_logic_vector(16 downto 0) := (others => '0');
+	signal debugdata : std_logic_vector(31 downto 0) := (others => '0'); 
+	signal rxbpl, txbpl, rxfbbpl, txfbbpl: std_logic_vector(15 downto 0) 
+			:= (others => '0'); 
 
 	component PHYstatus is
 	    Port ( CLK : in std_logic;
@@ -299,20 +311,30 @@ begin
 				    if addr(4 downto 0) = "11111" and rw = '1' and
 				    	  newcmd = '1' then 
 					  lmacaddr(47 downto 32) <= din(15 downto 0);
-				    end if; 
+				    end if;
+					 
+					 -- debugging
+					 if addr(4 downto 0) = "00100" and rw = '1' and
+					 		newcmd = '1' then
+								debugaddr <= din(16 downto 0); 
+					 end if; 
+
+					 MDEBUGADDR <= debugaddr; 
+					 debugdata <= MDEBUGDATA; 
+					  
 
 				    -- phy reset
-						if din(0) = '1' and addr(4 downto 0) = "00001" and 
-			   			rw = '1' and newcmd = '1' then
-							phyrstcnt <= 2000;
-				    	else
-				    		if phyrstcnt >0 then
-				    			phyrstcnt <= phyrstcnt - 1;
-						    	PHYRESET <= '0';  
-							else
-								PHYRESET <= '1';
-							end if; 	
-						end if; 
+					if din(0) = '1' and addr(4 downto 0) = "00001" and 
+		   			rw = '1' and newcmd = '1' then
+						phyrstcnt <= 2000;
+			    	else
+			    		if phyrstcnt >0 then
+			    			phyrstcnt <= phyrstcnt - 1;
+					    	PHYRESET <= '0';  
+						else
+							PHYRESET <= '1';
+						end if; 	
+					end if; 
 
 
 					-- LEDS
@@ -350,6 +372,13 @@ begin
 					else
 						LEDRX <= '1';
 					end if;
+
+					-- pointers
+					rxbpl <= RXBP;
+					txbpl <= TXBP;
+					rxfbbpl <= RXFBBP; 
+					txfbbpl <= TXFBBP; 
+
 			end if;   					  	
 	  end if; 
 	end if; 
@@ -379,12 +408,17 @@ begin
    -- address decoding!!
    addr_mux : process(addr, rxcrcerr_cntl, rxoferr_cntl, 
    				  rxphyerr_cntl, txfifowerr_cntl, lmacaddr,
-				  rxfifowerr_cntl, txf_cntl, rxf_cntl, phystat, phyaddr, phydi, phydo) is
+				  rxfifowerr_cntl, txf_cntl, rxf_cntl, phystat, phyaddr, phydi, phydo,
+				  debugaddr, debugdata, lrxallf, lrxbcast, lrxmcast, lrxucast) is
    begin
 		case addr(5 downto 0) is
 			when "000000" => doutmux <= X"01234567"; 
 	 		when "000010" => doutmux <= phystat;
 			when "000011" => doutmux <= X"89ABCDEF";
+			when "000100" => doutmux <= X"000" & "000" & debugaddr; 
+			when "000101" => doutmux <= debugdata;
+			when "000110" => doutmux <= rxbpl  & rxfbbpl;
+			when "000111" => doutmux <= txbpl & txfbbpl; 
 			when "001000" => doutmux <= phyaddr; 
 			when "001001" => doutmux <= phydi;
 			when "001010" => doutmux <= phydo; 

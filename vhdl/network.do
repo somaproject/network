@@ -21,7 +21,9 @@ vcom -93 -explicit RXinput.vhd
 vcom -93 -explicit memory.vhd
 vcom -93 -explicit FIFOcheck.vhd
 vcom -93 -explicit TXinput.vhd
+vcom -93 -explicit memdebug.vhd
 vcom -93 -explicit network.vhd
+
 
 
 -- simulation entities

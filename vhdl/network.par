@@ -1,10 +1,10 @@
 Release 6.1.02i Par G.25a
 Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
 
-CLAUDE::  Mon Dec 08 11:41:34 2003
+CLAUDE::  Thu Dec 11 15:43:07 2003
 
 
-C:/Xilinx/bin/nt/par.exe -w -intstyle ise -ol high -xe n -t 1 network_map.ncd
+C:/Xilinx/bin/nt/par.exe -w -intstyle ise -ol med -t 1 network_map.ncd
 network.ncd network.pcf 
 
 
@@ -141,6 +141,12 @@ Resolved that IOB <MD<7>> must be placed at site P136.
 Resolved that IOB <MD<8>> must be placed at site P133.
 Resolved that IOB <MD<9>> must be placed at site P132.
 Resolved that IOB <GTX_CLK> must be placed at site P56.
+Resolved that BLOCKRAM <rx_input/fifo/fifo/B11> must be placed at site
+RAMB4_R3C1.
+Resolved that BLOCKRAM <rx_input/fifo/fifo/B15> must be placed at site
+RAMB4_R4C1.
+Resolved that BLOCKRAM <rx_input/fifo/fifo/B7> must be placed at site
+RAMB4_R5C1.
 
 
 Device utilization summary:
@@ -150,25 +156,24 @@ Device utilization summary:
       Number of LOCed External IOBs  120 out of 121    99%
 
    Number of BLOCKRAMs                 4 out of 14     28%
-   Number of SLICEs                 1701 out of 2352   72%
+   Number of SLICEs                 1729 out of 2352   73%
 
    Number of DLLs                      3 out of 4      75%
    Number of GCLKs                     3 out of 4      75%
 
 
 
-Overall effort level (-ol):   High (set by user)
-Placer effort level (-pl):    High (set by user)
+Overall effort level (-ol):   Medium (set by user)
+Placer effort level (-pl):    Medium (set by user)
 Placer cost table entry (-t): 1
-Router effort level (-rl):    High (set by user)
-Extra effort level (-xe):     Normal (set by user)
+Router effort level (-rl):    Medium (set by user)
 
 Starting initial Timing Analysis.  REAL time: 3 secs 
 Finished initial Timing Analysis.  REAL time: 5 secs 
 
 
 Phase 1.1
-Phase 1.1 (Checksum:98fec5) REAL time: 5 secs 
+Phase 1.1 (Checksum:9901cb) REAL time: 5 secs 
 
 Phase 2.23
 Phase 2.23 (Checksum:1312cfe) REAL time: 5 secs 
@@ -180,61 +185,52 @@ Phase 4.5
 Phase 4.5 (Checksum:26259fc) REAL time: 5 secs 
 
 Phase 5.8
-..................................................................................
-........
-...............................................................................................................................
+..................................................................
 .........
-.........
-Phase 5.8 (Checksum:e368b7) REAL time: 1 mins 11 secs 
+......................................................................................
+.............
+Phase 5.8 (Checksum:e28a6e) REAL time: 53 secs 
 
-Phase 6.11
-........................................
-........................................
-.............................
-Phase 6.11 (Checksum:df775d) REAL time: 4 mins 51 secs 
+Phase 6.5
+Phase 6.5 (Checksum:39386fa) REAL time: 53 secs 
 
-Phase 7.5
-Phase 7.5 (Checksum:42c1d79) REAL time: 4 mins 51 secs 
-
-Phase 8.18
-Phase 8.18 (Checksum:4c4b3f8) REAL time: 5 mins 21 secs 
+Phase 7.18
+Phase 7.18 (Checksum:42c1d79) REAL time: 1 mins 4 secs 
 
 Writing design to file network.ncd.
 
-Total REAL time to Placer completion: 5 mins 22 secs 
-Total CPU time to Placer completion: 5 mins 16 secs 
+Total REAL time to Placer completion: 1 mins 5 secs 
+Total CPU time to Placer completion: 1 mins 3 secs 
 
 
-Phase 1: 10433 unrouted;       REAL time: 5 mins 22 secs 
+Phase 1: 10554 unrouted;       REAL time: 1 mins 5 secs 
 
-Phase 2: 8831 unrouted;       REAL time: 5 mins 28 secs 
+Phase 2: 8970 unrouted;       REAL time: 1 mins 12 secs 
 
-Phase 3: 2192 unrouted;       REAL time: 5 mins 32 secs 
+Phase 3: 2237 unrouted;       REAL time: 1 mins 16 secs 
 
-Phase 4: 2192 unrouted; (82027)      REAL time: 5 mins 33 secs 
+Phase 4: 2237 unrouted; (195665)      REAL time: 1 mins 17 secs 
 
-Phase 5: 2353 unrouted; (1115520)      REAL time: 5 mins 36 secs 
+Phase 5: 2391 unrouted; (605607)      REAL time: 1 mins 20 secs 
 
-Phase 6: 2484 unrouted; (17611)      REAL time: 5 mins 37 secs 
+Phase 6: 2534 unrouted; (39335)      REAL time: 1 mins 21 secs 
 
-Phase 7: 0 unrouted; (23333)      REAL time: 6 mins 1 secs 
-
-Writing design to file network.ncd.
-
-Phase 8: 0 unrouted; (12813)      REAL time: 6 mins 37 secs 
-
-Phase 9: 0 unrouted; (12813)      REAL time: 8 mins 30 secs 
+Phase 7: 0 unrouted; (28056)      REAL time: 1 mins 47 secs 
 
 Writing design to file network.ncd.
 
-Phase 10: 0 unrouted; (12813)      REAL time: 8 mins 33 secs 
+Phase 8: 0 unrouted; (6665)      REAL time: 2 mins 5 secs 
 
-Phase 11: 0 unrouted; (11908)      REAL time: 9 mins 22 secs 
+Phase 9: 0 unrouted; (980)      REAL time: 2 mins 17 secs 
 
-Phase 12: 0 unrouted; (11908)      REAL time: 9 mins 29 secs 
+Phase 10: 0 unrouted; (126)      REAL time: 2 mins 28 secs 
 
-Total REAL time to Router completion: 9 mins 31 secs 
-Total CPU time to Router completion: 9 mins 24 secs 
+Phase 11: 0 unrouted; (0)      REAL time: 2 mins 52 secs 
+
+Phase 12: 0 unrouted; (0)      REAL time: 2 mins 53 secs 
+
+Total REAL time to Router completion: 2 mins 55 secs 
+Total CPU time to Router completion: 2 mins 52 secs 
 
 Generating "par" statistics.
 
@@ -245,34 +241,32 @@ Generating Clock Report
 +----------------------------+----------+--------+------------+-------------+
 |         Clock Net          | Resource | Fanout |Net Skew(ns)|Max Delay(ns)|
 +----------------------------+----------+--------+------------+-------------+
-|             clkrx          |  Global  |   57   |  0.295     |  0.600      |
+|               clk          |  Global  | 1252   |  0.323     |  0.655      |
 +----------------------------+----------+--------+------------+-------------+
-|               clk          |  Global  | 1270   |  0.316     |  0.652      |
+|             clkrx          |  Global  |   57   |  0.298     |  0.600      |
 +----------------------------+----------+--------+------------+-------------+
-|             clkio          |  Global  |   59   |  0.317     |  0.626      |
+|             clkio          |  Global  |   59   |  0.283     |  0.622      |
 +----------------------------+----------+--------+------------+-------------+
 
 
    The Delay Summary Report
 
-   The SCORE FOR THIS DESIGN is: 47505
+   The SCORE FOR THIS DESIGN is: 251
 
 
 The NUMBER OF SIGNALS NOT COMPLETELY ROUTED for this design is: 0
 
-   The AVERAGE CONNECTION DELAY for this design is:        1.436
-   The MAXIMUM PIN DELAY IS:                               7.510
-   The AVERAGE CONNECTION DELAY on the 10 WORST NETS is:   6.166
+   The AVERAGE CONNECTION DELAY for this design is:        1.408
+   The MAXIMUM PIN DELAY IS:                               7.269
+   The AVERAGE CONNECTION DELAY on the 10 WORST NETS is:   5.502
 
    Listing Pin Delays by value: (nsec)
 
     d < 1.00   < d < 2.00  < d < 3.00  < d < 4.00  < d < 8.00  d >= 8.00
    ---------   ---------   ---------   ---------   ---------   ---------
-        4761        3213        1408         586         465           0
+        4640        3594        1435         520         365           0
 
-Timing Score: 11908
-
-WARNING:Par:62 - Timing constraints have not been met.
+Timing Score: 0
 
 Asterisk (*) preceding a constraint indicates it was not met.
    This may be due to a setup or hold violation.
@@ -290,41 +284,38 @@ Asterisk (*) preceding a constraint indicates it was not met.
   TS_RX_CLK = PERIOD TIMEGRP "RX_CLK"  7.30 | N/A        | N/A        | N/A  
   0 nS   HIGH 50.000000 %                   |            |            |      
 --------------------------------------------------------------------------------
-  ts_maccontrol = MAXDELAY FROM TIMEGRP "ma | 58.400ns   | 17.632ns   | 5    
+  ts_maccontrol = MAXDELAY FROM TIMEGRP "ma | 58.400ns   | 18.312ns   | 6    
   ccontrol" TO TIMEGRP "maccontrol"  TS_CLK |            |            |      
   IN * 8.000                                |            |            |      
 --------------------------------------------------------------------------------
-* ts_fiforams = MAXDELAY FROM TIMEGRP "rxfi | 7.300ns    | 8.116ns    | 1    
-  fo" TO TIMEGRP "RAMS" 7.300 nS            |            |            |      
---------------------------------------------------------------------------------
-* TS_clk_to_bufg = PERIOD TIMEGRP "clk_to_b | 7.300ns    | 7.873ns    | 3    
+  TS_clk_to_bufg = PERIOD TIMEGRP "clk_to_b | 7.300ns    | 7.204ns    | 0    
   ufg" TS_CLKIN * 1.000000 HIGH 50.000 %    |            |            |      
 --------------------------------------------------------------------------------
-* TS_clkrx_to_bufg = PERIOD TIMEGRP "clkrx_ | 7.300ns    | 7.806ns    | 1    
+  TS_clkrx_to_bufg = PERIOD TIMEGRP "clkrx_ | 7.300ns    | 6.841ns    | 1    
   to_bufg" TS_RX_CLK * 1.000000 HIGH  50.00 |            |            |      
   0 %                                       |            |            |      
 --------------------------------------------------------------------------------
-  TS_clkio_to_bufg = PERIOD TIMEGRP "clkio_ | 16.000ns   | 10.953ns   | 0    
+  TS_clkio_to_bufg = PERIOD TIMEGRP "clkio_ | 16.000ns   | 8.605ns    | 0    
   to_bufg" TS_CLKIOIN * 1.000000 HIGH  50.0 |            |            |      
   00 %                                      |            |            |      
 --------------------------------------------------------------------------------
 
 
-3 constraints not met.
+All constraints were met.
 INFO:Timing:2761 - N/A entries in the Constraints list may indicate that the
    constraint does not cover any paths or that it has no requested value.
 Generating Pad Report.
 
 All signals are completely routed.
 
-Total REAL time to PAR completion: 9 mins 33 secs 
-Total CPU time to PAR completion: 9 mins 26 secs 
+Total REAL time to PAR completion: 2 mins 58 secs 
+Total CPU time to PAR completion: 2 mins 54 secs 
 
-Peak Memory Usage:  115 MB
+Peak Memory Usage:  109 MB
 
 Placement: Completed - No errors found.
 Routing: Completed - No errors found.
-Timing: Completed - 47 errors found.
+Timing: Completed - No errors found.
 
 Writing design to file network.ncd.
 

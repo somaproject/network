@@ -41,6 +41,7 @@ ARCHITECTURE behavior OF network_testbench IS
  
 	component network is
 	    Port ( CLKIN : in std_logic;
+		 		  CLKFB : in std_logic; 
 	           RESET : in std_logic;
 	           RX_DV : in std_logic;
 	           RX_ER : in std_logic;
@@ -59,7 +60,6 @@ ARCHITECTURE behavior OF network_testbench IS
 	           DOUTEN : out std_logic;
 	           NEWFRAME : in std_logic;
 	           DIN : in std_logic_vector(15 downto 0);
-	           DINEN : in std_logic;
 				  MDIO : inout std_logic;
 				  MDC : out std_logic;
 				  LEDACT : out std_logic;
@@ -76,6 +76,7 @@ ARCHITECTURE behavior OF network_testbench IS
 	end component;
 
 	SIGNAL clkin :  std_logic := '0';
+	SIGNAL clkfb :  std_logic := '0'; 
 	SIGNAL reset :  std_logic := '1';
 	SIGNAL rx_dv :  std_logic := '0';
 	SIGNAL rx_er :  std_logic := '0';
@@ -132,6 +133,7 @@ ARCHITECTURE behavior OF network_testbench IS
 	signal din_frame, din_raw : std_logic_vector(15 downto 0) := (others => '0');
 	signal newframe_frame, newframe_raw : std_logic := '0';
 
+	
 
 
 BEGIN
@@ -141,9 +143,10 @@ BEGIN
 	mclk_delay <= mclk after 1 ns;
 	mwe_delay <= mwe after 1 ns; 
 
-
+   clkfb <= mclk; 
 	uut: network PORT MAP(
 		clkin => clkin,
+		clkfb => clkfb, 
 		reset => reset,
 		rx_dv => rx_dv,
 		rx_er => rx_er,
@@ -162,7 +165,6 @@ BEGIN
 		douten => douten,
 		newframe => newframe,
 		din => din,
-		dinen => dinen,
 		mdio => mdio,
 		mdc => mdc,
 		ledact => ledact,

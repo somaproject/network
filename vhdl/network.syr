@@ -1,10 +1,10 @@
 Release 6.1.02i - xst G.25a
 Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to __projnav
-CPU : 0.00 / 0.19 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 0.00 s
  
 --> Parameter xsthdpdir set to ./xst
-CPU : 0.00 / 0.19 s | Elapsed : 0.00 / 0.00 s
+CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 0.00 s
  
 --> Reading design: network.prj
 
@@ -106,6 +106,8 @@ Compiling vhdl file C:/desktop/network/vhdl/RXinput_memio.vhd in Library work.
 Architecture behavioral of Entity rxinput_memio is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/RXinput_fifo.vhd in Library work.
 Architecture behavioral of Entity rxinput_fifo is up to date.
+Compiling vhdl file C:/desktop/network/vhdl/memdebug.vhd in Library work.
+Architecture behavioral of Entity memdebug is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/clockenable.vhd in Library work.
 Architecture behavioral of Entity clockenable is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/memory.vhd in Library work.
@@ -123,36 +125,40 @@ Architecture behavioral of Entity fifocheck is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/control.vhd in Library work.
 Architecture behavioral of Entity control is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/network.vhd in Library work.
-Architecture behavioral of Entity network is up to date.
+Entity <network> (Architecture <behavioral>) compiled.
 
 =========================================================================
 *                            HDL Analysis                               *
 =========================================================================
 Analyzing Entity <network> (Architecture <behavioral>).
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLK90' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLK180' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLK270' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 259: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 266: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 271: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 271: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 271: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 271: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 281: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLK90' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLK180' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLK270' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLK2X' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLKDV' of component 'CLKDLL'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'LOCKED' of component 'CLKDLL'.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 286: Generating a Black Box for component <CLKDLL>.
-WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 293: Generating a Black Box for component <BUFG>.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 380: Unconnected output port 'GTX_CLK' of component 'TXoutput'.
-WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 392: Unconnected output port 'DONE' of component 'TXinput'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK90' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK180' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK270' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 290: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 290: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 297: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 302: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 302: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 302: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 302: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 312: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLK90' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLK180' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLK270' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 317: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 317: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 324: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 351: Unconnected output port 'Q4' of component 'memory'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 411: Unconnected output port 'GTX_CLK' of component 'TXoutput'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 423: Unconnected output port 'DONE' of component 'TXinput'.
 Entity <network> analyzed. Unit <network> generated.
+
+Analyzing Entity <memdebug> (Architecture <behavioral>).
+Entity <memdebug> analyzed. Unit <memdebug> generated.
 
 Analyzing Entity <clockenable> (Architecture <behavioral>).
 Entity <clockenable> analyzed. Unit <clockenable> generated.
@@ -251,8 +257,8 @@ Analyzing Entity <FIFOcheck> (Architecture <behavioral>).
 Entity <FIFOcheck> analyzed. Unit <FIFOcheck> generated.
 
 Analyzing Entity <control> (Architecture <behavioral>).
-WARNING:Xst:819 - C:/desktop/network/vhdl/control.vhd line 380: The following signals are missing in the process sensitivity list:
-   lrxallf, lrxbcast, lrxmcast, lrxucast.
+WARNING:Xst:819 - C:/desktop/network/vhdl/control.vhd line 409: The following signals are missing in the process sensitivity list:
+   rxbpl, rxfbbpl, txbpl, txfbbpl.
 Entity <control> analyzed. Unit <control> generated.
 
 Analyzing Entity <PHYstatus> (Architecture <behavioral>).
@@ -559,14 +565,17 @@ WARNING:Xst:1780 - Signal <rxfifowerr_sr> is never used or assigned.
     Found 1-bit register for signal <LEDACT>.
     Found 1-bit register for signal <PHYRESET>.
     Found 1-bit register for signal <LED1000>.
+    Found 17-bit register for signal <MDEBUGADDR>.
     Found 1-bit register for signal <LED100>.
     Found 1-bit register for signal <RXALLF>.
-    Found 32-bit comparator greater for signal <$n0069> created at line 309.
-    Found 7-bit comparator greatequal for signal <$n0092> created at line 184.
-    Found 7-bit comparator lessequal for signal <$n0093> created at line 189.
-    Found 32-bit comparator lessequal for signal <$n0105> created at line 309.
+    Found 32-bit comparator greater for signal <$n0070> created at line 331.
+    Found 7-bit comparator greatequal for signal <$n0098> created at line 196.
+    Found 7-bit comparator lessequal for signal <$n0099> created at line 201.
+    Found 32-bit comparator lessequal for signal <$n0112> created at line 331.
     Found 8-bit register for signal <addr>.
     Found 6-bit up counter for signal <bitcnt>.
+    Found 17-bit register for signal <debugaddr>.
+    Found 32-bit register for signal <debugdata>.
     Found 32-bit register for signal <din>.
     Found 32-bit register for signal <dout>.
     Found 12-bit down counter for signal <ledrx_cnt>.
@@ -581,11 +590,13 @@ WARNING:Xst:1780 - Signal <rxfifowerr_sr> is never used or assigned.
     Found 31-bit register for signal <phyaddr<30:0>>.
     Found 32-bit register for signal <phydi>.
     Found 32-bit down counter for signal <phyrstcnt>.
+    Found 16-bit register for signal <rxbpl>.
     Found 32-bit up counter for signal <rxcrcerr_cnt>.
     Found 1-bit register for signal <rxcrcerr_rst>.
     Found 32-bit up counter for signal <rxf_cnt>.
     Found 1-bit register for signal <rxf_cross>.
     Found 1-bit register for signal <rxf_rst>.
+    Found 16-bit register for signal <rxfbbpl>.
     Found 32-bit up counter for signal <rxfifowerr_cnt>.
     Found 1-bit register for signal <rxfifowerr_rst>.
     Found 32-bit up counter for signal <rxoferr_cnt>.
@@ -599,15 +610,17 @@ WARNING:Xst:1780 - Signal <rxfifowerr_sr> is never used or assigned.
     Found 1-bit register for signal <sclkll>.
     Found 3-bit shift register for signal <scslll>.
     Found 3-bit shift register for signal <sinlll>.
+    Found 16-bit register for signal <txbpl>.
     Found 32-bit up counter for signal <txf_cnt>.
     Found 1-bit register for signal <txf_cross>.
     Found 1-bit register for signal <txf_rst>.
+    Found 16-bit register for signal <txfbbpl>.
     Found 32-bit up counter for signal <txfifowerr_cnt>.
     Found 1-bit register for signal <txfifowerr_rst>.
     Found 32 1-bit 2-to-1 multiplexers.
     Summary:
 	inferred  11 Counter(s).
-	inferred 263 D-type flip-flop(s).
+	inferred 393 D-type flip-flop(s).
 	inferred   4 Comparator(s).
 	inferred  32 Multiplexer(s).
 	inferred   2 Shift register(s).
@@ -649,7 +662,7 @@ WARNING:Xst:1780 - Signal <nenable> is never used or assigned.
     Found 16-bit register for signal <MA>.
     Found 1-bit register for signal <MWEN>.
     Found 32-bit register for signal <MD>.
-    Found 16-bit subtractor for signal <$n0041> created at line 150.
+    Found 16-bit subtractor for signal <$n0041> created at line 149.
     Found 16-bit up counter for signal <addr>.
     Found 16-bit register for signal <bp>.
     Found 16-bit register for signal <CNT>.
@@ -799,7 +812,6 @@ WARNING:Xst:1780 - Signal <clk4> is never used or assigned.
     Found 17-bit register for signal <addr>.
     Found 17-bit 4-to-1 multiplexer for signal <addrn>.
     Found 2-bit up counter for signal <clknum>.
-    Found 32-bit 4-to-1 multiplexer for signal <dn>.
     Found 32-bit register for signal <dnl1>.
     Found 32-bit register for signal <dnl2>.
     Found 32-bit register for signal <dnout>.
@@ -811,7 +823,7 @@ WARNING:Xst:1780 - Signal <clk4> is never used or assigned.
     Summary:
 	inferred   1 Counter(s).
 	inferred 308 D-type flip-flop(s).
-	inferred  49 Multiplexer(s).
+	inferred  17 Multiplexer(s).
 Unit <memory> synthesized.
 
 
@@ -841,18 +853,33 @@ WARNING:Xst:647 - Input <RESET> is never used.
 Unit <clockenable> synthesized.
 
 
+Synthesizing Unit <memdebug>.
+    Related source file is C:/desktop/network/vhdl/memdebug.vhd.
+WARNING:Xst:646 - Signal <lcnt> is assigned but never used.
+    Found 17-bit register for signal <ADDR>.
+    Found 32-bit register for signal <DOUT>.
+    Found 16-bit up counter for signal <cnt>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  49 D-type flip-flop(s).
+Unit <memdebug> synthesized.
+
+
 Synthesizing Unit <network>.
     Related source file is C:/desktop/network/vhdl/network.vhd.
+WARNING:Xst:646 - Signal <d1> is assigned but never used.
 WARNING:Xst:653 - Signal <d2> is used but never assigned. Tied to value 00000000000000000000000000000000.
-WARNING:Xst:653 - Signal <d3> is used but never assigned. Tied to value 00000000000000000000000000000000.
+WARNING:Xst:1780 - Signal <d3> is never used or assigned.
 WARNING:Xst:1780 - Signal <clkslen_to_bufg> is never used or assigned.
-WARNING:Xst:646 - Signal <q1> is assigned but never used.
-WARNING:Xst:646 - Signal <q4> is assigned but never used.
-WARNING:Xst:646 - Signal <clk90> is assigned but never used.
+WARNING:Xst:646 - Signal <debugwdata> is assigned but never used.
+WARNING:Xst:1780 - Signal <q1> is never used or assigned.
+WARNING:Xst:1780 - Signal <q4> is never used or assigned.
+WARNING:Xst:646 - Signal <debugwaddr> is assigned but never used.
+WARNING:Xst:646 - Signal <addr1ext> is assigned but never used.
 WARNING:Xst:646 - Signal <clk270> is assigned but never used.
-WARNING:Xst:646 - Signal <clken1> is assigned but never used.
 WARNING:Xst:646 - Signal <clken4> is assigned but never used.
-WARNING:Xst:646 - Signal <txi_mwen> is assigned but never used.
+WARNING:Xst:646 - Signal <txinmwen> is assigned but never used.
+WARNING:Xst:1780 - Signal <txi_mwen> is never used or assigned.
 Unit <network> synthesized.
 
 
@@ -861,21 +888,21 @@ HDL Synthesis Report
 
 Macro Statistics
 # FSMs                             : 8
-# Registers                        : 434
+# Registers                        : 443
   1-bit register                   : 359
-  16-bit register                  : 32
-  32-bit register                  : 18
+  16-bit register                  : 36
+  32-bit register                  : 20
   8-bit register                   : 9
   6-bit register                   : 4
   5-bit register                   : 1
   10-bit register                  : 5
+  17-bit register                  : 4
   48-bit register                  : 2
   4-bit register                   : 3
-  17-bit register                  : 1
-# Counters                         : 20
+# Counters                         : 21
   6-bit up counter                 : 2
   32-bit up counter                : 7
-  16-bit up counter                : 5
+  16-bit up counter                : 6
   16-bit down counter              : 1
   2-bit up counter                 : 1
   3-bit up counter                 : 1
@@ -884,10 +911,9 @@ Macro Statistics
 # Shift Registers                  : 18
   3-bit shift register             : 2
   4-bit shift register             : 16
-# Multiplexers                     : 7
+# Multiplexers                     : 6
   2-to-1 multiplexer               : 5
   17-bit 4-to-1 multiplexer        : 1
-  32-bit 4-to-1 multiplexer        : 1
 # Adders/Subtractors               : 9
   6-bit adder                      : 1
   16-bit subtractor                : 5
@@ -917,6 +943,8 @@ Macro Statistics
 =========================================================================
 
 INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+WARNING:Xst:524 - All outputs of the instance <memwdebug> of the block <memdebug> are unconnected in block <network>.
+   This instance will be removed from the design along with all underlying logic
 Selecting encoding for FSM_7 ...
 Optimizing FSM <FSM_7> on signal <cs> with one-hot encoding.
 Selecting encoding for FSM_6 ...
@@ -948,6 +976,39 @@ WARNING:Xst:1291 - FF/Latch <mcast_1> is unconnected in block <RXinput_addrchk>.
 WARNING:Xst:1291 - FF/Latch <mcast_2> is unconnected in block <RXinput_addrchk>.
 WARNING:Xst:1291 - FF/Latch <mcast_3> is unconnected in block <RXinput_addrchk>.
 WARNING:Xst:1291 - FF/Latch <mcast_4> is unconnected in block <RXinput_addrchk>.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_31 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_30 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_29 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_28 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_27 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_26 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_25 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_24 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_7 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_6 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_5 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_4 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_3 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_2 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_1 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1426 - The value init of the FF/Latch DOUT_0 hinder the constant cleaning in the block memdebug.
+   You should achieve better results by setting this init to 1.
+WARNING:Xst:1710 - FF/Latch  <ADDR_16> (without init value) is constant in block <memdebug>.
 WARNING:Xst:1291 - FF/Latch <endbyte_7> is unconnected in block <RXinput_memio>.
 WARNING:Xst:1291 - FF/Latch <endbyte_3> is unconnected in block <RXinput_memio>.
 WARNING:Xst:1291 - FF/Latch <endbyte_4> is unconnected in block <RXinput_memio>.
@@ -955,7 +1016,6 @@ WARNING:Xst:1291 - FF/Latch <endbyte_5> is unconnected in block <RXinput_memio>.
 WARNING:Xst:1291 - FF/Latch <endbyte_6> is unconnected in block <RXinput_memio>.
 WARNING:Xst:1291 - FF/Latch <MWEN> is unconnected in block <tx_input>.
 WARNING:Xst:1291 - FF/Latch <Q4_31> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_31> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_0> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_1> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_2> is unconnected in block <memcontroller>.
@@ -987,37 +1047,54 @@ WARNING:Xst:1291 - FF/Latch <Q4_27> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_28> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_29> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_30> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_0> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_1> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_2> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_3> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_4> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_5> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_6> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_7> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_8> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_9> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_10> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_11> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_12> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_13> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_14> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_15> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_16> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_17> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_18> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_19> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_20> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_21> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_22> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_23> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_24> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_25> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_26> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_27> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_28> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_29> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_30> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <MA_15> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_31> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_0> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_1> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_2> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_3> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_4> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_5> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_6> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_7> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_8> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_9> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_10> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_11> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_12> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_13> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_14> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_0> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_1> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_2> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_3> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_4> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_5> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_6> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_7> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_8> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_9> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_10> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_11> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_12> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_13> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_14> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_15> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_16> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_17> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_18> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_19> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_20> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_21> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_22> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_23> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_24> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_25> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_26> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_27> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_28> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_29> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_30> is unconnected in block <memio>.
 
 Optimizing unit <network> ...
 
@@ -1034,6 +1111,8 @@ Optimizing unit <crc_combinational> ...
 Optimizing unit <RXinput_addrchk> ...
 
 Optimizing unit <MII> ...
+
+Optimizing unit <memdebug> ...
 
 Optimizing unit <TXoutput> ...
 
@@ -1057,7 +1136,6 @@ Loading device for application Xst from file '2s200e.nph' in environment C:/Xili
 Mapping all equations...
 WARNING:Xst:1291 - FF/Latch <MWEN> is unconnected in block <tx_input>.
 WARNING:Xst:1291 - FF/Latch <Q4_31> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_31> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_0> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_1> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_2> is unconnected in block <memcontroller>.
@@ -1089,55 +1167,169 @@ WARNING:Xst:1291 - FF/Latch <Q4_27> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_28> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_29> is unconnected in block <memcontroller>.
 WARNING:Xst:1291 - FF/Latch <Q4_30> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_0> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_1> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_2> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_3> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_4> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_5> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_6> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_7> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_8> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_9> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_10> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_11> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_12> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_13> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_14> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_15> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_16> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_17> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_18> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_19> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_20> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_21> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_22> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_23> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_24> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_25> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_26> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_27> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_28> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_29> is unconnected in block <memcontroller>.
-WARNING:Xst:1291 - FF/Latch <Q1_30> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <bcnt_98> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_99> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_15> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_31> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_15> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_15> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_31> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <wbpl> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_7> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_6> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_5> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_4> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_3> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_2> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_1> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_0> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_15> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_14> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_13> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_12> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_11> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_10> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_9> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_8> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_23> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_22> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_21> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_20> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_19> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_18> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_17> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_16> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_31> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_30> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_29> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_28> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_27> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_26> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_25> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <dout_24> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_0> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_1> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_2> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_3> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_4> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_5> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_6> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_7> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_8> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_9> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_10> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_11> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_12> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_13> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MA_14> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_0> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_1> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_2> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_3> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_4> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_5> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_6> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_7> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_8> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_9> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_10> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_11> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_12> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_13> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_14> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_15> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_16> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_17> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_18> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_19> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_20> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_21> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_22> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_23> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_24> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_25> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_26> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_27> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_28> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_29> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <MD_30> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_0> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_1> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_2> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_3> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_4> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_5> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_6> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_7> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_8> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_9> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_10> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_11> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_12> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_13> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bpl_14> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_0> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_1> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_2> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_3> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_4> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_5> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_6> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_7> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_8> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_9> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_10> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_11> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_12> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_13> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcntl_14> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_0> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_1> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_2> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_3> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_4> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_5> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_6> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_7> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_8> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_9> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_10> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_11> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_12> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_13> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_14> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_15> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_16> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_17> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_18> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_19> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_20> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_21> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_22> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_23> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_24> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_25> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_26> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_27> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_28> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_29> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <doutl_30> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_97> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_96> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_95> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_100> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_101> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_94> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_86> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_87> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_88> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_89> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_90> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_91> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_92> is unconnected in block <memio>.
+WARNING:Xst:1291 - FF/Latch <bcnt_93> is unconnected in block <memio>.
 Building and optimizing final netlist ...
 Found area constraint ratio of 100 (+ 5) on block network, actual ratio is 71.
-WARNING:Xst:382 - Register FBBP_15 is equivalent to bpl_15
-WARNING:Xst:382 - Register FBBP_0 is equivalent to bpl_0
-WARNING:Xst:382 - Register FBBP_1 is equivalent to bpl_1
-WARNING:Xst:382 - Register FBBP_2 is equivalent to bpl_2
-WARNING:Xst:382 - Register FBBP_3 is equivalent to bpl_3
-WARNING:Xst:382 - Register FBBP_4 is equivalent to bpl_4
-WARNING:Xst:382 - Register FBBP_5 is equivalent to bpl_5
-WARNING:Xst:382 - Register FBBP_6 is equivalent to bpl_6
-WARNING:Xst:382 - Register FBBP_7 is equivalent to bpl_7
-WARNING:Xst:382 - Register FBBP_8 is equivalent to bpl_8
-WARNING:Xst:382 - Register FBBP_9 is equivalent to bpl_9
-WARNING:Xst:382 - Register FBBP_10 is equivalent to bpl_10
-WARNING:Xst:382 - Register FBBP_11 is equivalent to bpl_11
-WARNING:Xst:382 - Register FBBP_12 is equivalent to bpl_12
-WARNING:Xst:382 - Register FBBP_13 is equivalent to bpl_13
-WARNING:Xst:382 - Register FBBP_14 is equivalent to bpl_14
 WARNING:Xst:382 - Register addrl_15 is equivalent to FBBP_15
 WARNING:Xst:382 - Register addrl_0 is equivalent to FBBP_0
 WARNING:Xst:382 - Register addrl_1 is equivalent to FBBP_1
@@ -2178,13 +2370,30 @@ WARNING:Xst:382 - Register ts_31 is equivalent to ts_28
 WARNING:Xst:382 - Register ts_30 is equivalent to ts_29
 WARNING:Xst:382 - Register ts_31 is equivalent to ts_29
 WARNING:Xst:382 - Register ts_31 is equivalent to ts_30
+WARNING:Xst:382 - Register FBBP_15 is equivalent to bpl_15
+WARNING:Xst:382 - Register FBBP_0 is equivalent to bpl_0
+WARNING:Xst:382 - Register FBBP_1 is equivalent to bpl_1
+WARNING:Xst:382 - Register FBBP_2 is equivalent to bpl_2
+WARNING:Xst:382 - Register FBBP_3 is equivalent to bpl_3
+WARNING:Xst:382 - Register FBBP_4 is equivalent to bpl_4
+WARNING:Xst:382 - Register FBBP_5 is equivalent to bpl_5
+WARNING:Xst:382 - Register FBBP_6 is equivalent to bpl_6
+WARNING:Xst:382 - Register FBBP_7 is equivalent to bpl_7
+WARNING:Xst:382 - Register FBBP_8 is equivalent to bpl_8
+WARNING:Xst:382 - Register FBBP_9 is equivalent to bpl_9
+WARNING:Xst:382 - Register FBBP_10 is equivalent to bpl_10
+WARNING:Xst:382 - Register FBBP_11 is equivalent to bpl_11
+WARNING:Xst:382 - Register FBBP_12 is equivalent to bpl_12
+WARNING:Xst:382 - Register FBBP_13 is equivalent to bpl_13
+WARNING:Xst:382 - Register FBBP_14 is equivalent to bpl_14
 FlipFlop slowclock/clken has been replicated 1 time(s)
 FlipFlop mac_control/bitcnt_109 has been replicated 1 time(s)
-FlipFlop mac_control/addr_0 has been replicated 1 time(s)
+FlipFlop mac_control/addr_4 has been replicated 1 time(s)
+FlipFlop mac_control/addr_3 has been replicated 1 time(s)
 FlipFlop mac_control/addr_2 has been replicated 1 time(s)
-FlipFlop mac_control/addr_1 has been replicated 1 time(s)
-FlipFlop mac_control/addr_0 has been replicated 1 time(s)
-FlipFlop rx_input/memio/cs_FFd16 has been replicated 2 time(s)
+FlipFlop mac_control/addr_3 has been replicated 1 time(s)
+FlipFlop mac_control/addr_2 has been replicated 1 time(s)
+FlipFlop mac_control/addr_4 has been replicated 1 time(s)
 
 =========================================================================
 *                            Final Report                               *
@@ -2200,12 +2409,12 @@ Design Statistics
 # IOs                              : 125
 
 Macro Statistics :
-# Registers                        : 480
+# Registers                        : 487
 #      1-bit register              : 399
 #      10-bit register             : 1
-#      16-bit register             : 42
-#      17-bit register             : 1
-#      32-bit register             : 18
+#      16-bit register             : 46
+#      17-bit register             : 3
+#      32-bit register             : 19
 #      4-bit register              : 3
 #      48-bit register             : 2
 #      5-bit register              : 1
@@ -2220,10 +2429,9 @@ Macro Statistics :
 # Shift Registers                  : 18
 #      3-bit shift register        : 2
 #      4-bit shift register        : 16
-# Multiplexers                     : 7
+# Multiplexers                     : 6
 #      17-bit 4-to-1 multiplexer   : 1
 #      2-to-1 multiplexer          : 5
-#      32-bit 4-to-1 multiplexer   : 1
 # Adders/Subtractors               : 19
 #      15-bit adder                : 1
 #      16-bit adder                : 12
@@ -2246,33 +2454,32 @@ Macro Statistics :
 #      1-bit xor7                  : 2
 
 Cell Usage :
-# BELS                             : 3334
-#      BUF                         : 4
+# BELS                             : 3207
+#      BUF                         : 3
 #      GND                         : 14
-#      LUT1                        : 374
+#      LUT1                        : 357
 #      LUT1_L                      : 1
-#      LUT2                        : 328
-#      LUT2_D                      : 7
-#      LUT2_L                      : 14
-#      LUT3                        : 365
-#      LUT3_D                      : 17
-#      LUT3_L                      : 4
-#      LUT4                        : 791
-#      LUT4_D                      : 10
-#      LUT4_L                      : 108
-#      MUXCY                       : 664
+#      LUT2                        : 300
+#      LUT2_D                      : 6
+#      LUT2_L                      : 20
+#      LUT3                        : 293
+#      LUT3_D                      : 1
+#      LUT4                        : 845
+#      LUT4_D                      : 33
+#      LUT4_L                      : 136
+#      MUXCY                       : 633
 #      MUXCY_D                     : 4
 #      MUXCY_L                     : 8
-#      MUXF5                       : 54
+#      MUXF5                       : 18
 #      VCC                         : 14
-#      XORCY                       : 553
-# FlipFlops/Latches                : 2348
+#      XORCY                       : 521
+# FlipFlops/Latches                : 2349
 #      FD                          : 244
-#      FDC                         : 120
+#      FDC                         : 72
 #      FDCE                        : 246
-#      FDCPE                       : 32
-#      FDE                         : 1382
-#      FDP                         : 8
+#      FDCPE                       : 16
+#      FDE                         : 1449
+#      FDP                         : 6
 #      FDPE                        : 67
 #      FDR                         : 13
 #      FDRE                        : 225
@@ -2301,9 +2508,9 @@ Device utilization summary:
 
 Selected Device : 2s200epq208-6 
 
- Number of Slices:                    1595  out of   2352    67%  
- Number of Slice Flip Flops:          2348  out of   4704    49%  
- Number of 4 input LUTs:              2055  out of   4704    43%  
+ Number of Slices:                    1602  out of   2352    68%  
+ Number of Slice Flip Flops:          2349  out of   4704    49%  
+ Number of 4 input LUTs:              2028  out of   4704    43%  
  Number of bonded IOBs:                125  out of    146    85%  
  Number of BRAMs:                        5  out of     14    35%  
  Number of GCLKs:                        3  out of      4    75%  
@@ -2321,19 +2528,19 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-CLKIN                              | clk_dll:CLK0           | 2226  |
+CLKIN                              | clk_dll:CLK0           | 2227  |
 CLKIOIN                            | clkio_dll:CLK0         | 74    |
-rx_output/fifo/GND:G               | NONE                   | 2     |
 RX_CLK                             | clkrx_dll:CLK0         | 90    |
 rx_input/fifo/fifo/GND:G           | NONE                   | 2     |
+rx_output/fifo/GND:G               | NONE                   | 2     |
 -----------------------------------+------------------------+-------+
 
 Timing Summary:
 ---------------
 Speed Grade: -6
 
-   Minimum period: 14.333ns (Maximum Frequency: 69.769MHz)
-   Minimum input arrival time before clock: 21.413ns
+   Minimum period: 14.914ns (Maximum Frequency: 67.051MHz)
+   Minimum input arrival time before clock: 17.913ns
    Maximum output required time after clock: 19.448ns
    Maximum combinational path delay: No path found
 
@@ -2343,24 +2550,27 @@ All values displayed in nanoseconds (ns)
 
 -------------------------------------------------------------------------
 Timing constraint: Default period analysis for Clock 'CLKIN'
-Delay:               14.333ns (Levels of Logic = 3)
-  Source:            mac_control/addr_0 (FF)
-  Destination:       mac_control/phyrstcnt_139 (FF)
+Delay:               14.914ns (Levels of Logic = 6)
+  Source:            mac_control/addr_1 (FF)
+  Destination:       mac_control/dout_1 (FF)
   Source Clock:      CLKIN rising
   Destination Clock: CLKIN rising
 
-  Data Path: mac_control/addr_0 to mac_control/phyrstcnt_139
+  Data Path: mac_control/addr_1 to mac_control/dout_1
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q             14   0.992   2.650  addr_0 (addr_0)
-     LUT4:I1->O           19   0.468   2.950  Ker53097_SW17 (CHOICE1299)
-     LUT4_D:I2->O         17   0.468   2.850  Ker53097_SW114 (N53099)
-     LUT4:I3->O           16   0.468   2.800  _n0033124_1 (_n0033124_1)
-     FDE:CE                    0.687          phyrstcnt_141
+     FDE:C->Q             17   0.992   2.850  addr_1 (addr_1)
+     LUT2_D:I1->O         16   0.468   2.800  Ker551721 (N55174)
+     LUT4_D:I3->O         16   0.468   2.800  _n00941 (_n0094)
+     LUT4:I2->O            1   0.468   0.920  Mmux__n0018_Result<1>66 (CHOICE2862)
+     LUT3:I2->O            1   0.468   0.920  Mmux__n0018_Result<1>101_SW0 (N85121)
+     LUT4_L:I3->LO         1   0.468   0.100  Mmux__n0018_Result<1>101 (CHOICE2872)
+     LUT4_L:I2->LO         1   0.468   0.000  Mmux__n0018_Result<1>137 (_n0018<1>)
+     FDE:D                     0.724          dout_1
     ----------------------------------------
-    Total                     14.333ns (3.083ns logic, 11.250ns route)
-                                       (21.5% logic, 78.5% route)
+    Total                     14.914ns (4.524ns logic, 10.390ns route)
+                                       (30.3% logic, 69.7% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default period analysis for Clock 'CLKIOIN'
@@ -2402,41 +2612,39 @@ Delay:               8.197ns (Levels of Logic = 1)
 
 -------------------------------------------------------------------------
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLKIN'
-Offset:              21.413ns (Levels of Logic = 6)
+Offset:              17.913ns (Levels of Logic = 5)
   Source:            RESET (PAD)
-  Destination:       rx_input/memio/addrchk/maceq_4 (FF)
+  Destination:       tx_input/dl_15 (FF)
   Destination Clock: CLKIN rising
 
-  Data Path: RESET to rx_input/memio/addrchk/maceq_4
+  Data Path: RESET to tx_input/dl_15
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O           104   0.797   5.100  RESET_IBUF (RESET_IBUF)
-     BUF:I->O             48   0.468   3.700  RESET_IBUF_2 (RESET_IBUF_2)
-     begin scope: 'rx_input'
-     BUF:I->O            139   0.468   5.500  RESET_1 (RESET_1)
-     begin scope: 'memio'
-     begin scope: 'addrchk'
-     LUT1:I0->O           69   0.468   4.225  maceq_N52561 (maceq_N5256)
-     FDE:CE                    0.687          maceq_0
+     IBUF:I->O           110   0.797   5.250  RESET_IBUF (RESET_IBUF)
+     BUF:I->O             65   0.468   4.125  RESET_IBUF_2 (RESET_IBUF_2)
+     begin scope: 'tx_input'
+     LUT2:I1->O           17   0.468   2.850  Ker367511 (N36753)
+     LUT4:I3->O           16   0.468   2.800  _n00271 (_n0027)
+     FDE:CE                    0.687          dl_0
     ----------------------------------------
-    Total                     21.413ns (2.888ns logic, 18.525ns route)
-                                       (13.5% logic, 86.5% route)
+    Total                     17.913ns (2.888ns logic, 15.025ns route)
+                                       (16.1% logic, 83.9% route)
 
 -------------------------------------------------------------------------
 Timing constraint: Default OFFSET IN BEFORE for Clock 'CLKIOIN'
 Offset:              2.441ns (Levels of Logic = 2)
-  Source:            NEXTFRAME (PAD)
-  Destination:       rx_output/nf (FF)
+  Source:            DIN<15> (PAD)
+  Destination:       tx_input/dinl_15 (FF)
   Destination Clock: CLKIOIN rising
 
-  Data Path: NEXTFRAME to rx_output/nf
+  Data Path: DIN<15> to tx_input/dinl_15
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IBUF:I->O             1   0.797   0.920  NEXTFRAME_IBUF (NEXTFRAME_IBUF)
-     begin scope: 'rx_output'
-     FD:D                      0.724          nf
+     IBUF:I->O             1   0.797   0.920  DIN_15_IBUF (DIN_15_IBUF)
+     begin scope: 'tx_input'
+     FD:D                      0.724          dinl_15
     ----------------------------------------
     Total                      2.441ns (1.521ns logic, 0.920ns route)
                                        (62.3% logic, 37.7% route)
@@ -2472,14 +2680,14 @@ Offset:              19.448ns (Levels of Logic = 11)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDCE:C->Q             5   0.992   1.720  cs_FFd4 (cs_FFd4)
-     LUT3:I1->O            7   0.468   1.950  Ker426841 (N42686)
+     LUT3:I1->O            7   0.468   1.950  Ker442731 (N44275)
      LUT4:I3->O            1   0.468   0.920  miiaddr<3>1 (miiaddr<3>)
      begin scope: 'MII_Interface'
-     LUT4:I0->O            1   0.468   0.920  sout361 (CHOICE1000)
-     LUT4:I3->O            1   0.468   0.920  sout365 (CHOICE1001)
-     LUT4:I0->O            1   0.468   0.920  sout442 (CHOICE1017)
-     LUT3:I0->O            1   0.468   0.920  sout472 (CHOICE1019)
-     LUT3:I2->O            1   0.468   0.920  sout498_SW0 (N82561)
+     LUT4:I0->O            1   0.468   0.920  sout361 (CHOICE1064)
+     LUT4:I3->O            1   0.468   0.920  sout365 (CHOICE1065)
+     LUT4:I0->O            1   0.468   0.920  sout442 (CHOICE1081)
+     LUT3:I0->O            1   0.468   0.920  sout472 (CHOICE1083)
+     LUT3:I2->O            1   0.468   0.920  sout498_SW0 (N85151)
      LUT4:I3->O            1   0.468   0.920  sout498 (sout)
      IOBUF:I->IO               4.602          iobuffer (MDIO)
      end scope: 'MII_Interface'
@@ -2508,7 +2716,7 @@ Offset:              6.514ns (Levels of Logic = 2)
                                        (85.9% logic, 14.1% route)
 
 =========================================================================
-CPU : 64.41 / 64.81 s | Elapsed : 65.00 / 65.00 s
+CPU : 66.39 / 66.79 s | Elapsed : 66.00 / 66.00 s
  
 --> 
 
