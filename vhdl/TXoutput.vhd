@@ -16,6 +16,7 @@ entity TXoutput is
            BP : in std_logic_vector(15 downto 0);
            TXD : out std_logic_vector(7 downto 0);
            TXEN : out std_logic;
+		 FRAMETX: out std_logic; 
            CLKEN : in std_logic);
 end TXoutput;
 
@@ -74,7 +75,11 @@ begin
     AD <= addr; 
     ncrcl <= not crcl; 
 
-    -- attempt at bit-reversal
+    --frametx goes high when a packet is being sent, and
+    -- is used both for TX LED and the indicator counter
+    FRAMETX <= ltxen2; 
+
+
     clock: process(CLK, RESET) is
     begin
 	  if RESET = '1' then
@@ -262,7 +267,9 @@ begin
 			 ltxen <= '1';
 			 ns <= databyte0;   
 	   	 when databyte0 => 
-		      addrinc <= '1'; 
+		 	 if bcnt > "0000000000001000" then
+			    addrinc <= '1'; 
+			 end if; 
 			 outsel <= 0;
 			 crcsel <= 0;
 			 dsel <= 0;
@@ -322,7 +329,7 @@ begin
 			 	ns <= databyte0;
 			 end if; 
 	   	 when crc3 => 
-		      addrinc <= '0'; 
+		      addrinc <= '1'; 
 			 outsel <= 3;
 			 crcsel <= 3;
 			 dsel <= 0;
@@ -355,7 +362,7 @@ begin
 			 ltxen <= '1';
 			 ns <= crc0;
 	   	 when crc0 => 
-		      addrinc <= '1'; 
+		      addrinc <= '0'; 
 			 outsel <= 3;
 			 crcsel <=0;
 			 dsel <= 0;

@@ -41,8 +41,24 @@ Higher-level interface, for things like the collision, etc. It would be smart to
 
 
 
+TX_OUT ***************************************************************
 TX_out calculations:
 Okay, we're using the CRC calculation logic from the Nair et. al. paper
 
+System gives correct checksum on the following packets:
+60-bytes, all zeros: 0x04128908
+DA: 00:00:3F:00:01:00, SA: 00:00:3F:00:00:04, Type:0x0101, rest zeros : 0xD0D5DEE7
+
+However, there are issues with the pipelining of the address incrementing in the main DATABYTE loop causing the ADDR to inc right past the end of the packet. 
+
+Trying to not inc addr if bytecnt < 8... works. Must also be sure to inc addr in CRC3 state. Admittedly, this if trashes our nice clean FSM design, but oh well.
+
+System works, sends out packets of right size, sends new pkt when bp changes. 
+
+FRAMETX  is the status/indicator signal to be used by MAC-wide counters, etc. 
 
 
+
+
+
+				   

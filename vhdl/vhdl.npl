@@ -27,7 +27,5 @@ DEPASSOC txoutput TXoutput.ucf Normal
 DEPASSOC txinput TXinput.ucf Normal
 [Normal]
 p_ModelSimSimRunTime_tb=xstvhd, spartan2e, Module VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1061769469, 10000ns
-[STATUS-ALL]
-txinput.ngcFile=WARNINGS,1061817318
 [STRATEGY-LIST]
 Normal=True
