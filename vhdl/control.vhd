@@ -9,30 +9,33 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 --use UNISIM.VComponents.all;
 
 entity control is
-    Port ( CLK : in std_logic;
-    		 CLKSL : in std_logic; 
-           SCLK : in std_logic;
-           SCS : in std_logic;
-           SIN : in std_logic;
-           SOUT : out std_logic;
-           LEDACT : out std_logic;
-           LEDTX : out std_logic;
-           LEDRX : out std_logic;
-           LED100 : out std_logic;
-           LED1000 : out std_logic;
-           LEDDPX : out std_logic;
-		 PHYRESET: out std_logic; 
-           TXF : in std_logic;
-           RXF : in std_logic;
-           TXFIFOWERR : in std_logic;
-           RXFIFOWERR : in std_logic;
-           RXPHYERR : in std_logic;
-           RXOFERR : in std_logic;
-           RXCRCERR : in std_logic;
-		 RXBCAST : out std_logic;
-		 RXMCAST : out std_logic;
-		 RXUCAST : out std_logic;
-		 MACADDR : out std_logic_vector(47 downto 0));
+    Port (	CLK : in std_logic;
+	 			RESET : in std_logic;
+				CLKSL : in std_logic; 
+				SCLK : in std_logic;
+				SCS : in std_logic;
+				SIN : in std_logic;
+				SOUT : out std_logic;
+				LEDACT : out std_logic;
+				LEDTX : out std_logic;
+				LEDRX : out std_logic;
+				LED100 : out std_logic;
+				LED1000 : out std_logic;
+				LEDDPX : out std_logic;
+				PHYRESET: out std_logic; 
+				TXF : in std_logic;
+				RXF : in std_logic;
+				TXFIFOWERR : in std_logic;
+				RXFIFOWERR : in std_logic;
+				RXPHYERR : in std_logic;
+				RXOFERR : in std_logic;
+				RXCRCERR : in std_logic;
+				RXBCAST : out std_logic;
+				RXMCAST : out std_logic;
+				RXUCAST : out std_logic;
+				MACADDR : out std_logic_vector(47 downto 0);
+				MDIO : inout std_logic;
+				MDC : out std_logic);
 end control;
 
 architecture Behavioral of control is
@@ -86,8 +89,41 @@ architecture Behavioral of control is
    signal phyrstcnt : integer := 0; 
 
 
+	-- phy status components
+	signal phyaddrr, phyaddrw : std_logic := '0';
+	signal phyaddr, phydi, phydo, phystat
+			 : std_logic_vector(31 downto 0) := (others => '0');
+
+
+	component PHYstatus is
+	    Port ( CLK : in std_logic;
+	           PHYDIN : in std_logic_vector(15 downto 0);
+	           PHYDOUT : out std_logic_vector(15 downto 0);
+	           PHYADDRSTATUS : out std_logic;
+	           PHYADDR : in std_logic_vector(5 downto 0);
+	           PHYADDRR : in std_logic;
+	           PHYADDRW : in std_logic;
+	           PHYSTAT : out std_logic_vector(31 downto 0);
+	           RESET : in std_logic;
+				  MDIO : inout std_logic;
+				  MDC : out std_logic );
+	end component;
 
 begin
+
+
+	PHY_status : PHYstatus port map (
+					CLK => CLK,
+					PHYDIN => phydi(15 downto 0),
+					PHYDOUT => phydo(15 downto 0),
+					PHYADDRSTATUS => phyaddr(31),
+					PHYADDR => phyaddr(5 downto 0),
+					PHYADDRR => phyaddrr, 
+					PHYADDRW => phyaddrw,
+					PHYSTAT => phystat,
+					RESET => RESET,
+					MDIO => MDIO,
+					MDC => MDC);
 
    slow_clock: process(CLKSL) is
    begin
@@ -145,9 +181,9 @@ begin
 	    
 
 	    -- resetting the counters
-	    if DIN(0) = '1' and sclkdeltal = '1' and
+		if DIN(0) = '1' and sclkdeltal = '1' and
 	    	  addr(4 downto 0) = "10000" then
-		  txf_rst <= '1'; 
+				txf_rst <= '1'; 
 	    else
 	    	  txf_rst <= '0';
 	    end if;
@@ -175,24 +211,38 @@ begin
 
 	    if DIN(4) = '1' and sclkdeltal = '1' and
 	    	  addr(4 downto 0) = "10000" then
-		  rxphyerr_rst <= '1'; 
+		     rxphyerr_rst <= '1'; 
 	    else
 	    	  rxphyerr_rst <= '0';
 	    end if;
 
 	    if DIN(5) = '1' and sclkdeltal = '1' and
-	    	  addr(4 downto 0) = "10000" then
-		  rxoferr_rst <= '1'; 
+	    	  	addr(4 downto 0) = "10000" then
+		  		rxoferr_rst <= '1'; 
 	    else
 	    	  rxoferr_rst <= '0';
 	    end if;
 
 	    if DIN(6) = '1' and sclkdeltal = '1' and
-	    	  addr(4 downto 0) = "10000" then
-		  rxcrcerr_rst <= '1'; 
+	    	  	addr(4 downto 0) = "10000" then
+		  		rxcrcerr_rst <= '1'; 
 	    else
 	    	  rxcrcerr_rst <= '0';
 	    end if;
+
+
+		 -- phy-related registers
+			if addr(4 downto 0) = "01000" and rw = '1' and
+				sclkdeltal = '1' then 
+		  		phyaddr(30 downto 0) <= din(30 downto 0);
+	    	end if; 
+
+			if addr(4 downto 0) = "01001" and rw = '1' and
+				sclkdeltal = '1' then 
+		  		phydi(31 downto 0) <= din(31 downto 0);
+	    	end if;
+			 
+
 
 	    -- latching the counters into our time frame
 	    txf_cntl <= txf_cnt;
@@ -253,25 +303,35 @@ begin
    lsclkdelta <= (not sclkll) and (sclkl);
    rw <= addr(7); 
    
+	phyaddrw <=  '1' when addr(4 downto 0) = "01000" and rw = '1' and
+						sclkdeltal = '1' else '0';
+
+	phyaddrr <=  '1' when addr(4 downto 0) = "01000" and rw = '0' and
+						sclkdeltal = '1' else '0';
+
+
 
    -- address decoding!!
    addr_mux : process(addr, rxcrcerr_cntl, rxoferr_cntl, 
    				  rxphyerr_cntl, txfifowerr_cntl,
-				  rxfifowerr_cntl, txf_cntl, rxf_cntl) is
+				  rxfifowerr_cntl, txf_cntl, rxf_cntl, phystat, phyaddr, phydi, phydo) is
    begin
-   	case addr(5 downto 0) is
-		when "010001" => doutmux <= txf_cntl;
-		when "010010" => doutmux <= rxf_cntl; 
-		when "010011" => doutmux <= txfifowerr_cntl; 
-		when "010100" => doutmux <= rxfifowerr_cntl; 
-		when "010101" => doutmux <= rxphyerr_cntl; 
-		when "010110" => doutmux <= rxoferr_cntl; 
-		when "010111" => doutmux <= rxcrcerr_cntl;
-		when others =>  doutmux <= (others => '0');
-	end case;  
-
-
-   end process addr_mux; 
+		case addr(5 downto 0) is
+			when "000000" => doutmux <= X"01234567"; 
+			when "000010" => doutmux <= phystat;
+			when "001000" => doutmux <= phyaddr; 
+			when "001001" => doutmux <= phydi;
+			when "001010" => doutmux <= phydo; 
+			when "010001" => doutmux <= txf_cntl;
+			when "010010" => doutmux <= rxf_cntl; 
+			when "010011" => doutmux <= txfifowerr_cntl; 
+			when "010100" => doutmux <= rxfifowerr_cntl; 
+			when "010101" => doutmux <= rxphyerr_cntl; 
+			when "010110" => doutmux <= rxoferr_cntl; 
+			when "010111" => doutmux <= rxcrcerr_cntl;
+			when others =>  doutmux <= (others => '0');
+		end case;  
+	end process addr_mux; 
 
    counters: process(CLK) is
    begin

@@ -11,14 +11,14 @@ use UNISIM.VComponents.all;
 
 entity MII is
     Port ( CLK : in std_logic;
-    		 RESET : in std_logic; 
+    		  RESET : in std_logic; 
            MDIO : inout std_logic;
-		 MDC : out std_logic; 
+		     MDC : out std_logic; 
            DIN : in std_logic_vector(15 downto 0);
            DOUT : out std_logic_vector(15 downto 0);
            ADDR : in std_logic_vector(4 downto 0);
            START : in std_logic;
-		 RW : in std_logic; 
+		     RW : in std_logic; 
            DONE : out std_logic);
 end MII;
 
@@ -139,7 +139,7 @@ begin
 	 end case;  
    end process soutmux;
 
-   fsm : process (cs, START, statecnt) is
+   fsm : process (cs, START, statecnt, clken) is
    begin
 	case cs is 
 	   when none =>
