@@ -11,9 +11,9 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity TXoutput is
     Port ( CLK : in std_logic;
            RESET : in std_logic;
-           QD : in std_logic_vector(31 downto 0);
-           AD : out std_logic_vector(15 downto 0);
-           BP : in std_logic_vector(15 downto 0);
+           MQ : in std_logic_vector(31 downto 0);
+           MA : out std_logic_vector(15 downto 0);
+           BPIN : in std_logic_vector(15 downto 0);
            TXD : out std_logic_vector(7 downto 0);
            TXEN : out std_logic;
 		 FRAMETX: out std_logic; 
@@ -72,7 +72,7 @@ begin
     			CI => crcl,
 			CO => crc,
 			D => data);
-    AD <= addr; 
+    MA <= addr; 
     ncrcl <= not crcl; 
 
     --frametx goes high when a packet is being sent, and
@@ -91,7 +91,7 @@ begin
 
 		    --byte count
 		    if ldbcnt = '1' then
-		    	  bcnt <= QD(15 downto 0);
+		    	  bcnt <= MQ(15 downto 0);
 		    elsif decbcnt = '1' then
 		    	  bcnt <= bcnt - 1;
 		    end if; 
@@ -107,7 +107,7 @@ begin
 			outsell <= outsel;
 			ltxen2 <= ltxen;
 			ltxen3 <= ltxen2; 
-			bpl <= BP;
+			bpl <= BPIN;
 			
 			-- crc reg:
 			if crcrst = '1' then 
@@ -131,10 +131,10 @@ begin
    end process clock;
 
    -- combinational muxes:
-   ldata <= QD(7 downto 0) when dsel = 0 else
-   		  QD(15 downto 8) when dsel = 1 else
-		  QD(23 downto 16) when dsel = 2 else
-		  QD(31 downto 24) when dsel = 3;
+   ldata <= MQ(7 downto 0) when dsel = 0 else
+   		  MQ(15 downto 8) when dsel = 1 else
+		  MQ(23 downto 16) when dsel = 2 else
+		  MQ(31 downto 24) when dsel = 3;
  
    ncrcbyte <= not crcl(7 downto 0) when crcsell = 0 else
    		    not crcl(15 downto 8) when crcsell = 1 else

@@ -14,7 +14,7 @@ entity RXoutput is
     		 RESET : in std_logic;
            BPIN : in std_logic_vector(15 downto 0);
            MA : out std_logic_vector(15 downto 0);
-           MD : in std_logic_vector(31 downto 0);
+           MQ : in std_logic_vector(31 downto 0);
            CLKOUT : in std_logic;
 		 NEXTFRAME : in std_logic; 
            DOUT : out std_logic_vector(15 downto 0);
@@ -95,7 +95,7 @@ begin
 	   if rising_edge(CLK) then
 	      cs <= ns; 
 
-		 mdl <= MD; 
+		 mdl <= MQ; 
 
 		 if lenen = '1' then 
 		    len <= mdl(15 downto 0);

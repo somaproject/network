@@ -193,10 +193,8 @@ Testing modes...
    
 Uhh, did we want to do any sort of MAC address filtering? 
 
-
-
-
-
-
-
-
+----------------------------------------------------------------------------
+Overview notes
+----------------------------------------------------------------------------
+Trying to rename large numbers of signals so that there's some sort
+of overall common naming scheme. Go refactoring!!!

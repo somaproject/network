@@ -23,10 +23,10 @@ ARCHITECTURE behavior OF testbench IS
 	PORT(
 		clk : IN std_logic;
 		reset : IN std_logic;
-		qd : IN std_logic_vector(31 downto 0);
-		bp : IN std_logic_vector(15 downto 0);
+		mq : IN std_logic_vector(31 downto 0);
+		bpin : IN std_logic_vector(15 downto 0);
 		clken : IN std_logic;          
-		ad : OUT std_logic_vector(15 downto 0);
+		ma : OUT std_logic_vector(15 downto 0);
 		txd : OUT std_logic_vector(7 downto 0);
 		frametx : out std_logic; 
 		txen : OUT std_logic
@@ -35,9 +35,9 @@ ARCHITECTURE behavior OF testbench IS
 
 	SIGNAL clk :  std_logic := '0';
 	SIGNAL reset :  std_logic := '1';
-	SIGNAL qd :  std_logic_vector(31 downto 0);
-	SIGNAL ad :  std_logic_vector(15 downto 0);
-	SIGNAL bp :  std_logic_vector(15 downto 0);
+	SIGNAL mq :  std_logic_vector(31 downto 0);
+	SIGNAL ma :  std_logic_vector(15 downto 0);
+	SIGNAL bpin :  std_logic_vector(15 downto 0);
 	SIGNAL txd :  std_logic_vector(7 downto 0);
 	SIGNAL txen :  std_logic;
 	SIGNAL frametx: std_logic; 
@@ -51,9 +51,9 @@ BEGIN
 	uut: txoutput PORT MAP(
 		clk => clk,
 		reset => reset,
-		qd => qd,
-		ad => ad,
-		bp => bp,
+		mq => mq,
+		ma => ma,
+		bpin => bpin,
 		txd => txd,
 		txen => txen,
 		frametx => frametx, 
@@ -87,11 +87,11 @@ BEGIN
    process is
    begin
      if ram_test = 0 then
-	   bp <= X"0013";
+	   bpin <= X"0013";
 	elsif ram_test = 1 then
-	   bp <= X"0013";
+	   bpin <= X"0013";
 	   wait for 5 us;
-	   bp <= X"0018";
+	   bpin <= X"0018";
 	end if; 
 	wait;
 
@@ -185,13 +185,13 @@ BEGIN
 
 	 if rising_edge(CLK) then
 		 if clken = '1' then
-		    qd1 <= RAM(conv_integer(ad)) after 2 ns; 
+		    qd1 <= RAM(conv_integer(ma)) after 2 ns; 
 		 end if; 
 		    qd2 <= qd1 after 2 ns; 
 		    qd3 <= qd2 after 2 ns;
 		    qd4 <= qd3 after 2 ns;
 		    qd5 <= qd4 after 2 ns;
-		    qd <= qd4 after 2 ns; 
+		    mq <= qd4 after 2 ns; 
 	 end if;
    end process; 
 

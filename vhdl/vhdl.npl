@@ -58,9 +58,6 @@ p_ModelSimSimRunTime_tb=xstvhd, spartan2e, Module VHDL Test Bench.t_MSimulateBeh
 p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1062287314, Yes
 xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1062367111, High
 [STATUS-ALL]
-memory.ngcFile=WARNINGS,1063496055
-rxinput.ngdFile=WARNINGS,1063496055
-rxoutput.ngcFile=WARNINGS,1063496055
-rxoutput.ngdFile=WARNINGS,1063496055
+rxinput.ngdFile=WARNINGS,1063564548
 [STRATEGY-LIST]
 Normal=True
