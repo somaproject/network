@@ -116,7 +116,7 @@ begin
    den <= enableintl xor enableint; 
 
 
-   clock: process(CLK) is
+   clock: process(CLK, RESET) is
    begin
    	if RESET = '1' then
 		cs <= none;

@@ -61,7 +61,7 @@ architecture Behavioral of RXinput is
 	           INVALID : in std_logic;
 	           DATA : in std_logic_vector(7 downto 0);
 	           MA : out std_logic_vector(15 downto 0);
-			 MD : out std_logic_vector(31 downto 0); 
+			     MD : out std_logic_vector(31 downto 0); 
 	           BPOUT : out std_logic_vector(15 downto 0);
 	           RXCRCERR : out std_logic;
 	           RXOFERR : out std_logic;

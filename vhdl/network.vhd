@@ -179,22 +179,26 @@ begin
     addr3ext <= ('1' & addr3);
     addr4ext <= ('0' & addr4);
 
-    clk_dll : CLKDLL port map (
-    			CLKIN => clkin,
-			CLKFB => clk,
-			RST => RESET,
-			CLK0 => clk_to_bufg);
-    clk_bufg : BUFG port map (
-    			I => clk_to_bufg,
-			O => clk); 
     clkio_dll : CLKDLL port map (
-    			CLKIN => clkioin,
+    		CLKIN => CLKIOIN,
 			CLKFB => clkio,
 			RST => RESET,
 			CLK0 => clkio_to_bufg);
+
     clkio_bufg : BUFG port map (
-    			I => clkio_to_bufg,
+    		I => clkio_to_bufg,
 			O => clkio); 
+
+
+    clk_dll : CLKDLL port map (
+    		CLKIN => CLKIN,
+			CLKFB => clk,
+			RST => RESET,
+			CLK0 => clk_to_bufg);
+
+    clk_bufg : BUFG port map (
+    		I => clk_to_bufg,
+			O => clk); 
 
     
      
@@ -226,7 +230,7 @@ begin
 			  CLKEN3 => clken3,
 			  CLKEN4 => clken4);
     rx_input: rxinput port map (
-    	 		  RX_CLK => RX_CLK,
+    	 	  RX_CLK => RX_CLK,
 			  CLK => clk,
 			  RESET => RESET,
 			  RX_DV => RX_DV,

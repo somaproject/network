@@ -14,10 +14,10 @@ USE ieee.numeric_std.ALL;
 use ieee.std_logic_unsigned.all; 
 
 
-ENTITY testbench IS
-END testbench;
+ENTITY TXout_testbench IS
+END TXout_testbench;
 
-ARCHITECTURE behavior OF testbench IS 
+ARCHITECTURE behavior OF TXout_testbench IS 
 
 	COMPONENT txoutput
 	PORT(

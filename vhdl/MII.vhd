@@ -13,6 +13,7 @@ entity MII is
     Port ( CLK : in std_logic;
     		 RESET : in std_logic; 
            MDIO : inout std_logic;
+		 MDC : out std_logic; 
            DIN : in std_logic_vector(15 downto 0);
            DOUT : out std_logic_vector(15 downto 0);
            ADDR : in std_logic_vector(4 downto 0);
@@ -29,7 +30,7 @@ architecture Behavioral of MII is
    signal mdccnt : std_logic_vector(5 downto 0) := 
    		(others => '0');
    signal statecnt : integer range 0 to 63 := 0; 
-   type states is (none, resetcnt, waiting, ldout, setdone);
+   type states is (none, resetcnt, firstinc, waiting, ldout, setdone);
 
    signal cs, ns : states := none; 
    signal dreg : std_logic_vector(15 downto 0) := (others => '0');
@@ -54,7 +55,7 @@ begin
 		 if cs = resetcnt then 
 		    mdccnt <= (others => '0');
 		 else
-		    if cs = waiting then
+		    if cs = waiting or cs = firstinc then
 		       mdccnt <= mdccnt + 1;
 		    end if;
 		 end if; 
@@ -73,7 +74,7 @@ begin
 
 		 mdcint <= mdccnt(5); 
 
-		 if cs = waiting then 
+		 if cs = waiting or cs = firstinc then 
 		 	dreg <= dreg(14 downto 0) & SIN;
 		 end if; 
 
@@ -83,7 +84,8 @@ begin
 	   end if;
      end if; 
    end process clock;
-
+   
+   MDC <= mdcint; 
    clken <= mdcint and (not mdccnt(5));
    shiften <= mdccnt(5) and (not mdcint);
 
@@ -94,7 +96,7 @@ begin
 			IO => MDIO); 
 			 
 
-   soutmux: process(sout, RW, ADDR, DIN) is
+   soutmux: process(sout, statecnt, RW, ADDR, DIN) is
    begin
       case statecnt is 
 	   when 0 to 31 => sout <= '1';
@@ -149,10 +151,17 @@ begin
 	      end if; 
 	   when resetcnt => 
 	      DONE <= '0';
-		 ns <= waiting;
+		 ns <= firstinc;
+	   when firstinc =>
+	      DONE <= '0';  
+	   	 if clken = '1' then
+		 	ns <= waiting;
+		 else
+		    ns <= firstinc; 
+	      end if; 
 	   when waiting =>
 	      DONE <= '0';  
-	   	 if statecnt = 63 then
+	   	 if statecnt = 0  then
 		 	ns <= ldout;
 		 else
 		    ns <= waiting; 

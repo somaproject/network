@@ -2,11 +2,11 @@
 # Because modelsim was, well, sucking, I've made my own .DO 
 vlib work
 
-# actual hardware 
+# actual hardware
+vcom -93 -explicit crc_combinational.vhd 
 vcom -93 -explicit TXoutput.vhd
 vcom -93 -explicit rxoutput_async_fifo.vhd
 vcom -93 -explicit RXoutput.vhd
-vcom -93 -explicit crc_combinational.vhd
 vcom -93 -explicit async_fifo.vhd
 vcom -93 -explicit rxinput_fifocontrol.vhd
 vcom -93 -explicit RXinput_fifo.vhd
@@ -25,7 +25,7 @@ vcom -93 -explicit test_NoBLSRAM.vhd
 vcom -93 -explicit network_testbench.vhd
 
 
-vsim -t 1ps -L xilinxcorelib -lib work testbench
+vsim -t 1ps -L xilinxcorelib -lib work network_testbench
 view wave
 add wave *
 view structure

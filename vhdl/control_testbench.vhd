@@ -16,10 +16,10 @@ use ieee.std_logic_textio.ALL;
 use std.textio.all; 
 
 
-ENTITY testbench IS
-END testbench;
+ENTITY control_testbench IS
+END control_testbench;
 
-ARCHITECTURE behavior OF testbench IS 
+ARCHITECTURE behavior OF control_testbench IS 
 
 	COMPONENT control
 	PORT(

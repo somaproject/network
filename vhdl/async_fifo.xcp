@@ -1,4 +1,4 @@
-# Xilinx CORE Generator 5.2.03i; Cores Update # 2
+# Xilinx CORE Generator 6.1.01i
 SELECT Asynchronous_FIFO Spartan2 Xilinx,_Inc. 5.1
 CSET read_error_sense = active_high
 CSET read_count_width = 2

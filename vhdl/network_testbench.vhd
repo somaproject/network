@@ -16,10 +16,10 @@ use ieee.std_logic_textio.ALL;
 USE ieee.numeric_std.ALL; 
 use std.textio.all; 
 
-ENTITY testbench IS
-END testbench;
+ENTITY network_testbench IS
+END network_testbench;
 
-ARCHITECTURE behavior OF testbench IS 
+ARCHITECTURE behavior OF network_testbench IS 
 -- This is the main testbench for the network
 -- It will evolve over time to become increasingly complicated
 -- and read from an increasingly complicated set of vectors
@@ -154,7 +154,7 @@ BEGIN
    rx_clk <= not rx_clk after 4.0 ns; 
    clkioin <= not clkioin after 12 ns; 
    
-   reset <= '0' after 10 ns; 
+   reset <= '0' after 200 ns; 
 
 
 -- *** Test Bench - User Defined Section ***

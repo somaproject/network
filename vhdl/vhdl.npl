@@ -1,78 +1,76 @@
-JDF F
+JDF G
 // Created by Project Navigator ver 1.0
 PROJECT vhdl
-DESIGN vhdl Normal
+DESIGN vhdl
 DEVFAM spartan2e
 DEVFAMTIME 0
-DEVICE xc2s100e
-DEVICETIME 1064323152
+DEVICE xc2s200e
+DEVICETIME 1064937299
 DEVPKG pq208
 DEVPKGTIME 1060536737
 DEVSPEED -6
-DEVSPEEDTIME 1062690054
-FLOW XST VHDL
-FLOWTIME 0
-STIMULUS RXinput_test1.tbw Normal
-STIMULUS network_testbench.vhd Normal
-STIMULUS RXinput_memio_test.tbw Normal
-STIMULUS memory_test.tbw Normal
-STIMULUS FIFOcheck_test.tbw Normal
-STIMULUS TXinput_test.tbw Normal
-STIMULUS TXout_testbench.vhd Normal
-STIMULUS control_testbench.vhd Normal
-STIMULUS RXinput_GMII_test.tbw Normal
-STIMULUS test_NoBLSRAM_test.tbw Normal
-STIMULUS rxinput_fifo_test.tbw Normal
-MODULE rxoutput_async_fifo.xco
-MODSTYLE rxoutput_async_fifo Normal
-MODULE RXinput_memio.vhd
-MODSTYLE rxinput_memio Normal
-MODULE CRC_combtest.vhd
-MODSTYLE crc_combtest Normal
-MODULE memory.vhd
-MODSTYLE memory Normal
-MODULE network.vhd
-MODSTYLE network Normal
-MODULE async_fifo.xco
-MODSTYLE async_fifo Normal
-MODULE FIFOcheck.vhd
-MODSTYLE fifocheck Normal
-MODULE MII.vhd
-MODSTYLE mii Normal
-MODULE crc_combinational.vhd
-MODSTYLE crc_combinational Normal
-MODULE RXinput.vhd
-MODSTYLE rxinput Normal
-MODULE TXinput.vhd
-MODSTYLE txinput Normal
-MODULE RXoutput.vhd
-MODSTYLE rxoutput Normal
-MODULE TXoutput.vhd
-MODSTYLE txoutput Normal
-MODULE rxinput_fifocontrol.vhd
-MODSTYLE rxinput_fifocontrol Normal
-MODULE RXinput_GMII.vhd
-MODSTYLE rxinput_gmii Normal
-MODULE RXinput_fifo.vhd
-MODSTYLE rxinput_fifo Normal
-MODULE test_NoBLSRAM.vhd
-MODSTYLE test_noblsram Normal
-MODULE control.vhd
-MODSTYLE control Normal
-DEPASSOC rxinput_fifocontrol txinput_fifocontrol.ucf Normal
-DEPASSOC network network.ucf Normal
-DEPASSOC rxoutput rxoutput.ucf Normal
-DEPASSOC rxinput_gmii RXinput_GMII.ucf Normal
-DEPASSOC rxinput_memio RXinput_memio.ucf Normal
-DEPASSOC control control.ucf SYSTEM
-DEPASSOC txoutput TXoutput.ucf Normal
-DEPASSOC rxinput RXinput.ucf Normal
-DEPASSOC txinput TXinput.ucf Normal
-DEPASSOC memory memory.ucf Normal
-DEPASSOC rxinput_fifo rxinput_fifo.ucf Normal
+DEVSPEEDTIME 1064937439
+DEVTOPLEVELMODULETYPE HDL
+TOPLEVELMODULETYPETIME 0
+DEVSYNTHESISTOOL XST (VHDL/Verilog)
+SYNTHESISTOOLTIME 0
+DEVSIMULATOR Modelsim
+SIMULATORTIME 0
+DEVGENERATEDSIMULATIONMODEL VHDL
+GENERATEDSIMULATIONMODELTIME 0
+STIMULUS RXinput_test1.tbw
+STIMULUS network_testbench.vhd
+STIMULUS RXinput_memio_test.tbw
+STIMULUS memory_test.tbw
+STIMULUS MII_testbench.vhd
+STIMULUS FIFOcheck_test.tbw
+STIMULUS TXinput_test.tbw
+STIMULUS TXout_testbench.vhd
+STIMULUS control_testbench.vhd
+STIMULUS RXinput_GMII_test.tbw
+STIMULUS test_NoBLSRAM_test.tbw
+STIMULUS rxinput_fifo_test.tbw
+SOURCE rxoutput_async_fifo.xco
+SOURCE RXinput_memio.vhd
+SOURCE CRC_combtest.vhd
+SOURCE memory.vhd
+SOURCE network.vhd
+SOURCE async_fifo.xco
+SOURCE FIFOcheck.vhd
+SOURCE MII.vhd
+SOURCE crc_combinational.vhd
+SOURCE RXinput.vhd
+SOURCE TXinput.vhd
+SOURCE RXoutput.vhd
+SOURCE TXoutput.vhd
+SOURCE rxinput_fifocontrol.vhd
+SOURCE RXinput_GMII.vhd
+SOURCE RXinput_fifo.vhd
+SOURCE test_NoBLSRAM.vhd
+SOURCE control.vhd
+DEPASSOC rxinput_memio RXinput_memio.ucf
+DEPASSOC memory memory.ucf
+DEPASSOC network network.ucf
+DEPASSOC rxinput RXinput.ucf
+DEPASSOC txinput TXinput.ucf
+DEPASSOC rxoutput rxoutput.ucf
+DEPASSOC txoutput TXoutput.ucf
+DEPASSOC rxinput_fifocontrol txinput_fifocontrol.ucf
+DEPASSOC rxinput_gmii RXinput_GMII.ucf
+DEPASSOC rxinput_fifo rxinput_fifo.ucf
+DEPASSOC control control.ucf
 [Normal]
-p_ModelSimSimRunTime_tb=xstvhd, spartan2e, Module VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064439070, 100ms
-p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1062287314, Yes
-xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_par, 1062367111, High
+p_ModelSimSimRunTime_tb=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064439070, 100ms
+p_SimUseCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, False
+p_xstPackIORegister=xstvhd, spartan2e, VHDL.t_synthesize, 1062287314, Yes
+xilxMapTimingDrivenPacking=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064936691, True
+xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064934766, High
+xilxPARextraEffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064936691, None
+xilxSynthKeepHierarchy=xstvhd, spartan2e, VHDL.t_synthesize, 1064935909, Yes
+_SynthOptEffort=xstvhd, spartan2e, VHDL.t_synthesize, 1064934786, High
+_VhdlSimCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
+_VhdlSimDo_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, True
+[STATUS-ALL]
+network.ngcFileGroup=OK,1064945675
 [STRATEGY-LIST]
 Normal=True

@@ -1,4 +1,4 @@
-# Xilinx CORE Generator 5.2.03i; Cores Update # 2
+# Xilinx CORE Generator 6.1.01i
 # Username = Eric Jonas
 # COREGenPath = C:\Xilinx\coregen
 # ProjectPath = C:\desktop\soma\hardware\network\vhdl
@@ -14,16 +14,16 @@
 # Number of SRL16s used in design: 0
 # Number of Distributed RAM primitives used in design: 0
 # Number of Block Memories used in design: 1
-# Number of Dedicated Multipliers cannot be determined when there is no RPMed logic
+# Number of Dedicated Multipliers used in design: 0
 # Number of HU_SETs used: 2
 # Huset "async_fifo/control/rd_blk" = (0, 0) to (2, 5) in CLBs
 # Huset "async_fifo/control/wr_blk" = (0, 0) to (4, 5) in CLBs
 # 
-SET BusFormat = BusFormatAngleBracket
+SET BusFormat = BusFormatAngleBracketNotRipped
 SET SimulationOutputProducts = Verilog VHDL
 SET XilinxFamily = Spartan2
 SET OutputOption = DesignFlow
-SET DesignFlow = Vhdl
+SET DesignFlow = VHDL
 SET FlowVendor = Foundation_iSE
 SET FormalVerification = None
 SELECT Asynchronous_FIFO Spartan2 Xilinx,_Inc. 5.1
@@ -47,4 +47,3 @@ CSET read_acknowledge_sense = active_high
 CSET write_error_sense = active_high
 CSET write_count_width = 2
 GENERATE
-
