@@ -67,9 +67,9 @@ DEPASSOC rxinput_fifo rxinput_fifo.ucf
 DEPASSOC control control.ucf
 DEPASSOC testsuite testsuite.ucf
 [Normal]
-mpprExtraEffortLevel=xstvhd, spartan2e, Implementation.t_mppr, 1068780164, Continue on Impossible
-mpprPARiterations=xstvhd, spartan2e, Implementation.t_mppr, 1069343802, 4
-mpprStartingPlacerCostTbl=xstvhd, spartan2e, Implementation.t_mppr, 1069343802, 4
+mpprExtraEffortLevel=xstvhd, spartan2e, VHDL.t_mppr, 1068780164, Continue on Impossible
+mpprPARiterations=xstvhd, spartan2e, VHDL.t_mppr, 1070897626, 20
+mpprStartingPlacerCostTbl=xstvhd, spartan2e, VHDL.t_mppr, 1070897626, 10
 p_ModelSimSimRunTime_tb=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064439070, 100ms
 p_PostMapSimModelName=xstvhd, spartan2e, VHDL.t_postMapSimModel, 1065570070, network_PR
 p_PostParSimModelName=xstvhd, spartan2e, VHDL.t_postParSimModel, 1068825295, network_PR
@@ -83,20 +83,20 @@ p_xstEquivRegRemoval=xstvhd, spartan2e, Schematic.t_synthesize, 1069203989, Fals
 p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1065491837, Yes
 p_xstUseSynthConstFile=xstvhd, spartan2e, Schematic.t_synthesize, 1068754069, False
 xilxBitgCfg_GenOpt_ASCIIFile=xstvhd, spartan2e, Implementation.t_bitFile, 1067537310, True
-xilxMapAllowLogicOpt=xstvhd, spartan2e, Implementation.t_map, 1069115939, True
-xilxMapCoverMode=xstvhd, spartan2e, Implementation.t_map, 1068755569, Speed
-xilxMapPackfactor=xstvhd, spartan2e, Implementation.t_map, 1064958980, 100
-xilxMapReplicateLogic=xstvhd, spartan2e, Implementation.t_map, 1069164003, True
-xilxMapReportDetail=xstvhd, spartan2e, Implementation.t_map, 1067550771, True
-xilxMapTimingDrivenPacking=xstvhd, spartan2e, Implementation.t_map, 1069203938, False
-xilxNgdbldNTType=xstvhd, spartan2e, Implementation.t_ngdbuild, 1064958659, On
-xilxNgdbldPresHierarchy=xstvhd, spartan2e, Implementation.t_ngdbuild, 1068755053, False
-xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_par, 1069342000, High
-xilxPARextraEffortLevel=xstvhd, spartan2e, Implementation.t_par, 1068774187, Normal
-xilxPARplacerCostTable=xstvhd, spartan2e, Implementation.t_par, 1069345864, 7
-xilxPARplacerEffortLevel=xstvhd, spartan2e, Implementation.t_par, 1069341668, None
-xilxPARrouterEffortLevel=xstvhd, spartan2e, Implementation.t_par, 1069341668, None
-xilxPostTrceUncovPath=xstvhd, spartan2e, Implementation.t_postRouteTrce, 1068659666,
+xilxMapAllowLogicOpt=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1069115939, True
+xilxMapCoverMode=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1068755569, Speed
+xilxMapPackfactor=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1064958980, 100
+xilxMapReplicateLogic=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1069164003, True
+xilxMapReportDetail=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1067550771, True
+xilxMapTimingDrivenPacking=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1069203938, False
+xilxNgdbldNTType=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1064958659, On
+xilxNgdbldPresHierarchy=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1068755053, False
+xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_par, 1069342000, High
+xilxPARextraEffortLevel=xstvhd, spartan2e, VHDL.t_par, 1068774187, Normal
+xilxPARplacerCostTable=xstvhd, spartan2e, VHDL.t_par, 1070901665, 1
+xilxPARplacerEffortLevel=xstvhd, spartan2e, VHDL.t_par, 1069341668, None
+xilxPARrouterEffortLevel=xstvhd, spartan2e, VHDL.t_par, 1069341668, None
+xilxPostTrceUncovPath=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1068659666,
 xilxSynthKeepHierarchy=xstvhd, spartan2e, Schematic.t_synthesize, 1065203996, Yes
 xilxSynthMaxFanout=xstvhd, spartan2e, Schematic.t_synthesize, 1069163640, 150
 _SynthCaseImplStyle=xstvhd, spartan2e, Schematic.t_synthesize, 1069112142, None
@@ -105,5 +105,9 @@ _SynthOpt=xstvhd, spartan2e, Schematic.t_synthesize, 1069163640, Speed
 _SynthOptEffort=xstvhd, spartan2e, Schematic.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, True
+[STATUS-ALL]
+network.ncdFile=WARNINGS,1070901694
+network.ngcFile=WARNINGS,1070888979
+network.ngdFile=WARNINGS,1070889044
 [STRATEGY-LIST]
 Normal=True

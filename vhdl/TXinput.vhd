@@ -208,7 +208,11 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			ns <= low_w;
+			if newfint = '0' then
+				ns <= none;
+			else
+				ns <= low_w;
+			end if; 
 	 	when low_w => 
 			dlen <= '1';
 			dhen <= '0';
@@ -218,11 +222,16 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			if den = '1' then
-				ns <= low;
+			if newfint = '0' then
+				ns <= none;
 			else
-				ns <= low_w;
-			end if;
+				if den = '1' then
+					ns <= low;
+				else
+					ns <= low_w;
+				end if;
+			end if; 
+
 	 	when low => 
 			dlen <= '0';
 			dhen <= '0';
@@ -232,11 +241,16 @@ begin
 			cpen <= '1';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			if cnt =0 or cnt = 65535 then --i.e. 0 or -1
-				ns <= waitlow;
+			if newfint = '0' then
+				ns <= none;
 			else
-				ns <= high_w;
-			end if;
+				if cnt =0 or cnt = 65535 then --i.e. 0 or -1
+					ns <= waitlow;
+				else
+					ns <= high_w;
+				end if;
+			end if; 
+
 	 	when high_w => 
 			dlen <= '0';
 			dhen <= '1';
@@ -246,11 +260,16 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			if den = '1'  then
-				ns <= high;
+			if newfint = '0' then
+				ns <= none;
 			else
-				ns <= high_w;
-			end if;		
+				if den = '1'  then
+					ns <= high;
+				else
+					ns <= high_w;
+				end if;
+			end if; 
+		
 	 	when high => 
 			dlen <= '0';
 			dhen <= '1';
@@ -260,12 +279,16 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			if  cnt =0 or cnt = 65535 then --i.e. 0 or -1
-				ns <= pktdone1;
+			if newfint = '0' then
+				ns <= none;
 			else
-				ns <= low_w;
-			end if;  
-	 	when waitlow => 
+				if  cnt =0 or cnt = 65535 then --i.e. 0 or -1
+					ns <= pktdone1;
+				else
+					ns <= low_w;
+				end if; 
+			end if; 
+ 	 	when waitlow => 
 			dlen <= '0';
 			dhen <= '0';
 			mrw <= '0';
@@ -274,7 +297,12 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			ns <= lowmemw;
+			if newfint = '0' then
+				ns <= none;
+			else
+				ns <= lowmemw;
+			end if; 
+			
 	 	when lowmemw => 
 			dlen <= '0';
 			dhen <= '0';
@@ -284,7 +312,12 @@ begin
 			cpen <= '0';
 			DONE <= '0';
 			TXFIFOWERR <= '0';
-			ns <= pktdone1;
+			if newfint = '0' then
+				ns <= none;
+			else
+				ns <= pktdone1;
+			end if; 
+			
 	 	when pktdone1 => 
 			dlen <= '0';
 			dhen <= '0';
@@ -299,6 +332,7 @@ begin
 			else
 			   ns <= pktdone2;
 			end if; 
+
 	 	when pktdone2 => 
 			dlen <= '0';
 			dhen <= '0';

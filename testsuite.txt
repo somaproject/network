@@ -112,3 +112,5 @@ Use 2 LFSRs to write pseudo-random locations in memory with pseudo-random values
 Then, we reset both LFSRs and try to read. 
 
 Wow, it actually works. That's amazing! 
+
+Uhh, make sure you get the 9.67k resistor working or the PHY won't boot. Now we get link. 

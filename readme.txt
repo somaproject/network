@@ -429,8 +429,13 @@ You need to clear the "isolate" bit in PHY register zero.
 
 Attempts to debug why we can't read the actual packets...
 
-
-
 17 November 2003: Signal integrity issues:
 
 So, we're at the point where it looks like memory read errors are going to force us to 
+
+
+8 December 2003: A New Hope
+  So, I have the new board, and it passes all the memory checks I can throw at it. The question is, then, why the heck isn't it working?
+We still get the same "TX loop" errors when we try to transmit, where any attempt to transmit a frame causes the system to start transmitting and never stop. 
+
+This really strongly suggests a memory error. I just wish I had the skill to know of what kind, or how to debug it. Well, and I wish I understood how, if this really is a memory error,it manages to pass all the other memory tests. 

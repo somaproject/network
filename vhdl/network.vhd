@@ -10,6 +10,7 @@ use UNISIM.VComponents.all;
 
 entity network is
     Port ( CLKIN : in std_logic;
+	 		  CLKFB : in std_logic;
            RESET : in std_logic;
            RX_DV : in std_logic;
            RX_ER : in std_logic;
@@ -269,14 +270,14 @@ begin
 
     clk_dll : CLKDLL port map (
     		CLKIN => CLKIN,
-			CLKFB => clk,
+			CLKFB => CLKFB,
 			RST => RESET,
 			CLK0 => clk_to_bufg, 
 			CLKDV => open,
 			CLK270 => clk270,
 			CLK180 => clk180, 
 			CLK90 => clk90);
-	 --MCLK <= clk; 	-- should be clk90
+	 --MCLK <= clk; 	
     clk_bufg : BUFG port map (
     		I => clk_to_bufg,
 			O => clk); 
@@ -293,7 +294,7 @@ begin
     		I => clkrx_to_bufg,
 			O => clkrx); 
 
-	 U1: OBUF port map (I => clk270, O => MCLK);
+	 U1: OBUF port map (I => clk, O => MCLK);
  	 U2: OBUF port map (I => clk180, O => GTX_CLK);
 	 
 	 slowclock: clockenable port map (

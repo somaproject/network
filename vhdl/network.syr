@@ -1,10 +1,10 @@
 Release 6.1.02i - xst G.25a
 Copyright (c) 1995-2003 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to __projnav
-CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 1.00 s
+CPU : 0.00 / 0.19 s | Elapsed : 0.00 / 0.00 s
  
 --> Parameter xsthdpdir set to ./xst
-CPU : 0.00 / 0.20 s | Elapsed : 0.00 / 1.00 s
+CPU : 0.00 / 0.19 s | Elapsed : 0.00 / 0.00 s
  
 --> Reading design: network.prj
 
@@ -123,9 +123,2395 @@ Architecture behavioral of Entity fifocheck is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/control.vhd in Library work.
 Architecture behavioral of Entity control is up to date.
 Compiling vhdl file C:/desktop/network/vhdl/network.vhd in Library work.
-ERROR:HDLParsers:164 - C:/desktop/network/vhdl/network.vhd Line 291. parse error, unexpected MULT
+Architecture behavioral of Entity network is up to date.
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <network> (Architecture <behavioral>).
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLK90' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLK180' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLK270' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 259: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 259: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 266: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 271: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 271: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 271: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 271: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 281: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLK90' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLK180' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLK270' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLK2X' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'CLKDV' of component 'CLKDLL'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 286: Unconnected output port 'LOCKED' of component 'CLKDLL'.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 286: Generating a Black Box for component <CLKDLL>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/network.vhd line 293: Generating a Black Box for component <BUFG>.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 380: Unconnected output port 'GTX_CLK' of component 'TXoutput'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/network.vhd line 392: Unconnected output port 'DONE' of component 'TXinput'.
+Entity <network> analyzed. Unit <network> generated.
+
+Analyzing Entity <clockenable> (Architecture <behavioral>).
+Entity <clockenable> analyzed. Unit <clockenable> generated.
+
+Analyzing Entity <memory> (Architecture <behavioral>).
+    Set user-defined property "IOB =  true" for signal <ts>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/memory.vhd line 69: Generating a Black Box for component <IOBUF_F_6>.
+Entity <memory> analyzed. Unit <memory> generated.
+
+Analyzing Entity <RXinput> (Architecture <behavioral>).
+Entity <RXinput> analyzed. Unit <RXinput> generated.
+
+Analyzing Entity <RXinput_GMII> (Architecture <behavioral>).
+Entity <RXinput_GMII> analyzed. Unit <RXinput_GMII> generated.
+
+Analyzing Entity <RXinput_memio> (Architecture <behavioral>).
+Entity <RXinput_memio> analyzed. Unit <RXinput_memio> generated.
+
+Analyzing Entity <crc_combinational> (Architecture <behavioral>).
+Entity <crc_combinational> analyzed. Unit <crc_combinational> generated.
+
+Analyzing Entity <RXinput_addrchk> (Architecture <behavioral>).
+Entity <RXinput_addrchk> analyzed. Unit <RXinput_addrchk> generated.
+
+Analyzing Entity <RXinput_fifo> (Architecture <behavioral>).
+WARNING:Xst:753 - C:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Unconnected output port 'full' of component 'async_fifo'.
+WARNING:Xst:753 - C:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Unconnected output port 'empty' of component 'async_fifo'.
+WARNING:Xst:766 - C:/desktop/network/vhdl/RXinput_fifo.vhd line 71: Generating a Black Box for component <async_fifo>.
+Entity <RXinput_fifo> analyzed. Unit <RXinput_fifo> generated.
+
+Analyzing Entity <rxinput_fifocontrol> (Architecture <behavioral>).
+Entity <rxinput_fifocontrol> analyzed. Unit <rxinput_fifocontrol> generated.
+
+Analyzing Entity <RXoutput> (Architecture <behavioral>).
+WARNING:Xst:766 - C:/desktop/network/vhdl/RXoutput.vhd line 79: Generating a Black Box for component <rxoutput_async_fifo>.
+Entity <RXoutput> analyzed. Unit <RXoutput> generated.
+
+Analyzing Entity <TXoutput> (Architecture <behavioral>).
+WARNING:Xst:819 - C:/desktop/network/vhdl/TXoutput.vhd line 177: The following signals are missing in the process sensitivity list:
+   bcntlgt10.
+Entity <TXoutput> analyzed. Unit <TXoutput> generated.
+
+Analyzing Entity <TXinput> (Architecture <behavioral>).
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 90: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 98: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+WARNING:Xst:766 - C:/desktop/network/vhdl/TXinput.vhd line 107: Generating a Black Box for component <SRL16>.
+Entity <TXinput> analyzed. Unit <TXinput> generated.
+
+Analyzing Entity <FIFOcheck> (Architecture <behavioral>).
+Entity <FIFOcheck> analyzed. Unit <FIFOcheck> generated.
+
+Analyzing Entity <control> (Architecture <behavioral>).
+WARNING:Xst:819 - C:/desktop/network/vhdl/control.vhd line 380: The following signals are missing in the process sensitivity list:
+   lrxallf, lrxbcast, lrxmcast, lrxucast.
+Entity <control> analyzed. Unit <control> generated.
+
+Analyzing Entity <PHYstatus> (Architecture <behavioral>).
+Entity <PHYstatus> analyzed. Unit <PHYstatus> generated.
+
+Analyzing Entity <MII> (Architecture <behavioral>).
+WARNING:Xst:766 - C:/desktop/network/vhdl/MII.vhd line 95: Generating a Black Box for component <IOBUF>.
+Entity <MII> analyzed. Unit <MII> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <MII>.
+    Related source file is C:/desktop/network/vhdl/MII.vhd.
+WARNING:Xst:646 - Signal <shiften> is assigned but never used.
+    Found finite state machine <FSM_0> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 6                                              |
+    | Transitions        | 9                                              |
+    | Inputs             | 3                                              |
+    | Outputs            | 5                                              |
+    | Clock              | CLK (rising_edge)                              |
+    | Clock enable       | CLKSLEN (positive)                             |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | none                                           |
+    | Power Up State     | none                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 16-bit register for signal <DOUT>.
+    Found 6-bit comparator lessequal for signal <$n0021>.
+    Found 6-bit adder for signal <$n0078> created at line 72.
+    Found 16-bit register for signal <dreg>.
+    Found 6-bit up counter for signal <mdccnt>.
+    Found 1-bit register for signal <mdcint>.
+    Found 6-bit register for signal <statecnt>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   1 Counter(s).
+	inferred  39 D-type flip-flop(s).
+	inferred   1 Adder/Subtracter(s).
+	inferred   1 Comparator(s).
+Unit <MII> synthesized.
+
+
+Synthesizing Unit <PHYstatus>.
+    Related source file is C:/desktop/network/vhdl/PHYstatus.vhd.
+WARNING:Xst:1780 - Signal <counter> is never used or assigned.
+    Found finite state machine <FSM_1> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 8                                              |
+    | Transitions        | 12                                             |
+    | Inputs             | 2                                              |
+    | Outputs            | 6                                              |
+    | Clock              | CLK (rising_edge)                              |
+    | Clock enable       | CLKSLEN (positive)                             |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | read1k                                         |
+    | Power Up State     | read1k                                         |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Using one-hot encoding for signal <miisel>.
+    Found 1-bit register for signal <PHYADDRSTATUS>.
+    Found 32-bit register for signal <PHYSTAT>.
+    Found 16-bit register for signal <PHYDOUT>.
+    Found 5-bit register for signal <addrl>.
+    Found 16-bit register for signal <din>.
+    Found 1-bit register for signal <phyaddrws>.
+    Found 1-bit register for signal <rwl>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred  72 D-type flip-flop(s).
+Unit <PHYstatus> synthesized.
+
+
+Synthesizing Unit <rxinput_fifocontrol>.
+    Related source file is C:/desktop/network/vhdl/rxinput_fifocontrol.vhd.
+    Found finite state machine <FSM_2> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 4                                              |
+    | Transitions        | 8                                              |
+    | Inputs             | 1                                              |
+    | Outputs            | 4                                              |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | sel3                                           |
+    | Power Up State     | sel3                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 1-bit register for signal <INVALID>.
+    Found 1-bit register for signal <ENDF>.
+    Found 8-bit register for signal <DATA>.
+    Found 1-bit register for signal <cel>.
+    Found 1-bit register for signal <cell>.
+    Found 1-bit register for signal <celll>.
+    Found 10-bit register for signal <d0>.
+    Found 10-bit register for signal <d1>.
+    Found 10-bit register for signal <d2>.
+    Found 10-bit register for signal <d3>.
+    Found 10-bit register for signal <dinl>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred  23 D-type flip-flop(s).
+Unit <rxinput_fifocontrol> synthesized.
+
+
+Synthesizing Unit <RXinput_addrchk>.
+    Related source file is C:/desktop/network/vhdl/RXinput_addrchk.vhd.
+WARNING:Xst:646 - Signal <mcast<5:1>> is assigned but never used.
+    Found finite state machine <FSM_3> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 7                                              |
+    | Transitions        | 20                                             |
+    | Inputs             | 2                                              |
+    | Outputs            | 6                                              |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | none                                           |
+    | Power Up State     | none                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 1-bit register for signal <DESTOK>.
+    Found 8-bit comparator equal for signal <$n0033> created at line 122.
+    Found 8-bit comparator equal for signal <$n0036> created at line 122.
+    Found 8-bit comparator equal for signal <$n0039> created at line 122.
+    Found 8-bit comparator equal for signal <$n0042> created at line 122.
+    Found 8-bit comparator equal for signal <$n0045> created at line 122.
+    Found 8-bit comparator equal for signal <$n0048> created at line 122.
+    Found 6-bit register for signal <bcast>.
+    Found 48-bit register for signal <datal>.
+    Found 48-bit register for signal <macaddrl>.
+    Found 6-bit register for signal <maceq>.
+    Found 6-bit register for signal <mcast>.
+    Found 1-bit register for signal <rxallfl>.
+    Found 1-bit register for signal <rxbcastl>.
+    Found 1-bit register for signal <rxmcastl>.
+    Found 1-bit register for signal <rxucastl>.
+    Found 1-bit register for signal <validbcast>.
+    Found 1-bit register for signal <validmcast>.
+    Found 1-bit register for signal <validucast>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred 122 D-type flip-flop(s).
+	inferred   6 Comparator(s).
+Unit <RXinput_addrchk> synthesized.
+
+
+Synthesizing Unit <crc_combinational>.
+    Related source file is C:/desktop/network/vhdl/crc_combinational.vhd.
+    Found 1-bit xor3 for signal <CO<31>>.
+    Found 1-bit xor4 for signal <CO<30>>.
+    Found 2-bit xor5 for signal <CO<29:28>>.
+    Found 1-bit xor5 for signal <CO<27>>.
+    Found 1-bit xor3 for signal <CO<26>>.
+    Found 1-bit xor4 for signal <CO<25>>.
+    Found 2-bit xor2 for signal <CO<24:23>>.
+    Found 1-bit xor2 for signal <CO<22>>.
+    Found 2-bit xor3 for signal <CO<21:20>>.
+    Found 1-bit xor4 for signal <CO<19>>.
+    Found 4-bit xor5 for signal <CO<18:15>>.
+    Found 1-bit xor7 for signal <CO<14>>.
+    Found 1-bit xor5 for signal <CO<13>>.
+    Found 1-bit xor4 for signal <CO<12>>.
+    Found 1-bit xor3 for signal <CO<11>>.
+    Found 1-bit xor4 for signal <CO<10>>.
+    Found 4-bit xor3 for signal <CO<9:6>>.
+    Found 1-bit xor3 for signal <CO<5>>.
+    Found 2-bit xor2 for signal <CO<4:3>>.
+    Found 1-bit xor2 for signal <CO<2>>.
+    Found 2-bit xor2 for signal <CO<1:0>>.
+    Found 1-bit xor2 for signal <$n0000> created at line 24.
+    Found 1-bit xor2 for signal <$n0001> created at line 24.
+    Found 1-bit xor2 for signal <$n0002> created at line 25.
+    Found 1-bit xor2 for signal <$n0003> created at line 27.
+    Found 1-bit xor2 for signal <$n0004> created at line 30.
+    Found 1-bit xor2 for signal <$n0005> created at line 32.
+    Found 1-bit xor3 for signal <$n0007> created at line 35.
+    Found 1-bit xor2 for signal <$n0009> created at line 39.
+    Found 1-bit xor2 for signal <$n0010> created at line 42.
+    Found 1-bit xor2 for signal <$n0011> created at line 42.
+    Found 1-bit xor2 for signal <$n0012> created at line 45.
+    Found 1-bit xor2 for signal <$n0013> created at line 45.
+    Found 1-bit xor2 for signal <$n0015> created at line 51.
+    Found 1-bit xor2 for signal <$n0016> created at line 54.
+    Found 1-bit xor2 for signal <$n0021> created at line 61.
+    Found 1-bit xor2 for signal <$n0023> created at line 65.
+    Summary:
+	inferred  26 Xor(s).
+Unit <crc_combinational> synthesized.
+
+
+Synthesizing Unit <RXinput_fifo>.
+    Related source file is C:/desktop/network/vhdl/RXinput_fifo.vhd.
+WARNING:Xst:646 - Signal <fifodout<15:9>> is assigned but never used.
+Unit <RXinput_fifo> synthesized.
+
+
+Synthesizing Unit <RXinput_memio>.
+    Related source file is C:/desktop/network/vhdl/RXinput_memio.vhd.
+WARNING:Xst:646 - Signal <endbyte<7:3>> is assigned but never used.
+WARNING:Xst:1780 - Signal <lbpout5> is never used or assigned.
+WARNING:Xst:1780 - Signal <bcnten> is never used or assigned.
+WARNING:Xst:1780 - Signal <mnewf> is never used or assigned.
+    Found finite state machine <FSM_4> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 16                                             |
+    | Transitions        | 31                                             |
+    | Inputs             | 7                                              |
+    | Outputs            | 10                                             |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | none                                           |
+    | Power Up State     | none                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 1-bit register for signal <RXOFERR>.
+    Found 1-bit register for signal <RXF>.
+    Found 16-bit register for signal <MA>.
+    Found 32-bit register for signal <MD>.
+    Found 16-bit register for signal <BPOUT>.
+    Found 1-bit register for signal <RXFIFOWERR>.
+    Found 1-bit register for signal <RXCRCERR>.
+    Found 1-bit register for signal <RXPHYERR>.
+    Found 16-bit subtractor for signal <$n0042> created at line 135.
+    Found 16-bit subtractor for signal <$n0043> created at line 142.
+    Found 16-bit up counter for signal <bcnt>.
+    Found 16-bit register for signal <bcntl>.
+    Found 16-bit register for signal <bp>.
+    Found 1-bit register for signal <bpen>.
+    Found 16-bit register for signal <bpl>.
+    Found 1-bit register for signal <crcen>.
+    Found 1-bit register for signal <crcequal>.
+    Found 32-bit register for signal <crcl>.
+    Found 32-bit register for signal <crcll>.
+    Found 1-bit register for signal <crcrst>.
+    Found 8-bit register for signal <datal>.
+    Found 32-bit register for signal <dout>.
+    Found 32-bit register for signal <doutl>.
+    Found 8-bit register for signal <endbyte>.
+    Found 1-bit register for signal <fifofulll>.
+    Found 4-bit shift register for signal <lbpout4>.
+    Found 16-bit up counter for signal <macnt>.
+    Found 1-bit register for signal <menl>.
+    Found 1-bit register for signal <wbpl>.
+    Found 48 1-bit 2-to-1 multiplexers.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   2 Counter(s).
+	inferred 268 D-type flip-flop(s).
+	inferred   2 Adder/Subtracter(s).
+	inferred  48 Multiplexer(s).
+	inferred  16 Shift register(s).
+Unit <RXinput_memio> synthesized.
+
+
+Synthesizing Unit <RXinput_GMII>.
+    Related source file is C:/desktop/network/vhdl/RXinput_GMII.vhd.
+    Found 1-bit register for signal <ENDFIN>.
+    Found 1-bit register for signal <INCE>.
+    Found 8-bit register for signal <FIFOIN>.
+    Found 1-bit register for signal <ro>.
+    Found 1-bit register for signal <rx_dvl>.
+    Found 1-bit register for signal <rx_dvll>.
+    Found 1-bit register for signal <rx_erl>.
+    Found 1-bit register for signal <rx_of>.
+    Found 8-bit register for signal <rxdl>.
+    Summary:
+	inferred  23 D-type flip-flop(s).
+Unit <RXinput_GMII> synthesized.
+
+
+Synthesizing Unit <control>.
+    Related source file is C:/desktop/network/vhdl/control.vhd.
+WARNING:Xst:1780 - Signal <rxcrcerr_sr> is never used or assigned.
+WARNING:Xst:1780 - Signal <txf_sr> is never used or assigned.
+WARNING:Xst:653 - Signal <phydo<31:16>> is used but never assigned. Tied to value 0000000000000000.
+WARNING:Xst:1780 - Signal <rxoferr_sr> is never used or assigned.
+WARNING:Xst:1780 - Signal <doutmuxl> is never used or assigned.
+WARNING:Xst:1780 - Signal <txfifowerr_sr> is never used or assigned.
+WARNING:Xst:1780 - Signal <sclkdeltalll> is never used or assigned.
+WARNING:Xst:1780 - Signal <addrl> is never used or assigned.
+WARNING:Xst:1780 - Signal <rxf_sr> is never used or assigned.
+WARNING:Xst:1780 - Signal <rxphyerr_sr> is never used or assigned.
+WARNING:Xst:1780 - Signal <rxfifowerr_sr> is never used or assigned.
+    Found 1-bit register for signal <RXUCAST>.
+    Found 1-bit register for signal <LEDRX>.
+    Found 1-bit register for signal <RXMCAST>.
+    Found 1-bit register for signal <LEDTX>.
+    Found 48-bit register for signal <MACADDR>.
+    Found 1-bit register for signal <LEDDPX>.
+    Found 1-bit register for signal <RXBCAST>.
+    Found 1-bit register for signal <SOUT>.
+    Found 1-bit register for signal <LEDACT>.
+    Found 1-bit register for signal <PHYRESET>.
+    Found 1-bit register for signal <LED1000>.
+    Found 1-bit register for signal <LED100>.
+    Found 1-bit register for signal <RXALLF>.
+    Found 32-bit comparator greater for signal <$n0069> created at line 309.
+    Found 7-bit comparator greatequal for signal <$n0092> created at line 184.
+    Found 7-bit comparator lessequal for signal <$n0093> created at line 189.
+    Found 32-bit comparator lessequal for signal <$n0105> created at line 309.
+    Found 8-bit register for signal <addr>.
+    Found 6-bit up counter for signal <bitcnt>.
+    Found 32-bit register for signal <din>.
+    Found 32-bit register for signal <dout>.
+    Found 12-bit down counter for signal <ledrx_cnt>.
+    Found 1-bit register for signal <ledrx_rst>.
+    Found 12-bit down counter for signal <ledtx_cnt>.
+    Found 1-bit register for signal <ledtx_rst>.
+    Found 48-bit register for signal <lmacaddr>.
+    Found 1-bit register for signal <lrxallf>.
+    Found 1-bit register for signal <lrxbcast>.
+    Found 1-bit register for signal <lrxmcast>.
+    Found 1-bit register for signal <lrxucast>.
+    Found 31-bit register for signal <phyaddr<30:0>>.
+    Found 32-bit register for signal <phydi>.
+    Found 32-bit down counter for signal <phyrstcnt>.
+    Found 32-bit up counter for signal <rxcrcerr_cnt>.
+    Found 1-bit register for signal <rxcrcerr_rst>.
+    Found 32-bit up counter for signal <rxf_cnt>.
+    Found 1-bit register for signal <rxf_cross>.
+    Found 1-bit register for signal <rxf_rst>.
+    Found 32-bit up counter for signal <rxfifowerr_cnt>.
+    Found 1-bit register for signal <rxfifowerr_rst>.
+    Found 32-bit up counter for signal <rxoferr_cnt>.
+    Found 1-bit register for signal <rxoferr_rst>.
+    Found 32-bit up counter for signal <rxphyerr_cnt>.
+    Found 1-bit register for signal <rxphyerr_rst>.
+    Found 1-bit register for signal <sclkdelta>.
+    Found 1-bit register for signal <sclkdeltal>.
+    Found 1-bit register for signal <sclkdeltall>.
+    Found 1-bit register for signal <sclkl>.
+    Found 1-bit register for signal <sclkll>.
+    Found 3-bit shift register for signal <scslll>.
+    Found 3-bit shift register for signal <sinlll>.
+    Found 32-bit up counter for signal <txf_cnt>.
+    Found 1-bit register for signal <txf_cross>.
+    Found 1-bit register for signal <txf_rst>.
+    Found 32-bit up counter for signal <txfifowerr_cnt>.
+    Found 1-bit register for signal <txfifowerr_rst>.
+    Found 32 1-bit 2-to-1 multiplexers.
+    Summary:
+	inferred  11 Counter(s).
+	inferred 263 D-type flip-flop(s).
+	inferred   4 Comparator(s).
+	inferred  32 Multiplexer(s).
+	inferred   2 Shift register(s).
+Unit <control> synthesized.
+
+
+Synthesizing Unit <FIFOcheck>.
+    Related source file is C:/desktop/network/vhdl/FIFOcheck.vhd.
+    Found 1-bit register for signal <FIFOFULL>.
+    Found 16-bit subtractor for signal <$n0001> created at line 32.
+    Found 17-bit comparator greater for signal <$n0003> created at line 33.
+    Found 16-bit register for signal <bpl>.
+    Found 16-bit register for signal <diff>.
+    Found 16-bit register for signal <fbbpl>.
+    Summary:
+	inferred  49 D-type flip-flop(s).
+	inferred   1 Adder/Subtracter(s).
+	inferred   1 Comparator(s).
+Unit <FIFOcheck> synthesized.
+
+
+Synthesizing Unit <TXinput>.
+    Related source file is C:/desktop/network/vhdl/TXinput.vhd.
+WARNING:Xst:1780 - Signal <nenable> is never used or assigned.
+    Found finite state machine <FSM_5> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 12                                             |
+    | Transitions        | 28                                             |
+    | Inputs             | 5                                              |
+    | Outputs            | 8                                              |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | none                                           |
+    | Power Up State     | none                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 16-bit register for signal <MA>.
+    Found 1-bit register for signal <MWEN>.
+    Found 32-bit register for signal <MD>.
+    Found 16-bit subtractor for signal <$n0041> created at line 150.
+    Found 16-bit up counter for signal <addr>.
+    Found 16-bit register for signal <bp>.
+    Found 16-bit register for signal <CNT>.
+    Found 1-bit register for signal <den>.
+    Found 16-bit register for signal <dh>.
+    Found 16-bit register for signal <dinint>.
+    Found 16-bit register for signal <dinl>.
+    Found 16-bit register for signal <dl>.
+    Found 1-bit register for signal <enable>.
+    Found 1-bit register for signal <enableintl>.
+    Found 1-bit register for signal <fifofulll>.
+    Found 1-bit xor2 for signal <lden>.
+    Found 1-bit register for signal <newfint>.
+    Found 1-bit register for signal <newframel>.
+    Found 16 1-bit 2-to-1 multiplexers.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   1 Counter(s).
+	inferred 151 D-type flip-flop(s).
+	inferred   1 Adder/Subtracter(s).
+	inferred  16 Multiplexer(s).
+Unit <TXinput> synthesized.
+
+
+Synthesizing Unit <TXoutput>.
+    Related source file is C:/desktop/network/vhdl/TXoutput.vhd.
+WARNING:Xst:1780 - Signal <rdata> is never used or assigned.
+WARNING:Xst:1780 - Signal <rstaddr> is never used or assigned.
+WARNING:Xst:646 - Signal <ncrcl> is assigned but never used.
+    Found finite state machine <FSM_6> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 17                                             |
+    | Transitions        | 23                                             |
+    | Inputs             | 3                                              |
+    | Outputs            | 17                                             |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | none                                           |
+    | Power Up State     | none                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Using one-hot encoding for signal <crcsell>.
+    Using one-hot encoding for signal <dsel>.
+    Using one-hot encoding for signal <outselll>.
+    Found 16-bit register for signal <FBBP>.
+    Found 8-bit register for signal <TXD>.
+    Found 1-bit register for signal <TXEN>.
+    Found 16-bit comparator equal for signal <$n0007> created at line 190.
+    Found 16-bit comparator greater for signal <$n0037> created at line 106.
+    Found 16-bit up counter for signal <addr>.
+    Found 16-bit register for signal <addrl>.
+    Found 16-bit down counter for signal <bcnt>.
+    Found 16-bit register for signal <bcntl>.
+    Found 1-bit register for signal <bcntlgt10>.
+    Found 16-bit register for signal <bpl>.
+    Found 1-bit register for signal <crcenl>.
+    Found 32-bit register for signal <crcl>.
+    Found 4-bit register for signal <crcsell>.
+    Found 8-bit register for signal <data>.
+    Found 8-bit register for signal <datal>.
+    Found 1-bit register for signal <ltxen2>.
+    Found 1-bit register for signal <ltxen3>.
+    Found 8-bit register for signal <ncrcbytel>.
+    Found 4-bit register for signal <outsell>.
+    Found 4-bit register for signal <outselll>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   2 Counter(s).
+	inferred 145 D-type flip-flop(s).
+	inferred   2 Comparator(s).
+Unit <TXoutput> synthesized.
+
+
+Synthesizing Unit <RXoutput>.
+    Related source file is C:/desktop/network/vhdl/RXoutput.vhd.
+WARNING:Xst:646 - Signal <fe> is assigned but never used.
+WARNING:Xst:646 - Signal <ff> is assigned but never used.
+WARNING:Xst:1780 - Signal <ceout> is never used or assigned.
+WARNING:Xst:646 - Signal <lenr<1:0>> is assigned but never used.
+    Found finite state machine <FSM_7> for signal <cs>.
+    -----------------------------------------------------------------------
+    | States             | 19                                             |
+    | Transitions        | 36                                             |
+    | Inputs             | 7                                              |
+    | Outputs            | 8                                              |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESET (positive)                               |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | none                                           |
+    | Power Up State     | none                                           |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 16-bit register for signal <FBBP>.
+    Found 16-bit register for signal <DOUT>.
+    Found 1-bit register for signal <DOUTEN>.
+    Found 16-bit comparator equal for signal <$n0017> created at line 210.
+    Found 16-bit comparator equal for signal <$n0018> created at line 348.
+    Found 15-bit adder for signal <$n0047> created at line 148.
+    Found 16-bit adder for signal <$n0060>.
+    Found 16-bit register for signal <bp>.
+    Found 16-bit register for signal <bpl>.
+    Found 1-bit register for signal <ceinl>.
+    Found 1-bit register for signal <ceinll>.
+    Found 1-bit register for signal <denl>.
+    Found 1-bit register for signal <denll>.
+    Found 1-bit register for signal <fifo_full>.
+    Found 1-bit register for signal <fifo_nearfull>.
+    Found 16-bit register for signal <fifodin>.
+    Found 16-bit adder for signal <lbp>.
+    Found 1-bit register for signal <ldouten2>.
+    Found 16-bit register for signal <len>.
+    Found 16-bit register for signal <lenr>.
+    Found 1-bit register for signal <lmasell>.
+    Found 16-bit up counter for signal <macnt>.
+    Found 32-bit register for signal <mdl>.
+    Found 1-bit register for signal <nf>.
+    Found 1-bit register for signal <nfl>.
+    Found 16 1-bit 2-to-1 multiplexers.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   1 Counter(s).
+	inferred 155 D-type flip-flop(s).
+	inferred   3 Adder/Subtracter(s).
+	inferred   2 Comparator(s).
+	inferred  16 Multiplexer(s).
+Unit <RXoutput> synthesized.
+
+
+Synthesizing Unit <RXinput>.
+    Related source file is C:/desktop/network/vhdl/RXinput.vhd.
+Unit <RXinput> synthesized.
+
+
+Synthesizing Unit <memory>.
+    Related source file is C:/desktop/network/vhdl/memory.vhd.
+WARNING:Xst:1780 - Signal <clk1> is never used or assigned.
+WARNING:Xst:1780 - Signal <clk2> is never used or assigned.
+WARNING:Xst:1780 - Signal <clk3> is never used or assigned.
+WARNING:Xst:1780 - Signal <clk4> is never used or assigned.
+    Found 32-bit register for signal <Q1>.
+    Found 32-bit register for signal <Q2>.
+    Found 32-bit register for signal <Q3>.
+    Found 32-bit register for signal <Q4>.
+    Found 17-bit register for signal <addr>.
+    Found 17-bit 4-to-1 multiplexer for signal <addrn>.
+    Found 2-bit up counter for signal <clknum>.
+    Found 32-bit 4-to-1 multiplexer for signal <dn>.
+    Found 32-bit register for signal <dnl1>.
+    Found 32-bit register for signal <dnl2>.
+    Found 32-bit register for signal <dnout>.
+    Found 1-bit register for signal <oe>.
+    Found 1-bit register for signal <oel>.
+    Found 32-bit register for signal <qn>.
+    Found 32-bit register for signal <ts>.
+    Found 1-bit register for signal <we>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred 308 D-type flip-flop(s).
+	inferred  49 Multiplexer(s).
+Unit <memory> synthesized.
+
+
+Synthesizing Unit <clockenable>.
+    Related source file is C:/desktop/network/vhdl/clockenable.vhd.
+WARNING:Xst:647 - Input <RESET> is never used.
+    Found 1-bit register for signal <TXFIFOWERRSR>.
+    Found 1-bit register for signal <RXFSR>.
+    Found 1-bit register for signal <RXPHYERRSR>.
+    Found 1-bit register for signal <RXFIFOWERRSR>.
+    Found 1-bit register for signal <RXCRCERRSR>.
+    Found 1-bit register for signal <TXFSR>.
+    Found 1-bit register for signal <RXOFERRSR>.
+    Found 3-bit up counter for signal <clkcnt>.
+    Found 1-bit register for signal <clken>.
+    Found 1-bit register for signal <lclken>.
+    Found 1-bit register for signal <rxcrcerrl>.
+    Found 1-bit register for signal <rxfifowerrl>.
+    Found 1-bit register for signal <rxfl>.
+    Found 1-bit register for signal <rxoferrl>.
+    Found 1-bit register for signal <rxphyerrl>.
+    Found 1-bit register for signal <txfifowerrl>.
+    Found 1-bit register for signal <txfl>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  16 D-type flip-flop(s).
+Unit <clockenable> synthesized.
+
+
+Synthesizing Unit <network>.
+    Related source file is C:/desktop/network/vhdl/network.vhd.
+WARNING:Xst:653 - Signal <d2> is used but never assigned. Tied to value 00000000000000000000000000000000.
+WARNING:Xst:653 - Signal <d3> is used but never assigned. Tied to value 00000000000000000000000000000000.
+WARNING:Xst:1780 - Signal <clkslen_to_bufg> is never used or assigned.
+WARNING:Xst:646 - Signal <q1> is assigned but never used.
+WARNING:Xst:646 - Signal <q4> is assigned but never used.
+WARNING:Xst:646 - Signal <clk90> is assigned but never used.
+WARNING:Xst:646 - Signal <clk270> is assigned but never used.
+WARNING:Xst:646 - Signal <clken1> is assigned but never used.
+WARNING:Xst:646 - Signal <clken4> is assigned but never used.
+WARNING:Xst:646 - Signal <txi_mwen> is assigned but never used.
+Unit <network> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# FSMs                             : 8
+# Registers                        : 434
+  1-bit register                   : 359
+  16-bit register                  : 32
+  32-bit register                  : 18
+  8-bit register                   : 9
+  6-bit register                   : 4
+  5-bit register                   : 1
+  10-bit register                  : 5
+  48-bit register                  : 2
+  4-bit register                   : 3
+  17-bit register                  : 1
+# Counters                         : 20
+  6-bit up counter                 : 2
+  32-bit up counter                : 7
+  16-bit up counter                : 5
+  16-bit down counter              : 1
+  2-bit up counter                 : 1
+  3-bit up counter                 : 1
+  32-bit down counter              : 1
+  12-bit down counter              : 2
+# Shift Registers                  : 18
+  3-bit shift register             : 2
+  4-bit shift register             : 16
+# Multiplexers                     : 7
+  2-to-1 multiplexer               : 5
+  17-bit 4-to-1 multiplexer        : 1
+  32-bit 4-to-1 multiplexer        : 1
+# Adders/Subtractors               : 9
+  6-bit adder                      : 1
+  16-bit subtractor                : 5
+  16-bit adder                     : 2
+  15-bit adder                     : 1
+# Comparators                      : 17
+  6-bit comparator lessequal       : 1
+  8-bit comparator equal           : 6
+  32-bit comparator greater        : 1
+  7-bit comparator greatequal      : 1
+  7-bit comparator lessequal       : 1
+  32-bit comparator lessequal      : 1
+  17-bit comparator greater        : 2
+  16-bit comparator equal          : 3
+  16-bit comparator greater        : 1
+# Xors                             : 97
+  1-bit xor2                       : 45
+  1-bit xor3                       : 16
+  1-bit xor4                       : 26
+  1-bit xor5                       : 8
+  1-bit xor7                       : 2
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+Selecting encoding for FSM_7 ...
+Optimizing FSM <FSM_7> on signal <cs> with one-hot encoding.
+Selecting encoding for FSM_6 ...
+Optimizing FSM <FSM_6> on signal <cs> with one-hot encoding.
+Selecting encoding for FSM_5 ...
+Optimizing FSM <FSM_5> on signal <cs> with one-hot encoding.
+Selecting encoding for FSM_4 ...
+Optimizing FSM <FSM_4> on signal <cs> with one-hot encoding.
+Selecting encoding for FSM_3 ...
+Optimizing FSM <FSM_3> on signal <cs> with one-hot encoding.
+Selecting encoding for FSM_2 ...
+Optimizing FSM <FSM_2> on signal <cs> with one-hot encoding.
+Selecting encoding for FSM_1 ...
+Optimizing FSM <FSM_1> on signal <cs> with one-hot encoding.
+Selecting encoding for FSM_0 ...
+Optimizing FSM <FSM_0> on signal <cs> with one-hot encoding.
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+Launcher: "rxoutput_async_fifo.ngo" is up to date.
+Launcher: "async_fifo.ngo" is up to date.
+Loading core <rxoutput_async_fifo> for timing and area information for instance <fifo>.
+Loading core <async_fifo> for timing and area information for instance <fifo>.
+WARNING:Xst:1291 - FF/Latch <lenr_0> is unconnected in block <RXoutput>.
+WARNING:Xst:1291 - FF/Latch <lenr_1> is unconnected in block <RXoutput>.
+WARNING:Xst:1291 - FF/Latch <mcast_5> is unconnected in block <RXinput_addrchk>.
+WARNING:Xst:1291 - FF/Latch <mcast_1> is unconnected in block <RXinput_addrchk>.
+WARNING:Xst:1291 - FF/Latch <mcast_2> is unconnected in block <RXinput_addrchk>.
+WARNING:Xst:1291 - FF/Latch <mcast_3> is unconnected in block <RXinput_addrchk>.
+WARNING:Xst:1291 - FF/Latch <mcast_4> is unconnected in block <RXinput_addrchk>.
+WARNING:Xst:1291 - FF/Latch <endbyte_7> is unconnected in block <RXinput_memio>.
+WARNING:Xst:1291 - FF/Latch <endbyte_3> is unconnected in block <RXinput_memio>.
+WARNING:Xst:1291 - FF/Latch <endbyte_4> is unconnected in block <RXinput_memio>.
+WARNING:Xst:1291 - FF/Latch <endbyte_5> is unconnected in block <RXinput_memio>.
+WARNING:Xst:1291 - FF/Latch <endbyte_6> is unconnected in block <RXinput_memio>.
+WARNING:Xst:1291 - FF/Latch <MWEN> is unconnected in block <tx_input>.
+WARNING:Xst:1291 - FF/Latch <Q4_31> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_31> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_0> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_1> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_2> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_3> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_4> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_5> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_6> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_7> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_8> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_9> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_10> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_11> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_12> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_13> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_14> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_15> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_16> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_17> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_18> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_19> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_20> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_21> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_22> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_23> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_24> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_25> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_26> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_27> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_28> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_29> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_30> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_0> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_1> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_2> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_3> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_4> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_5> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_6> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_7> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_8> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_9> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_10> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_11> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_12> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_13> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_14> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_15> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_16> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_17> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_18> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_19> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_20> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_21> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_22> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_23> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_24> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_25> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_26> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_27> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_28> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_29> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_30> is unconnected in block <memcontroller>.
+
+Optimizing unit <network> ...
+
+Optimizing unit <RXoutput> ...
+
+Optimizing unit <TXinput> ...
+
+Optimizing unit <FIFOcheck> ...
+
+Optimizing unit <RXinput_GMII> ...
+
+Optimizing unit <crc_combinational> ...
+
+Optimizing unit <RXinput_addrchk> ...
+
+Optimizing unit <MII> ...
+
+Optimizing unit <TXoutput> ...
+
+Optimizing unit <RXinput_memio> ...
+
+Optimizing unit <rxinput_fifocontrol> ...
+
+Optimizing unit <PHYstatus> ...
+
+Optimizing unit <clockenable> ...
+
+Optimizing unit <memory> ...
+
+Optimizing unit <control> ...
+
+Optimizing unit <RXinput_fifo> ...
+
+Optimizing unit <RXinput> ...
+Loading device for application Xst from file '2s200e.nph' in environment C:/Xilinx.
+
+Mapping all equations...
+WARNING:Xst:1291 - FF/Latch <MWEN> is unconnected in block <tx_input>.
+WARNING:Xst:1291 - FF/Latch <Q4_31> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_31> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_0> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_1> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_2> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_3> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_4> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_5> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_6> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_7> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_8> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_9> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_10> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_11> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_12> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_13> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_14> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_15> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_16> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_17> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_18> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_19> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_20> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_21> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_22> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_23> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_24> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_25> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_26> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_27> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_28> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_29> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q4_30> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_0> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_1> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_2> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_3> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_4> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_5> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_6> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_7> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_8> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_9> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_10> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_11> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_12> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_13> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_14> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_15> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_16> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_17> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_18> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_19> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_20> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_21> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_22> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_23> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_24> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_25> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_26> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_27> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_28> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_29> is unconnected in block <memcontroller>.
+WARNING:Xst:1291 - FF/Latch <Q1_30> is unconnected in block <memcontroller>.
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block network, actual ratio is 71.
+WARNING:Xst:382 - Register FBBP_15 is equivalent to bpl_15
+WARNING:Xst:382 - Register FBBP_0 is equivalent to bpl_0
+WARNING:Xst:382 - Register FBBP_1 is equivalent to bpl_1
+WARNING:Xst:382 - Register FBBP_2 is equivalent to bpl_2
+WARNING:Xst:382 - Register FBBP_3 is equivalent to bpl_3
+WARNING:Xst:382 - Register FBBP_4 is equivalent to bpl_4
+WARNING:Xst:382 - Register FBBP_5 is equivalent to bpl_5
+WARNING:Xst:382 - Register FBBP_6 is equivalent to bpl_6
+WARNING:Xst:382 - Register FBBP_7 is equivalent to bpl_7
+WARNING:Xst:382 - Register FBBP_8 is equivalent to bpl_8
+WARNING:Xst:382 - Register FBBP_9 is equivalent to bpl_9
+WARNING:Xst:382 - Register FBBP_10 is equivalent to bpl_10
+WARNING:Xst:382 - Register FBBP_11 is equivalent to bpl_11
+WARNING:Xst:382 - Register FBBP_12 is equivalent to bpl_12
+WARNING:Xst:382 - Register FBBP_13 is equivalent to bpl_13
+WARNING:Xst:382 - Register FBBP_14 is equivalent to bpl_14
+WARNING:Xst:382 - Register addrl_15 is equivalent to FBBP_15
+WARNING:Xst:382 - Register addrl_0 is equivalent to FBBP_0
+WARNING:Xst:382 - Register addrl_1 is equivalent to FBBP_1
+WARNING:Xst:382 - Register addrl_2 is equivalent to FBBP_2
+WARNING:Xst:382 - Register addrl_3 is equivalent to FBBP_3
+WARNING:Xst:382 - Register addrl_4 is equivalent to FBBP_4
+WARNING:Xst:382 - Register addrl_5 is equivalent to FBBP_5
+WARNING:Xst:382 - Register addrl_6 is equivalent to FBBP_6
+WARNING:Xst:382 - Register addrl_7 is equivalent to FBBP_7
+WARNING:Xst:382 - Register addrl_8 is equivalent to FBBP_8
+WARNING:Xst:382 - Register addrl_9 is equivalent to FBBP_9
+WARNING:Xst:382 - Register addrl_10 is equivalent to FBBP_10
+WARNING:Xst:382 - Register addrl_11 is equivalent to FBBP_11
+WARNING:Xst:382 - Register addrl_12 is equivalent to FBBP_12
+WARNING:Xst:382 - Register addrl_13 is equivalent to FBBP_13
+WARNING:Xst:382 - Register addrl_14 is equivalent to FBBP_14
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_1 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_2 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_3 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_4 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_2 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_3 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_4 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_3 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_4 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_4 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_27
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_27
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_27
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_27
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_28
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_28
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_28
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_29
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_29
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_30
+WARNING:Xst:382 - Register FBBP_15 is equivalent to bpl_15
+WARNING:Xst:382 - Register FBBP_0 is equivalent to bpl_0
+WARNING:Xst:382 - Register FBBP_1 is equivalent to bpl_1
+WARNING:Xst:382 - Register FBBP_2 is equivalent to bpl_2
+WARNING:Xst:382 - Register FBBP_3 is equivalent to bpl_3
+WARNING:Xst:382 - Register FBBP_4 is equivalent to bpl_4
+WARNING:Xst:382 - Register FBBP_5 is equivalent to bpl_5
+WARNING:Xst:382 - Register FBBP_6 is equivalent to bpl_6
+WARNING:Xst:382 - Register FBBP_7 is equivalent to bpl_7
+WARNING:Xst:382 - Register FBBP_8 is equivalent to bpl_8
+WARNING:Xst:382 - Register FBBP_9 is equivalent to bpl_9
+WARNING:Xst:382 - Register FBBP_10 is equivalent to bpl_10
+WARNING:Xst:382 - Register FBBP_11 is equivalent to bpl_11
+WARNING:Xst:382 - Register FBBP_12 is equivalent to bpl_12
+WARNING:Xst:382 - Register FBBP_13 is equivalent to bpl_13
+WARNING:Xst:382 - Register FBBP_14 is equivalent to bpl_14
+WARNING:Xst:382 - Register addrl_15 is equivalent to FBBP_15
+WARNING:Xst:382 - Register addrl_0 is equivalent to FBBP_0
+WARNING:Xst:382 - Register addrl_1 is equivalent to FBBP_1
+WARNING:Xst:382 - Register addrl_2 is equivalent to FBBP_2
+WARNING:Xst:382 - Register addrl_3 is equivalent to FBBP_3
+WARNING:Xst:382 - Register addrl_4 is equivalent to FBBP_4
+WARNING:Xst:382 - Register addrl_5 is equivalent to FBBP_5
+WARNING:Xst:382 - Register addrl_6 is equivalent to FBBP_6
+WARNING:Xst:382 - Register addrl_7 is equivalent to FBBP_7
+WARNING:Xst:382 - Register addrl_8 is equivalent to FBBP_8
+WARNING:Xst:382 - Register addrl_9 is equivalent to FBBP_9
+WARNING:Xst:382 - Register addrl_10 is equivalent to FBBP_10
+WARNING:Xst:382 - Register addrl_11 is equivalent to FBBP_11
+WARNING:Xst:382 - Register addrl_12 is equivalent to FBBP_12
+WARNING:Xst:382 - Register addrl_13 is equivalent to FBBP_13
+WARNING:Xst:382 - Register addrl_14 is equivalent to FBBP_14
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_1 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_2 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_3 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_4 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_0
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_2 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_3 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_4 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_1
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_3 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_4 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_2
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_4 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_3
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_5 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_4
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_6 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_5
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_7 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_6
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_8 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_7
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_9 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_8
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_10 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_9
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_11 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_10
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_12 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_11
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_13 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_12
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_14 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_13
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_15 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_14
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_16 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_15
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_17 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_16
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_18 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_17
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_19 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_18
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_20 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_19
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_21 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_20
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_22 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_21
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_23 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_22
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_24 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_23
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_25 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_24
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_26 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_25
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_27 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_26
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_27
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_27
+WARNING:Xst:382 - Register ts_28 is equivalent to ts_27
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_27
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_28
+WARNING:Xst:382 - Register ts_29 is equivalent to ts_28
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_28
+WARNING:Xst:382 - Register ts_30 is equivalent to ts_29
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_29
+WARNING:Xst:382 - Register ts_31 is equivalent to ts_30
+FlipFlop slowclock/clken has been replicated 1 time(s)
+FlipFlop mac_control/bitcnt_109 has been replicated 1 time(s)
+FlipFlop mac_control/addr_0 has been replicated 1 time(s)
+FlipFlop mac_control/addr_2 has been replicated 1 time(s)
+FlipFlop mac_control/addr_1 has been replicated 1 time(s)
+FlipFlop mac_control/addr_0 has been replicated 1 time(s)
+FlipFlop rx_input/memio/cs_FFd16 has been replicated 2 time(s)
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : network.ngr
+Top Level Output File Name         : network
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : YES
+
+Design Statistics
+# IOs                              : 125
+
+Macro Statistics :
+# Registers                        : 480
+#      1-bit register              : 399
+#      10-bit register             : 1
+#      16-bit register             : 42
+#      17-bit register             : 1
+#      32-bit register             : 18
+#      4-bit register              : 3
+#      48-bit register             : 2
+#      5-bit register              : 1
+#      6-bit register              : 4
+#      8-bit register              : 9
+# Counters                         : 10
+#      12-bit down counter         : 2
+#      16-bit down counter         : 1
+#      16-bit up counter           : 4
+#      32-bit down counter         : 1
+#      6-bit up counter            : 2
+# Shift Registers                  : 18
+#      3-bit shift register        : 2
+#      4-bit shift register        : 16
+# Multiplexers                     : 7
+#      17-bit 4-to-1 multiplexer   : 1
+#      2-to-1 multiplexer          : 5
+#      32-bit 4-to-1 multiplexer   : 1
+# Adders/Subtractors               : 19
+#      15-bit adder                : 1
+#      16-bit adder                : 12
+#      16-bit subtractor           : 5
+#      6-bit adder                 : 1
+# Comparators                      : 17
+#      16-bit comparator equal     : 3
+#      16-bit comparator greater   : 1
+#      17-bit comparator greater   : 2
+#      32-bit comparator greater   : 1
+#      32-bit comparator lessequal : 1
+#      6-bit comparator lessequal  : 1
+#      7-bit comparator greatequal : 1
+#      7-bit comparator lessequal  : 1
+#      8-bit comparator equal      : 6
+# Xors                             : 52
+#      1-bit xor3                  : 16
+#      1-bit xor4                  : 26
+#      1-bit xor5                  : 8
+#      1-bit xor7                  : 2
+
+Cell Usage :
+# BELS                             : 3334
+#      BUF                         : 4
+#      GND                         : 14
+#      LUT1                        : 374
+#      LUT1_L                      : 1
+#      LUT2                        : 328
+#      LUT2_D                      : 7
+#      LUT2_L                      : 14
+#      LUT3                        : 365
+#      LUT3_D                      : 17
+#      LUT3_L                      : 4
+#      LUT4                        : 791
+#      LUT4_D                      : 10
+#      LUT4_L                      : 108
+#      MUXCY                       : 664
+#      MUXCY_D                     : 4
+#      MUXCY_L                     : 8
+#      MUXF5                       : 54
+#      VCC                         : 14
+#      XORCY                       : 553
+# FlipFlops/Latches                : 2348
+#      FD                          : 244
+#      FDC                         : 120
+#      FDCE                        : 246
+#      FDCPE                       : 32
+#      FDE                         : 1382
+#      FDP                         : 8
+#      FDPE                        : 67
+#      FDR                         : 13
+#      FDRE                        : 225
+#      FDS                         : 4
+#      FDSE                        : 7
+# RAMS                             : 5
+#      RAMB4_S16_S16               : 1
+#      RAMB4_S4_S4                 : 4
+# Shifters                         : 36
+#      SRL16                       : 18
+#      SRL16E                      : 18
+# Clock Buffers                    : 3
+#      BUFG                        : 3
+# IO Buffers                       : 125
+#      IBUF                        : 32
+#      IBUFG                       : 4
+#      IOBUF                       : 1
+#      IOBUF_F_6                   : 32
+#      OBUF                        : 56
+# DLLs                             : 3
+#      CLKDLL                      : 3
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 2s200epq208-6 
+
+ Number of Slices:                    1595  out of   2352    67%  
+ Number of Slice Flip Flops:          2348  out of   4704    49%  
+ Number of 4 input LUTs:              2055  out of   4704    43%  
+ Number of bonded IOBs:                125  out of    146    85%  
+ Number of BRAMs:                        5  out of     14    35%  
+ Number of GCLKs:                        3  out of      4    75%  
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+CLKIN                              | clk_dll:CLK0           | 2226  |
+CLKIOIN                            | clkio_dll:CLK0         | 74    |
+rx_output/fifo/GND:G               | NONE                   | 2     |
+RX_CLK                             | clkrx_dll:CLK0         | 90    |
+rx_input/fifo/fifo/GND:G           | NONE                   | 2     |
+-----------------------------------+------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -6
+
+   Minimum period: 14.333ns (Maximum Frequency: 69.769MHz)
+   Minimum input arrival time before clock: 21.413ns
+   Maximum output required time after clock: 19.448ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+-------------------------------------------------------------------------
+Timing constraint: Default period analysis for Clock 'CLKIN'
+Delay:               14.333ns (Levels of Logic = 3)
+  Source:            mac_control/addr_0 (FF)
+  Destination:       mac_control/phyrstcnt_139 (FF)
+  Source Clock:      CLKIN rising
+  Destination Clock: CLKIN rising
+
+  Data Path: mac_control/addr_0 to mac_control/phyrstcnt_139
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q             14   0.992   2.650  addr_0 (addr_0)
+     LUT4:I1->O           19   0.468   2.950  Ker53097_SW17 (CHOICE1299)
+     LUT4_D:I2->O         17   0.468   2.850  Ker53097_SW114 (N53099)
+     LUT4:I3->O           16   0.468   2.800  _n0033124_1 (_n0033124_1)
+     FDE:CE                    0.687          phyrstcnt_141
+    ----------------------------------------
+    Total                     14.333ns (3.083ns logic, 11.250ns route)
+                                       (21.5% logic, 78.5% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default period analysis for Clock 'CLKIOIN'
+Delay:               7.897ns (Levels of Logic = 1)
+  Source:            rx_output/fifo/BU176 (FF)
+  Destination:       rx_output/fifo/BU41 (FF)
+  Source Clock:      CLKIOIN rising
+  Destination Clock: CLKIOIN rising
+
+  Data Path: rx_output/fifo/BU176 to rx_output/fifo/BU41
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDPE:C->Q            12   0.992   2.450  BU176 (empty)
+     LUT4:I1->O           32   0.468   3.300  BU16 (N1515)
+     FDCE:CE                   0.687          BU41
+    ----------------------------------------
+    Total                      7.897ns (2.147ns logic, 5.750ns route)
+                                       (27.2% logic, 72.8% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default period analysis for Clock 'RX_CLK'
+Delay:               8.197ns (Levels of Logic = 1)
+  Source:            rx_input/fifo/fifo/BU435 (FF)
+  Destination:       rx_input/fifo/fifo/BU184 (FF)
+  Source Clock:      RX_CLK rising
+  Destination Clock: RX_CLK rising
+
+  Data Path: rx_input/fifo/fifo/BU435 to rx_input/fifo/fifo/BU184
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDPE:C->Q            13   0.992   2.550  BU435 (full)
+     LUT4:I1->O           40   0.468   3.500  BU229 (N2364)
+     FDPE:CE                   0.687          BU184
+    ----------------------------------------
+    Total                      8.197ns (2.147ns logic, 6.050ns route)
+                                       (26.2% logic, 73.8% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default OFFSET IN BEFORE for Clock 'CLKIN'
+Offset:              21.413ns (Levels of Logic = 6)
+  Source:            RESET (PAD)
+  Destination:       rx_input/memio/addrchk/maceq_4 (FF)
+  Destination Clock: CLKIN rising
+
+  Data Path: RESET to rx_input/memio/addrchk/maceq_4
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O           104   0.797   5.100  RESET_IBUF (RESET_IBUF)
+     BUF:I->O             48   0.468   3.700  RESET_IBUF_2 (RESET_IBUF_2)
+     begin scope: 'rx_input'
+     BUF:I->O            139   0.468   5.500  RESET_1 (RESET_1)
+     begin scope: 'memio'
+     begin scope: 'addrchk'
+     LUT1:I0->O           69   0.468   4.225  maceq_N52561 (maceq_N5256)
+     FDE:CE                    0.687          maceq_0
+    ----------------------------------------
+    Total                     21.413ns (2.888ns logic, 18.525ns route)
+                                       (13.5% logic, 86.5% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default OFFSET IN BEFORE for Clock 'CLKIOIN'
+Offset:              2.441ns (Levels of Logic = 2)
+  Source:            NEXTFRAME (PAD)
+  Destination:       rx_output/nf (FF)
+  Destination Clock: CLKIOIN rising
+
+  Data Path: NEXTFRAME to rx_output/nf
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   0.797   0.920  NEXTFRAME_IBUF (NEXTFRAME_IBUF)
+     begin scope: 'rx_output'
+     FD:D                      0.724          nf
+    ----------------------------------------
+    Total                      2.441ns (1.521ns logic, 0.920ns route)
+                                       (62.3% logic, 37.7% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default OFFSET IN BEFORE for Clock 'RX_CLK'
+Offset:              2.441ns (Levels of Logic = 2)
+  Source:            RX_DV (PAD)
+  Destination:       rx_input/GMII/rx_dvl (FF)
+  Destination Clock: RX_CLK rising
+
+  Data Path: RX_DV to rx_input/GMII/rx_dvl
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   0.797   0.920  RX_DV_IBUF (RX_DV_IBUF)
+     begin scope: 'rx_input'
+     begin scope: 'GMII'
+     FD:D                      0.724          rx_dvl
+    ----------------------------------------
+    Total                      2.441ns (1.521ns logic, 0.920ns route)
+                                       (62.3% logic, 37.7% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default OFFSET OUT AFTER for Clock 'CLKIN'
+Offset:              19.448ns (Levels of Logic = 11)
+  Source:            mac_control/PHY_status/cs_FFd4 (FF)
+  Destination:       MDIO (PAD)
+  Source Clock:      CLKIN rising
+
+  Data Path: mac_control/PHY_status/cs_FFd4 to MDIO
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             5   0.992   1.720  cs_FFd4 (cs_FFd4)
+     LUT3:I1->O            7   0.468   1.950  Ker426841 (N42686)
+     LUT4:I3->O            1   0.468   0.920  miiaddr<3>1 (miiaddr<3>)
+     begin scope: 'MII_Interface'
+     LUT4:I0->O            1   0.468   0.920  sout361 (CHOICE1000)
+     LUT4:I3->O            1   0.468   0.920  sout365 (CHOICE1001)
+     LUT4:I0->O            1   0.468   0.920  sout442 (CHOICE1017)
+     LUT3:I0->O            1   0.468   0.920  sout472 (CHOICE1019)
+     LUT3:I2->O            1   0.468   0.920  sout498_SW0 (N82561)
+     LUT4:I3->O            1   0.468   0.920  sout498 (sout)
+     IOBUF:I->IO               4.602          iobuffer (MDIO)
+     end scope: 'MII_Interface'
+     end scope: 'PHY_status'
+     end scope: 'mac_control'
+    ----------------------------------------
+    Total                     19.448ns (9.338ns logic, 10.110ns route)
+                                       (48.0% logic, 52.0% route)
+
+-------------------------------------------------------------------------
+Timing constraint: Default OFFSET OUT AFTER for Clock 'CLKIOIN'
+Offset:              6.514ns (Levels of Logic = 2)
+  Source:            rx_output/DOUTEN (FF)
+  Destination:       DOUTEN (PAD)
+  Source Clock:      CLKIOIN rising
+
+  Data Path: rx_output/DOUTEN to DOUTEN
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q               1   0.992   0.920  DOUTEN (DOUTEN)
+     end scope: 'rx_output'
+     OBUF:I->O                 4.602          DOUTEN_OBUF (DOUTEN)
+    ----------------------------------------
+    Total                      6.514ns (5.594ns logic, 0.920ns route)
+                                       (85.9% logic, 14.1% route)
+
+=========================================================================
+CPU : 64.41 / 64.81 s | Elapsed : 65.00 / 65.00 s
+ 
 --> 
 
-Total memory usage is 50716 kilobytes
+Total memory usage is 105684 kilobytes
 
 
