@@ -55,7 +55,11 @@ for( my $i =0; $i < $numframes; $i++) {
     $sfserrs[$i] = 0;
     $phyerrs[$i] = 0;
     $macs[$i] = "FF:FF:FF:FF:FF:FF";
-    $lengths[$i] = int(rand(9000))+64; 
+    my $len = int(rand(1024))+64; 
+    if(int(rand(10) > 8)) {
+	my $len += int(rand(9000));
+    }
+    $lengths[$i] = $len; 
 }
 
 for(my $i = 0; $i < $crcerr_num; $i++) {
@@ -71,18 +75,41 @@ for(my $i = 0; $i < $sfserr_num; $i++) {
     $sfserrs[pop(@rands)] = 1;
 }
 
-for(my $i = 0; $i < $length; $i++) {
+for(my $i = 0; $i < $numframes; $i++) {
     $preamblelen[$i] =  int(rand(7)); 
 }
 
 
+my $randmac = sprintf("%2.2x:%2.2x:%2.2x:%2.2x:%2.2x:%2.2x", int(rand(256)),  int(rand(256)), int(rand(256)), int(rand(256)), int(rand(256)), int(rand(256)));
+
+
+my $source_mac = $randmac;
+
+#my $dest_mac = "FF:FF:FF:FF:FF:FF";
+#my $dest_mac = "C0:FF:EE:01:02:03";
+#my $dest_mac = "01:00:00:00:00:00"; 
+my $dest_mac = $randmac;
 
 
 # now we actually generate the packets;
 for (my $i = 0; $i < $numframes; $i++) { 
-    my $execstring = "./frame $lengths[i] $dest_mac $source_mac ";
-    if ($sfserrs[$i]) {
-
+    my $execstring = "./frame $lengths[$i] $dest_mac $source_mac ";
+    if ($sfserrs[$i] > 0 ) {
+	$execstring .= " -nosfs";
     }
+    if ($phyerrs[$i] > 0) {
+	$execstring .= " -phyerr $phyerrs[$i]";
+    }
+    if ($preamblelen[$i] > 0) {
+	$execstring .= " -preamblelen  $preamblelen[$i]";
+    }
+    if ($crcerrs[$i] > 0) {
+	$execstring .= " -crcerr";
+    }
+    
+    $execstring .= " /dev/urandom";
+    
+    system("$execstring"); 
 
+    
 }

@@ -50,7 +50,7 @@ TX_out calculations:
 Okay, we're using the CRC calculation logic from the Nair et. al. paper
 
 System gives correct checksum on the following packets:
-60-bytes, all zeros: 0x04128908
+60 bytes, all zeros: 0x04128908
 DA: 00:00:3F:00:01:00, SA: 00:00:3F:00:00:04, Type:0x0101, rest zeros : 0xD0D5DEE7
 
 However, there are issues with the pipelining of the address incrementing in the main DATABYTE loop causing the ADDR to inc right past the end of the packet. 
@@ -62,7 +62,7 @@ System works, sends out packets of right size, sends new pkt when bp changes.
 ADDRL is there so that the decsiion to start sending a packet (addrl=BPL) has an extra register layer, to meet timing constraints. 
 
 TXF : frame was successfully transmitted. high on the falling-low transition of TXEN. 
-
+c
 3 oct 2003: BCNTL pipeline created to solve some timing issues. 
 
 ----------------------------------------------------------------------
@@ -367,3 +367,39 @@ receive 300 1024-byte packets, and see if we get an expected number of RXFIFOW e
 Add in some PHY errors, some CRC errors
 
 
+there's a be-all, end all set of test vectors:
+packets destined for UCAST, MCAST, BCAST
+phyerr packets
+crcerr packets
+
+ideally, it's one file, i call it the ubervector
+
+packet sizes from 40 to 9000 bytes
+
+
+FRAME LEN PHYERRORLOC CRCERRCNT DATA
+
+
+
+here's the deal: one file, pass it through three times:
+first, just with the ucast set
+then with mcast set
+then with bcast set
+
+the vector will have :
+frames from random sources
+frames from mcast addresses
+frames from bcast addresses
+frames with crc errors
+frames with rx_er errors
+
+We make this vector using frames.pl and editing the dest_mac; 
+
+
+we are changing the format of frames
+frame_filter: cat in a bunch of frames, only return those that
+   are broadcast
+   are mcast
+   are ucast
+   have no phy errors
+takes a new frame format 

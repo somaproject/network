@@ -32,11 +32,11 @@ ARCHITECTURE behavior OF network_testbench IS
 -- gmii.rx.*.dat is pushed into the RX* interface
 --    RX_DV RX_ER RXD (hex) 
 
-   constant FILE_GMII_RX : string := "testvectors/gmii.rx.3.dat";
+   constant FILE_GMII_RX : string := "testvectors/gmii.rx.4.dat";
    constant FILE_GMII_TX : string := "testvectors/gmii.tx.3.dat";
    constant FILE_IO_RAW_TX : string := "testvectors/io.tx.raw.0.dat";
    constant FILE_IO_FRAME_TX : string := "testvectors/io.tx.frame.3.dat";
-   constant FILE_IO_RX : string := "testvectors/io.rx.3.dat";
+   constant FILE_IO_RX : string := "testvectors/io.rx.4.dat";
     
  
 	component network is
