@@ -1,0 +1,2 @@
+This is my weak implementation of a GMII interface, purely behavioral. 
+
