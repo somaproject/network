@@ -163,7 +163,10 @@ This is all due to the fact that the registering of the FIFO output introduces a
 
 we've combined all of This into a rxinput_fifo file, which now actually contins the FIFO coregen and the auxillary FIFO control. Now, the interesting part is that this design assumes that you keep CE low for four ticks between having it go high. This will require some creative FSM modification. 
 
-Wed 3 September 2003: RXinput_fifo appears to work with behavioral simulation. 
+Wed 3 September 2003: RXinput_fifo appears to work with behavioral simulation.
+Tues 30 September 2003 : Problems from switching ISE/modelsim versions, resulting in there being "issues" with the fifo-full case. 
+
+
 
 24 Sepember 2003: So, there are problems with bcnt, for situations where there is only a single tick between RX_DVs (i.e. the fastest possible rate of incoming packets) that results in MACCNT not counting correctly. Basically, we were depending on the ENDF staying high (and thus BRDY Staying low) until we started the next packet. However, this means that our CE logic is more complicated. So, we simply gate the bcnt on both ce and brdy. 
 
@@ -271,12 +274,14 @@ For MII interface portion:
 
    SIN, SOUT, and STS are the input, output, and tristate control pins for the tristate buffer control of MDIO
 
+The FIRSTINC state is necessary such that the statecnt counter will have advanced past zero, so we can get a full 64-ticks out of this.
 
 
 
 
 
 
+Thing
 ============================================================================
 TO DO / things to debug and test
 

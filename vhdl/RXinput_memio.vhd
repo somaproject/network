@@ -16,13 +16,13 @@ entity RXinput_memio is
            INVALID : in std_logic;
            DATA : in std_logic_vector(7 downto 0);
            MA : out std_logic_vector(15 downto 0);
-		 MD : out std_logic_vector(31 downto 0); 
+		 	  MD : out std_logic_vector(31 downto 0); 
            BPOUT : out std_logic_vector(15 downto 0);
            RXCRCERR : out std_logic;
            RXOFERR : out std_logic;
            RXPHYERR : out std_logic;
-		 RXFIFOWERR : out std_logic;
-		 FIFOFULL : in std_logic; 
+		     RXFIFOWERR : out std_logic;
+		     FIFOFULL : in std_logic; 
            RXF : out std_logic);
 end RXinput_memio;
 
@@ -68,8 +68,8 @@ architecture Behavioral of RXinput_memio is
 	           D : in std_logic_vector(7 downto 0);
 	           CO : out std_logic_vector(31 downto 0));
 	end component;
+
 begin
-	 
     CEOUT <= ce; 
 
     crccomb: crc_combinational port map (

@@ -4,8 +4,8 @@ PROJECT vhdl
 DESIGN vhdl
 DEVFAM spartan2e
 DEVFAMTIME 0
-DEVICE xc2s200e
-DEVICETIME 1064937299
+DEVICE xc2s150e
+DEVICETIME 1065146034
 DEVPKG pq208
 DEVPKGTIME 1060536737
 DEVSPEED -6
@@ -62,15 +62,18 @@ DEPASSOC control control.ucf
 [Normal]
 p_ModelSimSimRunTime_tb=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064439070, 100ms
 p_SimUseCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, False
-p_xstPackIORegister=xstvhd, spartan2e, VHDL.t_synthesize, 1062287314, Yes
-xilxMapTimingDrivenPacking=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064936691, True
-xilxPAReffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064934766, High
-xilxPARextraEffortLevel=xstvhd, spartan2e, VHDL.t_placeAndRouteDes, 1064936691, None
-xilxSynthKeepHierarchy=xstvhd, spartan2e, VHDL.t_synthesize, 1064935909, Yes
-_SynthOptEffort=xstvhd, spartan2e, VHDL.t_synthesize, 1064934786, High
+p_xstPackIORegister=xstvhd, spartan2e, Schematic.t_synthesize, 1062287314, Yes
+xilxMapAllowLogicOpt=xstvhd, spartan2e, VHDL.t_map, 1065147109, True
+xilxMapCoverMode=xstvhd, spartan2e, VHDL.t_map, 1064958980, Balanced
+xilxMapPackfactor=xstvhd, spartan2e, VHDL.t_map, 1064958980, 100
+xilxMapTimingDrivenPacking=xstvhd, spartan2e, VHDL.t_map, 1065147109, True
+xilxNgdbldNTType=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1064958659, On
+xilxNgdbldPresHierarchy=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1065013129, False
+xilxPAReffortLevel=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1064934766, High
+xilxPARextraEffortLevel=xstvhd, spartan2e, Implementation.t_placeAndRouteDes, 1064958980, None
+xilxSynthKeepHierarchy=xstvhd, spartan2e, Schematic.t_synthesize, 1064964592, Soft
+_SynthOptEffort=xstvhd, spartan2e, Schematic.t_synthesize, 1064934786, High
 _VhdlSimCustom_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064928689, network.do
 _VhdlSimDo_behav=xstvhd, spartan2e, VHDL Test Bench.t_MSimulateBehavioralVhdlModel, 1064942493, True
-[STATUS-ALL]
-network.ngcFileGroup=OK,1064945675
 [STRATEGY-LIST]
 Normal=True

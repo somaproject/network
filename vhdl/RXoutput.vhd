@@ -55,8 +55,8 @@ architecture Behavioral of RXoutput is
    -- state machine
    type states is (none, waitclken, swait0, swait1, swait2, swait3, 
    			    swait4, latchlen, wait0, wait1, startw, lowbyte,
-			    highbyte, nextw, fifonop, reincmac, waitdone,
-			    latchbp); 
+			    highbyte, nextw, fifonop, reincmac, waitdone, rewait0,
+				 rewait1, latchbp); 
    signal cs, ns : states := none; 
 
 	component rxoutput_async_fifo IS
@@ -328,10 +328,10 @@ begin
 		      ns <= latchbp;
    		   else
 		      if fifo_full = '1' then
-			    ns <= fifonop;
- 			 else
-			    ns <= nextw;
-			 end if;
+			      ns <= fifonop;
+ 			   else
+			      ns <= nextw;
+			   end if;
  		   end if; 
 	    when nextw => 
 	        mald <= '0';
@@ -362,13 +362,41 @@ begin
 		   bpen <= '0';   
 		   if nf = '0' then 
 		      ns <= latchbp;
-   		   else
-		      if fifo_nearfull = '1' then
-			    ns <= reincmac;
- 			 else
-			    ns <= fifonop; 
-			 end if;
+   		else
+		      if fifo_nearfull = '0' and CLKEN = '1'then
+			      ns <= rewait0;
+ 			   else
+			      ns <= fifonop; 
+			   end if;
  		   end if; 
+	    when rewait0 => 
+	        mald <= '0';
+		   mainc <= '0';
+		   den <= '1'; 
+		   fifo_reset <= '0';
+		   lmasel <= '0';
+		   cein <= '0';
+		   lenen <= '0';
+		   bpen <= '0';   
+		   if nf = '0' then 
+		      ns <= latchbp;
+   		else
+		      ns <= rewait1; 
+ 		   end if; 
+	    when rewait1 => 
+	        mald <= '0';
+		   mainc <= '0';
+		   den <= '1'; 
+		   fifo_reset <= '0';
+		   lmasel <= '0';
+		   cein <= '0';
+		   lenen <= '0';
+		   bpen <= '0';   
+		   if nf = '0' then 
+		      ns <= latchbp;
+   		else
+		      ns <= reincmac; 
+ 		   end if;  
 	    when reincmac => 
 	        mald <= '0';
 		   mainc <= '1';

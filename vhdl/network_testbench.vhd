@@ -32,11 +32,11 @@ ARCHITECTURE behavior OF network_testbench IS
 -- gmii.rx.*.dat is pushed into the RX* interface
 --    RX_DV RX_ER RXD (hex) 
 
-   constant FILE_GMII_RX : string := "testvectors/gmii.rx.2.dat";
-   constant FILE_GMII_TX : string := "testvectors/gmii.tx.2.dat";
+   constant FILE_GMII_RX : string := "testvectors/gmii.rx.3.dat";
+   constant FILE_GMII_TX : string := "testvectors/gmii.tx.3.dat";
    constant FILE_IO_RAW_TX : string := "testvectors/io.tx.raw.0.dat";
-   constant FILE_IO_FRAME_TX : string := "testvectors/io.tx.frame.1.dat";
-   constant FILE_IO_RX : string := "testvectors/io.rx.2.dat";
+   constant FILE_IO_FRAME_TX : string := "testvectors/io.tx.frame.3.dat";
+   constant FILE_IO_RX : string := "testvectors/io.rx.3.dat";
     
  
 	COMPONENT network
@@ -138,7 +138,7 @@ BEGIN
 -- support components
 ---------------------------------------
    sram: test_NoBLSRAM generic map (
-   		FILEIN => "testvectors/sram.in.0.dat",
+   	FILEIN => "testvectors/sram.in.0.dat",
 		FILEOUT => "testvectors/sram.out.0.dat")
 		port map (
 		CLK => mclk,
@@ -203,8 +203,6 @@ BEGIN
 			rx_dv <= TO_X01(RX_DV_var);
 			rx_er <= to_x01(RX_ER_var);
 			rxd <= to_x01(RXD_var); 
-
-
 		end if;   
 
 	end if; 
