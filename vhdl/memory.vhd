@@ -47,7 +47,7 @@ architecture Behavioral of memory is
    signal qn, q : std_logic_vector(31 downto 0) := (others => '0');
    
    signal clk1, clk2, clk3, clk4: std_logic := '0';
-   signal clknum : positive range 1 to 4 := 1; 
+   signal clknum : integer range 0 to 3 := 0; 
 
 
 	component IOBUF
@@ -84,8 +84,8 @@ begin
    clock: process(CLK) is
    begin
       if rising_edge(CLK) then
-	    if clknum = 4 then 
-	       clknum <= 1;
+	    if clknum =3 then 
+	       clknum <= 0;
  	    else
 	       clknum <= clknum  + 1; 
   	    end if; 
@@ -101,16 +101,16 @@ begin
 	    we <= wen; 
 	    addr <= addrn; 
 
-	    if clknum = 2 then
+	    if clknum = 1 then
 	    	  Q1 <= qn;
 	    end if; 
-	    if clknum = 3 then
+	    if clknum = 2 then
 	    	  Q2 <= qn;
 	    end if; 
-	    if clknum = 4 then
+	    if clknum = 3 then
 	    	  Q3 <= qn;
 	    end if; 
-	    if clknum = 1 then
+	    if clknum = 0 then
 	    	  Q4 <= qn;
 	    end if; 
 
@@ -118,23 +118,23 @@ begin
 	 end if;
    end process clock; 
 
-   addrn <= addr1 when clknum = 1 else
-   		  addr2 when clknum = 2 else
-		  addr3 when clknum = 3 else
+   addrn <= addr1 when clknum = 0 else
+   		  addr2 when clknum = 1 else
+		  addr3 when clknum = 2 else
 		  addr4; 
-   wen <= we1 when clknum = 1 else
-    		we2 when clknum = 2 else
-		we3 when clknum = 3 else
+   wen <= we1 when clknum = 0 else
+    		we2 when clknum = 1 else
+		we3 when clknum = 2 else
 		we4;
 	
-   dn <= d1 when clknum = 1 else
-   	    d2 when clknum = 2 else
-	    d3 when clknum = 3 else
+   dn <= d1 when clknum = 0 else
+   	    d2 when clknum = 1 else
+	    d3 when clknum = 2 else
 	    d4;
-   CLKEN1 <= '1' when clknum = 1 else '0';
-   CLKEN2 <= '1' when clknum = 2 else '0';
-   CLKEN3 <= '1' when clknum = 3 else '0';
-   CLKEN4 <= '1' when clknum = 4 else '0';
+   CLKEN1 <= '1' when clknum = 0 else '0';
+   CLKEN2 <= '1' when clknum = 1 else '0';
+   CLKEN3 <= '1' when clknum = 2 else '0';
+   CLKEN4 <= '1' when clknum = 3 else '0';
 
 	     
 end Behavioral;

@@ -24,8 +24,6 @@ end TXoutput;
 architecture Behavioral of TXoutput is
 -- TXOUTPUT.VHD -- MAC transmit output. 
 
-
-
 	-- mux counters:
 	signal dsel, crcsel, crcsell, outsel, outsell, outselll: 
 			integer range 0 to 3 := 0; 
@@ -35,7 +33,7 @@ architecture Behavioral of TXoutput is
 	signal decbcnt, ldbcnt : std_logic := '0';
 
 	-- addr :
-	signal addr, bpl: std_logic_vector(15 downto 0) := 
+	signal addr, bpl, addrl: std_logic_vector(15 downto 0) := 
 			(others => '0');
 	signal addrinc, rstaddr : std_logic := '0';
 
@@ -105,6 +103,7 @@ begin
 		    if addrinc = '1' then
 		    	  addr <= addr + 1;
 		    end if; 
+		    addrl <= addr; 
 
 		    -- latches
 		    	data <= ldata; 
@@ -165,7 +164,7 @@ begin
 
 
 
-   fsm: process(cs, ns, CLKEN, addr, bpl, bcnt) is 
+   fsm: process(cs, ns, CLKEN, addr, bpl, bcnt, addrl) is 
    begin
    	   case cs is 
 	   	 when none => 
@@ -178,7 +177,7 @@ begin
 			 crcen <= '0';
 			 crcrst <= '0';
 			 ltxen <= '0';
-			 if clken = '1' and (not (bpl = addr)) then
+			 if clken = '1' and (not (bpl = addrl)) then
 			 	ns <= incaddr;
 			 else
 			 	ns <= none;
@@ -274,7 +273,9 @@ begin
 	   	 when databyte0 => 
 		 	 if bcnt > "0000000000001000" then
 			    addrinc <= '1'; 
-			 end if; 
+			 else
+			    addrinc <= '0';
+			 end if;  
 			 outsel <= 0;
 			 crcsel <= 0;
 			 dsel <= 0;

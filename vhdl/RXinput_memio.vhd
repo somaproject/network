@@ -43,6 +43,7 @@ architecture Behavioral of RXinput_memio is
    				 (others => '0');
    constant CRCCONST : std_logic_vector(31 downto 0) := 
    				 X"00000000"; 
+   signal crcequal : std_logic := '0'; 
 
    -- memory:
    signal bp, macnt, lma, bpl : std_logic_vector(15 downto 0) :=
@@ -158,21 +159,32 @@ begin
 			if cs = errchk then
 			   if endbyte(2 downto 0) = "101" then
 			      PHYERR <= '1';
+			   else
+			   	 PHYERR <= '0';
 			   end if; 
+			    
 			   if endbyte(2 downto 0) = "110" then
 			      OFERR <= '1'; 
-			   end if; 
-			   if CRCL = CRCCONST then
-			   	 CRCERR <= '1';
 			   else
-			   	 CRCERR <= '0';
+			      OFERR <= '0'; 
 			   end if; 
 			else 
-			   CRCERR <= '0';
 			   OFERR <= '0';
 			   PHYERR <= '0';
 			end if;
 			
+			if crcl = CRCCONST then
+				crcequal <= '1'; 
+			else
+				crcequal <= '0';
+			end if;
+			  
+			if crcequal = '1' and cs = errchk then
+			   CRCERR <= '1';
+		     else
+			   CRCERR <= '0';
+			end if; 
+
 			if cs = writebp then
 			   RXF <= '1';
 			else

@@ -10,7 +10,7 @@ use UNISIM.VComponents.all;
 
 entity TXinput is
     Port ( CLK : in std_logic;
-    		 CLKOUT : in std_logic; 
+    		 CLKIO : in std_logic; 
     		 RESET : in std_logic; 
            DIN : in std_logic_vector(15 downto 0);
            NEWFRAME : in std_logic;
@@ -69,9 +69,9 @@ begin
    
    
    -- clocks to outside:
-   clock_external: process(CLKOUT) is
+   clock_external: process(CLKIO) is
    begin
-   	 if rising_edge(CLKOUT) then
+   	 if rising_edge(CLKIO) then
 	     enable <= not enable; 
 
 		dinl <= DIN;
@@ -134,7 +134,7 @@ begin
 
 			-- byte counter
 			if den = '1' then
-				if newfint = '1' then
+				if cs = none then
 					cnt <= dinint;
 				else
 					cnt <= cnt - 1;
@@ -143,12 +143,10 @@ begin
 
 
 			-- memory-pointer associated code:
-			if newfint = '1' then 
+			if cs = none then 
 				addr <= bp;
-			else 
-				if cpen = '1' then
-					addr <= addr + 1;
-				end if;
+			elsif cpen = '1' then
+				addr <= addr + 1;
 			end if; 
 
 			if bpen = '1' then

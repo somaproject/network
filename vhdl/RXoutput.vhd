@@ -15,7 +15,7 @@ entity RXoutput is
            BPIN : in std_logic_vector(15 downto 0);
            MA : out std_logic_vector(15 downto 0);
            MQ : in std_logic_vector(31 downto 0);
-           CLKOUT : in std_logic;
+           CLKIO : in std_logic;
 		 NEXTFRAME : in std_logic; 
            DOUT : out std_logic_vector(15 downto 0);
            DOUTEN : out std_logic);
@@ -78,7 +78,7 @@ begin
 		wr_en => ceinl,
 		wr_clk => clk,
 		rd_en => denll,
-		rd_clk => CLKOUT,
+		rd_clk => CLKIO,
 		ainit => fifo_reset,
 		dout => fifodout,
 		full => ff,
@@ -144,9 +144,9 @@ begin
    lbp <= len + bp + X"0001"; 
    nfdelta <= nf and (not nfl);
 
-   ext_clock: process(CLKOUT) is
+   ext_clock: process(CLKIO) is
    begin
-      if rising_edge(CLKOUT) then
+      if rising_edge(CLKIO) then
 	    DOUT <= fifodout;
 	    DOUTEN <= ldouten;
 	    nf <= NEXTFRAME;

@@ -5,8 +5,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 --  Uncomment the following lines to use the declarations that are
 --  provided for instantiating Xilinx primitive components.
---library UNISIM;
---use UNISIM.VComponents.all;
+library UNISIM;
+use UNISIM.VComponents.all;
 
 entity network is
     Port ( CLKIN : in std_logic;
@@ -22,7 +22,7 @@ entity network is
            MD : inout std_logic_vector(31 downto 0);
            MCLK : out std_logic;
            MWE : out std_logic;
-           CLKOUT : in std_logic;
+           CLKIOIN : in std_logic;
            NEXTFRAME : in std_logic;
            DOUT : out std_logic_vector(15 downto 0);
            DOUTEN : out std_logic;
@@ -35,7 +35,9 @@ architecture Behavioral of network is
 
 
 	-- clock and timing signals
-	signal clk: std_logic := '0';
+	signal clk, clkio: std_logic := '0';
+	signal clk_to_bufg, clkio_to_bufg : std_logic := '0';
+
      signal clken1, clken2, clken3, clken4 : std_logic := '0';
 	
 	-- data
@@ -109,7 +111,7 @@ architecture Behavioral of network is
 	           BPIN : in std_logic_vector(15 downto 0);
 	           MA : out std_logic_vector(15 downto 0);
 	           MQ : in std_logic_vector(31 downto 0);
-	           CLKOUT : in std_logic;
+	           CLKIO : in std_logic;
 			 NEXTFRAME : in std_logic; 
 	           DOUT : out std_logic_vector(15 downto 0);
 	           DOUTEN : out std_logic);
@@ -130,7 +132,7 @@ architecture Behavioral of network is
 
 	component TXinput is
 	    Port ( CLK : in std_logic;
-	    		 CLKOUT : in std_logic; 
+	    		 CLKIO : in std_logic; 
 	    		 RESET : in std_logic; 
 	           DIN : in std_logic_vector(15 downto 0);
 	           NEWFRAME : in std_logic;
@@ -141,13 +143,41 @@ architecture Behavioral of network is
 	           DONE : out std_logic);
 	end component;
 
+
+	component CLKDLL
+	      port (CLKIN, CLKFB, RST : in STD_LOGIC;
+	      CLK0, CLK90, CLK180, CLK270, CLK2X, CLKDV, LOCKED : out std_logic);
+	end component;
+ 
+	component BUFG
+	      port (I : in STD_LOGIC; O : out std_logic);
+	end component;
+
+
 begin
     addr1ext <= ('1' & addr1);
     addr2ext <= ('0' & addr2);
     addr3ext <= ('1' & addr3);
     addr4ext <= ('0' & addr4);
+
+    clk_dll : CLKDLL port map (
+    			CLKIN => clkin,
+			CLKFB => clk,
+			RST => RESET,
+			CLK0 => clk_to_bufg);
+    clk_bufg : BUFG port map (
+    			I => clk_to_bufg,
+			O => clk); 
+    clkio_dll : CLKDLL port map (
+    			CLKIN => clkioin,
+			CLKFB => clkio,
+			RST => RESET,
+			CLK0 => clkio_to_bufg);
+    clkio_bufg : BUFG port map (
+    			I => clkio_to_bufg,
+			O => clkio); 
+
     
-    clk <= CLKIN; 
      
     memcontroller: memory port map (
     			  CLK => clk,
@@ -197,7 +227,7 @@ begin
 			  BPIN => rxbp,
 			  MA => addr3,
 			  MQ => q3,
-			  CLKOUT => CLKOUT,
+			  CLKIO => clkio,
 			  NEXTFRAME => NEXTFRAME,
 			  DOUT => DOUT,
 			  DOUTEN => DOUTEN);
@@ -215,7 +245,7 @@ begin
 			  GTX_CLK => GTX_CLK);
    tx_input: txinput port map (
    			  CLK => clk,
-			  CLKOUT => CLKOUT,
+			  CLKIO => clkio,
 			  RESET => reset, 
 			  DIN => DIN,
 			  NEWFRAME => NEWFRAME,

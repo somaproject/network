@@ -59,6 +59,10 @@ Trying to not inc addr if bytecnt < 8... works. Must also be sure to inc addr in
 
 System works, sends out packets of right size, sends new pkt when bp changes. 
 
+ADDRL is there so that the decsiion to start sending a packet (addrl=BPL) has an extra register layer, to meet timing constraints. 
+
+
+
 ----------------------------------------------------------------------
 TX INPUT
 ----------------------------------------------------------------------
