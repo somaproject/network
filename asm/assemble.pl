@@ -21,8 +21,33 @@ open SOURCE, $filename || die "Couldn't open file $filename \n";
 
 print "|       |       |       |       |\n";
 while(<SOURCE>) {
-    print eval($_) ;
-    print "\n";
+
+    if(/(\w+)\W*(\w*)\W*(\w*)\W*(\w*)/i) {
+	
+	$iw = ""; 
+	#actual decoding
+
+	if($1 eq "add") { $iw = add($2, $3, $4) ;};    
+	if($1 eq "sub") { $iw = subb($2, $3, $4) ;};    
+	if($1 eq "and") { $iw = and_op($2, $3, $4) ;};    
+	if($1 eq "or")  { $iw = or_op($2, $3, $4) ;};    
+
+
+	if($1 eq "addc") { $iw = addc($2, $3, $4) ;};    
+	if($1 eq "subc") { $iw = subc($2, $3, $4) ;};    
+	if($1 eq "andc") { $iw = andc($2, $3, $4) ;};    
+	if($1 eq "orc")  { $iw = orc($2, $3, $4) ;};    
+
+	#sugar
+	if($1 eq "nop") { $iw = nop();}; 
+	if($1 eq "mov") { $iw = mov($2, $3); };
+	if($1 eq "movc") { $iw = movc($2, $3); };
+
+
+	chomp; 
+	print "$iw | $_";
+	print "\n";
+    }
 }
 
 
@@ -39,11 +64,72 @@ sub add {
     $pc++; 
     return $iw; 
 
+
 }
+
+sub subb { # not "sub" because that's a reserved word. 
+    my ( $Ra, $Rb, $Rc) = @_;
+    my $iw; #create instruction word. 
+    $iw .= "0010"; #opcode
+    $iw .= sprintf("%.6b", $registers{$Rc});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .= sprintf("%.6b", $registers{$Ra});
+    $iw .=  "0000000000";
+    
+    $pc++; 
+    return $iw; 
+
+}
+
+sub and_op {
+    my ( $Ra, $Rb, $Rc) = @_;
+    my $iw; #create instruction word. 
+    $iw .= "0100"; #opcode
+    $iw .= sprintf("%.6b", $registers{$Rc});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .= sprintf("%.6b", $registers{$Ra});
+    $iw .=  "0000000000";
+    
+    $pc++; 
+    return $iw; 
+
+}
+
+sub or_op {
+    my ( $Ra, $Rb, $Rc) = @_;
+    my $iw; #create instruction word. 
+    $iw .= "0110"; #opcode
+    $iw .= sprintf("%.6b", $registers{$Rc});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .= sprintf("%.6b", $registers{$Ra});
+    $iw .=  "0000000000";
+    
+    $pc++; 
+    return $iw; 
+
+}
+
 sub addc {
     my ($val, $Rb, $Rc) = @_;
     my $iw; 
+    $val = eval($val); 
     $iw .= "0001"; #opcode
+    $iw .= sprintf("%.6b", $registers{$Rc});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .= sprintf("%.16b", $val);
+
+    $val <= 65535 or die ("$val is too big!");    
+
+    $pc++; 
+    return $iw;
+}
+
+
+sub subc {
+    my ($val, $Rb, $Rc) = @_;
+    my $iw; 
+    $val = eval($val); 
+    $iw .= "0011"; #opcode
     $iw .= sprintf("%.6b", $registers{$Rc});
     $iw .= sprintf("%.6b", $registers{$Rb});
     $iw .= sprintf("%.16b", $val);
@@ -55,6 +141,38 @@ sub addc {
 
 
 }
+
+sub andc {
+    my ($val, $Rb, $Rc) = @_;
+    my $iw; 
+    $val = eval($val); 
+    $iw .= "0101"; #opcode
+    $iw .= sprintf("%.6b", $registers{$Rc});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .= sprintf("%.16b", $val);
+
+    $val <= 65535 or die ("$val is too big!");    
+
+    $pc++; 
+    return $iw;
+}
+
+sub orc {
+    my ($val, $Rb, $Rc) = @_;
+    my $iw; 
+    $val = eval($val); 
+    $iw .= "0111"; #opcode
+    $iw .= sprintf("%.6b", $registers{$Rc});
+    $iw .= sprintf("%.6b", $registers{$Rb});
+    $iw .= sprintf("%.16b", $val);
+
+    $val <= 65535 or die ("$val is too big!");    
+
+    $pc++; 
+    return $iw;
+}
+
+
 
 
 sub mov {
