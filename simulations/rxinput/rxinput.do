@@ -6,7 +6,7 @@ vlib work
 vcom -93 -explicit GMIIinsim.vhd
 
 -- actual hardware 
-
+vcom -93 -explicit ../../vhdl/RXvalid.vhd
 vcom -93 -explicit ../../vhdl/crc_combinational.vhd
 vcom -93 -explicit ../../vhdl/RXinput.vhd
 

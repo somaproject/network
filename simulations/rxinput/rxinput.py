@@ -89,7 +89,7 @@ class GMIIin:
         
             
         
-def main():
+def basictest():
     g = GMIIin("gmiiin.0.dat")
     rf = ramfile("ram.0.dat")
 
@@ -265,10 +265,42 @@ def main():
         rf.addFrame(fdata[:-4], fdata[-4:])
 
 
+def macdesttest():
+    g = GMIIin("gmiiin.1.dat")
+    rf = ramfile("ram.1.dat")
+
+    # we generate random length frames and randomly select among mac addresses
+
+    macaddrs = ["C0:FF:EE:C0:FF:EE", "01:AB:12:34:CD:EF", 
+                "FF:FF:FF:FF:FF:FF", "AB:CD:EF:12:34:56"]
+
+    # and finally, perhaps, a ton of random crap:
+    for j in range(1000):
+        dmac = random.randint(0, 3)
+        
+        d = ""
+        div = []
+        for i in range(random.randint(50, 2000)):
+            r = random.randint(0, 255)
+            d += struct.pack("B", r)
+            if random.randint(0, 10) < 2 :
+                div.append((i, i+random.randint(0,2)))
+
+        f = frame.frame(macaddrs[dmac],
+                        "12:00:3F:00:00:04",
+                        0x0101, d)
+
+        g.addFrame(f.getWire(), False, False, div)
+        fdata = f.getWire(preamble=0, SFD=False) # just the raw data
+        if dmac != 3:
+            rf.addFrame(fdata[:-4], fdata[-4:])
+
+
 
     
     
 
 if __name__ == "__main__":
-    main()
+    basictest()
+    macdesttest()
     

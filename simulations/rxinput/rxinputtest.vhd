@@ -96,7 +96,6 @@ BEGIN
 	RX_CLK <= not RX_CLK after 3.98 ns; 
 	CLK <= not CLK after 4 ns; 
 
-	RESET <= '0' after 25 ns; 
 
 	process (CLK) is
 	begin
@@ -123,7 +122,8 @@ BEGIN
 		variable memdata : std_logic_vector(31 downto 0)
 			:= (others => '0'); 
 	begin
-		wait until falling_edge(RESET);
+		RESET <= '0' after 40 ns; 
+		RXALLF <= '1'; 
 		file_open(memfile, "ram.0.dat", read_mode); 
 		while not endfile(memfile) loop
 			wait until rising_edge(CLK); 
@@ -148,6 +148,42 @@ BEGIN
 				end loop; 
 			end if; 
 		end loop;
+		file_close(memfile); 
+
+		RESET <= '1'; 
+		wait for 40 ns; 
+		RXALLF <= '0';
+		RXUCAST <= '1';
+		RXBCAST <= '1';
+		RXMCAST <= '1';
+		MACADDR <= X"C0FFEEC0FFEE"; 
+		RESET <= '0'; 
+		file_open(memfile, "ram.1.dat", read_mode); 
+		while not endfile(memfile) loop
+			wait until rising_edge(CLK); 
+			while MD /= md1  or md1 /= md2 or md2 /= md3 
+				 or MA /= ma1 or ma1 /= ma2 or ma2 /= ma3  loop
+				wait until rising_edge(CLK);
+			end loop; 
+			-- write the data
+			ram(to_integer(unsigned(MA))) := to_integer(signed(MD));
+			if bpl /= BPOUT then -- there's been a write; let's check!
+				readline(memfile, L);
+				while bpl /= BPOUT loop	
+					hread(L, memdata); 
+					if memdata /= std_logic_vector(to_signed(ram(to_integer(unsigned(bpl))), 32)) then
+						report "Error in ram data";
+					end if; 
+
+					-- yea, this is ugly, but it works
+					bpl := std_logic_vector(to_unsigned(
+							((to_integer(unsigned(bpl)) + 1) mod 65536), 16)); 
+
+				end loop; 
+			end if; 
+		end loop;
+		file_close(memfile); 
+
 		wait; 
 		assert false
 			report "End of simulation"

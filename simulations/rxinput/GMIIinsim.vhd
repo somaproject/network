@@ -35,7 +35,7 @@ begin
 			:= (others => '0');
 
 	begin
-		file_open(datafile, "gmiiin.0.dat", read_mode); 
+		file_open(datafile, "gmiiin.0.dat", read_mode);
 		while not endfile(datafile) loop 
 			readline(datafile, L); 
 			wait until rising_edge(CLK) and NEXTF = '1';
@@ -50,7 +50,24 @@ begin
 			end loop; 
 			indata(8) := '0'; 
 		end loop; 
-		wait; 								  	
+		file_close(datafile); 
+		wait for 40 ns; 
+		file_open(datafile, "gmiiin.1.dat", read_mode); 
+		while not endfile(datafile) loop 
+			readline(datafile, L); 
+			wait until rising_edge(CLK) and NEXTF = '1';
+			while not (indata(8) = '1' and indata(9) = '1') loop 
+				hread(L, indata);
+				DOUT <= indata(7 downto 0);
+				VALID <= indata(8);
+				ENDFOUT <= indata(9);
+				EROUT <= indata(10);
+				OFOUT <= indata(11); 
+				wait until rising_edge(clk); 
+			end loop; 
+			indata(8) := '0'; 
+		end loop; 
+		wait; 										  	
 
 	end process; 
 

@@ -22,5 +22,6 @@ SOURCE ..\..\vhdl\RXinput.vhd
 SOURCE ..\..\vhdl\crc_combinational.vhd
 STIMULUS rxinputtest.vhd
 SOURCE GMIIinsim.vhd
+SOURCE ..\..\vhdl\RXValid.vhd
 [STRATEGY-LIST]
 Normal=True
