@@ -32,7 +32,8 @@ xilxPAReffortLevel=xstvhd, virtex2, Implementation.t_placeAndRouteDes, 104899839
 xilxSynthKeepHierarchy=xstvhd, virtex2, Schematic.t_synthesize, 1048835002, True
 _SynthOptEffort=xstvhd, virtex2, Schematic.t_synthesize, 1048985872, High
 [STATUS-ALL]
-alu.ncdFile=WARNINGS,1049000281
-alu.ngcFile=WARNINGS,1049000281
+alu.ncdFile=WARNINGS,1049000803
+alu.ngcFile=WARNINGS,1049000803
+mt55l128l32p.ngcFile=ERRORS,1049000803
 [STRATEGY-LIST]
 Normal=True
