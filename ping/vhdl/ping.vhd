@@ -24,7 +24,7 @@ architecture Behavioral of ping is
 -- and respond to pings < 3kB in size. 
 
    -- address signals
-	signal ail, ao, aol, ai, a0, a1 : 
+	signal ail, ao, aol, aoll, ai, a0, a1 : 
 			std_logic_vector(10 downto 0) := (others => '0');
    signal we, we0, we1 : std_logic := '0';
 
@@ -35,7 +35,7 @@ architecture Behavioral of ping is
 	-- buffer toggle
 	signal bsel : std_logic := '0';
 
-	signal lnextframe, lnewframe : std_logic := '0'; 
+	signal lnextframe, lnewframe, lnewframe1, lnewframe2, lnewframe3 : std_logic := '0'; 
 	-- counter
 
 	signal dinenl : std_logic := '0';
@@ -106,19 +106,22 @@ begin
 
 				-- IO signals
 				dinl <= DIN;
+				lnewframe1 <= lnewframe;
+				lnewframe2 <= lnewframe1;
+				lnewframe3 <= lnewframe2; 
 				NEXTFRAME <= lnextframe;
 				dinenl <= DINEN;
-				NEWFRAME <= lnewframe; 
+				NEWFRAME <= lnewframe3; 
 				bufin <= dinl;
 
 				-- this is some pretty serious stuff
-				if aol = "00000010001"	then 
-					DOUT <= not ((not ldout) - X"0800"); 
+				if aol = "00000010101"	then 
+					DOUT <=  not ( (not ldout) - X"0800"); 
 				else
 					DOUT <= ldout; 
 				end if; 
 
-				if bsel = '1' then
+				if bsel = '0' then
 					ldout <= bufout1;
 				else
 					ldout <= bufout0;
@@ -139,7 +142,7 @@ begin
 				if dinenl = '1' and ai = "00000000111" then
 					ipproto <= dinl;
 				end if; 
-				if dinenl = '1' and ai = "00000001101" then
+				if dinenl = '1' and ai = "00000001100" then
 					icmp <= dinl;
 				end if; 
 
@@ -178,11 +181,14 @@ begin
 						inlen <= dinl;
 					end if;
 				end if ;
-
-				if aol = "00000000000" then
-					outlen <= ldout; 
+				aoll <= aol; 
+				if tcs = none then
+					outlen <= (others => '1');
+				else 
+					if aoll = "00000000000" then
+						outlen <= ldout; 
+					end if; 
 				end if; 
-
 
 				-- counters
 				if rcs = none then
@@ -218,6 +224,7 @@ begin
 					when "00000001111" => aol <= "00000010001"; -- IP SWAP
 					when "00000010000" => aol <= "00000001110"; -- IP SWAP
 					when "00000010001" => aol <= "00000001111"; -- IP SWAP
+					when "00000010010" => aol <= "11100000000"; -- zero 
 
 					when others => aol <= ao; 
 				end case; 

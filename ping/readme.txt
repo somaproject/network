@@ -15,4 +15,4 @@ For TX: we wait until the SWAPB state is hit, and then we clock out the bytes, b
 
 The ICMP checksum makes things slightly more complicated, unfortunately. Since we're simply swapping the IP header addresses, it's not going to change the IP header checksum. However, the ICMP checksum will change by changing the type field from 08 to 00. Thus, we must have the approrpiate word be complemented, subtract 0800, and then recomplement the result. 
 
-
+No, we're not updating the TTL. 

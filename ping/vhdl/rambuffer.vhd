@@ -65,13 +65,23 @@ begin
 	we4 <= '1' when WE = '1' and ADDR(9 downto 7) = "100" else '0';
 	we5 <= '1' when WE = '1' and ADDR(9 downto 7) = "101" else '0';
 
-	DOUT <= dout0 when ADDR(9 downto 7) = "000" else
-			  dout1 when ADDR(9 downto 7) = "001" else
-			  dout2 when ADDR(9 downto 7) = "010" else
-			  dout3 when ADDR(9 downto 7) = "011" else
-			  dout4 when ADDR(9 downto 7) = "100" else
-			  dout5;
+	process(CLK) is
+	variable addrlsub : std_logic_vector(2 downto 0); 
+	begin
+	  if rising_edge(CLK) then 
+	  		addrlsub := ADDR(9 downto 7); 
+		end if; 
+	      case addrlsub is
+				when "000" => DOUT <= dout0; 
+				when "001" => DOUT <= dout0; 
+				when "010" => DOUT <= dout0; 
+				when "011" => DOUT <= dout0; 
+				when "100" => DOUT <= dout0; 
+				when "101" => DOUT <= dout0; 
+				when others => DOUT <= (others => '0');
+			end case; 
 
+   end process; 
 	ram0 : RAMB4_S16 generic map (
 				INIT_00 => X"0000000000000000000000000000000000000000000000000000000000000000",
 				INIT_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
