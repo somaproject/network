@@ -1,0 +1,26 @@
+
+
+\section{Data Transmission}
+
+There are two signals which govern frame transmission: 
+
+\signal{NEWFRAME}
+
+\signal{DIN[15:0]}
+
+\signal{NEWFRAME} is the clock enable for the data line; the first transmitted
+word must be the length of the frame, including the header packet;
+thus this number will always be at least one.
+
+The least significant byte, \signal{DIN[7:0]}, is transmitted on the
+wire first.
+
+\subsection{Possible errors}
+\begin{enumerate}
+\item Continuing to assert \signal{NEWFRAME} after the specified
+  number of words have been sent will be ignored.
+\item If \signal{NEWFRAME} is deasserted prior to the transmission of the correct number of words, the packet is not committed to the fifo
+\end{enumerate}
+
+
+\section{Data Reception}
