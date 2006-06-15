@@ -1,0 +1,60 @@
+\section{Memory Interface}
+The NIC has two FIOS, a TX and RX fifo, implemented as ring buffers in
+SRAM. The SRAM we are using is pipelined Zero-Bus Turnaround (Cypress
+trademark NoBL -- no Bus Latency) SRAM. This SRAM requires no cycles
+for read-write turnaround, allowing for single-word read/write
+interleaving with no overhead.
+
+The only downside are the complications introduced by the pipelined
+nature of the processor.
+
+Our memory interface provides
+\begin{enumerate}
+\item A set of four multiplexed ports to allow four independent
+  devices to have transparent read/write access to the memory space.
+\item Built-in pipelining and tristate control to enable write devices
+  to simply set their write data and move on. Reads require additional
+  pipeline latency.
+\item A very simple input interface: simply holding a read/write
+  address/direction pair constant for four cycles guarantees that the
+  data will be properly written to the RAM.
+\end{enumerate}
+
+We use the FPGA's embedded IOB registers to ease our timing constraints. 
+
+\begin{timing}{memorywrite}
+C: CLK    :  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+S: CLKENi :  H  L  L  L  H  L  L  L  H  L  L  L  H  L  L  L  H  L  L 
+B: cycle  :  1  2  3  4  1  2  3  4  1  2  3  4  1  2  3  4  1  2  3 
+B: ADDRn  :  A  Z  Z  Z  A  Z  Z  Z  A  Z  Z  Z  A  Z  Z  Z  A  Z  Z
+BC:       :  0  0  0  0  1  1  1  1  2  2  2  2  3  3  3  3  4  4  4
+B: ADDR   :  Z  A  Z  Z  Z  A  Z  Z  Z  A  Z  Z  Z  A  Z  Z  Z  A  Z
+BC:       :  0  0  0  0  1  1  1  1  1  1  2  2  2  2  2  2  3  3  3
+\end{timing}
+
+STILL NEED TO FINISH THIS
+
+Note that the latency for a read is 6 ticks. 
+
+
+Here is the original memory controller text: 
+
+
+MEMORY CONTROLLER:
+
+This is the basic memory controller; some of the coding decisions were made in an attempt to get the inputs and outputs to synthesize correctly. 
+
+In particular, the correc tristating is designed to interface properly with the cypress ZBT SRAM. 
+
+For each port there is a 17-bit addr, and a 32-bit input (D) and output (Q). The four clock enables (CLKEN1-CLKEN4) are generated inside the memory controller. CLKENn going high means that the input to Dn, ADDRn, and WEn will be captured on the next clock cycle. The controller handles correct piplining of the input data, however, the user is responsible for dealing with the output data. This is to allow application-dependent burst reading. 
+
+At the moment, we make this all work by driving mclk with an inverter -- this gives us no bit errors. Further research will be necessary to determine why this is the case, and if it will continue to work in the large-scale design.  
+
+The worst part is keeping the timing parameters in check. 
+
+Test1: increment address, increment data, use different offsets, stresses 64kwords at a time. 
+
+Test2: test1 with LFSRs...
+
+Test3: We write in a bucketload of data (2^15 different words) and then we read it out. Designed to check for artifacts of sequential access. 
+
