@@ -71,7 +71,7 @@ build/$(PROJECT).ncd: build/$(PROJECT).pcf
 	par -w -pl $(OPTIMIZE) -rl $(OPTIMIZE)  build/$(PROJECT)_map.ncd build/$(PROJECT).ncd build/$(PROJECT).pcf
 
 build/$(PROJECT).bit: build/$(PROJECT).pcf build/$(PROJECT).ncd
-	bitgen -w build/$(PROJECT).ncd build/$(PROJECT).bit build/$(PROJECT).pcf
+	bitgen -w build/$(PROJECT).ncd build/$(PROJECT).bit build/$(PROJECT).pcf -g DriveDone:Yes
 build/$(PROJECT).rbt: build/$(PROJECT).pcf build/$(PROJECT).ncd
 	bitgen -b -w build/$(PROJECT).ncd build/$(PROJECT).bit build/$(PROJECT).pcf
 
