@@ -1,2 +1,0 @@
-vhdl work "../../../vhdl/memory.vhd"
-vhdl work "memtest.vhd"

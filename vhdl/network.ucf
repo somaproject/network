@@ -4,10 +4,10 @@ NET "CLKIOIN" TNM_NET = "CLKIOIN";
 TIMESPEC "TS_CLKIOIN" = PERIOD "CLKIOIN" 16 ns HIGH 50 %;
 NET "RX_CLK" TNM_NET = "RX_CLK";
 TIMESPEC "TS_RX_CLK" = PERIOD "RX_CLK" 7.1 ns HIGH 50 %;
-INST "mac_control" TNM = "maccontrol";
-INST "mac_control/PHY_status" TNM = "maccontrol";
-INST "mac_control/PHY_status/MII_Interface" TNM = "maccontrol";
-TIMESPEC "ts_maccontrol" = FROM "maccontrol" TO "maccontrol" "TS_CLKIN" * 8;
+#INST "maccontrol" TNM = "maccontrol";
+#INST "maccontrol/PHY_status" TNM = "maccontrol";
+#INST "maccontrol/PHY_status/MII_Interface" TNM = "maccontrol";
+#TIMESPEC "ts_maccontrol" = FROM "maccontrol" TO "maccontrol" "TS_CLKIN" * 8;
 
 NET MD* NODELAY;
 

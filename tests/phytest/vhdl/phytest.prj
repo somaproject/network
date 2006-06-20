@@ -1,0 +1,4 @@
+vhdl work "../../../vhdl/MII.vhd"
+vhdl work "../../../vhdl/PHYstatus.vhd"
+vhdl work "../../../vhdl/control.vhd"
+vhdl work "phytest.vhd"

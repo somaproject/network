@@ -5,12 +5,12 @@ run
 -ifmt mixed
 -ofn network
 -ofmt NGC
--p xc3s200-4-vq100
+-p xc3s200-4-pq208
 -top network
 -opt_mode Speed
 -opt_level 2
 -iuc NO
--keep_hierarchy NO
+-keep_hierarchy YES
 -glob_opt AllClockNets
 -rtlview Yes
 -read_cores YES

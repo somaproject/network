@@ -1,0 +1,5 @@
+A test of the memory interface
+
+I guess I don't ever anticipate this breaking, because it's really
+simple, and most of the effort comes from trying to handle the
+complexities of pipelining.

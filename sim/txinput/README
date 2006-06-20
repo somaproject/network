@@ -9,18 +9,24 @@ What happens when we write frames where the length word is :
 
 what happens when the NEWFRAME signal goes low mid-transmit? 
 
-How does the sytem handle FIFOFULL signals. Correctly? 
-
 Does the system properly reset on RESET? 
 
-Proposed test method: use python code to generate a series of input vectors and an expected ram writes / BP values. Double writes won't cause an error, because really, they have no real impact. VHDL code will guarantee that all values are constant for at least 4 ticks. 
+Proposed test method: use python code to generate a series of input
+vectors and an expected ram writes / BP values. Double writes won't
+cause an error, because really, they have no real impact. VHDL code
+will guarantee that all values are constant for at least 4 ticks.
 
-Base pointers are a bit more tricky -- we'll tie these to 4 real cycles after new-frame going low. Thus we have a list of "expected base pointers" 
+Base pointers are a bit more tricky -- we'll tie these to 4 real
+cycles after new-frame going low. Thus we have a list of "expected
+base pointers"
 
-The resulting python model will be a virtually complete model of the entire subsystem. 
+The resulting python model will be a virtually complete model of the
+entire subsystem.
 
 BPs.writes.dat : base pointers
 RAM.writes.dat : list of expected ram writes
 din.dat : input DIN and NEWFRAME sequence
 
-memdata: every four ticks (simulate CE) if MWE is high and MWE is not equal to before, we compare to the file...
+Things we don't test but should: 
+handling for 0-byte packets
+FIFOERROR

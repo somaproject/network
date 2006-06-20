@@ -11,7 +11,7 @@ vcom -93 -explicit ../../vhdl/TXoutput.vhd
 vcom -93 -explicit ../components/simpleram/simpleram.vhdl
 
 
-vcom -93 -explicit txoutputtest.vhd
+vcom -93 -explicit 
 
 
 vsim -t 1ps -L xilinxcorelib -lib work txtest
