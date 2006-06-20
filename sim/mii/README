@@ -1,0 +1,2 @@
+This simulation uses a simulated GMII module as an eeprom and tries to
+first write two words and then read them back.
