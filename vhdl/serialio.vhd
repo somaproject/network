@@ -11,6 +11,7 @@ entity serialio is
          SIN    : in  std_logic;
          SOUT   : out std_logic;
          NEWCMD : out std_logic;
+         DOUTENOUT : out std_logic; 
          ADDR   : out std_logic_vector(5 downto 0);
          RW     : out std_logic;
          DOUT   : out std_logic_vector(31 downto 0);
@@ -42,6 +43,7 @@ begin
 
 
   douten <= '1' when sclkdeltall = '1' and bitcnt = 8 else '0';
+  DOUTENOUT <= douten;
   
   main : process(CLK, RESET)
   begin

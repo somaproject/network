@@ -18,6 +18,7 @@ architecture Behavioral of serialiotest is
            SIN    : in  std_logic;
            SOUT   : out std_logic;
            NEWCMD : out std_logic;
+           DOUTOUT : out std_logic; 
            ADDR   : out std_logic_vector(5 downto 0);
            RW     : out std_logic;
            DOUT   : out std_logic_vector(31 downto 0);

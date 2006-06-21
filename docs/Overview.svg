@@ -898,7 +898,7 @@
      y="583.74988" />
   <text
      xml:space="preserve"
-     style="font-size:12.000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="253.32291"
      y="302.20245"
      id="text1994"
@@ -907,7 +907,7 @@
        sodipodi:role="line"
        id="tspan1995"
        x="253.32291"
-       y="302.20245">RX Output</tspan></text>
+       y="302.20245">TX Output</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans Mono;text-anchor:end;writing-mode:lr;"
@@ -1563,28 +1563,28 @@
      y="211.87500" />
   <text
      xml:space="preserve"
-     style="font-size:12.000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
+     style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="253.32291"
      y="302.20245"
      id="text2258"
      sodipodi:linespacing="100%"
-     transform="translate(64.24936,-97.04620)"><tspan
+     transform="translate(64.24936,-97.0462)"><tspan
        sodipodi:role="line"
        id="tspan2259"
        x="253.32291"
-       y="302.20245">RX Output</tspan></text>
+       y="302.20245">Control</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans Mono;text-anchor:end;writing-mode:lr;"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans Mono"
      x="440.82422"
      y="141.46094"
      id="text2261"
      sodipodi:linespacing="100%"
-     transform="translate(0.000000,181.2500)"><tspan
+     transform="translate(0,181.25)"><tspan
        sodipodi:role="line"
        id="tspan2262"
        x="440.82422"
-       y="141.46094">RXoutput.vhd</tspan></text>
+       y="141.46094">control.vhd</tspan></text>
   <rect
      style="fill:none;fill-opacity:1.0000000;stroke:none;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;"
      id="rect2297"

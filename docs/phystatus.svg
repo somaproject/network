@@ -62,9 +62,9 @@
      showgrid="true"
      inkscape:current-layer="layer1"
      inkscape:document-units="pt"
-     inkscape:cy="871.40706"
-     inkscape:cx="142.84767"
-     inkscape:zoom="7.9195959"
+     inkscape:cy="648.1403"
+     inkscape:cx="493.7938"
+     inkscape:zoom="1.4"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -290,6 +290,10 @@
        id="text1981"
        sodipodi:linespacing="100%"><tspan
          id="tspan1983" /></text>
+    <path
+       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+       d="M 490.625,186.875 L 490.625,171.25"
+       id="path3198" />
     <g
        id="g1991"
        transform="translate(-45.3941,-5.6154)">
@@ -459,6 +463,10 @@
          id="tspan2052"
          x="434.6008"
          y="236.97189">RWL</tspan></text>
+    <path
+       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+       d="M 490.625,196.25 L 490.625,208.75"
+       id="path3200" />
     <g
        id="g2054"
        transform="translate(-45.1683,69.4815)">
@@ -690,7 +698,7 @@
          sodipodi:role="line"
          id="tspan2160"
          x="737.72583"
-         y="202.59683">cs=phyl</tspan></text>
+         y="202.59683">cs=miiio_done</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:11;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1077,5 +1085,16 @@
          id="tspan2743"
          x="593.75"
          y="249.375">DOUT[15:0]</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="478.125"
+       y="193.125"
+       id="text3194"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3196"
+         x="478.125"
+         y="193.125">MIISEL</tspan></text>
   </g>
 </svg>

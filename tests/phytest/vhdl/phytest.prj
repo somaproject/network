@@ -1,4 +1,8 @@
+vhdl work "../../../vhdl/counter.vhd"
+vhdl work "../../../vhdl/sourcefilter.vhd"
+vhdl work "../../../vhdl/serialio.vhd"
 vhdl work "../../../vhdl/MII.vhd"
 vhdl work "../../../vhdl/PHYstatus.vhd"
 vhdl work "../../../vhdl/control.vhd"
+
 vhdl work "phytest.vhd"

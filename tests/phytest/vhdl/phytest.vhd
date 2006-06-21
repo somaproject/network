@@ -50,7 +50,7 @@ architecture Behavioral of phytest is
   
   component control
     port ( CLK        : in    std_logic;
-           CLKSLEN    : in    std_logic;
+           CLKLO : in std_logic; 
            RESET      : in    std_logic;
            SCLK       : in    std_logic;
            SCS        : in    std_logic;
@@ -138,7 +138,7 @@ begin  -- Behavioral
   control_inst : control
     port map (
       CLK        => clk,
-      CLKSLEN    => clken,
+      CLKLO =>  clk, 
       RESET      => '0',
       SCLK       => SCLK,
       SCS        => SCS,

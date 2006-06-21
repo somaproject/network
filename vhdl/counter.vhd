@@ -9,7 +9,7 @@ entity counter is
     CLK : in std_logic;
     CNTRST : in std_logic;
     INC: in std_logic;
-    CNT : out std_logic_vector(31 downto 0);
+    CNT : out std_logic_vector(31 downto 0)
     ) ;
 
 end counter;
@@ -24,7 +24,7 @@ architecture Behavioral of counter is
   
 begin  -- Behavioral
 
-  main: process
+  main: process(CLK)
     begin
       if rising_edge(CLK) then
         cntrstl <= CNTRST;
@@ -35,7 +35,10 @@ begin  -- Behavioral
         if cntrstl = '1' then
           lcnt <= (others => '0');
         else
-          lcnt <= lcnt + 1; 
+          if incl = '1' then
+            lcnt <= lcnt + 1; 
+            
+          end if;
         end if;
         
       end if;

@@ -11,7 +11,6 @@ use UNISIM.VComponents.all;
 
 entity MII is
   port ( CLK     : in    std_logic;
-         CLKSLEN : in    std_logic;
          RESET   : in    std_logic;
          MDIO    : inout std_logic;
          MDC     : out   std_logic;
@@ -54,7 +53,6 @@ begin
       cs     <= none;
     else
       if rising_edge(CLK) then
-        if CLKSLEN = '1' then
           cs <= ns;
 
           if cs = resetcnt then
@@ -86,7 +84,6 @@ begin
           if cs = ldout then
             DOUT <= dreg;
           end if;
-        end if;
       end if;
     end if;
   end process clock;

@@ -6,10 +6,9 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity PHYstatus is
   port ( CLK           : in    std_logic;
-         CLKSLEN       : in    std_logic;
          PHYDIN        : in    std_logic_vector(15 downto 0);
          PHYDOUT       : out   std_logic_vector(15 downto 0);
-         PHYADDRSTATUS : out   std_logic;
+         PHYADDRSTATUS : out   std_logic := '0';
          PHYADDR       : in    std_logic_vector(5 downto 0);
          PHYADDRR      : in    std_logic;
          PHYADDRW      : in    std_logic;
@@ -46,90 +45,86 @@ architecture Behavioral of PHYstatus is
   signal counter : std_logic_vector(15 downto 0) := (others => '0');
 
   component MII
-    port ( CLK     : in    std_logic;
-           CLKSLEN : in    std_logic;
-           RESET   : in    std_logic;
-           MDIO    : inout std_logic;
-           MDC     : out   std_logic;
-           DIN     : in    std_logic_vector(15 downto 0);
-           DOUT    : out   std_logic_vector(15 downto 0);
-           ADDR    : in    std_logic_vector(4 downto 0);
-           START   : in    std_logic;
-           RW      : in    std_logic;
-           DONE    : out   std_logic);
+    port ( CLK   : in    std_logic;
+           RESET : in    std_logic;
+           MDIO  : inout std_logic;
+           MDC   : out   std_logic;
+           DIN   : in    std_logic_vector(15 downto 0);
+           DOUT  : out   std_logic_vector(15 downto 0);
+           ADDR  : in    std_logic_vector(4 downto 0);
+           START : in    std_logic;
+           RW    : in    std_logic;
+           DONE  : out   std_logic);
   end component;
 
 begin
 
   MII_Interface : MII port map (
-    CLK     => CLK,
-    CLKSLEN => CLKSLEN,
-    RESET   => RESET,
-    MDIO    => MDIO,
-    MDC     => MDC,
-    DIN     => din,
-    DOUT    => dout,
-    ADDR    => miiaddr,
-    START   => start,
-    RW      => miirw,
-    DONE    => done);
+    CLK   => CLK,
+    RESET => RESET,
+    MDIO  => MDIO,
+    MDC   => MDC,
+    DIN   => din,
+    DOUT  => dout,
+    ADDR  => miiaddr,
+    START => start,
+    RW    => miirw,
+    DONE  => done);
 
 
-  PHYSTATUS <= reg1kscr & reglinkan;
-  DUPLEX    <= reglinkan(1);
-  LINK1000  <= reglinkan(4) and not reglinkan(3);
-  LINK100   <= reglinkan(3) and not reglinkan(4);
-  ACTIVITY  <= reglinkan(2);
+  PHYSTAT  <= reg1kscr & reglinkan;
+  DUPLEX   <= reglinkan(1);
+  LINK1000 <= reglinkan(4) and not reglinkan(3);
+  LINK100  <= reglinkan(3) and not reglinkan(4);
+  ACTIVITY <= reglinkan(2);
 
-  clock : process(CLK, RESET) 
+  clock : process(CLK, RESET)
   begin
     if RESET = '1' then
-      cs     <= read1k;
+      cs   <= read1k;
     else
       if rising_edge(CLK) then
-        if CLKSLEN = '1' then
-          cs <= ns;
+        cs <= ns;
 
                                         -- phyaddr latches
-          if cs = phyl then
-            addrl <= PHYADDR(4 downto 0);
-            rwl   <= PHYADDR(5);
-          end if;
+        if cs = phyl then
+          addrl   <= PHYADDR(4 downto 0);
+          rwl     <= PHYADDR(5);
+        end if;
+        if cs = miiio_done then
+          PHYDOUT <= dout;
+        end if;
 
                                         -- din and dout latches
-          if cs = phyl then
-            din <= PHYDIN;
-          end if;
+        if cs = phyl then
+          din <= PHYDIN;
+        end if;
 
                                         -- phy addr write set                           
-          if phyaddrdone = '1' then
-            phyaddrws   <= '0';
-          else
-            if phyaddrw = '1' then
-              phyaddrws <= '1';
-            end if;
-          end if;
-
-          if PHYADDRR = '1' then
-            phyaddrstatus   <= '0';
-          else
-            if phyaddrdone = '1' then
-              phyaddrstatus <= '1';
-            end if;
-          end if;
-
-          if done = '1' and miisel = 0 then
-            PHYSTAT(15 downto 0) <= dout;
-          end if;
-
-          if done = '1' and miisel = 1 then
-            reg1kscr <= dout;
-          end if;
-
-          if done = '1' and miisel = 2 then
-            reglinkan <= dout;
+        if phyaddrdone = '1' then
+          phyaddrws   <= '0';
+        else
+          if phyaddrw = '1' then
+            phyaddrws <= '1';
           end if;
         end if;
+
+        if PHYADDRR = '1' then
+          phyaddrstatus   <= '0';
+        else
+          if phyaddrdone = '1' then
+            phyaddrstatus <= '1';
+          end if;
+        end if;
+
+        if done = '1' and miisel = 1 then
+          reg1kscr <= dout;
+        end if;
+
+        if done = '1' and miisel = 0 then
+          reglinkan <= dout;
+        end if;
+        
       end if;
     end if;
   end process clock;

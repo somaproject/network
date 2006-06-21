@@ -62,8 +62,8 @@
      showgrid="true"
      inkscape:current-layer="layer1"
      inkscape:document-units="pt"
-     inkscape:cy="822.42494"
-     inkscape:cx="229.24488"
+     inkscape:cy="631.71065"
+     inkscape:cx="405.67345"
      inkscape:zoom="1.4"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -826,7 +826,7 @@
          y="671.25">SIN</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:18;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="171.875"
        y="240"
        id="text3212"
@@ -834,6 +834,6 @@
          sodipodi:role="line"
          id="tspan3214"
          x="171.875"
-         y="240">CLKSLEN-enabled domain</tspan></text>
+         y="240">slow clock domain</tspan></text>
   </g>
 </svg>
