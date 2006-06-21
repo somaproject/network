@@ -11,7 +11,6 @@ architecture behavior of miitest is
   component mii
     port(
       CLK     : in    std_logic;
-      CLKSLEN : in    std_logic;
       RESET   : in    std_logic;
       DIN     : in    std_logic_vector(15 downto 0);
       ADDR    : in    std_logic_vector(4 downto 0);
@@ -31,7 +30,6 @@ architecture behavior of miitest is
   end component;
 
   signal CLK     : std_logic := '0';
-  signal CLKSLEN : std_logic := '0';
   signal RESET   : std_logic := '1';
   signal MDIO    : std_logic;
   signal MDC     : std_logic;
@@ -46,7 +44,6 @@ begin
 
   uut : mii port map(
     CLK     => CLK,
-    CLKSLEN => CLKSLEN,
     RESET   => RESET,
     MDIO    => MDIO,
     MDC     => MDC,
@@ -66,21 +63,6 @@ begin
   clk   <= not clk after 4 ns;
   RESET <= '0'     after 20 ns;
 
-  clock_enable        : process(CLK)
-    variable clkcount : integer range 0 to 7 := 0;
-
-  begin
-    if rising_edge(CLK) then
-      if clkcount = 7 then
-        CLKSLEN <= '1';
-        clkcount := 0;
-      else
-        CLKSLEN <= '0';
-        clkcount := clkcount + 1;
-      end if;
-    end if;
-  end process;
-
 
   main : process is
   begin
@@ -93,36 +75,33 @@ begin
     DIN   <= X"ABCD";
     ADDR  <= "00000";
     RW    <= '1';
-    wait until rising_edge(CLK) and CLKSLEN = '1';
+    wait until rising_edge(CLK);
     START <= '1';
-    wait until rising_edge(CLK) and CLKSLEN = '1';
+    wait until rising_edge(CLK) ; 
     START <= '0';
     wait until rising_edge(CLK)
-      and CLKSLEN = '1'
       and DONE = '1';
 
     wait for 10 us;
     DIN   <= X"1234";
     ADDR  <= "00100";
     RW    <= '1';
-    wait until rising_edge(CLK) and CLKSLEN = '1';
+    wait until rising_edge(CLK); 
     START <= '1';
-    wait until rising_edge(CLK) and CLKSLEN = '1';
+    wait until rising_edge(CLK);
     START <= '0';
     wait until rising_edge(CLK)
-      and CLKSLEN = '1'
       and DONE = '1';
 
     wait for 10 us;
     DIN   <= X"1234";
     ADDR  <= "00000";
     RW    <= '0';
-    wait until rising_edge(CLK) and CLKSLEN = '1';
+    wait until rising_edge(CLK); 
     START <= '1';
-    wait until rising_edge(CLK) and CLKSLEN = '1';
+    wait until rising_edge(CLK); 
     START <= '0';
     wait until rising_edge(CLK)
-      and CLKSLEN = '1'
       and DONE = '1';
     assert DOUT = X"ABCD"
       report "Error reading data at address 0"
@@ -132,12 +111,11 @@ begin
     DIN   <= X"7777";
     ADDR  <= "00100";
     RW    <= '0';
-    wait until rising_edge(CLK) and CLKSLEN = '1';
+    wait until rising_edge(CLK) ; 
     START <= '1';
-    wait until rising_edge(CLK) and CLKSLEN = '1';
+    wait until rising_edge(CLK) ; 
     START <= '0';
     wait until rising_edge(CLK)
-      and CLKSLEN = '1'
       and DONE = '1';
     assert DOUT = X"1234"
       report "Error reading data at address 100"
