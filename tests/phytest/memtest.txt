@@ -1,8 +1,0 @@
-This is a simple memory test that wil let us resolve signal integrity probelms with the memory subsystem in the NIC.
-
-We have a few test options, and I'll try the following, to potentially mimic the behavior of the FIFO. Since there are pipeline issues here, we know the first set of writes and reads will be bad. That sucks, and we'll need some way of only enabling the check after the system has hit some sort of steady-state. 
-
-
-Test 1:
-partition ram up into 4 address spaces. Each one writes an address, then tries to read the recently-written value, and if it doesn't match it signals an error. 
-On clock-enable: 

@@ -25,6 +25,7 @@ entity phytest is
     LEDDPX   : out std_logic;
     GTX_CLK   : out std_logic;
     TX_EN     : out std_logic;
+    TX_ER : out std_logic; 
     TXD      : out std_logic_vector(7 downto 0);
 
     MDIO : inout std_logic;
@@ -39,8 +40,8 @@ end phytest;
 
 architecture Behavioral of phytest is
 
-  signal clk    : std_logic            := '0';
-  signal clken  : std_logic            := '0';
+  signal clk, clkint    : std_logic            := '0';
+  signal clklo  : std_logic            := '0';
   signal clkcnt : integer range 0 to 7 := 0;
   signal ledcnt : std_Logic_vector(22 downto 0) := (others => '0') ;
                                                     
@@ -88,10 +89,9 @@ architecture Behavioral of phytest is
 
 begin  -- Behavioral
 
-  clk  <= CLKIN;
   MCLK <= '0';
-  GTX_CLK <= clk; 
-
+  GTX_CLK <= not clk; 
+  TX_ER <= '0'; 
 
   
   clockenable : process(CLK)
@@ -103,29 +103,23 @@ begin  -- Behavioral
         clkcnt <= clkcnt +1;
       end if;
 
-      if clkcnt = 0 then
-        clken <= '1';
-      else
-        clken <= '0';
-      end if;
-
       ledcnt <= ledcnt + 1;
       LEDPOWER <= ledcnt(22); 
 
       TXD <= do;
-      if pingaddr /= "00001000000" then
+      if pingaddr /= "00001001000" then
         tx_enl <= '1';
       else
         tx_enl <= '0';
       end if;
 
       tx_enll <= tx_enl;
-      TX_EN <= tx_enll;
+      TX_EN <= tx_enl;
       
-      if ledcnt = "00000000000000000000000" then
+      if ledcnt(14 downto 0) = "000000000000000" then
         pingaddr <= (others => '0');
       else
-        if pingaddr /= "00001000000" then
+        if pingaddr /= "00001001000" then
           pingaddr <= pingaddr + 1; 
         end if;
       end if;
@@ -175,9 +169,9 @@ begin  -- Behavioral
   pingram : RAMB16_S9
    generic map (
       -- Address 0 to 511
-      INIT_00 => X"0000000000000000000000000000000000000000000000000000000000FFFFFF",
-      INIT_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
-      INIT_02 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_00 => X"000000000000000000000008000010001000FFFFFFFFFFFFD555555555555555", 
+      INIT_01 => X"0000000000000000000000000000000000000000000000000000000000000000", 
+      INIT_02 => X"000000000000000000000000000000000000000000000000E185E85100000000", 
       INIT_03 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INIT_04 => X"0000000000000000000000000000000000000000000000000000000000000000",
       INIT_05 => X"0000000000000000000000000000000000000000000000000000000000000000",
@@ -203,5 +197,28 @@ begin  -- Behavioral
       WE => '0'       -- Write Enable Input
    );
 
+
+
+
+     DCM_BASE_inst : DCM
+   generic map (
+      CLKDV_DIVIDE => 8.0,
+      CLKIN_PERIOD => 10.0, -- Specify period of input clock in ns from 1.25 to 1000.00
+      CLK_FEEDBACK => "1X",         -- Specify clock feedback of NONE or 1X
+      STARTUP_WAIT => TRUE) 
+   port map (
+      CLK0 => clkint,         -- 0 degree DCM CLK ouptput
+      CLKDV => CLKLO,       -- Divided DCM CLK out (CLKDV_DIVIDE)
+      LOCKED => open, 
+      CLKFB => clk,       -- DCM clock feedback
+      CLKIN => CLKIN,       -- Clock input (from IBUFG, BUFG or DCM)
+      RST => '0'            -- DCM asynchronous reset input
+   );
+
+     BUFG_inst : BUFG
+   port map (
+      O => clk,     -- Clock buffer output
+      I => clkint      -- Clock buffer input
+   );
 end Behavioral;
 

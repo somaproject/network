@@ -9,85 +9,87 @@ library UNISIM;
 use UNISIM.VComponents.all;
 
 
-entity memtesttest is
+entity phytesttest is
 
-end memtesttest;
+end phytesttest;
 
-architecture Behavioral of memtesttest is
+architecture Behavioral of phytesttest is
 
-  component memtest
+  component phytest
     port (
-      CLKIN    : in    std_logic;
-      RESET    : in    std_logic;
-      MD       : inout std_logic_vector(31 downto 0);
-      MWE      : out   std_logic;
-      MA       : out   std_logic_vector(16 downto 0);
-      MCLK     : out   std_logic;
-      PHYRESET : out   std_logic;
-      LEDPOWER : out   std_logic;
-      LED100   : out   std_logic;
-      LED1000  : out   std_logic;
-      LEDACT   : out   std_logic
-      );
+      CLKIN    : in  std_logic;
+      RESET    : in  std_logic;
+      MCLK     : out std_logic;
+      PHYRESET : out std_logic;
+      LEDPOWER : out std_logic;
+      LED100   : out std_logic;
+      LED1000  : out std_logic;
+      LEDACT   : out std_logic;
+      LEDTX    : out std_logic;
+      LEDRX    : out std_logic;
+      LEDDPX   : out std_logic;
+      GTX_CLK  : out std_logic;
+      TX_EN    : out std_logic;
+      TXD      : out std_logic_vector(7 downto 0);
+
+      MDIO : inout std_logic;
+      MDC  : out   std_logic;
+
+      SCLK : in  std_logic;
+      SCS  : in  std_logic;
+      SIN  : in  std_logic;
+      SOUT : out std_logic );
   end component;
 
-  component NoBLSRAM
-    generic ( FILEIN       :       string  := "SRAM_in.dat";
-              FILEOUT      :       string  := "SRAM_out.dat";
-              physical_sim :       integer := 0;
-              TSU          :       time;
-              THD          :       time;
-              TKQ          :       time;
-              TKQX         :       time);
-    port ( CLK             : in    std_logic;
-           DQ              : inout std_logic_vector(31 downto 0);
-           ADDR            : in    std_logic_vector(16 downto 0);
-           WE              : in    std_logic;
-           RESET           : in    std_logic;
-           SAVE            : in    std_logic);
-  end component;
 
-  signal CLKIN    : std_logic                     := '0';
-  signal RESET    : std_logic                     := '1';
-  signal MD       : std_logic_vector(31 downto 0) := (others => '0');
-  signal MWE      : std_logic                     := '0';
-  signal MA       : std_logic_vector(16 downto 0) := (others => '0');
-  signal MCLK     : std_logic                     := '0';
-  signal PHYRESET : std_logic                     := '0';
-  signal LEDPOWER : std_logic                     := '0';
-  signal LED100   : std_logic                     := '0';
-  signal LED1000  : std_logic                     := '0';
-  signal LEDACT   : std_logic                     := '0';
+  signal CLKIN    : std_logic                    := '0';
+  signal RESET    : std_logic                    := '1';
+  signal MCLK     : std_logic                    := '0';
+  signal PHYRESET : std_logic                    := '0';
+  signal LEDPOWER : std_logic                    := '0';
+  signal LED100   : std_logic                    := '0';
+  signal LED1000  : std_logic                    := '0';
+  signal LEDACT   : std_logic                    := '0';
+  signal LEDTX    : std_logic                    := '0';
+  signal LEDRX    : std_logic                    := '0';
+  signal LEDDPX   : std_logic                    := '0';
+  signal GTX_CLK  : std_logic                    := '0';
+  signal TX_EN    : std_logic                    := '0';
+  signal TXD      : std_logic_vector(7 downto 0) := (others => '0');
+
+  signal MDIO : std_logic := '0';
+  signal MDC  : std_logic := '0';
+
+  signal SCLK : std_logic := '0';
+  signal SCS  : std_logic := '0';
+  signal SIN  : std_logic := '0';
+  signal SOUT : std_logic := '0';
 
 begin  -- Behavioral
 
-  memtest_uut : memtest
+  phytest_uut : phytest
     port map (
       CLKIN    => CLKIN,
       RESET    => RESET,
-      MD       => MD,
-      MWE      => MWE,
-      MA       => MA,
       MCLK     => MCLK,
       PHYRESET => PHYRESET,
       LEDPOWER => LEDPOWER,
       LED100   => LED100,
       LED1000  => LED1000,
-      LEDACT   => LEDACT);
+      LEDACT   => LEDACT,
+      LEDTX    => LEDTX,
+      LEDRX    => LEDRX,
+      LEDDPX   => LEDDPX,
+      GTX_CLK  => GTX_CLK,
+      TX_EN    => TX_EN,
+      TXD      => TXD,
+      MDIO     => MDIO,
+      MDC      => MDC,
+      SCLK     => SCLK,
+      SCS      => SCS,
+      SIN      => SIN,
+      SOUT     => SOUT );
 
-  ram : NoBLSRAM
-    generic map (
-      TSU   => 0 ns,
-      THD   => 0 ns,
-      TKQ   => 0 ns,
-      TKQX  => 0 ns)
-    port map (
-      CLK   => MCLK,
-      DQ    => MD,
-      ADDR  => MA,
-      WE    => MWE,
-      RESET => RESET,
-      SAVE  => '0');
 
   CLKIN <= not CLKIN after 4 ns;
   RESET <= '0'       after 20 ns;

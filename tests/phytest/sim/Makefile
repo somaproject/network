@@ -3,25 +3,37 @@ VHDLS=vhdle
 WORKDIR=work.sym
 all: hw comp sim
 
-$(WORKDIR)/memory/_behavioral.var: ../../../vhdl/memory.vhd
-	$(VHDLC) ../../../vhdl/memory.vhd
+$(WORKDIR)/serialio/_behavioral.var: ../../../vhdl/serialio.vhd
+	$(VHDLC) ../../../vhdl/serialio.vhd
 
-$(WORKDIR)/memtest/_behavioral.var: ../../../vhdl/memory.vhd ../vhdl/memtest.vhd
-	$(VHDLC) ../vhdl/memtest.vhd
+$(WORKDIR)/mii/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd
+	$(VHDLC) ../../../vhdl/MII.vhd
 
-hw: $(WORKDIR)/memory/_behavioral.var $(WORKDIR)/memtest/_behavioral.var 
+$(WORKDIR)/phystatus/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd
+	$(VHDLC) ../../../vhdl/PHYstatus.vhd
+
+$(WORKDIR)/counter/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd ../../../vhdl/counter.vhd
+	$(VHDLC) ../../../vhdl/counter.vhd
+
+$(WORKDIR)/sourcefilter/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd ../../../vhdl/counter.vhd ../../../vhdl/sourcefilter.vhd
+	$(VHDLC) ../../../vhdl/sourcefilter.vhd
+
+$(WORKDIR)/control/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd ../../../vhdl/counter.vhd ../../../vhdl/sourcefilter.vhd ../../../vhdl/control.vhd
+	$(VHDLC) ../../../vhdl/control.vhd
+
+$(WORKDIR)/phytest/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd ../../../vhdl/counter.vhd ../../../vhdl/sourcefilter.vhd ../../../vhdl/control.vhd ../vhdl/phytest.vhd
+	$(VHDLC) ../vhdl/phytest.vhd
+
+hw: $(WORKDIR)/serialio/_behavioral.var $(WORKDIR)/mii/_behavioral.var $(WORKDIR)/phystatus/_behavioral.var $(WORKDIR)/counter/_behavioral.var $(WORKDIR)/sourcefilter/_behavioral.var $(WORKDIR)/control/_behavioral.var $(WORKDIR)/phytest/_behavioral.var 
 
 comp: 
 
-$(WORKDIR)/noblsram/_behavioral.var: ../../../sim/components/NoBLram/NoBLSRAM.vhd
-	$(VHDLC) ../../../sim/components/NoBLram/NoBLSRAM.vhd
+$(WORKDIR)/phytesttest/_behavioral.var: phytesttest.vhd
+	$(VHDLC) phytesttest.vhd
 
-$(WORKDIR)/memtesttest/_behavioral.var: ../../../sim/components/NoBLram/NoBLSRAM.vhd memtesttest.vhd
-	$(VHDLC) memtesttest.vhd
-
-sim: $(WORKDIR)/noblsram/_behavioral.var $(WORKDIR)/memtesttest/_behavioral.var 
+sim: $(WORKDIR)/phytesttest/_behavioral.var 
 runsim: all
-	$(VHDLS) memtesttest
+	$(VHDLS) phytesttest
 
 
 clean:
