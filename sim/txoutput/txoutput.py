@@ -45,15 +45,15 @@ for i in range(256):
     for i in range((totallen+3) / 4) : # extra +3 such that odd lens work
         
         ramfile.write("%04X %02X%02X%02X%02X\n" % (ramaddr,
-                                             totaldata[i*4+3],
                                              totaldata[i*4+2],
-                                             totaldata[i*4+1],
-                                             totaldata[i*4+0]))
+                                             totaldata[i*4+3],
+                                             totaldata[i*4+0],
+                                             totaldata[i*4+1]))
         ramaddr += 1
 
     # GMII output
     totalbindata = ""
-    for i in qframedata:
+    for i in framedata:
         totalbindata += struct.pack("B", i)
     
     f = frame.frame(destmacaddr, srcmacaddr, 0x0800, totalbindata)
