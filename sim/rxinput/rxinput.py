@@ -20,7 +20,7 @@ class ramfile:
         self.fid.write("%08X " % (l,))
         for i in range(l / 4):
             val = struct.unpack("BBBB", data[(i*4):((i+1)*4)])
-            self.fid.write("%02X%02X%02X%02X " % (val[3], val[2], val[1], val[0]))
+            self.fid.write("%02X%02X%02X%02X " % (val[2], val[3], val[0], val[1]))
 
         crcval = struct.unpack("BBBB", crc)
         if l % 4 == 0:
@@ -28,18 +28,18 @@ class ramfile:
         elif l % 4 == 1:
             val = struct.unpack("B", data[-1])
              
-            self.fid.write("%02X%02X%02X%02X\n" % (crcval[2], crcval[1],
-                                              crcval[0], val[0]))
+            self.fid.write("%02X%02X%02X%02X\n" % (crcval[1], crcval[2],
+                                              val[0], crcval[0]))
         elif l % 4 == 2:
             val = struct.unpack("BB", data[-2:])
              
-            self.fid.write("%02X%02X%02X%02X\n" % ( crcval[1],
-                                              crcval[0], val[1], val[0]))
+            self.fid.write("%02X%02X%02X%02X\n" % ( crcval[0],
+                                              crcval[1], val[0], val[1]))
         elif l % 4 == 3:
             val = struct.unpack("BBB", data[-3:])
              
-            self.fid.write("%02X%02X%02X%02X\n" % (crcval[0], val[2],
-                                              val[1], val[0]))
+            self.fid.write("%02X%02X%02X%02X\n" % (val[2], crcval[0], 
+                                                   val[0], val[1]))
 
         
 class GMIIin:
