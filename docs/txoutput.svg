@@ -1103,6 +1103,10 @@
        d="M 350,371.25 L 296.875,371.25 L 296.875,371.25"
        id="path3213" />
     <path
+       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+       d="M 356.25,415 L 356.25,433.75"
+       id="path2904" />
+    <path
        style="fill:white;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:1pt"
        d="M 350,362.125 L 350,418.125 L 359.375,415 L 359.375,365.25 L 350,362.125 z "
        id="path3215"
@@ -1146,46 +1150,46 @@
        xml:space="preserve"
        style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="318.75"
-       y="368.125"
+       y="380.625"
        id="text3233"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3235"
          x="318.75"
-         y="368.125">[7:0]</tspan></text>
+         y="380.625">[7:0]</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="318.75"
-       y="380.625"
+       y="368.125"
        id="text3237"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3239"
          x="318.75"
-         y="380.625">[15:8]</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="318.75"
-       y="393.125"
-       id="text3241"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3243"
-         x="318.75"
-         y="393.125">[23:16]</tspan></text>
+         y="368.125">[15:8]</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="318.75"
        y="405.625"
+       id="text3241"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3243"
+         x="318.75"
+         y="405.625">[23:16]</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="318.75"
+       y="393.125"
        id="text3245"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3247"
          x="318.75"
-         y="405.625">[31:24]</tspan></text>
+         y="393.125">[31:24]</tspan></text>
     <path
        style="opacity:1;color:black;fill:white;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
        d="M 375,277.46366 L 296.875,277.46366"
@@ -1923,5 +1927,17 @@
          id="flowPara3528">NCRBYTE: Complement of CRC words, output most significant byte to LSB</flowPara><flowPara
          id="flowPara3532">NCRBYTEL : latched</flowPara><flowPara
          id="flowPara3536">MSB is in the LSB</flowPara><flowPara
-         id="flowPara3538">NCRBYTEFLIP:</flowPara></flowRoot>  </g>
+         id="flowPara3538">NCRBYTEFLIP:</flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="436.875"
+       y="-353.125"
+       id="text2900"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,1,-1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan2902"
+         x="436.875"
+         y="-353.125">DSEL</tspan></text>
+  </g>
 </svg>

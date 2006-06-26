@@ -1,4 +1,6 @@
-vhdl work "clockenable.vhd"
+vhdl work "serialio.vhd"
+vhdl work "sourcefilter.vhd"
+vhdl work "counter.vhd"
 vhdl work "crc_combinational.vhd"
 vhdl work "MII.vhd"
 vhdl work "PHYstatus.vhd"

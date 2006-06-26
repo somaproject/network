@@ -10,7 +10,6 @@ use UNISIM.VComponents.all;
 
 entity network is
   port ( CLKIN     : in    std_logic;
-         RESET     : in    std_logic;
          RX_DV     : in    std_logic;
          RX_ER     : in    std_logic;
          RXD       : in    std_logic_vector(7 downto 0);
@@ -48,10 +47,10 @@ architecture Behavioral of network is
 
 
   -- clock and timing signals
-  signal clk, clkio, clkio180, clkrx, clk90, clk180, clk270 : std_logic := '0';
-  signal clk_to_bufg, clkio_to_bufg, clkrx_to_bufg          : std_logic := '0';
-  signal clkslen, clkslen_to_bufg                           : std_logic := '0';
-  signal clken1, clken2, clken3, clken4                     : std_logic := '0';
+  signal clk, clkio, clklo, clkrx, clk90, clk180, clk270 : std_logic := '0';
+  signal clkint, clkioint, clkloint, clkrxint            : std_logic := '0';
+
+  signal clken1, clken2, clken3, clken4 : std_logic := '0';
 
   -- data
   signal d1, d2, d3, d4, q1, q2, q3, q4 :
@@ -66,11 +65,10 @@ architecture Behavioral of network is
   -- error and status signals
   signal rxcrcerr, rxoferr, rxphyerr, rxf, txf,
     txi_mwen, txfifowerr, rxfifowerr :
-    std_logic                                           := '0';
-  signal rxcrcerrsr, rxoferrsr, rxphyerrsr, rxfsr, txfsr,
-    txfifowerrsr, rxfifowerrsr :
-    std_logic                                           := '0';
-  -- base pointers 
+    std_logic := '0';
+
+
+-- base pointers
   signal rxbp, txbp     : std_logic_vector(15 downto 0) :=
     (others => '0');
   signal txfbbp, rxfbbp : std_logic_vector(15 downto 0) :=
@@ -91,7 +89,9 @@ architecture Behavioral of network is
   signal debugwdata : std_logic_vector(31 downto 0) := (others => '0');
 
 
+  signal reset : std_logic := '0';
 
+  
   component memory
     port ( CLK     : in    std_logic;
            RESET   : in    std_logic;
@@ -195,7 +195,7 @@ architecture Behavioral of network is
 
   component control
     port ( CLK        : in    std_logic;
-           CLKSLEN    : in    std_logic;
+           CLKLO   : in    std_logic;
            RESET      : in    std_logic;
            SCLK       : in    std_logic;
            SCS        : in    std_logic;
@@ -230,34 +230,6 @@ architecture Behavioral of network is
            TXFBBP     : in    std_logic_vector(15 downto 0));
   end component;
 
-  component clockenable
-    port ( CLK          : in  std_logic;
-           RESET        : in  std_logic;
-           CLKSLEN      : out std_logic;
-           TXF          : in  std_logic;
-           TXFSR        : out std_logic;
-           RXF          : in  std_logic;
-           RXFSR        : out std_logic;
-           TXFIFOWERR   : in  std_logic;
-           TXFIFOWERRSR : out std_logic;
-           RXFIFOWERR   : in  std_logic;
-           RXFIFOWERRSR : out std_logic;
-           RXPHYERR     : in  std_logic;
-           RXPHYERRSR   : out std_logic;
-           RXOFERR      : in  std_logic;
-           RXOFERRSR    : out std_logic;
-           RXCRCERR     : in  std_logic;
-           RXCRCERRSR   : out std_logic);
-  end component;
-
-  component CLKDLL
-    port (CLKIN, CLKFB, RST                                 : in  std_logic;
-          CLK0, CLK90, CLK180, CLK270, CLK2X, CLKDV, LOCKED : out std_logic);
-  end component;
-
-  component BUFG
-    port (I : in std_logic; O : out std_logic);
-  end component;
 
   -- debugging :
   signal doutensig : std_logic := '0';
@@ -273,97 +245,89 @@ begin
 
   DOUTEN <= doutensig;                  -- DEBUGGING!!!
 
-  clkio_dll : CLKDLL port map (
-    CLKIN  => CLKIOIN,
-    CLKFB  => clkio,
-    RST    => RESET,
-    CLKDV  => open,
-    CLK0   => clkio_to_bufg,
-    CLK180 => clkio180);
-
-  clkio_bufg : BUFG port map (
-    I => clkio_to_bufg,
-    O => clkio);
 
 
-  clk_dll  : CLKDLL port map (
-    CLKIN  => CLKIN,
-    CLKFB  => clk,
-    RST    => RESET,
-    CLK0   => clk_to_bufg,
-    CLKDV  => open,
-    CLK270 => clk270,
-    CLK180 => clk180,
-    CLK90  => clk90);
-  --MCLK <= clk;        
+  clkio_dcm : DCM
+    port map (
+      CLK0  => clkioint,                -- 0 degree DCM CLK ouptput
+      CLKFB => clkio,                   -- DCM clock feedback
+      CLKIN => CLKIOIN,
+      RST   => RESET
+      );
+
+  clkio_bufg : BUFG
+    port map (
+      I => clkioint,
+      O => clkio);
+
+
+  clk_dcm : DCM
+    generic map (
+      CLKDV_DIVIDE => 8.0)
+    port map (
+      CLK0         => clkint,           -- 0 degree DCM CLK ouptput
+      CLKFB        => clk,              -- DCM clock feedback
+      CLK180       => clk180,
+      CLKIN        => CLKIN,
+      CLKDV        => clkloint,
+      RST          => RESET
+      );
+
+
   clk_bufg : BUFG port map (
-    I      => clk_to_bufg,
-    O      => clk);
+    I => clkint,
+    O => clk);
 
-  -- receive in clock
-  clkrx_dll : CLKDLL port map (
-    CLKIN => RX_CLK,
-    CLKFB => clkrx,
-    RST   => RESET,
-    CLKDV => open,
-    CLK0  => clkrx_to_bufg);
+  clklo_bufg : BUFG port map (
+    I => clkloint,
+    O => clklo);
 
-  clkrx_bufg : BUFG port map (
-    I => clkrx_to_bufg,
-    O => clkrx);
-
-  --U1: OBUF port map (I => clk90, O => MCLK);
   MCLK <= not clk;
   U2 : OBUF port map (I => clk180, O => GTX_CLK);
 
-  slowclock : clockenable port map (
-    CLK          => clk,
-    RESET        => RESET,
-    CLKSLEN      => clkslen,
-    TXF          => txf,
-    TXFSR        => txfsr,
-    RXF          => rxf,
-    RXFSR        => rxfsr,
-    TXFIFOWERR   => txfifowerr,
-    TXFIFOWERRSR => txfifowerrsr,
-    RXFIFOWERR   => rxfifowerr,
-    RXFIFOWERRSR => rxfifowerrsr,
-    RXPHYERR     => rxphyerr,
-    RXPHYERRSR   => rxphyerrsr,
-    RXOFERR      => rxoferr,
-    RXOFERRSR    => rxoferrsr,
-    RXCRCERR     => rxcrcerr,
-    RXCRCERRSR   => rxcrcerrsr);
+
+  rxclk_dcm : DCM
+    port map (
+      CLK0  => clkrxint,                -- 0 degree DCM CLK ouptput
+      CLKFB => clkrx,                   -- DCM clock feedback
+      CLKIN => RX_CLK,
+      RST   => RESET
+      );
+
+
+  clkrx_bufg : BUFG port map (
+    I => clkrxint,
+    O => clkrx);
 
 
   memcontroller : memory port map (
-    CLK        => clk,
-    RESET      => RESET,
-    DQEXT      => MD,
-    WEEXT      => MWE,
-    ADDREXT    => MA,
-    ADDR1      => addr1ext,
-    ADDR2      => addr2ext,
-    ADDR3      => addr3ext,
-    ADDR4      => addr4ext,
-    D1         => d1,
-    D2         => d2,
-    D3         => d3,
-    D4         => d4,
-    Q1         => q1,
-    Q2         => q2,
-    Q3         => q3,
-    Q4         => q4,
-    WE1        => '1',
-    WE2        => '0',
-    WE3        => '0',
-    WE4        => '1',
-    CLKEN1     => clken1,
-    CLKEN2     => clken2,
-    CLKEN3     => clken3,
-    CLKEN4     => clken4);
+    CLK     => clk,
+    RESET   => RESET,
+    DQEXT   => MD,
+    WEEXT   => MWE,
+    ADDREXT => MA,
+    ADDR1   => addr1ext,
+    ADDR2   => addr2ext,
+    ADDR3   => addr3ext,
+    ADDR4   => addr4ext,
+    D1      => d1,
+    D2      => d2,
+    D3      => d3,
+    D4      => d4,
+    Q1      => q1,
+    Q2      => q2,
+    Q3      => q3,
+    Q4      => q4,
+    WE1     => '1',
+    WE2     => '0',
+    WE3     => '0',
+    WE4     => '1',
+    CLKEN1  => clken1,
+    CLKEN2  => clken2,
+    CLKEN3  => clken3,
+    CLKEN4  => clken4);
 
-  rx_input      : rxinput port map (
+  rx_input : rxinput port map (
     RX_CLK     => clkrx,
     CLK        => clk,
     RESET      => RESET,
@@ -384,34 +348,34 @@ begin
     RXMCAST    => rxmcast,
     RXUCAST    => rxucast,
     RXALLF     => rxallf);
-  
-  rx_output     : rxoutput port map (
-    CLK        => clk,
-    CLKEN      => clken3,
-    RESET      => RESET,
-    BPIN       => rxbp,
-    FBBP       => rxfbbp,
-    MA         => addr3,
-    MQ         => q3,
-    CLKIO      => clkio,
-    NEXTFRAME  => NEXTFRAME,
-    DOUT       => DOUT,
-    DOUTEN     => doutensig);           -- DOUTEN);  DEBUGGING
+
+  rx_output : rxoutput port map (
+    CLK       => clk,
+    CLKEN     => clken3,
+    RESET     => RESET,
+    BPIN      => rxbp,
+    FBBP      => rxfbbp,
+    MA        => addr3,
+    MQ        => q3,
+    CLKIO     => clkio,
+    NEXTFRAME => NEXTFRAME,
+    DOUT      => DOUT,
+    DOUTEN    => doutensig);            -- DOUTEN);  DEBUGGING
 
   tx_output : txoutput port map (
-    CLK        => clk,
-    RESET      => reset,
-    MQ         => q2,
-    MA         => addr2,
-    BPIN       => txbp,
-    TXD        => TXD,
-    TXEN       => TX_EN,
-    TXF        => txf,
-    FBBP       => txfbbp,
-    CLKEN      => clken2,
-    GTX_CLK    => open);
+    CLK     => clk,
+    RESET   => reset,
+    MQ      => q2,
+    MA      => addr2,
+    BPIN    => txbp,
+    TXD     => TXD,
+    TXEN    => TX_EN,
+    TXF     => txf,
+    FBBP    => txfbbp,
+    CLKEN   => clken2,
+    GTX_CLK => open);
 
-  tx_input  : txinput port map (
+  tx_input : txinput port map (
     CLK        => clk,
     CLKIO      => clkio,
     RESET      => reset,
@@ -439,7 +403,7 @@ begin
 
   maccontrol : control port map (
     CLK        => clk,
-    CLKSLEN    => clkslen,
+    CLKLO      => clklo,
     RESET      => RESET,
     SCLK       => SCLK,
     SCS        => SCS,
@@ -452,13 +416,13 @@ begin
     LED1000    => LED1000,
     LEDDPX     => LEDDPX,
     PHYRESET   => PHYRESET,
-    TXF        => txfsr,
-    RXF        => rxfsr,
-    TXFIFOWERR => txfifowerrsr,
-    RXFIFOWERR => rxfifowerrsr,
-    RXPHYERR   => rxphyerrsr,
-    RXOFERR    => rxoferrsr,
-    RXCRCERR   => rxcrcerrsr,
+    TXF        => txf,
+    RXF        => rxf,
+    TXFIFOWERR => txfifowerr,
+    RXFIFOWERR => rxfifowerr,
+    RXPHYERR   => rxphyerr,
+    RXOFERR    => rxoferr,
+    RXCRCERR   => rxcrcerr,
     RXBCAST    => rxbcast,
     RXMCAST    => rxmcast,
     RXUCAST    => rxucast,

@@ -107,6 +107,8 @@ architecture Behavioral of control is
   signal rxoferrcnt    : std_logic_vector(31 downto 0) := (others => '0');
   signal rxcrcerrcnt   : std_logic_vector(31 downto 0) := (others => '0');
 
+  signal txcnt : integer range 0 to 100000 := 0;
+  
   component serialio
     port ( CLK    : in  std_logic;
            RESET  : in  std_logic;
@@ -363,6 +365,21 @@ begin
       RXBCAST <= lrxbcast;
       RXUCAST <= lrxucast;
       RXALLF  <= lrxallf;
+
+
+      if txf = '1' then
+        txcnt <= 1000;
+      else
+        if txcnt > 0  then
+          txcnt <= txcnt - 1; 
+        end if;
+      end if;
+
+      if txcnt /= 0 then
+        LEDTX <= '1';
+      else
+        LEDTX <= '0'; 
+      end if;
 
 
     end if;

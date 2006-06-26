@@ -83,6 +83,24 @@ def tohex(data):
     for i in data:
         print "%02X" % struct.unpack("B", i)[0],
 
+def toBlockRAM(data):
+    """
+    print the frame as a series of block ram chunks
+    """
+    
+    pos  = 0
+    s = ""
+    while pos < len(data):
+        s = "%02X" % struct.unpack("B", data[pos])[0] + s
+        if pos % 32 == 31:
+            print s
+            s = ""
+
+        pos += 1 
+    print s
+
+    print len(data)
+    
 def main():
     strdata = ""
     for i in range(64-14-4):
@@ -97,6 +115,13 @@ def main():
     
     f = fzero.getWire()
     tohex(f)
+
+    fzero = frame("FF:FF:FF:FF:FF:FF", "00:10:00:10:00:00", 0x0800, strdata)
+
+    print
+    
+    f = fzero.getWire()
+    toBlockRAM(f)
 
 if __name__ == "__main__":
     main()

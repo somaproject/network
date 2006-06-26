@@ -15,13 +15,14 @@ run
 -rtlview Yes
 -read_cores YES
 -write_timing_constraints NO
--cross_clock_analysis NO
+-cross_clock_analysis YES
 -hierarchy_separator _
 -bus_delimiter <>
 -case maintain
 -slice_utilization_ratio 100
 -verilog2001 YES
--fsm_extract YES -fsm_encoding One-Hot
+-fsm_extract YES 
+-fsm_encoding One-Hot
 -safe_implementation No
 -fsm_style lut
 -ram_extract Yes

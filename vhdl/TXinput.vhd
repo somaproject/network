@@ -3,8 +3,6 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
--- Uncomment the following lines to use the declarations that are
--- provided for instantiating Xilinx primitive components.
 library UNISIM;
 use UNISIM.VComponents.all;
 
@@ -24,10 +22,6 @@ entity TXinput is
 end TXinput;
 
 architecture Behavioral of TXinput is
--- TXINPUT.VHD  :  Module for packetizing incoming 2-byte wide
--- data stream and placing it in the buffer. Memory outputs, designed
--- to stay constant for at least four ticks such that multiplexed
--- memory controller can work. 
 
   signal dh, dl : std_logic_vector(15 downto 0) := (others => '0');
   signal lmd    : std_logic_vector(31 downto 0) := (others => '0');
@@ -199,6 +193,7 @@ begin
         else
           ns       <= none;
         end if;
+        
       when newf  =>
         dlen       <= '1';
         dhen       <= '0';
@@ -265,6 +260,7 @@ begin
             ns     <= high_w;
           end if;
         end if;
+
       when high   =>
         dlen       <= '0';
         dhen       <= '1';
@@ -280,6 +276,7 @@ begin
         else
           ns       <= low_w;
         end if;
+
       when waitlow =>
         dlen       <= '0';
         dhen       <= '0';
@@ -312,60 +309,63 @@ begin
         DONE       <= '0';
         TXFIFOWERR <= '0';
         if fifofulll = '1' then
-          ns <= pktabort;
+          ns       <= pktabort;
         else
-          ns <= pktdone2;
-        end if; 
+          ns       <= pktdone2;
+        end if;
 
-      when pktdone2 => 
-        dlen <= '0';
-        dhen <= '0';
-        mrw <= '0';
-        men <= '0';
-        bpen <= '1';
-        cpen <= '0';
-        DONE <= '0';
+      when pktdone2 =>
+        dlen       <= '0';
+        dhen       <= '0';
+        mrw        <= '0';
+        men        <= '0';
+        bpen       <= '1';
+        cpen       <= '0';
+        DONE       <= '0';
         TXFIFOWERR <= '0';
-        ns <= pktdone3;
-      when pktabort => 
-        dlen <= '0';
-        dhen <= '0';
-        mrw <= '0';
-        men <= '0';
-        bpen <= '0';
-        cpen <= '0';
-        DONE <= '0';
+        ns         <= pktdone3;
+        
+      when pktabort =>
+        dlen       <= '0';
+        dhen       <= '0';
+        mrw        <= '0';
+        men        <= '0';
+        bpen       <= '0';
+        cpen       <= '0';
+        DONE       <= '0';
         TXFIFOWERR <= '1';
-        ns <= none;
-      when pktdone3 => 
-        dlen <= '0';
-        dhen <= '0';
-        mrw <= '0';
-        men <= '0';
-        bpen <= '0';
-        cpen <= '0';
-        DONE <= '1';
+        ns         <= none;
+        
+      when pktdone3 =>
+        dlen       <= '0';
+        dhen       <= '0';
+        mrw        <= '0';
+        men        <= '0';
+        bpen       <= '0';
+        cpen       <= '0';
+        DONE       <= '1';
         TXFIFOWERR <= '0';
         if newfint = '1' then
-          ns <= pktdone3;
+          ns       <= pktdone3;
         else
-          ns <= none; 
-        end if; 
-      when others => 
-        dlen <= '0';
-        dhen <= '0';
-        mrw <= '0';
-        men <= '0';
-        bpen <= '0';
-        cpen <= '0';
-        DONE <= '0';
+          ns       <= none;
+        end if;
+        
+      when others   =>
+        dlen       <= '0';
+        dhen       <= '0';
+        mrw        <= '0';
+        men        <= '0';
+        bpen       <= '0';
+        cpen       <= '0';
+        DONE       <= '0';
         TXFIFOWERR <= '0';
-        ns <= none;	
-    end case; 
-    
-    
-  end process fsm;  
+        ns         <= none;
+    end case;
 
 
-  
+  end process fsm;
+
+
+
 end Behavioral;
