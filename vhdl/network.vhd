@@ -40,7 +40,8 @@ entity network is
          SCLK      : in    std_logic;
          SIN       : in    std_logic;
          SOUT      : out   std_logic;
-         SCS       : in    std_logic );
+         SCS       : in    std_logic;
+         MISC      : out std_logic_vector(3 downto 0));
 end network;
 
 architecture Behavioral of network is
@@ -245,7 +246,10 @@ begin
 
   DOUTEN <= doutensig;                  -- DEBUGGING!!!
 
-
+  MISC(0) <= doutensig;
+  MISC(1) <= NEXTFRAME;
+  MISC(2) <= '0';
+  MISC(3) <= '0';
 
   clkio_dcm : DCM
     port map (

@@ -95,8 +95,13 @@ architecture Behavioral of control is
   signal lrxucast : std_logic                     := '0';
   signal lrxallf  : std_logic                     := '0';
 
-  signal douten  : std_logic := '0';
-  
+  signal douten : std_logic := '0';
+
+  -- base pointer latches
+  signal rxbpl   : std_logic_vector(15 downto 0) := (others => '0');
+  signal rxfbbpl : std_logic_vector(15 downto 0) := (others => '0');
+  signal txbpl   : std_logic_vector(15 downto 0) := (others => '0');
+  signal txfbbpl : std_logic_vector(15 downto 0) := (others => '0');
 
   -- counters
   signal txfcnt        : std_logic_vector(31 downto 0) := (others => '0');
@@ -108,20 +113,20 @@ architecture Behavioral of control is
   signal rxcrcerrcnt   : std_logic_vector(31 downto 0) := (others => '0');
 
   signal txcnt : integer range 0 to 100000 := 0;
-  
+
   component serialio
-    port ( CLK    : in  std_logic;
-           RESET  : in  std_logic;
-           SCLK   : in  std_logic;
-           SCS    : in  std_logic;
-           SIN    : in  std_logic;
-           SOUT   : out std_logic;
-           NEWCMD : out std_logic;
-           DOUTENOUT : out std_logic; 
-           ADDR   : out std_logic_vector(5 downto 0);
-           RW     : out std_logic;
-           DOUT   : out std_logic_vector(31 downto 0);
-           DIN    : in  std_logic_vector(31 downto 0)
+    port ( CLK       : in  std_logic;
+           RESET     : in  std_logic;
+           SCLK      : in  std_logic;
+           SCS       : in  std_logic;
+           SIN       : in  std_logic;
+           SOUT      : out std_logic;
+           NEWCMD    : out std_logic;
+           DOUTENOUT : out std_logic;
+           ADDR      : out std_logic_vector(5 downto 0);
+           RW        : out std_logic;
+           DOUT      : out std_logic_vector(31 downto 0);
+           DIN       : in  std_logic_vector(31 downto 0)
            );
   end component;
 
@@ -177,18 +182,18 @@ begin
   newcmdw <= newcmd and rw;
   serialio_inst : serialio
     port map (
-      CLK    => CLKLO,
-      RESET  => RESET,
-      SCLK   => SCLK,
-      SCS    => SCS,
-      SIN    => SIN,
-      SOUT   => SOUT,
-      NEWCMD => newcmd,
-      DOUTENOUT => douten, 
-      ADDR   => addr,
-      RW     => rw,
-      DOUT   => dout,
-      DIN    => din);
+      CLK       => CLKLO,
+      RESET     => RESET,
+      SCLK      => SCLK,
+      SCS       => SCS,
+      SIN       => SIN,
+      SOUT      => SOUT,
+      NEWCMD    => newcmd,
+      DOUTENOUT => douten,
+      ADDR      => addr,
+      RW        => rw,
+      DOUT      => dout,
+      DIN       => din);
 
 
   main : process(CLKLO)
@@ -207,13 +212,19 @@ begin
       if phyresetw = '1' then
         lphyreset <= dout(0);
       end if;
-      PHYRESET <= lphyreset; 
+      
+      PHYRESET    <= lphyreset;
+
+      rxbpl   <= RXBP;
+      rxfbbpl <= RXFBBP;
+      txbpl   <= TXBP; 
+      txfbbpl <= TXFBBP;
 
     end if;
   end process main;
 
   phyaddrr <= '1' when addr = "01000" and rw = '0' and douten = '1' else '0';
-  
+
   -- write command assertion table
   phyresetw   <= '1' when addr = "00001" and newcmdw = '1' else '0';
   phyaddrw    <= '1' when addr = "01000" and newcmdw = '1' else '0';
@@ -240,12 +251,12 @@ begin
          phystat                           when addr = "00010" else
          X"89ABCDEF"                       when addr = "00011" else
          X"00000000"                       when addr = "00100" else
-         X"00000000"                       when addr = "00101" else
-         X"00000000"                       when addr = "00110" else
-         X"00000000"                       when addr = "00111" else
-         PHYADDR                     when addr = "01000" else
-         PHYDI                       when addr = "01001" else
-         PHYDO                       when addr = "01010" else
+         X"DEADBEEF"                       when addr = "00101" else
+         rxbpl & rxfbbpl                   when addr = "00110" else
+         txbpl & txfbbpl                   when addr = "00111" else
+         PHYADDR                           when addr = "01000" else
+         PHYDI                             when addr = "01001" else
+         PHYDO                             when addr = "01010" else
          X"00000000"                       when addr = "01011" else
          X"00000000"                       when addr = "01100" else
          X"00000000"                       when addr = "01101" else
@@ -368,21 +379,23 @@ begin
 
 
       if txf = '1' then
-        txcnt <= 1000;
+        txcnt   <= 1000;
       else
-        if txcnt > 0  then
-          txcnt <= txcnt - 1; 
+        if txcnt > 0 then
+          txcnt <= txcnt - 1;
         end if;
       end if;
 
       if txcnt /= 0 then
         LEDTX <= '1';
       else
-        LEDTX <= '0'; 
+        LEDTX <= '0';
       end if;
 
+      LEDRX <= rxf;
 
     end if;
   end process outputs;
+
 
 end Behavioral;

@@ -57,8 +57,10 @@ begin  -- Behavioral
         end if;
 
         if ALLFW = '1' then
-          RXALLF <= DIN(0); 
+          --RXALLF <= DIN(0);             -- debugging
+          
         end if;
+        RXALLF <= '1';
         
       end if;
     end process main; 
