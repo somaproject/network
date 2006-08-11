@@ -61,7 +61,7 @@ begin
 
   CLK   <= not CLK   after 4 ns;
   --CLKIO <= not CLKIO after 8.4 ns; 
-  CLKIO <= not CLKIO after 50 ns;
+  CLKIO <= not CLKIO after 10 ns;
 
   RESET <= '0' after 40 ns;
 
@@ -209,7 +209,7 @@ begin
         DOUTEXPECTED <= rdata; 
         assert rdata = DOUT 
           report "error reading data"
-          severity error; 
+          severity error;
         
       end loop; 
       NEXTFRAME <= '0' after 10 ns; 

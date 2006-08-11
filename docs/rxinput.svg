@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg1"
    sodipodi:version="0.32"
-   inkscape:version="0.40cvs"
+   inkscape:version="0.44"
    width="612.00000pt"
    height="792.00000pt"
-   sodipodi:docbase="/home/jonas/soma/developer/network/docs"
-   sodipodi:docname="RX Input.svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:cc="http://web.resource.org/cc/"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:xml="http://www.w3.org/XML/1998/namespace"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:xlink="http://www.w3.org/1999/xlink">
+   sodipodi:docbase="/home/jonas/soma/network/docs"
+   sodipodi:docname="rxinput.svg">
   <defs
      id="defs3">
     <marker
@@ -217,9 +214,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="9.7963099"
-     inkscape:cx="296.99475"
-     inkscape:cy="502.32901"
+     inkscape:zoom="1.7317593"
+     inkscape:cx="403.37611"
+     inkscape:cy="660.93377"
      inkscape:window-width="1597"
      inkscape:window-height="1155"
      showgrid="true"
@@ -358,15 +355,11 @@
   </g>
   <metadata
      id="metadata1308">
-    <rdf:RDF
-       id="RDF1309">
+    <rdf:RDF>
       <cc:Work
-         rdf:about=""
-         id="Work1310">
-        <dc:format
-           id="format1311">image/svg+xml</dc:format>
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
         <dc:type
-           id="type1313"
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
       </cc:Work>
     </rdf:RDF>
@@ -875,28 +868,26 @@
        y="60.873589">DATA[7:0]</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
-     x="294.68176"
-     y="98.923721"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="250"
+     y="390"
      id="text3246"
-     sodipodi:linespacing="100%"
-     transform="translate(-47.17786,228.4044)"><tspan
+     sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan3247"
-       x="294.68176"
-       y="98.923721">LM[23:16]</tspan></text>
+       x="250"
+       y="390">LM[23:16]</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
-     x="294.68176"
-     y="98.923721"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="250"
+     y="327.5"
      id="text3249"
-     sodipodi:linespacing="100%"
-     transform="translate(-45.46692,290.9044)"><tspan
+     sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan3250"
-       x="294.68176"
-       y="98.923721">LM[31:24]</tspan></text>
+       x="250"
+       y="327.5">LM[31:24]</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
      d="M 237.49997,243.12500 L 237.49997,249.37500 L 215.62497,249.37500"
@@ -1111,28 +1102,26 @@
      sodipodi:nodetypes="cc" />
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
-     x="294.68176"
-     y="98.923721"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="253.125"
+     y="202.5"
      id="text3376"
-     sodipodi:linespacing="100%"
-     transform="translate(-45.20911,165.9044)"><tspan
+     sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan3377"
-       x="294.68176"
-       y="98.923721">LM[15:8]</tspan></text>
+       x="253.125"
+       y="202.5">LM[15:8]</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
-     x="294.68176"
-     y="98.923721"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="253.125"
+     y="265"
      id="text3379"
-     sodipodi:linespacing="100%"
-     transform="translate(-40.11536,103.4044)"><tspan
+     sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan3380"
-       x="294.68176"
-       y="98.923721">LM[7:0]</tspan></text>
+       x="253.125"
+       y="265">LM[7:0]</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
      d="M 481.25000,296.25000 L 337.50000,296.25000 L 337.50000,180.62500 L 337.50000,124.37500 L 275.00000,124.37500 L 265.62500,124.37500"
@@ -1176,7 +1165,7 @@
      transform="translate(-42.44455,91.10036)"><tspan
        sodipodi:role="line"
        id="tspan4107"
-       x="375.53830"
+       x="375.5383"
        y="130.14964">-4</tspan></text>
   <text
      xml:space="preserve"
@@ -1197,7 +1186,7 @@
        sodipodi:role="line"
        id="tspan4121"
        x="344.51917"
-       y="104.99760">not include CRC</tspan></text>
+       y="104.9976">not include CRC</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
      d="M 321.87500,346.25000 L 321.87500,358.75000"
@@ -1783,7 +1772,7 @@
      transform="translate(284.6987,150.5139)"><tspan
        sodipodi:role="line"
        id="tspan7964"
-       x="100.08840"
+       x="100.0884"
        y="330.74005">CRC Logic</tspan></text>
   <g
      id="g7966"
@@ -2340,7 +2329,7 @@
      transform="translate(66.87104,-29.18930)"><tspan
        sodipodi:role="line"
        id="tspan3381"
-       x="121.36724"
+       x="123.91412"
        y="128.14636">DV=1 and </tspan><tspan
        sodipodi:role="line"
        id="tspan3391"
@@ -2505,7 +2494,7 @@
      transform="translate(51.71974,26.47058)"><tspan
        sodipodi:role="line"
        id="tspan4748"
-       x="122.49510"
+       x="122.4951"
        y="547.48645">FD</tspan></text>
   <text
      xml:space="preserve"
@@ -2539,7 +2528,7 @@
        sodipodi:role="line"
        id="tspan4757"
        x="134.74461"
-       y="608.98920">RXBCAST</tspan></text>
+       y="608.9892">RXBCAST</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
@@ -2560,7 +2549,7 @@
      transform="translate(-3.913452,-54.52179)"><tspan
        sodipodi:role="line"
        id="tspan4763"
-       x="178.12830"
+       x="178.1283"
        y="672.53351">RXUCAST</tspan></text>
   <text
      xml:space="preserve"
@@ -2572,7 +2561,7 @@
        sodipodi:role="line"
        id="tspan4766"
        x="187.82582"
-       y="687.84540">RXALLF</tspan></text>
+       y="687.8454">RXALLF</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
@@ -2583,7 +2572,7 @@
        sodipodi:role="line"
        id="tspan4769"
        x="240.90703"
-       y="676.61670">DESTOK</tspan></text>
+       y="676.6167">DESTOK</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
      d="M 159.37500,511.87500 L 159.37500,561.87500 L 171.87500,561.87500"

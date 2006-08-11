@@ -1,0 +1,20 @@
+RX output Notes: 
+
+This appears to be a simple async fifo that transmits a packet to the
+downstream interface.
+
+To read the packet out of ram into a buffer, and then transmit, would
+incur a very long (~10 us) delay. Instead, at our peril, we just begin
+transmitting the packets out of the memory into an async fifo. 
+
+Note that the timing here is tricky. While its true that the memory
+interface operates at 62.5 MHz/16-bit-word, and this should be
+strictly faster than the output interface (which is constrained to be
+< 60) various delays in the system may result in DOUTEN not being high
+for the entire duration of the packet.
+
+
+The assertion of NEXTFRAME by the client means "I am ready for inbound
+packets." Once NEXTFRAME is asserted, it should not be deasserted
+until DOEN has gone high.
+
