@@ -145,10 +145,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
 [GeneratedDocument1]
-DocumentPath=Outputs\NIC.DRL
+DocumentPath=outputs\NIC.DRL
 
 [GeneratedDocument2]
-DocumentPath=Outputs\NIC.DRR
+DocumentPath=outputs\NIC.DRR
 
 [GeneratedDocument3]
 DocumentPath=outputs\NIC.G1
@@ -157,7 +157,7 @@ DocumentPath=outputs\NIC.G1
 DocumentPath=outputs\NIC.G2
 
 [GeneratedDocument5]
-DocumentPath=Outputs\NIC.GBL
+DocumentPath=outputs\NIC.GBL
 
 [GeneratedDocument6]
 DocumentPath=outputs\NIC.GBO
@@ -166,40 +166,40 @@ DocumentPath=outputs\NIC.GBO
 DocumentPath=outputs\NIC.GBP
 
 [GeneratedDocument8]
-DocumentPath=Outputs\NIC.GBS
+DocumentPath=outputs\NIC.GBS
 
 [GeneratedDocument9]
-DocumentPath=Outputs\NIC.GM5
+DocumentPath=outputs\NIC.GM5
 
 [GeneratedDocument10]
-DocumentPath=Outputs\NIC.GP1
+DocumentPath=outputs\NIC.GP1
 
 [GeneratedDocument11]
-DocumentPath=Outputs\NIC.GP2
+DocumentPath=outputs\NIC.GP2
 
 [GeneratedDocument12]
-DocumentPath=Outputs\NIC.GTL
+DocumentPath=outputs\NIC.GTL
 
 [GeneratedDocument13]
-DocumentPath=Outputs\NIC.GTO
+DocumentPath=outputs\NIC.GTO
 
 [GeneratedDocument14]
 DocumentPath=outputs\NIC.GTP
 
 [GeneratedDocument15]
-DocumentPath=Outputs\NIC.GTS
+DocumentPath=outputs\NIC.GTS
 
 [GeneratedDocument16]
-DocumentPath=Outputs\NIC.LDP
+DocumentPath=outputs\NIC.LDP
 
 [GeneratedDocument17]
-DocumentPath=Outputs\NIC.REP
+DocumentPath=outputs\NIC.REP
 
 [GeneratedDocument18]
-DocumentPath=Outputs\NIC.RUL
+DocumentPath=outputs\NIC.RUL
 
 [GeneratedDocument19]
-DocumentPath=Outputs\NIC.TXT
+DocumentPath=outputs\NIC.TXT
 
 [Generic_SCH]
 Collation=True
