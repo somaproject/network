@@ -21,10 +21,13 @@ $(WORKDIR)/sourcefilter/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhd
 $(WORKDIR)/control/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd ../../../vhdl/counter.vhd ../../../vhdl/sourcefilter.vhd ../../../vhdl/control.vhd
 	$(VHDLC) ../../../vhdl/control.vhd
 
-$(WORKDIR)/phytest/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd ../../../vhdl/counter.vhd ../../../vhdl/sourcefilter.vhd ../../../vhdl/control.vhd ../vhdl/phytest.vhd
+$(WORKDIR)/jtagserial/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd ../../../vhdl/counter.vhd ../../../vhdl/sourcefilter.vhd ../../../vhdl/control.vhd ../vhdl/jtagserial.vhd
+	$(VHDLC) ../vhdl/jtagserial.vhd
+
+$(WORKDIR)/phytest/_behavioral.var: ../../../vhdl/serialio.vhd ../../../vhdl/MII.vhd ../../../vhdl/PHYstatus.vhd ../../../vhdl/counter.vhd ../../../vhdl/sourcefilter.vhd ../../../vhdl/control.vhd ../vhdl/jtagserial.vhd ../vhdl/phytest.vhd
 	$(VHDLC) ../vhdl/phytest.vhd
 
-hw: $(WORKDIR)/serialio/_behavioral.var $(WORKDIR)/mii/_behavioral.var $(WORKDIR)/phystatus/_behavioral.var $(WORKDIR)/counter/_behavioral.var $(WORKDIR)/sourcefilter/_behavioral.var $(WORKDIR)/control/_behavioral.var $(WORKDIR)/phytest/_behavioral.var 
+hw: $(WORKDIR)/serialio/_behavioral.var $(WORKDIR)/mii/_behavioral.var $(WORKDIR)/phystatus/_behavioral.var $(WORKDIR)/counter/_behavioral.var $(WORKDIR)/sourcefilter/_behavioral.var $(WORKDIR)/control/_behavioral.var $(WORKDIR)/jtagserial/_behavioral.var $(WORKDIR)/phytest/_behavioral.var 
 
 comp: 
 

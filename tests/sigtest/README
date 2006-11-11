@@ -1,0 +1,20 @@
+This is a simple test to measure the signal integrity of our external
+board-to-board interface.
+
+Here we simply take all of the input bits, clock them in with an IOB
+reg, clock them out with an IOB reg, and then are done with it. It's
+up to the device (host) interfaced with the nic to generate and verify
+a bit-pattern.
+
+The bit mappings are:
+
+DIN[15:0] => DOUT[15:0]
+NEXTFRAME => DOUTEN; 
+NEWFRAME => DINEN; 
+SERCLK => SO
+SI => SCS; 
+
+
+By my calculations we should have two ticks of latency here. 
+
+

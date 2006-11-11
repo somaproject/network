@@ -13,12 +13,13 @@
 #   make parsim: post-place-and-route simulation 
 #   make multipar : multiple attemt place and route
 ######################################################################
-PROJECT = memtest
+PROJECT = sigtest
 
 bitfile: $(PROJECT).bit
-SOURCES = *.vhd 
+
+SOURCES = *.vhd
 OPTIMIZE = high
-PART = xc3s200-4-pq208
+PART = xc3s200-pq208-4
 SPEED = 4
 
 $(PROJECT): build/$(PROJECT).ncd
@@ -26,7 +27,6 @@ $(PROJECT): build/$(PROJECT).ncd
 $(PROJECT).bit: build/$(PROJECT).bit
 	rm -rf $(PROJECT).bit
 	cp build/$(PROJECT).bit . 
-	cp build/$(PROJECT).bit ~/soma/
 
 $(PROJECT).rbt: build/$(PROJECT).rbt
 	rm -rf $(PROJECT).rbt
@@ -103,11 +103,6 @@ transsim: build/$(PROJECT).ngd
 	netgen -intstyle ise -rpw 100 -tpw 0 -ar Structure -tm $(PROJECT) -w -dir build -ofmt vhdl -sim build/$(PROJECT).ngd $(PROJECT)_transsim.vhd
 
 
-# update roms
-# updaterom: $(PROJECT)_bd.bmm $(PROJECT).mem
-# 	data2mem  -bm $(PROJECT)_bd.bmm  -bd $(PROJECT).mem  -bt $(PROJECT).bit  -o h $(PROJECT)_mem.vhd -o b $(PROJECT).new.bit
-# 	mv $(PROJECT).bit $(PROJECT).original.bit
-# 	cp $(PROJECT).new.bit $(PROJECT).bit
-
+# cleanup
 clean:
 	rm -Rf xst build

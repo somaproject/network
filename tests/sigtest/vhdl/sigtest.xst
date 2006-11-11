@@ -1,12 +1,12 @@
 set -tmpdir build
 set -xsthdpdir ./xst
 run
--ifn memtest.prj
+-ifn sigtest.prj
 -ifmt mixed
--ofn memtest
+-ofn sigtest
 -ofmt NGC
 -p xc3s200-4-pq208
--top memtest
+-top sigtest
 -opt_mode Speed
 -opt_level 2
 -iuc NO

@@ -4,5 +4,6 @@ vhdl work "../../../vhdl/serialio.vhd"
 vhdl work "../../../vhdl/MII.vhd"
 vhdl work "../../../vhdl/PHYstatus.vhd"
 vhdl work "../../../vhdl/control.vhd"
+vhdl work "jtagserial.vhd"
 
 vhdl work "phytest.vhd"

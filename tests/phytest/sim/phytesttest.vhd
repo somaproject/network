@@ -33,12 +33,8 @@ architecture Behavioral of phytesttest is
       TXD      : out std_logic_vector(7 downto 0);
 
       MDIO : inout std_logic;
-      MDC  : out   std_logic;
-
-      SCLK : in  std_logic;
-      SCS  : in  std_logic;
-      SIN  : in  std_logic;
-      SOUT : out std_logic );
+      MDC  : out   std_logic
+      );
   end component;
 
 
@@ -60,11 +56,6 @@ architecture Behavioral of phytesttest is
   signal MDIO : std_logic := '0';
   signal MDC  : std_logic := '0';
 
-  signal SCLK : std_logic := '0';
-  signal SCS  : std_logic := '0';
-  signal SIN  : std_logic := '0';
-  signal SOUT : std_logic := '0';
-
 begin  -- Behavioral
 
   phytest_uut : phytest
@@ -84,11 +75,7 @@ begin  -- Behavioral
       TX_EN    => TX_EN,
       TXD      => TXD,
       MDIO     => MDIO,
-      MDC      => MDC,
-      SCLK     => SCLK,
-      SCS      => SCS,
-      SIN      => SIN,
-      SOUT     => SOUT );
+      MDC      => MDC);
 
 
   CLKIN <= not CLKIN after 4 ns;

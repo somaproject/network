@@ -18,6 +18,7 @@ entity memtest is
     MWE      : out   std_logic;
     MA       : out   std_logic_vector(16 downto 0);
     MCLK     : out   std_logic;
+    MOE : out std_logic; 
     PHYRESET : out   std_logic;
     LEDPOWER : out   std_logic;
     LED100   : out   std_logic;
@@ -31,15 +32,15 @@ architecture Behavioral of memtest is
 
   signal clk : std_logic := '0';
 
-  signal addr1  : std_logic_vector(18 downto 0) := (others => '0');
-  signal d1     : std_logic_vector(33 downto 0) := (others => '0');
-  signal q1     : std_logic_vector(33 downto 0) := (others => '0');
+  signal addr1  : std_logic_vector(16 downto 0) := (others => '0');
+  signal d1     : std_logic_vector(31 downto 0) := (others => '0');
+  signal q1     : std_logic_vector(31 downto 0) := (others => '0');
   signal we1    : std_logic;
   signal clken1 : std_logic                     := '0';
 
-  signal addr2    : std_logic_vector(18 downto 0) := "1111111111111111000";
+  signal addr2    : std_logic_vector(16 downto 0) := "11111111111111000";
   signal expected : std_logic_vector(31 downto 0) := (others => '0');
-  signal d2       : std_logic_vector(33 downto 0) := (others => '0');
+  signal d2       : std_logic_vector(31 downto 0) := (others => '0');
   signal q2       : std_logic_vector(31 downto 0) := (others => '0');
   signal we2      : std_logic;
   signal clken2   : std_logic                     := '0';
@@ -98,15 +99,15 @@ begin  -- Behavioral
       DQEXT   => MD,
       WEEXT   => MWE,
       ADDREXT => MA,
-      ADDR1   => addr1(18 downto 2),
-      ADDR2   => addr2(18 downto 2),
+      ADDR1   => addr1,
+      ADDR2   => addr2,
       ADDR3   => addr3,
       ADDR4   => addr4,
-      D1      => d1(33 downto 2),
-      D2      => d2(33 downto 2),
+      D1      => d1, 
+      D2      => d2, 
       D3      => D3,
       D4      => d4,
-      Q1      => q1(33 downto 2),
+      Q1      => q1, 
       Q2      => q2,
       Q3      => q3,
       Q4      => q4,
@@ -136,7 +137,7 @@ begin  -- Behavioral
       d1    <= d1 + 1;
 
       addr2    <= addr2 + 1;
-      expected <= d1(33 downto 2) - X"00000004";
+      expected <= d1 - X"00000004";
 
       if clken2 = '1' then
         if expected = q2 then
@@ -150,10 +151,12 @@ begin  -- Behavioral
 
 
   end process main;
-    LEDPOWER  <= '1';
+  LEDPOWER  <= valid;
   LED100 <= '0';
   LED1000 <= '0';
   LEDACT <= valid;
 
+  MOE <= '0';
+  
 end Behavioral;
 

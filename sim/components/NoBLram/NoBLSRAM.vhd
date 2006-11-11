@@ -104,7 +104,7 @@ begin
 
 
     -- falling edge starts cmd; read in 8 bits, then decide what to do
-    while True loop
+    while true loop
       wait until rising_edge(CLK) or rising_edge(SAVE);
       if rising_edge(SAVE) then
         for i in 0 to 131071 loop
@@ -126,12 +126,13 @@ begin
         dout <= (others => 'U')  after TKQX;
         dout <= SRAM(numaddress) after TKQ;
 
-        T_ENABLE <= (not lwe) after 2 ns;
+        T_ENABLE <= (not lwe) after 0 ns;
 
         if llwe = '0' then              -- a write
-          --wait for 2 ns; 
+          wait for 1 ps;
+          
           SRAM(to_integer(unsigned(lladdr))) := din;
-
+          
         end if;
 
       end if;

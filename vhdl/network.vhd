@@ -3,8 +3,7 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
--- Uncomment the following lines to use the declarations that are
--- provided for instantiating Xilinx primitive components.
+
 library UNISIM;
 use UNISIM.VComponents.all;
 
@@ -40,8 +39,7 @@ entity network is
          SCLK      : in    std_logic;
          SIN       : in    std_logic;
          SOUT      : out   std_logic;
-         SCS       : in    std_logic;
-         MISC      : out std_logic_vector(3 downto 0));
+         SCS       : in    std_logic); 
 end network;
 
 architecture Behavioral of network is
@@ -245,11 +243,6 @@ begin
   addr4ext <= ('0' & addr4);
 
   DOUTEN <= doutensig;                  -- DEBUGGING!!!
-
-  MISC(0) <= doutensig;
-  MISC(1) <= NEXTFRAME;
-  MISC(2) <= '0';
-  MISC(3) <= '0';
 
   clkio_dcm : DCM
     port map (

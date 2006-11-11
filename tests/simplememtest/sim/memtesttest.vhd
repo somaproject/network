@@ -16,75 +16,74 @@ architecture Behavioral of memtesttest is
 
   component memtest
     port (
-      CLKIN   : in    std_logic;
-      RAMDQ   : inout std_logic_vector(15 downto 0);
-      RAMWE   : out   std_logic;
-      RAMADDR : out   std_logic_vector(16 downto 0);
-      MEMCLK  : out   std_logic
+      CLKIN    : in    std_logic;
+      RAMDQ    : inout std_logic_vector(31 downto 0);
+      RAMWE    : out   std_logic;
+      RAMADDR  : out   std_logic_vector(16 downto 0);
+      MEMCLK   : out   std_logic;
+      LEDPOWER : out   std_logic
       );
   end component;
 
   signal CLKIN  : std_logic := '0';
   signal MEMCLK : std_logic := '0';
 
-  signal RAMDQ   : std_logic_vector(15 downto 0) := (others => '0');
+  signal RAMDQ   : std_logic_vector(31 downto 0) := (others => '0');
   signal RAMWE   : std_logic                     := '0';
   signal RAMADDR : std_logic_vector(16 downto 0) := (others => '0');
 
 -- memory signals
-  signal ramwel, ramwell     : std_logic                     := '1';
-  signal ramaddrl, ramaddrll : std_logic_vector(16 downto 0)
-                                                             := (others => '0');
-  signal ram_intq            : std_logic_vector(15 downto 0) := (others => '0');
-
   signal ESTATE : std_logic := '0';
 
-
+  signal error_flag : std_logic := '0';
+  signal reset : std_logic := '1';
   
+  component NoBLSRAM
+    generic (
+      FILEIN       :       string  := "SRAM_in.dat";
+      FILEOUT      :       string  := "SRAM_out.dat";
+      physical_sim :       integer := 0;
+      TSU          :       time;
+      THD          :       time;
+      TKQ          :       time;
+      TKQX         :       time);
+    port (
+      CLK          : in    std_logic;
+      DQ           : inout std_logic_vector(31 downto 0);
+      ADDR         : in    std_logic_vector(16 downto 0);
+      WE           : in    std_logic;
+      RESET        : in    std_logic;
+      SAVE         : in    std_logic);
+  end component;
+
 begin  -- Behavioral
 
-  CLKIN <= not CLKIN after 8 ns;
+  CLKIN <= not CLKIN after 10 ns;
+  RESET <= '0' after 100 ns;
+  
+  memory : NoBLSRAM
+    generic map (
+      TSU  => 0 ns,
+      THD  => 0 ns,
+      TKQ  => 0 ns,
+      TKQX => 0 ns)
+
+    port map (
+      CLK   => MEMCLK,
+      DQ    => RAMDQ,
+      ADDR  => RAMADDR,
+      WE    => RAMWE,
+      RESET => RESET,
+      SAVE  => '0');
 
   memtest_uut : memtest
     port map (
-      CLKIN   => CLKIN,
-      RAMDQ   => RAMDQ,
-      RAMWE   => RAMWE,
-      RAMADDR => RAMADDR,
-      MEMCLK  => MEMCLK);
-
-  memoryinst        : process(MEMCLK, ramwel, ESTATE)
-    -- memory construct
-    type ramdata is array ( 0 to 131071)
-    of std_logic_vector(15 downto 0);
-    variable memory : ramdata := (others => X"0000");
-
-  begin
-    if ramwell = '0' then
-      RAMDQ   <= (others => 'Z');
-    else
-      if ESTATE = '1' then
-        RAMDQ <= (others => '1'); 
-      else
-                RAMDQ   <= ram_intq;
-      end if;
-
-    end if;
-    if rising_edge(MEMCLK) then
-      ramwel  <= RAMWE;
-      ramwell <= ramwel;
-
-      ramaddrl  <= RAMADDR;
-      ramaddrll <= ramaddrl;
-
-      if ramwell = '0' then
-        memory(TO_INTEGER(unsigned(ramaddrll))) := RAMDQ;
-      else
-        ram_intq <= memory(TO_INTEGER(unsigned(ramaddrll)));
-      end if;
-
-    end if;
-  end process memoryinst;
+      CLKIN    => CLKIN,
+      RAMDQ    => RAMDQ,
+      RAMWE    => RAMWE,
+      RAMADDR  => RAMADDR,
+      MEMCLK   => MEMCLK,
+      LEDPOWER => error_flag);
 
   -- check
   process
@@ -92,11 +91,11 @@ begin  -- Behavioral
     wait for 100 us;
     ESTATE <= '1';
     wait for 1 us;
-    ESTATE <= '0'; 
+    ESTATE <= '0';
     wait;
 
 
   end process;
 
-  
+
 end Behavioral;
