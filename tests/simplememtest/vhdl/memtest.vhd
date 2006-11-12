@@ -71,7 +71,7 @@ begin  -- Behavioral
       DFS_FREQUENCY_MODE => "LOW",
       DLL_FREQUENCY_MODE => "LOW",
       CLKOUT_PHASE_SHIFT => "FIXED",
-      PHASE_SHIFT        => 0,
+      PHASE_SHIFT        => 10,
       STARTUP_WAIT       => false)
     port map (
       CLK0               => clkfint,    -- 0 degree DCM CLK ouptput
@@ -92,7 +92,7 @@ begin  -- Behavioral
       O => clk,
       I => clkint);
 
-  MEMCLK <= not clk;
+  MEMCLK <= CLKIN;
 
   lramwe <= '0' when dsel = '0' else '1';
 

@@ -18,7 +18,7 @@ entity memtest is
     MWE      : out   std_logic;
     MA       : out   std_logic_vector(16 downto 0);
     MCLK     : out   std_logic;
-    MOE : out std_logic; 
+    MOE      : out   std_logic;
     PHYRESET : out   std_logic;
     LEDPOWER : out   std_logic;
     LED100   : out   std_logic;
@@ -32,14 +32,14 @@ architecture Behavioral of memtest is
 
   signal clk : std_logic := '0';
 
-  signal addr1  : std_logic_vector(16 downto 0) := (others => '0');
+  signal addr1  : std_logic_vector(16 downto 0) := '0' & X"0005";
   signal d1     : std_logic_vector(31 downto 0) := (others => '0');
   signal q1     : std_logic_vector(31 downto 0) := (others => '0');
   signal we1    : std_logic;
   signal clken1 : std_logic                     := '0';
 
-  signal addr2    : std_logic_vector(16 downto 0) := "11111111111111000";
-  signal expected : std_logic_vector(31 downto 0) := (others => '0');
+  signal addr2    : std_logic_vector(16 downto 0) := (others => '0'); 
+  signal expected, expected2, expected3 : std_logic_vector(31 downto 0) := (others => '0');
   signal d2       : std_logic_vector(31 downto 0) := (others => '0');
   signal q2       : std_logic_vector(31 downto 0) := (others => '0');
   signal we2      : std_logic;
@@ -62,8 +62,7 @@ architecture Behavioral of memtest is
 
   component memory
     port ( CLK     : in    std_logic;
-           RESET   : in    std_logic;
-           DQEXT   : inout std_logic_vector(31 downto 0);
+           RESET   : in    std_logic;           DQEXT   : inout std_logic_vector(31 downto 0);
            WEEXT   : out   std_logic;
            ADDREXT : out   std_logic_vector(16 downto 0);
            ADDR1   : in    std_logic_vector(16 downto 0);
@@ -103,11 +102,11 @@ begin  -- Behavioral
       ADDR2   => addr2,
       ADDR3   => addr3,
       ADDR4   => addr4,
-      D1      => d1, 
-      D2      => d2, 
+      D1      => d1,
+      D2      => d2,
       D3      => D3,
       D4      => d4,
-      Q1      => q1, 
+      Q1      => q1,
       Q2      => q2,
       Q3      => q3,
       Q4      => q4,
@@ -130,17 +129,29 @@ begin  -- Behavioral
   MCLK <= clk;
   clk  <= CLKIN;
 
+  d1    <=  addr1(15 downto 0) & addr1(15 downto 0); 
+  expected <= addr2(15 downto 0) & addr2(15 downto 0); 
+
   main : process(clk)
   begin
     if rising_edge(clk) then
-      addr1 <= addr1 + 1;
-      d1    <= d1 + 1;
 
-      addr2    <= addr2 + 1;
-      expected <= d1 - X"00000004";
+      if clken1 = '1' then
+        addr1 <= addr1 + 1;
+
+
+
+      end if;
 
       if clken2 = '1' then
-        if expected = q2 then
+        addr2    <= addr2 + 1;
+        expected2 <= expected;
+        expected3 <= expected2; 
+      end if;
+
+
+      if clken2 = '1' then
+        if expected3 = q2 then
           valid <= '1';
         else
           valid <= '0';
@@ -151,12 +162,12 @@ begin  -- Behavioral
 
 
   end process main;
-  LEDPOWER  <= valid;
-  LED100 <= '0';
-  LED1000 <= '0';
-  LEDACT <= valid;
+  LEDPOWER <= valid;
+  LED100   <= '0';
+  LED1000  <= '0';
+  LEDACT   <= valid;
 
   MOE <= '0';
-  
+
 end Behavioral;
 

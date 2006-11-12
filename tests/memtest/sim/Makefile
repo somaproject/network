@@ -13,13 +13,13 @@ hw: $(WORKDIR)/memory/_behavioral.var $(WORKDIR)/memtest/_behavioral.var
 
 comp: 
 
-$(WORKDIR)/noblsram/_behavioral.var: ../../../sim/components/NoBLram/NoBLSRAM.vhd
-	$(VHDLC) ../../../sim/components/NoBLram/NoBLSRAM.vhd
+$(WORKDIR)/mt55l256l32p/_behave.var: ../../../sim/components/ram/mt55l256l32p.vhd
+	$(VHDLC) ../../../sim/components/ram/mt55l256l32p.vhd
 
-$(WORKDIR)/memtesttest/_behavioral.var: ../../../sim/components/NoBLram/NoBLSRAM.vhd memtesttest.vhd
+$(WORKDIR)/memtesttest/_behavioral.var: ../../../sim/components/ram/mt55l256l32p.vhd memtesttest.vhd
 	$(VHDLC) memtesttest.vhd
 
-sim: $(WORKDIR)/noblsram/_behavioral.var $(WORKDIR)/memtesttest/_behavioral.var 
+sim: $(WORKDIR)/mt55l256l32p/_behave.var $(WORKDIR)/memtesttest/_behavioral.var 
 runsim: all
 	$(VHDLS) memtesttest
 
