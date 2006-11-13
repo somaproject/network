@@ -9,6 +9,7 @@ use UNISIM.VComponents.all;
 
 entity jtagserial is
   port (
+    CLK  : in  std_logic;
     SCLK : out std_logic;
     SOUT : out std_logic;
     SCS  : out std_logic;
@@ -28,13 +29,57 @@ architecture Behavioral of jtagserial is
   signal jtagtdo2    : std_logic := '0';
   signal jtagupdate  : std_logic := '0';
 
-  signal jtagout : std_logic_vector(23 downto 0) := (others => '0');
-  signal jtagin  : std_logic_vector(15 downto 0) := (others => '0');
 
   signal tfscnt : std_logic_vector(7 downto 0) := (others => '0');
 
+  signal jtagen : std_logic := '0';
+
+  signal outtick : std_logic_vector(39 downto 0);
+
+
+  component nicserialio
+    port (
+      CLK   : in  std_logic;
+      START : in  std_logic;
+      RW    : in  std_logic;
+      ADDR  : in  std_logic_vector(5 downto 0);
+      DIN   : in  std_logic_vector(31 downto 0);
+      DOUT  : out std_logic_vector(31 downto 0);
+      DONE  : out std_logic;
+      SCLK  : out std_logic;
+      SOUT  : out std_logic;
+      SCS   : out std_logic;
+      SIN   : in  std_logic);
+  end component;
+
+  signal start     : std_logic                     := '0';
+  signal rw        : std_logic                     := '0';
+  signal addr      : std_logic_vector(5 downto 0)  := (others => '0');
+  signal din, dout : std_logic_vector(31 downto 0) := (others => '0');
+  signal done      : std_logic                     := '0';
+
+  signal jtagin, jtagout : std_logic_vector(39 downto 0) := (others => '0');
+
+  signal update, updatel : std_logic := '0';
+
+  signal outpos : integer range 0 to 39 := 0;
 
 begin  -- Behavioral
+
+  nicserialio_inst : nicserialio
+    port map (
+      CLK   => CLK,
+      START => START,
+      RW    => RW,
+      ADDR  => addr,
+      DIN   => din,
+      DOUT  => dout,
+      DONE  => done,
+      SCLK  => SCLK,
+      SOUT  => SOUT,
+      SCS   => SCS,
+      SIN   => SIN);
+
 
   BSCAN_SPARTAN3_inst : BSCAN_SPARTAN3
     port map (
@@ -50,10 +95,48 @@ begin  -- Behavioral
       TDO2    => jtagtdo2               -- Data input for USER2 function
       );
 
-  jtagTDO1 <= SIN;
-  SOUT <= jtagTDI;
-  SCLK <= jtagDRCK1;
-  SCS <= jtagSEL1; 
+  rw   <= jtagin(39);
+  addr <= jtagin(37 downto 32);
+  din  <= jtagin(31 downto 0);
+
+  process(jtagdrck1)
+  begin
+    if rising_edge(jtagdrck1) then
+      jtagin <= jtagtdi & jtagin(39 downto 1);
+    end if;
+  end process;
+
+  process(jtagdrck2)
+  begin
+    if jtagUPDATE = '1' then
+      outpos <= 0;
+    else
+
+      if rising_edge(jtagdrck2) then
+        jtagtdo2 <= jtagout(outpos);
+
+        outpos <= outpos + 1;
+      end if;
+    end if;
+  end process;
+
+  process (CLK)
+  begin
+    if rising_edge(CLK) then
+      update                 <= jtagUPDATE;
+      updatel                <= update;
+      if updatel = '0' and update = '1' and jtagsel1 = '1' then
+        start                <= '1';
+      else
+        start                <= '0';
+      end if;
+      if done = '1' then
+        jtagout(31 downto 0) <= dout;
+      end if;
+
+    end if;
+  end process;
+
 
 end Behavioral;
 

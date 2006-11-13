@@ -26,6 +26,11 @@ entity phytest is
     TX_EN    : out std_logic;
     TX_ER    : out std_logic;
     TXD      : out std_logic_vector(7 downto 0);
+    SCLKOUT : out std_logic;
+    SINOUT : out std_logic;
+    SOUTOUT : out std_logic;
+    SCSOUT: out std_logic;
+    LOCKED : out std_logic; 
     MDIO : inout std_logic;
     MDC  : out   std_logic
     );
@@ -35,6 +40,7 @@ end phytest;
 architecture Behavioral of phytest is
 
   signal clk, clkint : std_logic                     := '0';
+  signal clkf, clkfint : std_logic                     := '0';
   signal clklo       : std_logic                     := '0';
   signal clkcnt      : integer range 0 to 7          := 0;
   signal ledcnt      : std_logic_vector(22 downto 0) := (others => '0');
@@ -88,6 +94,7 @@ architecture Behavioral of phytest is
 
   component jtagserial
     port (
+      CLK : in std_logic; 
       SCLK : out std_logic;
       SOUT : out std_logic;
       SCS  : out std_logic;
@@ -102,11 +109,17 @@ begin  -- Behavioral
 
   jtagserial_inst : jtagserial
     port map (
+      CLK => clkf, 
       SCLK => SCLK,
       SOUT => SIN,
       SIN  => SOUT,
       SCS  => SCS);
 
+  SCLKOUT <= SCLK;
+  SOUTOUT <= SOUT;
+  SINOUT <= SIN;
+  SCSOUT <= SCS;
+  
   clockenable : process(CLK)
   begin
     if rising_edge(CLK) then
@@ -215,23 +228,34 @@ begin  -- Behavioral
 
   DCM_BASE_inst : DCM
     generic map (
-      CLKDV_DIVIDE => 8.0,
-      CLKIN_PERIOD => 10.0,             -- Specify period of input clock in ns from 1.25 to 1000.00
-      CLK_FEEDBACK => "1X",             -- Specify clock feedback of NONE or 1X
+      CLKDV_DIVIDE => 3.5,
+      CLKFX_DIVIDE => 2, 
+      CLKFX_MULTIPLY => 5, 
+      CLKIN_PERIOD => 10.0,        
+      CLK_FEEDBACK => "1X",        
       STARTUP_WAIT => true)
     port map (
-      CLK0         => clkint,           -- 0 degree DCM CLK ouptput
-      CLKDV        => CLKLO,            -- Divided DCM CLK out (CLKDV_DIVIDE)
-      LOCKED       => open,
-      CLKFB        => clk,              -- DCM clock feedback
-      CLKIN        => CLKIN,            -- Clock input (from IBUFG, BUFG or DCM)
-      RST          => '0'               -- DCM asynchronous reset input
+      CLK0         => clkfint,      
+      CLKDV        => CLKLO,       
+      CLKFB        => clkf,         
+      CLKIN        => CLKIN,
+      CLKFX => clkint, 
+      RST          => '0',
+      LOCKED => LOCKED
       );
 
-  BUFG_inst : BUFG
+  clk_bufg : BUFG
     port map (
       O => clk,                         -- Clock buffer output
       I => clkint                       -- Clock buffer input
       );
+
+  clkf_bufg : BUFG
+    port map (
+      O => clkf,                         -- Clock buffer output
+      I => clkfint                       -- Clock buffer input
+      );
+
+  
 end Behavioral;
 
