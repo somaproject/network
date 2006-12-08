@@ -17,10 +17,10 @@ entity sourcefilter is
     UCASTW : in std_logic;
     ALLFW : in std_logic;
     MACADDR : out std_logic_vector(47 downto 0); 
-    RXMCAST: out std_logic;
-    RXBCAST : out std_logic;
-    RXUCAST : out std_logic;
-    RXALLF : out std_logic
+    RXMCAST: out std_logic := '1';
+    RXBCAST : out std_logic := '1';
+    RXUCAST : out std_logic := '1';
+    RXALLF : out std_logic := '1'
     );
 
 end sourcefilter;

@@ -19,7 +19,16 @@ entity sigtest is
          SCLK      : in  std_logic;
          SIN       : in  std_logic;
          SOUT      : out std_logic;
-         SCS       : out std_logic);
+         SCS       : out std_logic;
+         LEDPOWER  : out std_logic;
+         LED100    : out std_logic;
+         LED1000   : out std_logic;
+         LEDACT    : out std_logic;
+         LEDTX     : out std_logic;
+         LEDRX     : out std_logic;
+         LEDDPX    : out std_logic
+
+         );
 end sigtest;
 
 architecture Behavioral of sigtest is
@@ -30,8 +39,9 @@ architecture Behavioral of sigtest is
   signal s1   : std_logic                     := '0';
   signal s2   : std_logic                     := '0';
 
+  signal ledcnt : std_logic_vector(21 downto 0) := (others => '0');
 
-
+  signal ledsreg : std_logic_vector(7 downto 0) := "00000001";
 
 begin  -- Behavioral
 
@@ -40,19 +50,35 @@ begin  -- Behavioral
   main : process(CLKIOIN)
   begin
     if rising_edge(CLKIOIN) then
-      data <= DIN;
-      nf <= NEXTFRAME;
-      newf <= NEWFRAME;
-      s1 <= SCLK;
-      s2 <= SIN;
 
-      DOUT <= data;
+      ledcnt <= ledcnt + 1;
+
+      if ledcnt = "00" & X"00000" then
+        ledsreg  <= ledsreg(6 downto 0) & ledsreg(7);
+        LEDPOWER <= ledsreg(0);
+        LEDACT   <= ledsreg(1);
+        LEDTX    <= ledsreg(2);
+        LEDRX    <= ledsreg(3);
+        LEDDPX   <= ledsreg(4);
+        LED100   <= ledsreg(5);
+        LED1000  <= ledsreg(6);
+
+      end if;
+
+
+      data <= DIN;
+      nf   <= NEXTFRAME;
+      newf <= NEWFRAME;
+      s1   <= SCLK;
+      s2   <= SIN;
+
+      DOUT   <= data;
       DOUTEN <= nf;
-      DINEN <= newf;
-      SOUT <= s1;
-      SCS <= s2;
-      
-      
+      DINEN  <= newf;
+      SOUT   <= s1;
+      SCS    <= s2;
+
+
     end if;
   end process;
 

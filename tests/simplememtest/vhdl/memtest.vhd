@@ -67,11 +67,11 @@ begin  -- Behavioral
     generic map (
       CLKDV_DIVIDE       => 2.0,
       CLKFX_DIVIDE       => 2,
-      CLKFX_MULTIPLY     => 2,
+      CLKFX_MULTIPLY     => 5,
       DFS_FREQUENCY_MODE => "LOW",
       DLL_FREQUENCY_MODE => "LOW",
       CLKOUT_PHASE_SHIFT => "FIXED",
-      PHASE_SHIFT        => 10,
+      PHASE_SHIFT        => 200,
       STARTUP_WAIT       => false)
     port map (
       CLK0               => clkfint,    -- 0 degree DCM CLK ouptput
@@ -92,7 +92,7 @@ begin  -- Behavioral
       O => clk,
       I => clkint);
 
-  MEMCLK <= CLKIN;
+  MEMCLK <= clk;
 
   lramwe <= '0' when dsel = '0' else '1';
 

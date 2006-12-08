@@ -39,7 +39,7 @@ entity network is
          SCLK      : in    std_logic;
          SIN       : in    std_logic;
          SOUT      : out   std_logic;
-         SCS       : in    std_logic); 
+         SCS       : in    std_logic);
 end network;
 
 architecture Behavioral of network is
@@ -48,7 +48,8 @@ architecture Behavioral of network is
   -- clock and timing signals
   signal clk, clkio, clklo, clkrx, clk90, clk180, clk270 : std_logic := '0';
   signal clkint, clkioint, clkloint, clkrxint            : std_logic := '0';
-
+  signal clkb, clkbint : std_logic := '0';
+  
   signal clken1, clken2, clken3, clken4 : std_logic := '0';
 
   -- data
@@ -90,7 +91,7 @@ architecture Behavioral of network is
 
   signal reset : std_logic := '0';
 
-  
+
   component memory
     port ( CLK     : in    std_logic;
            RESET   : in    std_logic;
@@ -194,7 +195,7 @@ architecture Behavioral of network is
 
   component control
     port ( CLK        : in    std_logic;
-           CLKLO   : in    std_logic;
+           CLKLO      : in    std_logic;
            RESET      : in    std_logic;
            SCLK       : in    std_logic;
            SCS        : in    std_logic;
@@ -260,16 +261,23 @@ begin
 
   clk_dcm : DCM
     generic map (
-      CLKDV_DIVIDE => 8.0)
+      CLKDV_DIVIDE   => 2.0,
+      CLKFX_MULTIPLY => 5,
+      CLKFX_DIVIDE   => 2)
     port map (
-      CLK0         => clkint,           -- 0 degree DCM CLK ouptput
-      CLKFB        => clk,              -- DCM clock feedback
-      CLK180       => clk180,
-      CLKIN        => CLKIN,
-      CLKDV        => clkloint,
-      RST          => RESET
+      CLK0           => clkbint,        -- 0 degree DCM CLK ouptput
+      CLKFB          => clkb,           -- DCM clock feedback
+      CLKIN          => CLKIN,
+      CLKDV          => clkloint,
+      CLKFX          => clkint,
+      CLKFX180       => clk180,
+      RST            => RESET
       );
 
+
+  clkb_bufg : BUFG port map (
+    I => clkbint,
+    O => clkb);
 
   clk_bufg : BUFG port map (
     I => clkint,

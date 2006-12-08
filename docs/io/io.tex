@@ -9,8 +9,8 @@ There are two signals which govern frame transmission:
 \signal{DIN[15:0]}
 
 \signal{NEWFRAME} is the clock enable for the data line; the first transmitted
-word must be the length of the frame, including the header packet;
-thus this number will always be at least one.
+word must be the length of the frame, NOT including the header packet, in bytes. 
+Thus this number could be zero. 
 
 The least significant byte, \signal{DIN[7:0]}, is transmitted on the
 wire first.

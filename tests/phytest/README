@@ -1,0 +1,34 @@
+This is a very basic test of the phy; we instantiate the controller,
+and we also generate a simple packet-tx interface. 
+
+We just load a block ram with packet data and then simply send it out
+once every 100 ms.
+
+jtagserial 
+
+USER1 vs USER2:
+
+The USER1 instruction writes in the serial bits; USER2 is used to read them out. 
+
+
+nicserialio from bp using slower clock
+
+phyparse.py: 
+
+* to test: 
+1. bring phy out of reset: 
+
+[jonas@shannon phytest]$ sudo python phyparse.py write 1 1
+~/XC3Sprog/xc3sprog 0 0x02 "01 00 00 00 82"
+
+2. write "phy dout word":
+[jonas@shannon phytest]$ sudo python phyparse.py write 9 1140
+~/XC3Sprog/xc3sprog 0 0x02 "40 11 00 00 89"
+
+3. write the "phy addr register" to start the command: 
+[jonas@shannon phytest]$ sudo python phyparse.py write 8 20
+~/XC3Sprog/xc3sprog 0 0x02 "20 00 00 00 88"
+
+and then check for packets!
+
+note that the packet sent is not a valid IP packet but simply an empty ethernet frame with a valid FCS. 
