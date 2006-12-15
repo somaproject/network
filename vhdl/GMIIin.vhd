@@ -158,7 +158,7 @@ begin
 
   di <= endfin & erin & ff & "00000" & din;
 
-  RX_CLKint <= not RX_CLK; 
+  RX_CLKint <= RX_CLK; 
   rxclk_domain : process (RX_CLKint) is
   begin
     if rising_edge(RX_CLKint) then

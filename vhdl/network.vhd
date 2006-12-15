@@ -417,7 +417,7 @@ begin
     LEDACT     => LEDACT,
     LEDTX      => LEDTX,
     LEDRX      => LEDRX,
-    LED100     => LED100,
+    LED100     => LED100, 
     LED1000    => LED1000,
     LEDDPX     => LEDDPX,
     PHYRESET   => PHYRESET,
