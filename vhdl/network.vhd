@@ -46,10 +46,16 @@ architecture Behavioral of network is
 
 
   -- clock and timing signals
-  signal clk, clkio, clklo, clkrx, clk90, clk180, clk270 : std_logic := '0';
-  signal clkint, clkioint, clkloint, clkrxint            : std_logic := '0';
-  signal clkb, clkbint : std_logic := '0';
-  
+  signal clk, clkio, clklo, clkrx             : std_logic := '0';
+  signal clkint, clkioint, clkloint, clkrxint : std_logic := '0';
+  signal clkb, clkbint                        : std_logic := '0';
+  signal clkf, clkfint                        : std_logic := '0';
+
+  signal clk90, clk90int   : std_logic := '0';
+  signal clk180, clk180int : std_logic := '0';
+  signal clk270, clk270int : std_logic := '0';
+
+
   signal clken1, clken2, clken3, clken4 : std_logic := '0';
 
   -- data
@@ -265,15 +271,29 @@ begin
       CLKFX_MULTIPLY => 5,
       CLKFX_DIVIDE   => 2)
     port map (
-      CLK0           => clkbint,        -- 0 degree DCM CLK ouptput
-      CLKFB          => clkb,           -- DCM clock feedback
+      CLK0           => clkbint,        -- 50 MHz dummy feedback loop
+      CLKFB          => clkb,           -- 
       CLKIN          => CLKIN,
       CLKDV          => clkloint,
-      CLKFX          => clkint,
-      CLKFX180       => clk180,
+      CLKFX          => clkfint,        -- 125 Mhz generated clock
       RST            => RESET
       );
 
+
+  clkhi_dcm : DCM
+    port map (
+      CLK0   => clkint,                 -- 0 degree DCM CLK ouptput
+      CLKFB  => clk,                    -- DCM clock feedback
+      CLK180 => clk180int,
+      CLK90  => clk90int,
+      CLK270 => clk270int,
+      CLKIN  => clkf,
+      RST    => RESET
+      );
+
+  clkf_bufg : BUFG port map (
+    I => clkfint,
+    O => clkf);
 
   clkb_bufg : BUFG port map (
     I => clkbint,
@@ -287,7 +307,20 @@ begin
     I => clkloint,
     O => clklo);
 
-  MCLK <= not clk;
+  clk90_bufg : BUFG port map (
+    I => clk90int,
+    O => clk90 );
+
+  clk180_bufg : BUFG port map (
+    I => clk180int,
+    O => clk180 );
+
+  clk270_bufg : BUFG port map (
+    I => clk270int,
+    O => clk270 );
+
+  MCLK <= clk270;
+
   U2 : OBUF port map (I => clk180, O => GTX_CLK);
 
 
@@ -417,7 +450,7 @@ begin
     LEDACT     => LEDACT,
     LEDTX      => LEDTX,
     LEDRX      => LEDRX,
-    LED100     => LED100, 
+    LED100     => LED100,
     LED1000    => LED1000,
     LEDDPX     => LEDDPX,
     PHYRESET   => PHYRESET,

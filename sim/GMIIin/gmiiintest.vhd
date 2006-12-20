@@ -55,7 +55,7 @@ architecture behavior of GMIIintest is
 
 begin
 
-  uut : gmiiin port map(
+  gmiiin_uut : gmiiin port map(
     CLK     => CLK,
     RX_CLK  => RX_CLK,
     RX_ER   => RX_ER,
@@ -144,29 +144,29 @@ begin
     wait;
   end process;
 
-  datain                                                                                                         :    process is
-                                                                          procedure writeFIFO(constant len       : in integer;
-                                                                                              constant startdata :    in
-                                                                                              std_logic_vector(7 downto 0);
-                                                                                              constant errloc    : in integer := -1 ) is
-    variable                                                                                           data      :    std_logic_vector(7 downto 0);
-  begin
-    data                                                                                                                      := startdata;
-    for i in 1 to len loop
-      RX_DV   <= '1';
-      RXD     <= data;
-      if i = errloc then
-        RX_ER <= '1';
-      else
-        RX_ER <= '0';
-      end if;
+  datain                                   :    process
+    procedure writeFIFO(constant len       : in integer;
+                        constant startdata :    in
+                        std_logic_vector(7 downto 0);
+                        constant errloc    : in integer := -1 ) is
+      variable                   data      :    std_logic_vector(7 downto 0);
+    begin
+      data                                              := startdata;
+      for i in 1 to len loop
+        RX_DV   <= '1';
+        RXD     <= data;
+        if i = errloc then
+          RX_ER <= '1';
+        else
+          RX_ER <= '0';
+        end if;
+        wait until rising_edge(RX_CLK);
+        data                                            := (data(6 downto 0) & data(7));
+      end loop;
+      RX_DV     <= '0';
       wait until rising_edge(RX_CLK);
-      data                                                                                                                    := (data(6 downto 0) & data(7));
-    end loop;
-    RX_DV     <= '0';
-    wait until rising_edge(RX_CLK);
 
-  end procedure writeFIFO;
+    end procedure writeFIFO;
   begin
     wait for 100 ns;
     instate <= 1;
@@ -186,15 +186,15 @@ begin
     writeFIFO(500, X"48");
     wait until outstate = 3;
     -- now, we write a good frame followed by an overflow
-    writeFIFO(400, X"A7"); 
-    writeFIFO(800, X"75"); 
+    writeFIFO(400, X"A7");
+    writeFIFO(800, X"75");
     instate <= 5;
-    wait until outstate = 4; 
-    writeFIFO(400, X"7B");  
+    wait until outstate = 4;
+    writeFIFO(400, X"7B");
 
-    assert false report "End of Simulation" severity failure; 
-    wait; 
-  end process datain; 
+    report "End of Simulation" severity failure;
+    wait;
+  end process datain;
 
 
-END;
+end;
