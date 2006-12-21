@@ -319,9 +319,9 @@ begin
     I => clk270int,
     O => clk270 );
 
-  MCLK <= clk270;
+  MCLK <= clk180;
 
-  U2 : OBUF port map (I => clk180, O => GTX_CLK);
+  U2 : OBUF port map (I => clk270, O => GTX_CLK);
 
 
   rxclk_dcm : DCM
@@ -398,7 +398,7 @@ begin
     CLKIO     => clkio,
     NEXTFRAME => NEXTFRAME,
     DOUT      => DOUT,
-    DOUTEN    => doutensig);            -- DOUTEN);  DEBUGGING
+    DOUTEN    => doutensig);           
 
   tx_output : txoutput port map (
     CLK     => clk,
