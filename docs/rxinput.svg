@@ -10,7 +10,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg1"
    sodipodi:version="0.32"
-   inkscape:version="0.44"
+   inkscape:version="0.43+0.44pre2"
    width="612.00000pt"
    height="792.00000pt"
    sodipodi:docbase="/home/jonas/soma/network/docs"
@@ -214,11 +214,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.7317593"
-     inkscape:cx="403.37611"
-     inkscape:cy="660.93377"
-     inkscape:window-width="1597"
-     inkscape:window-height="1155"
+     inkscape:zoom="1.2245387"
+     inkscape:cx="518.87001"
+     inkscape:cy="804.95473"
+     inkscape:window-width="1014"
+     inkscape:window-height="693"
      showgrid="true"
      snaptogrid="true"
      inkscape:grid-points="true"
@@ -230,7 +230,7 @@
      showguides="true"
      snaptoguides="true"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="25"
      inkscape:grid-bbox="false"
      guidetolerance="5.0000000pt"
      inkscape:current-layer="svg1"
@@ -1148,45 +1148,6 @@
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
      d="M 540.62495,302.50000 L 553.12495,302.50000"
      id="path3402" />
-  <rect
-     style="fill:#ffffff;fill-opacity:1.0000000;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-opacity:1.0000000;"
-     id="rect3403"
-     width="12.500000"
-     height="12.500000"
-     x="331.25000"
-     y="211.87500" />
-  <text
-     xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
-     x="375.5383"
-     y="130.14964"
-     id="text4106"
-     sodipodi:linespacing="100%"
-     transform="translate(-42.44455,91.10036)"><tspan
-       sodipodi:role="line"
-       id="tspan4107"
-       x="375.5383"
-       y="130.14964">-4</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
-     x="344.51917"
-     y="88.997604"
-     id="text4109"
-     sodipodi:linespacing="100%"
-     transform="translate(-1.034790,147.7055)"><tspan
-       sodipodi:role="line"
-       id="tspan4110"
-       x="344.51917"
-       y="88.997604">Written frame</tspan><tspan
-       sodipodi:role="line"
-       id="tspan4119"
-       x="344.51917"
-       y="96.997604">length does</tspan><tspan
-       sodipodi:role="line"
-       id="tspan4121"
-       x="344.51917"
-       y="104.9976">not include CRC</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
      d="M 321.87500,346.25000 L 321.87500,358.75000"

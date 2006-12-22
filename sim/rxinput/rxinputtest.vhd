@@ -1,13 +1,3 @@
-
--- VHDL Test Bench Created from source file rxinput.vhd  -- 22:15:00 10/27/2004
---
--- Notes: 
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends 
--- that these types always be used for the top-level I/O of a design in order 
--- to guarantee that the testbench will bind correctly to the post-implementation 
--- simulation model.
---
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use ieee.std_logic_textio.all;
@@ -70,7 +60,8 @@ architecture behavior of RXinputtest is
 
 begin
 
-  uut : rxinput port map(
+  uut : rxinput
+    port map(
     RX_CLK     => RX_CLK,
     CLK        => CLK,
     RESET      => RESET,
@@ -97,7 +88,7 @@ begin
   CLK    <= not CLK    after 4 ns;
 
 
-  process (CLK) is
+  process (CLK)
   begin
     if rising_edge(CLK) then
       ma3 <= ma2;
@@ -173,21 +164,21 @@ begin
           hread(L, memdata);
           assert memdata = std_logic_vector(to_signed(ram(to_integer(unsigned(bpl))), 32))
             report "Error in ram data"
-            severity error; 
+            severity error;
 
-					-- yea, this is ugly, but it works
+                                        -- yea, this is ugly, but it works
           bpl := std_logic_vector(to_unsigned(
-            ((to_integer(unsigned(bpl)) + 1) mod 65536), 16)); 
+            ((to_integer(unsigned(bpl)) + 1) mod 65536), 16));
 
-        end loop; 
-      end if; 
+        end loop;
+      end if;
     end loop;
-    file_close(memfile); 
-    
+    file_close(memfile);
+
     assert false
       report "End of simulation"
-      severity failure;   
-  end process memdata; 
+      severity failure;
+  end process memdata;
 
-  
+
 END;

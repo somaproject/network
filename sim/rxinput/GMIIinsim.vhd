@@ -4,12 +4,6 @@ use ieee.std_logic_textio.all;
 use ieee.numeric_std.all;
 use std.TextIO.all;
 
--- Uncomment the following lines to use the declarations that are
--- provided for instantiating Xilinx primitive components.
---library UNISIM;
---use UNISIM.VComponents.all;
-
-
 entity GMIIin is
   port ( CLK     : in  std_logic;
          RX_CLK  : in  std_logic;
@@ -28,7 +22,7 @@ architecture Behavioral of GMIIin is
 
 begin
   -- strictly behavioral
-  process is
+  process 
             file datafile : text;
           variable L      : line;
           variable indata : std_logic_vector(15 downto 0)

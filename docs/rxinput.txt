@@ -1,6 +1,11 @@
 RX INPUT
 
-The receive input side of the fifo wears many hats. First, it must deal with a discontinuous GMII clock that is 1. not synch'd with our internal clock and 2. may exhibit significant (1%) clock differences, which add up to 1 extra bit out of 125 or 72 extra bytes in a jumbo frame. Thus we'll need a FIFO that can deal with that sort of traffic overhead -and- reject a full packet in the case of overflow. 
+The receive input side of the fifo wears many hats. First, it must
+deal with a discontinuous GMII clock that is 1. not synch'd with our
+internal clock and 2. may exhibit significant (1%) clock differences,
+which add up to 1 extra bit out of 125 or 72 extra bytes in a jumbo
+frame. Thus we'll need a FIFO that can deal with that sort of traffic
+overhead -and- reject a full packet in the case of overflow.
 
 
 Somewhat impressively, what I've created there is -so horribly complex- that I can't understand it, and I think I'm just going to start over...
@@ -39,7 +44,8 @@ RXINPUT.VHD
 
 We created FD (Frame Data) to be a signal indicating that the data on DATA is valid frame data, i.e. ENDF is not asserted nor is the data SFD data, -and- the DV line is asserted. This is necessary as any of the BnWR registers can stick for multiple states (due to VALID delays in the GMII system, i.e. there's no data to read out of the FIFO yet). 
 
-Note that the last four bytes of any frame are the FCS (well, at least, they -should be, i.e. if they're not the frame gets trashed anyway). This means that we don't need to worry about extra wait states for the memory write to finish. This also means that the BP will always be one greater than we really want. 
+We have taken to writing the FCS into memory as well as computing it
+internally for the purposes of verifying correct RX. 
 
 CRCvalid is checked in BPWAIT3 because it has a long propagation delay. 
 
@@ -50,10 +56,23 @@ RXInput can be viewed as having four parts:
    * Byte counting: bcnt counts the number of FDs that come in, i.e. the number of bytes. We reset this to -4, because FD-highs end up counting the FCS as well. Resetting to -4 is much faster than having a subtract-by-4 component. 
 
 
-   * CRC checking: Heavily pipelined CRC checking using previous CRC_combinational code. We reload CRCL withi 0xFFFFFFF to start the CRC; again, each FD-signaled byte is latched, and we eventually check to see if we arrive at the correct value -- this causes the assertion of CRCVALID. 
+   * CRC checking: Heavily pipelined CRC checking using previous
+     CRC_combinational code. We reload CRCL with 0xFFFFFFF to start
+     the CRC; again, each FD-signaled byte is latched, and we
+     eventually check to see if we arrive at the correct value -- this
+     causes the assertion of CRCVALID.
 
-    * memory address writing: this manages the base pointer. Each new cycle, we load the BP into the MACNT counter, which is eventually written out to MA; thus we sequentially write the frames. Note that we skip over writing the BP and actually write the first valid word at BP+1; the BPWEN mux lets us go back to the BP and write the BCNT value. 
+    * memory address writing: this manages the base pointer. Each new
+      cycle, we load the BP into the MACNT counter, which is
+      eventually written out to MA; thus we sequentially write the
+      frames. Note that we skip over writing the BP and actually write
+      the first valid word at BP+1; the BPWEN mux lets us go back to
+      the BP and write the BCNT value.
+
     We only update LPB (thus bpout) -after- the complete, total successful reception of a valid frame. This is the only mechanism we have to commit data to the fifo. 
 
-There is also the address valid part -- this is just a heavily pipelined subsystem that checks if the DESTADDR is of the correct type and if we are accepting frames of that type. RXALLF=1 implies we pass all frames, i.e. promiscuous mode. 
+There is also the address valid part -- this is just a heavily
+pipelined subsystem that checks if the DESTADDR is of the correct type
+and if we are accepting frames of that type. RXALLF=1 implies we pass
+all frames, i.e. promiscuous mode.
 

@@ -14,29 +14,32 @@ class ramfile:
     def addFrame(self, data, crc):
         # we take in the frame data as well as a 4-byte CRC
         # which is written to ram if the len(data) is not
-        # an exact multiple of 4 
-        l = len(data)
+        # an exact multiple of 4
+
+        tdata = data + crc # total data
+        l = len(tdata)
+        
         
         self.fid.write("%08X " % (l,))
         for i in range(l / 4):
-            val = struct.unpack("BBBB", data[(i*4):((i+1)*4)])
+            val = struct.unpack("BBBB", tdata[(i*4):((i+1)*4)])
             self.fid.write("%02X%02X%02X%02X " % (val[2], val[3], val[0], val[1]))
 
         crcval = struct.unpack("BBBB", crc)
         if l % 4 == 0:
             self.fid.write("\n")
         elif l % 4 == 1:
-            val = struct.unpack("B", data[-1])
+            val = struct.unpack("B", tdata[-1])
              
             self.fid.write("%02X%02X%02X%02X\n" % (crcval[1], crcval[2],
                                               val[0], crcval[0]))
         elif l % 4 == 2:
-            val = struct.unpack("BB", data[-2:])
+            val = struct.unpack("BB", tdata[-2:])
              
             self.fid.write("%02X%02X%02X%02X\n" % ( crcval[0],
                                               crcval[1], val[0], val[1]))
         elif l % 4 == 3:
-            val = struct.unpack("BBB", data[-3:])
+            val = struct.unpack("BBB", tdata[-3:])
              
             self.fid.write("%02X%02X%02X%02X\n" % (val[2], crcval[0], 
                                                    val[0], val[1]))

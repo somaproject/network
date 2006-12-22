@@ -62,7 +62,9 @@ architecture Behavioral of RXinput is
 
   -- states
   type states is (none, waitsfd, b0wr, b1wr, b2wr, b3wr,
-                  checkf, bpwait0, bpwait1, bpwait2,
+                  checkf, lastwait0,
+                  lastwait1, lastwait2, lastwait3,
+                  bpwait0, bpwait1, bpwait2,
                   wwait0, wwait1, wwait2,
                   bpwait3, validf);
   signal cs, ns : states := none;
@@ -172,7 +174,7 @@ begin
 
 
         if cs = none then
-          bcnt   <= X"FFFC";
+          bcnt   <= X"0000";
         else
           if fdl = '1' then
             bcnt <= bcnt + 1;
@@ -378,40 +380,65 @@ begin
         ns     <= checkf;
 
       when checkf  =>
-        rd    <= '0';
+        rd    <= '1';
         mwen  <= '1';
         nextf <= '0';
-        bpwen <= '1';
+        bpwen <= '0';
         if erl = '1' or ofl = '1'
           or fifofull = '1'
           or destok = '0' then
           ns  <= none;
         else
-          ns  <= bpwait0;
+          ns  <= lastwait0;
         end if;
+
+      when lastwait0 =>
+        rd <= '0';
+        mwen <= '0';
+        nextf <= '0';
+        bpwen <= '0';
+        ns <= lastwait1;
+        
+      when lastwait1 =>
+        rd <= '0';
+        mwen <= '0';
+        nextf <= '0';
+        bpwen <= '0';
+        ns <= lastwait2;
+        
+      when lastwait2 =>
+        rd <= '0';
+        mwen <= '0';
+        nextf <= '0';
+        bpwen <= '0';
+        ns <= bpwait0; 
+        
       when bpwait0 =>
         rd    <= '0';
-        mwen  <= '0';
+        mwen  <= '1';
         nextf <= '0';
         bpwen <= '1';
         ns    <= bpwait1;
+        
       when bpwait1 =>
         rd    <= '0';
         mwen  <= '0';
         nextf <= '0';
         bpwen <= '1';
         ns    <= bpwait2;
+        
       when bpwait2 =>
         rd    <= '0';
         mwen  <= '0';
         nextf <= '0';
         bpwen <= '1';
         ns    <= bpwait3;
+        
       when bpwait3 =>
         rd    <= '0';
         mwen  <= '1';
         nextf <= '0';
-        bpwen <= '0';
+        bpwen <= '1';
         if crcvalid = '0' then
           ns  <= none;
         else
