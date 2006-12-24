@@ -94,7 +94,7 @@ begin
 
         --byte count
         if ldbcnt = '1' then
-          bcnt <= MQ(15 downto 0);
+          bcnt <= MQ(15 downto 0) - X"0004";
         elsif decbcnt = '1' then
           bcnt <= bcnt - 1;
         end if;
