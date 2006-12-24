@@ -33,8 +33,8 @@ architecture Behavioral of RXoutput is
  := (others => '0');
 
   -- input side
-  signal mdl     : std_logic_vector(31 downto 0)  := (others => '0');
-  signal ldi, di : std_logic_vector(15 downto 0)  := (others => '0');
+  signal mdl     : std_logic_vector(31 downto 0) := (others => '0');
+  signal ldi, di : std_logic_vector(15 downto 0) := (others => '0');
   signal lai, ai : std_logic_vector(9 downto 0)  := (others => '0');
 
   signal fifowe, fifowel, we, nfll, halffull, nearfull,
@@ -157,8 +157,26 @@ architecture Behavioral of RXoutput is
 
   end component;
 
+-- CRC signals
+  signal cdl : std_logic_vector(7 downto 0) := (others =>'0');
+  signal crc, crcl : std_logic_vector(31 downto 0) := (others => '0');
+  signal cmux : integer range 0 to 3 := 0;
+  
+  component crc_combinational
+    port ( CI : in  std_logic_vector(31 downto 0);
+           D  : in  std_logic_vector(7 downto 0);
+           CO : out std_logic_vector(31 downto 0));
+  end component;
+
 begin
 
+  crc_inst: crc_combinational
+    port map (
+      CI => crcl,
+      CO => crc,
+      D  => cdl); 
+    
+    
   -- ram instantiation
   fifo : RAMB16_S18_S18 port map (
     DIA   => di,
@@ -188,7 +206,7 @@ begin
 
 
 
-  output : process(CLKIO) 
+  output : process(CLKIO)
   begin
     if rising_edge(CLKIO) then
       DOUT    <= do;
@@ -217,7 +235,7 @@ begin
 
   MA <= macnt;
 
-  input : process(RESET, CLK) 
+  input : process(RESET, CLK)
   begin
     if RESET = '1' then
       cs    <= none;
@@ -327,7 +345,7 @@ begin
                '1' when addrmsbs = "1110" else
                '0';
 
-  fsm : process(CS, nfll, bpinl, bp, clken, nearfull, halffull) 
+  fsm : process(CS, nfll, bpinl, bp, clken, nearfull, halffull)
   begin
     case cs is
       when none      =>

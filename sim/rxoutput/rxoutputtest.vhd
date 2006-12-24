@@ -216,8 +216,7 @@ begin
 
     end loop; 
 
-    assert false
-      report "End of Simulation"
+    report "End of Simulation"
       severity failure;  
     
   end process checkdata; 	

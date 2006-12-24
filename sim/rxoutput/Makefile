@@ -3,10 +3,13 @@ VHDLS=vhdle
 WORKDIR=work.sym
 all: hw comp sim
 
-$(WORKDIR)/rxoutput/_behavioral.var: ../../vhdl/RXoutput.vhd
-	$(VHDLC) ../../vhdl/RXoutput.vhd
+$(WORKDIR)/rxoutput/_behavioral.var: ../../vhdl/rxoutput.vhd
+	$(VHDLC) ../../vhdl/rxoutput.vhd
 
-hw: $(WORKDIR)/rxoutput/_behavioral.var 
+$(WORKDIR)/crc_combinational/_behavioral.var: ../../vhdl/rxoutput.vhd ../../vhdl/crc_combinational.vhd
+	$(VHDLC) ../../vhdl/crc_combinational.vhd
+
+hw: $(WORKDIR)/rxoutput/_behavioral.var $(WORKDIR)/crc_combinational/_behavioral.var 
 
 comp: 
 

@@ -1,5 +1,8 @@
 import struct
 import random
+import sys
+sys.path.append("../../code/")
+import crcmod
 
 class RamWrite:
     def __init__(self):
@@ -71,6 +74,9 @@ class DataWrite:
         self.fid = file(filename, 'w')
 
     def write(self, noplen, dlen, data):
+        """
+        dlen == words to wait for
+        """
         self.fid.write("%d %d " % (noplen, dlen))
 
         self.fid.write("%04X " % (len(data), ))
@@ -98,58 +104,70 @@ class BpWrite:
 
                 
 
+def packageData(data):
+    """ Takes in data and
+
+    """
+    fcscrc = crcmod.Crc(0x104C11DB7)
+    fcscrc.update(data)
+    
+    i = struct.unpack('i', fcscrc.digest())[0]
+    invcrc = struct.pack('I', ~i)
+    outdata = data + invcrc[3] + invcrc[2] + invcrc[1] + invcrc[0]
+    return outdata
+
 def simplepackets(bpfid, ram, data):
     # simple code to write tiny packets and see if we process them correctly.
     # sure, we'll never encounter these in the real world, but it doesn't
     # hurt to be correct everywhere.
 
     # first, len = 1
-    bpfid.write(2)
-    d = "A"
+    bpfid.write(3)
+    d = packageData("A")
     ram.write(d)
-    data.write(0, 2, d)
+    data.write(0, 4, d)
 
     # len = 2
-    bpfid.write(2)
-    d = "AB"
+    bpfid.write(3)
+    d = packageData("AB")
     ram.write(d)
-    data.write(0, 2, d)
+    data.write(0, 4, d)
 
     # len = 3
-    bpfid.write(2)
-    d = "ABC"
+    bpfid.write(3)
+    d = packageData("ABC")
     ram.write(d)
-    data.write(0, 3, d)
+    data.write(0, 5, d)
     
     # len = 4
-    bpfid.write(2)
-    d = "WXYZ"
+    bpfid.write(3)
+    d = packageData("WXYZ")
     ram.write(d)
-    data.write(0, 3, d)
+    data.write(0, 5, d)
     
     # len = 5
-    bpfid.write(3)
-    d = "\x00\x01\x02\x03\x04"
+    bpfid.write(4)
+    d = packageData("\x00\x01\x02\x03\x04")
     ram.write(d)
-    data.write(0, 4, d)
+    data.write(0, 6, d)
     
     # len = 6
-    bpfid.write(3)
-    d = "\x00\x01\x02\x03\x04\x05"
+    bpfid.write(4)
+    d = packageData("\x00\x01\x02\x03\x04\x05")
     ram.write(d)
-    data.write(0, 4, d)
+    data.write(0, 6, d)
 
     # len = 7
-    bpfid.write(3)
-    d = "\x00\x01\x02\x03\x04\x05\x06"
+    bpfid.write(4)
+    d = packageData("\x00\x01\x02\x03\x04\x05\x06")
     ram.write(d)
-    data.write(0, 5, d)
+    data.write(0, 7, d)
 
     # len = 8
-    bpfid.write(3)
-    d = "\x00\x01\x02\x03\x04\x05\x06\07"
+    bpfid.write(4)
+    d = packageData("\x00\x01\x02\x03\x04\x05\x06\07")
     ram.write(d)
-    data.write(0, 5, d)
+    data.write(0, 7, d)
 
 def randpacket(delay, bpfid, ram, data, minsize, maxsize):
     # packet larger than the fifo
@@ -158,7 +176,8 @@ def randpacket(delay, bpfid, ram, data, minsize, maxsize):
     for i in range(l):
         s += struct.pack("B", random.randint(0, 255))
 
-    
+    l += 4  # add on the CRC
+    s = packageData(s)
     bpfid.write((l+3)/4 + 1)
     ram.write(s)
     data.write(delay, (l+1)/2 + 1 , s)

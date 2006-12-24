@@ -1,21 +1,25 @@
 RXoutput fifo test:
 
-To deal with wrap-around, we shall create multiple ram files:
+To deal with memory buffer wrap-around, we shall create multiple ram files:
+
 ram.0.low.dat
 ram.0.high.dat
 ram.1.low.dat
 ram.1.high.dat
 
 which will be sequentially loaded. 
+
 We have the "correct" output as a list of output frames (data.dat) with:
 
 0 100 0123 AB12 CF84 ...
 
 where 0 is the number of ticks to wait with NEXTFRAME low
-and 100 is the number of DATAEN=highs to wait, thus by setting this number less than the total length of the frame we can abort early
-and the remaining data on the line is the data valid in the frame. 
 
+and 100 is the number of DATAEN=high to wait, thus by setting this
+number less than the total length of the frame we can abort early and
+check for recovery.
 
+The remaining data on the line is the data valid in the frame. 
 
  we will increment the base pointers with bp.dat, which is read as:
 
