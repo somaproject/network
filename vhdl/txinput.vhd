@@ -371,7 +371,7 @@ begin
         men        <= '0';
         bpen       <= '1';
         cpen       <= '0';
-        DONE       <= '0';
+        DONE       <= '1';
         ns         <= pktdone3;
 
       when abortfifo =>
@@ -401,7 +401,7 @@ begin
         men        <= '0';
         bpen       <= '0';
         cpen       <= '0';
-        DONE       <= '1';
+        DONE       <= '0';
         if newfint = '1' then
           ns       <= pktdone3;
         else

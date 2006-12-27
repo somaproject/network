@@ -49,7 +49,7 @@ architecture behavior of txinputtest is
   
 begin
 
-  uut : txinput port map(
+ txinput_uut : txinput port map(
     CLK        => CLK,
     CLKIO      => CLKIO,
     RESET      => RESET,
@@ -115,7 +115,7 @@ begin
       if memaddrl /= MA then
         memaddrl := MA;
         assert matick > 2
-          report "Memory state error : MA was not constant  for at least 4 ticks"
+          report "Memory state error : MA was not constant for at >= 4 ticks"
           severity error;
         matick   := 0;
       else
@@ -124,7 +124,7 @@ begin
       if memdatal /= MD then
         memdatal := MD;
         assert mdtick > 2
-          report "Memory state error : MD was not constant  for at least 4 ticks"
+          report "Memory state error : MD was not constant for at >= 4 ticks"
           severity error;
         mdtick   := 0;
       else
@@ -133,7 +133,7 @@ begin
       if mwel /= MWEN then
         mwel     := MWEN;
         assert mwetick > 2
-          report "Memory state error : MWE was not constant for at least 4 ticks"
+          report "Memory state error : MWE was not constant for at >= 4 ticks"
           severity error;
         mwetick  := 0;
       else
