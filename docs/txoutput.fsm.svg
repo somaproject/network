@@ -10,7 +10,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="txoutput.fsm.svg"
    sodipodi:docbase="/home/jonas/soma/network/docs"
-   inkscape:version="0.44"
+   inkscape:version="0.43+0.44pre2"
    sodipodi:version="0.32"
    id="svg1996"
    height="792.00000pt"
@@ -227,11 +227,7 @@
          sodipodi:role="line"
          x="246.875"
          y="106.25"
-         id="tspan2032">LTXEN=1</tspan><tspan
-         sodipodi:role="line"
-         x="246.875"
-         y="117.5"
-         id="tspan2034">CRCRST=1</tspan></text>
+         id="tspan2034">LTXEN=1</tspan></text>
     <path
        id="path2036"
        d="M 396.875,52.5 L 428.125,52.5"
@@ -595,25 +591,33 @@
     <text
        xml:space="preserve"
        style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="537.5"
-       y="193.125"
+       x="600"
+       y="174.375"
        id="text2186"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="537.5"
-         y="193.125"
+         x="600"
+         y="174.375"
          id="tspan2188">OUTSEL=1</tspan><tspan
          sodipodi:role="line"
-         x="537.5"
-         y="204.375"
+         x="600"
+         y="185.625"
          id="tspan2190">ADDRINC=1</tspan><tspan
          sodipodi:role="line"
-         x="537.5"
-         y="215.625"
+         x="600"
+         y="196.875"
          id="tspan2200">LDBCNT=1</tspan><tspan
          sodipodi:role="line"
-         x="537.5"
-         y="226.875"
+         x="600"
+         y="208.125"
+         id="tspan9162">CRCEN=1</tspan><tspan
+         sodipodi:role="line"
+         x="600"
+         y="219.375"
+         id="tspan9164">CRCSEL=0</tspan><tspan
+         sodipodi:role="line"
+         x="600"
+         y="230.625"
          id="tspan2202">LTXEN=1</tspan></text>
     <path
        style="opacity:1;color:black;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:url(#TriangleOutM);stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
@@ -746,14 +750,18 @@
          sodipodi:role="line"
          x="334.375"
          y="325"
-         id="tspan3145">OUTSEL=0</tspan><tspan
+         id="tspan9158">CRCSEL=0</tspan><tspan
          sodipodi:role="line"
          x="334.375"
          y="336.25"
-         id="tspan3147">LTXEN=1</tspan><tspan
+         id="tspan3145">OUTSEL=0</tspan><tspan
          sodipodi:role="line"
          x="334.375"
          y="347.5"
+         id="tspan3147">LTXEN=1</tspan><tspan
+         sodipodi:role="line"
+         x="334.375"
+         y="358.75"
          id="tspan3153">DECBCNT=1</tspan></text>
     <g
        id="g3155"
@@ -804,7 +812,7 @@
          sodipodi:role="line"
          x="493.75"
          y="313.75"
-         id="tspan3171">CRCEN=1</tspan><tspan
+         id="tspan3171">CRCEN=0</tspan><tspan
          sodipodi:role="line"
          x="493.75"
          y="325"
@@ -874,10 +882,14 @@
          sodipodi:role="line"
          x="653.125"
          y="336.25"
-         id="tspan3203">LTXEN=1</tspan><tspan
+         id="tspan9160">CRCSEL=1</tspan><tspan
          sodipodi:role="line"
          x="653.125"
          y="347.5"
+         id="tspan3203">LTXEN=1</tspan><tspan
+         sodipodi:role="line"
+         x="653.125"
+         y="358.75"
          id="tspan3209">DECBCNT=1</tspan></text>
     <path
        style="opacity:1;color:black;fill:white;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:url(#TriangleOutM);stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"

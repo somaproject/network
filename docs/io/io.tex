@@ -8,12 +8,15 @@ There are two signals which govern frame transmission:
 
 \signal{DIN[15:0]}
 
-\signal{NEWFRAME} is the clock enable for the data line; the first transmitted
-word must be the length of the frame, NOT including the header packet, in bytes. 
-Thus this number could be zero. 
+\signal{NEWFRAME} is the clock enable for the data line; the first
+transmitted word must be the length of the frame, NOT including the
+header packet, in bytes.  Thus this number could be zero.
 
-The least significant byte, \signal{DIN[7:0]}, is transmitted on the
+The most significant byte, \signal{DIN[15:8]}, is transmitted on the
 wire first.
+
+Along with each packet, we also transmit a 32-bit CRC at the end,
+ethernet frame style.
 
 \subsection{Possible errors}
 \begin{enumerate}
