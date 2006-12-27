@@ -1,0 +1,7 @@
+Best practices for testbenches: 
+
+1. test all error code paths and counters. For example, if invalid or problematic frames result in the assertion of TXERROR, make sure that we test with an invalid frame to trigger this assertion. 
+
+2. Make sure that the base pointers update correctly
+
+3. Make sure memory writes are stable for 4 ticks or more

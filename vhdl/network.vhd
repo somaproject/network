@@ -88,6 +88,9 @@ architecture Behavioral of network is
   signal rxmcast, rxbcast, rxucast, rxallf : std_logic                     := '0';
   signal macaddr                           : std_logic_vector(47 downto 0) := (others => '0');
 
+  -- memory read/write error
+  signal rxmemcrcerr, txmemcrcerr : std_logic := '0';
+  
   -- debugging
   signal debugaddr  : std_logic_vector(16 downto 0) := (others => '0');
   signal debugdata  : std_logic_vector(31 downto 0) := (others => '0');
@@ -158,6 +161,8 @@ architecture Behavioral of network is
            MA        : out std_logic_vector(15 downto 0);
            MQ        : in  std_logic_vector(31 downto 0);
            CLKIO     : in  std_logic;
+         MEMCRCERR : out std_logic; 
+           
            NEXTFRAME : in  std_logic;
            DOUT      : out std_logic_vector(15 downto 0);
            DOUTEN    : out std_logic);
@@ -172,6 +177,7 @@ architecture Behavioral of network is
            TXD     : out std_logic_vector(7 downto 0);
            TXEN    : out std_logic;
            TXF     : out std_logic;
+           MEMCRCERR : out std_logic; 
            FBBP    : out std_logic_vector(15 downto 0);
            CLKEN   : in  std_logic;
            GTX_CLK : out std_logic);
@@ -225,6 +231,9 @@ architecture Behavioral of network is
            RXMCAST    : out   std_logic;
            RXUCAST    : out   std_logic;
            RXALLF     : out   std_logic;
+           TXMEMCRCERR : in std_logic;
+           RXMEMCRCERR : in std_logic;
+           
            MACADDR    : out   std_logic_vector(47 downto 0);
            MDIO       : inout std_logic;
            MDC        : out   std_logic;
@@ -319,7 +328,7 @@ begin
     I => clk270int,
     O => clk270 );
 
-  MCLK <= clk180;
+  MCLK <= clk;
 
   U2 : OBUF port map (I => clk270, O => GTX_CLK);
 
@@ -395,6 +404,7 @@ begin
     FBBP      => rxfbbp,
     MA        => addr3,
     MQ        => q3,
+    MEMCRCERR => rxmemcrcerr, 
     CLKIO     => clkio,
     NEXTFRAME => NEXTFRAME,
     DOUT      => DOUT,
@@ -409,6 +419,7 @@ begin
     TXD     => TXD,
     TXEN    => TX_EN,
     TXF     => txf,
+    MEMCRCERR => txmemcrcerr, 
     FBBP    => txfbbp,
     CLKEN   => clken2,
     GTX_CLK => open);
@@ -465,6 +476,8 @@ begin
     RXMCAST    => rxmcast,
     RXUCAST    => rxucast,
     RXALLF     => rxallf,
+    RXMEMCRCERR => rxmemcrcerr,
+    TXMEMCRCERR => txmemcrcerr,
     MACADDR    => macaddr,
     MDIO       => MDIO,
     MDC        => MDC,

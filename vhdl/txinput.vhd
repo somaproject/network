@@ -6,22 +6,23 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 library UNISIM;
 use UNISIM.VComponents.all;
 
-entity TXinput is
+entity txinput is
   port ( CLK        : in  std_logic;
          CLKIO      : in  std_logic;
          RESET      : in  std_logic;
          DIN        : in  std_logic_vector(15 downto 0);
          NEWFRAME   : in  std_logic;
-         MD         : out std_logic_vector(31 downto 0);
+         MD         : out std_logic_vector(31 downto 0) := (others => '0');
          MWEN       : out std_logic;
-         MA         : out std_logic_vector(15 downto 0);
+         MA         : out std_logic_vector(15 downto 0) := (others => '0'); 
          FIFOFULL   : in  std_logic;
          BPOUT      : out std_logic_vector(15 downto 0);
          TXFIFOWERR : out std_logic;
+         TXIOCRCERR : out std_logic;
          DONE       : out std_logic);
-end TXinput;
+end txinput;
 
-architecture Behavioral of TXinput is
+architecture Behavioral of txinput is
 
   signal dh, dl : std_logic_vector(15 downto 0) := (others => '0');
   signal lmd    : std_logic_vector(31 downto 0) := (others => '0');
@@ -35,7 +36,9 @@ architecture Behavioral of TXinput is
   signal CNT      : std_logic_vector(15 downto 0);
 
   type states is (none, newf, low_w, low, high_w, high, waitlow,
-                  lowmemw, pktdone1, pktdone2, pktdone3, pktabort);
+                  lowmemw, pktdone1, pktdone2, crcinchk, pktdone3,
+                  abortfifo, abortcrc);
+  
   signal cs, ns : states := none;
 
   -- signals for clock-boundary-crossing logic
@@ -48,7 +51,12 @@ architecture Behavioral of TXinput is
   -- fifo control
   signal fifofulll : std_logic := '0';
 
+  -- crc signals
+  signal crcreset, crcvalid, crcdone, crcen : std_logic := '0';
 
+  -- error signals
+  signal ltxiocrcerr, ltxfifowerr : std_logic := '0';
+  
   component SRL16
     generic (
       INIT    :     bit_vector := X"0000");
@@ -61,11 +69,33 @@ architecture Behavioral of TXinput is
           Q   : out std_logic);
   end component;
 
+  component crcverify
+    port (
+      CLK      : in  std_logic;
+      DIN      : in  std_logic_vector(15 downto 0);
+      DINEN    : in  std_logic;
+      RESET    : in  std_logic;
+      CRCVALID : out std_logic;
+      DONE     : out std_logic);
+  end component;
+
+
 begin
 
   lmd   <= dh & dl;
   BPOUT <= bp;
 
+  crcreset <= '1' when newfint = '0' else '0';
+  crcen <= (dhen or dlen) and den; 
+  
+  crcverify_inst : crcverify
+    port map (
+      CLK      => CLK,
+      DIN      => dinint,
+      DINEN    => crcen,
+      RESET    => crcreset,
+      CRCVALID => crcvalid,
+      DONE     => crcdone);
 
   -- clocks to outside:
   clock_external : process(CLKIO)
@@ -108,6 +138,9 @@ begin
 
   lden <= enableintl xor enableint;
 
+  ltxiocrcerr <= '1' when cs = abortcrc else '0';
+  ltxfifowerr <= '1' when cs = abortfifo else '0';
+  
 
   clock : process(CLK, RESET)
   begin
@@ -120,6 +153,8 @@ begin
       if rising_edge(CLK) then
         dinl <= DIN;
 
+        TXIOCRCERR <= ltxiocrcerr;
+        
         newframel <= NEWFRAME;
         cs        <= ns;
 
@@ -171,15 +206,20 @@ begin
           MWEN <= mrw;
           MA   <= addr;
         end if;
+
+        -- error signals
+        TXIOCRCERR <= ltxiocrcerr;
+        TXFIFOWERR <= ltxfifowerr; 
       end if;
     end if;
   end process clock;
 
 
-  fsm : process(cs, ns, den, din, dinint, newfint, cnt, fifofulll)
+  fsm : process(cs, ns, den, din, dinint, newfint, cnt, crcdone,
+                fifofulll)
   begin
     case cs is
-      when none  =>
+      when none =>
         dlen       <= '1';
         dhen       <= '0';
         mrw        <= '0';
@@ -187,13 +227,12 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         if den = '1' and newfint = '1' then
           ns       <= newf;
         else
           ns       <= none;
         end if;
-        
+
       when newf  =>
         dlen       <= '1';
         dhen       <= '0';
@@ -202,12 +241,12 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         if newfint = '0' then
           ns       <= none;
         else
           ns       <= low_w;
         end if;
+
       when low_w =>
         dlen       <= '1';
         dhen       <= '0';
@@ -216,7 +255,6 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         if newfint = '0' then
           ns       <= none;
         else
@@ -235,7 +273,6 @@ begin
         bpen       <= '0';
         cpen       <= '1';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         if cnt = 0 or cnt = 65535 then  --i.e. 0 or -1
           ns       <= waitlow;
         else
@@ -250,7 +287,6 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         if newfint = '0' then
           ns       <= none;
         else
@@ -261,7 +297,7 @@ begin
           end if;
         end if;
 
-      when high   =>
+      when high =>
         dlen       <= '0';
         dhen       <= '1';
         mrw        <= '1';
@@ -269,12 +305,11 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
 
         if cnt = 0 or cnt = 65535 then  --i.e. 0 or -1
-          ns       <= pktdone1;
+          ns <= pktdone1;
         else
-          ns       <= low_w;
+          ns <= low_w;
         end if;
 
       when waitlow =>
@@ -285,7 +320,6 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         ns         <= lowmemw;
 
       when lowmemw =>
@@ -296,7 +330,6 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         ns         <= pktdone1;
 
       when pktdone1 =>
@@ -307,11 +340,28 @@ begin
         bpen       <= '0';
         cpen       <= '1';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         if fifofulll = '1' then
-          ns       <= pktabort;
+          ns       <= abortfifo;
         else
-          ns       <= pktdone2;
+          ns       <= crcinchk;
+        end if;
+
+      when crcinchk =>
+        dlen       <= '0';
+        dhen       <= '0';
+        mrw        <= '0';
+        men        <= '0';
+        bpen       <= '0';
+        cpen       <= '0';
+        DONE       <= '0';
+        if crcdone = '1' then
+          if crcvalid = '1' then
+            ns <= pktdone2;
+          else
+            ns <= abortcrc; 
+          end if;
+        else
+          ns <= crcinchk; 
         end if;
 
       when pktdone2 =>
@@ -322,10 +372,9 @@ begin
         bpen       <= '1';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         ns         <= pktdone3;
-        
-      when pktabort =>
+
+      when abortfifo =>
         dlen       <= '0';
         dhen       <= '0';
         mrw        <= '0';
@@ -333,9 +382,18 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '1';
         ns         <= none;
-        
+
+      when abortcrc =>
+        dlen       <= '0';
+        dhen       <= '0';
+        mrw        <= '0';
+        men        <= '0';
+        bpen       <= '0';
+        cpen       <= '0';
+        DONE       <= '0';
+        ns         <= none;
+
       when pktdone3 =>
         dlen       <= '0';
         dhen       <= '0';
@@ -344,14 +402,13 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '1';
-        TXFIFOWERR <= '0';
         if newfint = '1' then
           ns       <= pktdone3;
         else
           ns       <= none;
         end if;
-        
-      when others   =>
+
+      when others =>
         dlen       <= '0';
         dhen       <= '0';
         mrw        <= '0';
@@ -359,7 +416,6 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        TXFIFOWERR <= '0';
         ns         <= none;
     end case;
 

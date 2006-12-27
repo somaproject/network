@@ -19,6 +19,7 @@ architecture behavior of rxoutputtest is
       MQ        : in  std_logic_vector(31 downto 0);
       CLKIO     : in  std_logic;
       NEXTFRAME : in  std_logic;
+      MEMCRCERR : out std_logic; 
       FBBP      : out std_logic_vector(15 downto 0);
       MA        : out std_logic_vector(15 downto 0);
       DOUT      : out std_logic_vector(15 downto 0);
@@ -35,6 +36,7 @@ architecture behavior of rxoutputtest is
   signal MQ           : std_logic_vector(31 downto 0);
   signal CLKIO        : std_logic := '0';
   signal NEXTFRAME    : std_logic := '0';
+  signal MEMCRCERR    : std_logic := '0';
   signal DOUT         : std_logic_vector(15 downto 0);
   signal DOUTEN       : std_logic;
   signal READDATA     : std_logic_vector(31 downto 0)
@@ -51,6 +53,7 @@ begin
     FBBP      => FBBP,
     MA        => MA,
     MQ        => MQ,
+    MEMCRCERR => MEMCRCERR, 
     CLKIO     => CLKIO,
     NEXTFRAME => NEXTFRAME,
     DOUT      => DOUT,

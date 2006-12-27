@@ -6,10 +6,16 @@ all: hw comp sim
 $(WORKDIR)/crc_combinational/_behavioral.var: ../../vhdl/crc_combinational.vhd
 	$(VHDLC) ../../vhdl/crc_combinational.vhd
 
-$(WORKDIR)/txoutput/_behavioral.var: ../../vhdl/crc_combinational.vhd ../../vhdl/TXoutput.vhd
-	$(VHDLC) ../../vhdl/TXoutput.vhd
+$(WORKDIR)/crc16_combinational/_behavioral.var: ../../vhdl/crc_combinational.vhd ../../vhdl/crc16_combinational.vhd
+	$(VHDLC) ../../vhdl/crc16_combinational.vhd
 
-hw: $(WORKDIR)/crc_combinational/_behavioral.var $(WORKDIR)/txoutput/_behavioral.var 
+$(WORKDIR)/crcverify/_behavioral.var: ../../vhdl/crc_combinational.vhd ../../vhdl/crc16_combinational.vhd ../../vhdl/crcverify.vhd
+	$(VHDLC) ../../vhdl/crcverify.vhd
+
+$(WORKDIR)/txoutput/_behavioral.var: ../../vhdl/crc_combinational.vhd ../../vhdl/crc16_combinational.vhd ../../vhdl/crcverify.vhd ../../vhdl/txoutput.vhd
+	$(VHDLC) ../../vhdl/txoutput.vhd
+
+hw: $(WORKDIR)/crc_combinational/_behavioral.var $(WORKDIR)/crc16_combinational/_behavioral.var $(WORKDIR)/crcverify/_behavioral.var $(WORKDIR)/txoutput/_behavioral.var 
 
 $(WORKDIR)/simpleram/_behavioral.var: ../components/simpleram/simpleram.vhdl
 	$(VHDLC) ../components/simpleram/simpleram.vhdl

@@ -129,10 +129,9 @@ begin
         T_ENABLE <= (not lwe) after 0 ns;
 
         if llwe = '0' then              -- a write
-          wait for 1 ps;
-          
+          --report "Writing to " & integer'image(to_integer(unsigned(lladdr)));
+          --report "value = " & integer'image(to_integer(unsigned(din)));
           SRAM(to_integer(unsigned(lladdr))) := din;
-          
         end if;
 
       end if;

@@ -78,10 +78,10 @@ class RXoutput:
 
         for i in range(len(data)/2):
             vals = struct.unpack("BB", data[i*2:(i+1)*2])
-            self.fid.write("%02X%02X " % (vals[1], vals[0]))
+            self.fid.write("%02X%02X " % (vals[0], vals[1]))
         if len(data) % 2 == 1:
             vals = struct.unpack("B", data[-1])
-            self.fid.write("00%02X" % (vals[0],))
+            self.fid.write("%02X00" % (vals[0],))
         self.fid.write("\n")
 
 
@@ -129,7 +129,7 @@ class RXsystem:
         self.gfid.writeempty(int(len(fdata)*0.07))
         
         if (not RXErrors) and CRCvalid :
-            d = f.getWire(preamble=0, SFD=False)[:-4]
+            d = f.getWire(preamble=0, SFD=False) # include the crc
             self.dfid.write(nop, (len(d) + 1)/2 - readShort+1, d)
 
 
@@ -154,12 +154,12 @@ class TXinput:
             lowbyte = struct.unpack("B", data[2*i])[0]
             highbyte = struct.unpack("B", data[2*i+1])[0]
             
-            self.dinfile.write("1 %02X%02X\n" %(highbyte, lowbyte) )
+            self.dinfile.write("1 %02X%02X\n" %(lowbyte, highbyte) )
             
         if (length % 2) == 1:
-            self.dinfile.write("1 00%02X\n" % struct.unpack("B", data[-1])[0])
+            self.dinfile.write("1 %02X00\n" % struct.unpack("B", data[-1])[0])
 
-        self.wait(3)
+        self.wait(5)
 
 class TXoutput:
     def __init__(self, iteration):
@@ -197,7 +197,7 @@ class TXsystem:
                         0x0101, data)
 
         fdataall = f.getWire(preamble=0, SFD=False)
-        fdata = fdataall[:-4] # no CRC
+        fdata = fdataall 
         self.dfid.write(len(fdata), fdata)
 
         self.gfid.write(f)

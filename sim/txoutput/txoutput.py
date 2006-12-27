@@ -6,6 +6,24 @@ sys.path.append("../../code/")
 import frame
 import random
 import struct
+import numpy
+import crcmod
+
+def generateCRC(data):
+    """ Takes in data and appends the crc
+
+    """
+    fcscrc = crcmod.Crc(0x104C11DB7)
+    # create the string:
+    d = ""
+    for i in data:
+        d += chr(i)
+        
+    fcscrc.update(d)
+    
+    i = struct.unpack('i', fcscrc.digest())[0]
+    invcrc = struct.pack('I', ~i)
+    return [ord(invcrc[3]),  ord(invcrc[2]), ord(invcrc[1]), ord(invcrc[0])]
 
 filename = "basic"
 
@@ -16,11 +34,11 @@ gmiifile = file("%s.gmii.dat" % filename, 'w')
 ramaddr = 0; 
 
 for i in range(256):
-    framedatalen = random.randint(56, 1500)
+    framedatalen = random.randint(56, 100)
     framedata = range(framedatalen)
 
     for i in range(framedatalen):
-        framedata[i] = random.randint(0, 255)
+        framedata[i] = i % 256 #random.randint(0, 255)
 
     destmacaddr = range(6)
     srcmacaddr =  range(6)
@@ -30,9 +48,14 @@ for i in range(256):
 
     protocol = [8, 0]
         
-    totallen = 6 + 6 + 2 + framedatalen
-    totaldata = destmacaddr + srcmacaddr + protocol + framedata + [0, 0, 0, 0]
-
+    
+    totaldata = destmacaddr + srcmacaddr + protocol + framedata
+    crc = generateCRC(totaldata)
+    totaldata = totaldata + crc
+    totallen = len(totaldata)
+    totaldata += [0, 0, 0, 0] # extra padding so ram write has enough to add
+    
+    
     # write the current ram address as a bp
     bpfile.write("%d %d \n" % (ramaddr, totallen))
 
@@ -53,7 +76,7 @@ for i in range(256):
 
     # GMII output
     totalbindata = ""
-    for i in framedata:
+    for i in (framedata + crc) :
         totalbindata += struct.pack("B", i)
     
     f = frame.frame(destmacaddr, srcmacaddr, 0x0800, totalbindata)

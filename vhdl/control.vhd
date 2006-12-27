@@ -4,40 +4,42 @@ use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity control is
-  port ( CLK        : in    std_logic;
-         CLKLO      : in    std_logic;
-         RESET      : in    std_logic;
-         SCLK       : in    std_logic;
-         SCS        : in    std_logic;
-         SIN        : in    std_logic;
-         SOUT       : out   std_logic;
-         LEDACT     : out   std_logic;
-         LEDTX      : out   std_logic;
-         LEDRX      : out   std_logic;
-         LED100     : out   std_logic;
-         LED1000    : out   std_logic;
-         LEDDPX     : out   std_logic;
-         PHYRESET   : out   std_logic;
-         TXF        : in    std_logic;
-         RXF        : in    std_logic;
-         TXFIFOWERR : in    std_logic;
-         RXFIFOWERR : in    std_logic;
-         RXPHYERR   : in    std_logic;
-         RXOFERR    : in    std_logic;
-         RXCRCERR   : in    std_logic;
-         RXBCAST    : out   std_logic;
-         RXMCAST    : out   std_logic;
-         RXUCAST    : out   std_logic;
-         RXALLF     : out   std_logic;
-         MACADDR    : out   std_logic_vector(47 downto 0);
-         MDIO       : inout std_logic;
-         MDC        : out   std_logic;
-         MDEBUGADDR : out   std_logic_vector(16 downto 0);
-         MDEBUGDATA : in    std_logic_vector(31 downto 0);
-         RXBP       : in    std_logic_vector(15 downto 0);
-         RXFBBP     : in    std_logic_vector(15 downto 0);
-         TXBP       : in    std_logic_vector(15 downto 0);
-         TXFBBP     : in    std_logic_vector(15 downto 0));
+  port ( CLK         : in    std_logic;
+         CLKLO       : in    std_logic;
+         RESET       : in    std_logic;
+         SCLK        : in    std_logic;
+         SCS         : in    std_logic;
+         SIN         : in    std_logic;
+         SOUT        : out   std_logic;
+         LEDACT      : out   std_logic;
+         LEDTX       : out   std_logic;
+         LEDRX       : out   std_logic;
+         LED100      : out   std_logic;
+         LED1000     : out   std_logic;
+         LEDDPX      : out   std_logic;
+         PHYRESET    : out   std_logic;
+         TXF         : in    std_logic;
+         RXF         : in    std_logic;
+         TXFIFOWERR  : in    std_logic;
+         RXFIFOWERR  : in    std_logic;
+         RXPHYERR    : in    std_logic;
+         RXOFERR     : in    std_logic;
+         RXMEMCRCERR : in    std_logic;
+         TXMEMCRCERR : in    std_logic;
+         RXCRCERR    : in    std_logic;
+         RXBCAST     : out   std_logic;
+         RXMCAST     : out   std_logic;
+         RXUCAST     : out   std_logic;
+         RXALLF      : out   std_logic;
+         MACADDR     : out   std_logic_vector(47 downto 0);
+         MDIO        : inout std_logic;
+         MDC         : out   std_logic;
+         MDEBUGADDR  : out   std_logic_vector(16 downto 0);
+         MDEBUGDATA  : in    std_logic_vector(31 downto 0);
+         RXBP        : in    std_logic_vector(15 downto 0);
+         RXFBBP      : in    std_logic_vector(15 downto 0);
+         TXBP        : in    std_logic_vector(15 downto 0);
+         TXFBBP      : in    std_logic_vector(15 downto 0));
 
 end control;
 
@@ -53,25 +55,28 @@ architecture Behavioral of control is
 
 
   -- write signals
-  signal PHYRESETW   : std_logic := '0';
-  signal PHYSTATUSW  : std_logic := '0';
-  signal PHYAddrW    : std_logic := '0';
-  signal PHYDIW      : std_logic := '0';
-  signal PHYDOW      : std_logic := '0';
-  signal TXFR        : std_logic := '0';
-  signal RXFR        : std_logic := '0';
-  signal TXFIFOWERRR : std_logic := '0';
-  signal RXFIFOWERRR : std_logic := '0';
-  signal RXPHYERRR   : std_logic := '0';
-  signal RXOFERRR    : std_logic := '0';
-  signal RXCRCERRR   : std_logic := '0';
-  signal ALLFW       : std_logic := '0';
-  signal RXBCASTW    : std_logic := '0';
-  signal RXMCASTW    : std_logic := '0';
-  signal RXUCASTW    : std_logic := '0';
-  signal MACLW       : std_logic := '0';
-  signal MACMW       : std_logic := '0';
-  signal MACHW       : std_logic := '0';
+  signal PHYRESETW    : std_logic := '0';
+  signal PHYSTATUSW   : std_logic := '0';
+  signal PHYAddrW     : std_logic := '0';
+  signal PHYDIW       : std_logic := '0';
+  signal PHYDOW       : std_logic := '0';
+  signal TXFR         : std_logic := '0';
+  signal RXFR         : std_logic := '0';
+  signal TXFIFOWERRR  : std_logic := '0';
+  signal RXFIFOWERRR  : std_logic := '0';
+  signal RXPHYERRR    : std_logic := '0';
+  signal RXOFERRR     : std_logic := '0';
+  signal RXCRCERRR    : std_logic := '0';
+  signal TXMEMCRCERRR : std_logic := '0';
+  signal RXMEMCRCERRR : std_logic := '0';
+
+  signal ALLFW    : std_logic := '0';
+  signal RXBCASTW : std_logic := '0';
+  signal RXMCASTW : std_logic := '0';
+  signal RXUCASTW : std_logic := '0';
+  signal MACLW    : std_logic := '0';
+  signal MACMW    : std_logic := '0';
+  signal MACHW    : std_logic := '0';
 
 
   -- PHY signals
@@ -99,13 +104,15 @@ architecture Behavioral of control is
   signal txfbbpl : std_logic_vector(15 downto 0) := (others => '0');
 
   -- counters
-  signal txfcnt        : std_logic_vector(31 downto 0) := (others => '0');
-  signal rxfcnt        : std_logic_vector(31 downto 0) := (others => '0');
-  signal txfifowerrcnt : std_logic_vector(31 downto 0) := (others => '0');
-  signal rxfifowerrcnt : std_logic_vector(31 downto 0) := (others => '0');
-  signal rxphyerrcnt   : std_logic_vector(31 downto 0) := (others => '0');
-  signal rxoferrcnt    : std_logic_vector(31 downto 0) := (others => '0');
-  signal rxcrcerrcnt   : std_logic_vector(31 downto 0) := (others => '0');
+  signal txfcnt         : std_logic_vector(31 downto 0) := (others => '0');
+  signal rxfcnt         : std_logic_vector(31 downto 0) := (others => '0');
+  signal txfifowerrcnt  : std_logic_vector(31 downto 0) := (others => '0');
+  signal rxfifowerrcnt  : std_logic_vector(31 downto 0) := (others => '0');
+  signal rxphyerrcnt    : std_logic_vector(31 downto 0) := (others => '0');
+  signal rxoferrcnt     : std_logic_vector(31 downto 0) := (others => '0');
+  signal rxcrcerrcnt    : std_logic_vector(31 downto 0) := (others => '0');
+  signal rxmemcrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
+  signal txmemcrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
 
   signal txcnt : integer range 0 to 100000 := 0;
 
@@ -207,12 +214,12 @@ begin
       if phyresetw = '1' then
         lphyreset <= dout(0);
       end if;
-      
-      PHYRESET    <= lphyreset;
+
+      PHYRESET <= lphyreset;
 
       rxbpl   <= RXBP;
       rxfbbpl <= RXFBBP;
-      txbpl   <= TXBP; 
+      txbpl   <= TXBP;
       txfbbpl <= TXFBBP;
 
     end if;
@@ -256,8 +263,8 @@ begin
          X"00000000"                       when addr = "01100" else
          X"00000000"                       when addr = "01101" else
          X"00000000"                       when addr = "01110" else
-         X"00000000"                       when addr = "01111" else
-         X"00000000"                       when addr = "10000" else
+         txmemcrcerrcnt                    when addr = "01111" else
+         rxmemcrcerrcnt                    when addr = "10000" else
          txfcnt                            when addr = "10001" else
          rxfcnt                            when addr = "10010" else
          txfifowerrcnt                     when addr = "10011" else
@@ -325,6 +332,22 @@ begin
       INC    => RXCRCERR,
       CNTRST => rxcrcerrr,
       CNT    => rxcrcerrcnt);
+
+  txmemcrcerr_counter : counter
+    port map (
+      CLK    => CLK,
+      INC    => TXMEMCRCERR,
+      CNTRST => txmemcrcerrr,
+      CNT    => txmemcrcerrcnt);
+
+  rxmemcrcerr_counter : counter
+    port map (
+      CLK    => CLK,
+      INC    => RXMEMCRCERR,
+      CNTRST => rxmemcrcerrr,
+      CNT    => rxmemcrcerrcnt);
+
+
 
   sourcefilter_inst : sourcefilter
     port map (

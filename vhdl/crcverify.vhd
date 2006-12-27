@@ -16,7 +16,7 @@ end crcverify;
 architecture Behavioral of crcverify is
 
   signal dinl   : std_logic_vector(15 downto 0) := (others => '0');
-  signal dinenl : std_logic                     := '0';
+  signal dinenl, dinenll, dinenlll : std_logic                     := '0';
   signal resetl : std_logic                     := '0';
 
   signal crc8, crc8out  : std_logic_vector(31 downto 0) := (others => '0');
@@ -25,11 +25,14 @@ architecture Behavioral of crcverify is
   signal crc16in : std_logic_vector(15 downto 0) := (others => '0');
   
   signal crcout : std_logic_vector(31 downto 0) := (others => '0');
+  signal lcrcvalid , llcrcvalid: std_logic := '0';
   
   signal len  : std_logic_vector(15 downto 0) := (others => '0');
-  signal bcnt : std_logic_vector(15 downto 0) := (others => '0');
+  signal bcnt, bcntl : std_logic_vector(15 downto 0) := (others => '0');
 
-  signal ldone : std_logic := '0';
+  signal ldone, lldone : std_logic := '0';
+
+  signal bcnteq, bcntoneeq : std_logic := '0';
   
   component crc16_combinational
     port (
@@ -67,12 +70,17 @@ begin  -- Behavioral
 
       dinl   <= DIN;
       dinenl <= DINEN;
+      dinenll <= dinenl;
+      dinenlll <= dinenll; 
       resetl <= RESET;
 
       -- crc register
-      if bcnt = X"0000" and dinenl = '1' then
-        crc16l   <= (others => '1');
+      if bcnt = X"0000" and dinenl = '1'  then
         len <= dinl; 
+      end if;
+
+      if bcnt = X"0000" then
+        crc16l   <= (others => '1');
       else
         if dinenl = '1' then
           crc16l <= crc16;
@@ -90,19 +98,37 @@ begin  -- Behavioral
         end if;
       end if;
 
-      if bcnt = len or bcnt = len+1 then
-        ldone <= '1';
+      bcntl <= bcnt; 
+      if (bcnteq = '1'  or bcntoneeq = '1') and
+        bcntl /= X"0000" and dinenll = '1'
+      then
+        lldone <= '1';
       else
-        ldone <= '0'; 
+        lldone <= '0'; 
       end if;
+      
+      if bcnt = len then
+        bcnteq <= '1';
+      else
+        bcnteq <= '0'; 
+      end if;
+
+      if bcnt = len +1 then
+        bcntoneeq <= '1';
+      else
+        bcntoneeq <= '0'; 
+      end if;
+
+      ldone <= lldone; 
       DONE <= ldone;
       
       if crcout = X"C704DD7B" then
-        CRCVALID <= '1';
+        llCRCVALID <= '1';
       else
-        CRCVALID <= '0'; 
+        llCRCVALID <= '0'; 
       end if;
-
+      lcrcvalid <= llcrcvalid; 
+      CRCVALID <= lcrcvalid; 
       
     end if;
   end process main;

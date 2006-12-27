@@ -208,7 +208,7 @@ begin
 
         -- memory address
         if cs = validf then
-          lbp <= macnt;
+          lbp <= macnt + 1;
         end if;
 
         if cs = none then

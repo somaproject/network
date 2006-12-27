@@ -45,7 +45,7 @@ class RamWrite:
             vals = struct.unpack("BBBB", data[(i*4):((i+1)*4)])
 
             self.fid.write("%04X %02X%02X%02X%02X\n" %
-                           (self.ramaddr, vals[3], vals[2], vals[1], vals[0]))
+                           (self.ramaddr, vals[2], vals[3], vals[0], vals[1]))
             self.ramaddr = (self.ramaddr + 1 ) % 2**16
 
         if dlen % 4 == 0:
@@ -53,18 +53,18 @@ class RamWrite:
             pass
         elif dlen % 4 == 1:
             vals = struct.unpack("B", data[-1])
-            self.fid.write("%04X 000000%02X\n" %(self.ramaddr, vals[0]))
+            self.fid.write("%04X 0000%02X00\n" %(self.ramaddr, vals[0]))
             self.ramaddr = (self.ramaddr + 1 ) % 2**16
             
         elif dlen % 4 == 2:
             vals = struct.unpack("BB", data[-2:])
             self.fid.write("%04X 0000%02X%02X\n" %(self.ramaddr,
-                                                 vals[1], vals[0]))
+                                                 vals[0], vals[1]))
             self.ramaddr = (self.ramaddr + 1 ) % 2**16 
         elif dlen % 4 == 3:
             vals = struct.unpack("BBB", data[-3:])
-            self.fid.write("%04X 00%02X%02X%02X\n" %(self.ramaddr, vals[2],
-                                                   vals[1], vals[0]))
+            self.fid.write("%04X %02X00%02X%02X\n" %(self.ramaddr, vals[2],
+                                                   vals[0], vals[1]))
             self.ramaddr = (self.ramaddr + 1 ) % 2**16
         
         
@@ -83,10 +83,10 @@ class DataWrite:
 
         for i in range(len(data)/2):
             vals = struct.unpack("BB", data[i*2:(i+1)*2])
-            self.fid.write("%02X%02X " % (vals[1], vals[0]))
+            self.fid.write("%02X%02X " % (vals[0], vals[1]))
         if len(data) % 2 == 1:
             vals = struct.unpack("B", data[-1])
-            self.fid.write("00%02X" % (vals[0],))
+            self.fid.write("%02X00" % (vals[0],))
 
         self.fid.write('\n')
 

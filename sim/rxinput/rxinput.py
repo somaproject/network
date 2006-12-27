@@ -44,7 +44,6 @@ class ramfile:
             self.fid.write("%02X%02X%02X%02X\n" % (val[2], crcval[0], 
                                                    val[0], val[1]))
 
-        
 class GMIIin:
     def __init__(self, filename):
         self.filename = filename

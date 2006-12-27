@@ -1,13 +1,3 @@
-
--- VHDL Test Bench Created from source file txoutput.vhd  -- 19:57:23 10/09/2004
---
--- Notes: 
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends 
--- that these types always be used for the top-level I/O of a design in order 
--- to guarantee that the testbench will bind correctly to the post-implementation 
--- simulation model.
---
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use ieee.std_logic_textio.all;
@@ -35,33 +25,33 @@ architecture behavior of txoutputtest is
       );
   end component;
 
-  signal CLK     : std_logic := '0';
-  signal RESET   : std_logic := '1';
-  signal MQ      : std_logic_vector(31 downto 0);
-  signal MA      : std_logic_vector(15 downto 0);
-  signal BPIN    : std_logic_vector(15 downto 0);
-  signal TXD     : std_logic_vector(7 downto 0);
-  signal TXEN    : std_logic;
-  signal TXF     : std_logic;
-  signal FBBP    : std_logic_vector(15 downto 0);
-  signal CLKEN   : std_logic;
+  signal CLK   : std_logic := '0';
+  signal RESET : std_logic := '1';
+  signal MQ    : std_logic_vector(31 downto 0);
+  signal MA    : std_logic_vector(15 downto 0);
+  signal BPIN  : std_logic_vector(15 downto 0);
+  signal TXD   : std_logic_vector(7 downto 0);
+  signal TXEN  : std_logic;
+  signal TXF   : std_logic;
+  signal FBBP  : std_logic_vector(15 downto 0);
+  signal CLKEN : std_logic;
 
 
   signal GTX_CLK : std_logic;
 
 
-  component simpleram is
-                        generic (addrwidth :     integer := 15;
-                                 filename  :     string  := "test.dat";
-                                 datawidth :     integer := 32);
-                      port ( CLK           : in  std_logic;
-                             RESET         : in  std_logic;
-                             ADOUT         : in  std_logic_vector((addrwidth-1) downto 0);
-                             DOUT          : out std_logic_vector(datawidth-1 downto 0);
-                             ADIN          : in  std_logic_vector((addrwidth-1) downto 0);
-                             DIN           : in  std_logic_vector(datawidth-1 downto 0);
-                             WE            : in  std_logic;
-                             SAVE          : in  std_logic);
+  component simpleram
+    generic (addrwidth :     integer := 15;
+             filename  :     string  := "test.dat";
+             datawidth :     integer := 32);
+    port ( CLK         : in  std_logic;
+           RESET       : in  std_logic;
+           ADOUT       : in  std_logic_vector((addrwidth-1) downto 0);
+           DOUT        : out std_logic_vector(datawidth-1 downto 0);
+           ADIN        : in  std_logic_vector((addrwidth-1) downto 0);
+           DIN         : in  std_logic_vector(datawidth-1 downto 0);
+           WE          : in  std_logic;
+           SAVE        : in  std_logic);
   end component;
 
   signal dout, doutl1, doutl2, doutl3, doutl4, doutl5, doutl6 :
@@ -138,11 +128,11 @@ begin
 
 
   -- main code:
-  main                              : process is
-                  file bpfile       : text;
-                variable L          : line;
-                variable currentbp  : integer := 0;
-                variable currentlen : integer := 0;
+  main                  : process
+    file bpfile         : text;
+    variable L          : line;
+    variable currentbp  : integer := 0;
+    variable currentlen : integer := 0;
   begin
     wait for 40 ns;
     RESET  <= '0';
@@ -199,55 +189,55 @@ begin
   end process main;
 
   -- gmii output simulation
-  gmii_verify                                            : process(GTX_CLK, RESET) is
-                                       file gmiifile     : text;
-                                       variable L        : line;
-                                       variable indata   : std_logic_vector(7 downto 0) := (others => '0');
-                                       variable txenl    : std_logic                    := '0';
-                                       variable txerrors : integer                      := 0;
+  gmii_verify         : process(GTX_CLK, RESET)
+    file gmiifile     : text;
+    variable L        : line;
+    variable indata   : std_logic_vector(7 downto 0) := (others => '0');
+    variable txenl    : std_logic                    := '0';
+    variable txerrors : integer                      := 0;
   begin
     if falling_edge(RESET) then
       file_open(gmiifile, "basic.gmii.dat", read_mode);
     else
       if rising_edge(GTX_CLK) then
         if txenl = '0' and txen = '1' then  -- rising edge
-          txerrors                                                                      := 0;
+          txerrors                                   := 0;
           readline(gmiifile, L);
           hread(L, indata);
-          expected_txd <= indata; 
+          expected_txd    <= indata;
           if TXD /= indata then
-            txerrors := txerrors + 1; 
+            txerrors                                 := txerrors + 1;
             gmii_rx_error <= '1';
-          else	
-            gmii_rx_error <= '0'; 
-          end if; 
+          else
+            gmii_rx_error <= '0';
+          end if;
           gmii_verify_ack <= '0';
         elsif txenl = '1' and txen = '0' then
-          assert txerrors = 0 
+          assert txerrors = 0
             report "There was an error reading this frame"
-            severity error;  
+            severity error;
           gmii_verify_ack <= '1';
 
           if endfile(gmiifile) then
             file_close(gmiifile);
-          end if; 
+          end if;
         elsif txenl = '1' and txen = '1' then
-          hread(L, indata); 
-          expected_txd <= indata; 
+          hread(L, indata);
+          expected_txd    <= indata;
           if TXD /= indata then
-            txerrors := txerrors + 1; 
+            txerrors := txerrors + 1;
             gmii_rx_error <= '1';
-          else	
-            gmii_rx_error <= '0'; 
-          end if; 
+          else
+            gmii_rx_error <= '0';
+          end if;
           gmii_verify_ack <= '0';
         else
           gmii_verify_ack <= '0';
         end if;
-        txenl := txen; 
+        txenl        := txen;
       end if;
     end if;
-  end process gmii_verify; 
-  
+  end process gmii_verify;
 
-END;
+
+end;
