@@ -1,0 +1,13 @@
+unisimsrcsrl16/opt/xilinx/vhdl/src/unisims/unisim_VITAL.vhd
+.srccrcverify../../vhdl/crcverify.vhd
+ieeevarstd_logic_arithieee.sym/std_logic_arith/prim.var
+ieeesrcstd_logic_arithstdlogicarith.vhd
+ieeevarstd_logic_unsignedieee.sym/std_logic_unsigned/prim.var
+ieeesrcstd_logic_unsignedstdlogicunsigned.vhd
+ieeevarstd_logic_1164ieee.sym/std_logic_1164/prim.var
+ieeesrcstd_logic_1164stdlogic.vhd
+unisimvarvcomponentsunisim.sym/vcomponents/prim.var
+unisimsrcvcomponents/opt/xilinx/vhdl/src/unisims/unisim_VCOMP.vhd
+.vartxinput(behavioral)work.sym/txinput/_behavioral.var
+.srctxinput(behavioral)../../vhdl/txinput.vhd
+.vartxinputwork.sym/txinput/prim.var
