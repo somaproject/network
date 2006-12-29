@@ -1,11 +1,9 @@
 This is a simulation to text the transmit output. 
 
-txoutput.do runs txoutput_test.vhdl
-
 Things we're interested in observing:
 success for differing frame sizes
-success for wrap-around
-what happens when BP is more than one frame ahead? 
+success for fifo wrap-around
+what happens when BP is more than one frame ahead?
 
 
 For each test we have the following sets of files:
@@ -25,7 +23,6 @@ The code works as follows:
 1. read in base pointer + len
 2. set bpin = base pointer + (len + 3) / 4, i.e. next location
 3. wait till tx is done
-4.  
 
 
 Then we have a second battery of tests that jumps between one and three base pointers at a time...

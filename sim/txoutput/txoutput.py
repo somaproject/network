@@ -34,7 +34,7 @@ gmiifile = file("%s.gmii.dat" % filename, 'w')
 ramaddr = 0; 
 
 for i in range(256):
-    framedatalen = random.randint(56, 100)
+    framedatalen = i + 56
     framedata = range(framedatalen)
 
     for i in range(framedatalen):
@@ -76,7 +76,7 @@ for i in range(256):
 
     # GMII output
     totalbindata = ""
-    for i in (framedata + crc) :
+    for i in (framedata) :
         totalbindata += struct.pack("B", i)
     
     f = frame.frame(destmacaddr, srcmacaddr, 0x0800, totalbindata)

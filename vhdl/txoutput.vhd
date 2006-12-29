@@ -52,8 +52,7 @@ architecture Behavioral of txoutput is
   -- FSMs
   type states is (none, incaddr, wait0, wait1, wait2, bcntrdy,
                   wait3, wait4, wait5, databyte0, databyte1,
-                  databyte2, databyte3, crc0, crc1, crc2, crc3,
-                  extraread0, extraread1, extraread2 );
+                  databyte2, databyte3, crc0, crc1, crc2, crc3 );
 
   signal cs, ns : states := none;
 
@@ -172,7 +171,7 @@ begin
         ltxen   <= '0';
         crcen   <= '0';
         crcsel  <= 0;
-        if clken = '1' and (not (bpl = addrl)) then
+        if clken = '1' and (bpl /= addrl) then
           ns    <= incaddr;
         else
           ns    <= none;
@@ -277,7 +276,7 @@ begin
         decbcnt   <= '1';
         ldbcnt    <= '0';
         ltxen     <= '1';
-        crcen     <= '0';
+        crcen     <= '1';
         crcsel    <= 0;
         if bcnt = "0000000000000001" then
           ns      <= crc3;
@@ -292,7 +291,7 @@ begin
         decbcnt <= '1';
         ldbcnt  <= '0';
         ltxen   <= '1';
-        crcen   <= '1';
+        crcen   <= '0';
         crcsel  <= 0;
         if bcnt = "0000000000000001" then
           ns    <= crc3;
@@ -307,8 +306,8 @@ begin
         decbcnt <= '1';
         ldbcnt  <= '0';
         ltxen   <= '1';
-        crcen   <= '0';
-        crcsel  <= 0;
+        crcen   <= '1';
+        crcsel  <= 1;
         if bcnt = "0000000000000001" then
           ns    <= crc3;
         else
@@ -322,8 +321,8 @@ begin
         decbcnt <= '1';
         ldbcnt  <= '0';
         ltxen   <= '1';
-        crcen   <= '1';
-        crcsel  <= 1;
+        crcen   <= '0';
+        crcsel  <= 0;
         if bcnt = "0000000000000001" then
           ns    <= crc3;
         else
@@ -370,7 +369,7 @@ begin
         decbcnt <= '0';
         ldbcnt  <= '0';
         ltxen   <= '0';
-        crcen   <= '1';
+        crcen   <= '0';
         crcsel  <= 0;
         ns      <= none;                -- extraread0;
 
