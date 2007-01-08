@@ -90,6 +90,7 @@ architecture Behavioral of network is
 
   -- memory read/write error
   signal rxmemcrcerr, txmemcrcerr : std_logic := '0';
+  signal txiocrcerr : std_logic := '0';
   
   -- debugging
   signal debugaddr  : std_logic_vector(16 downto 0) := (others => '0');
@@ -226,14 +227,14 @@ architecture Behavioral of network is
            RXFIFOWERR : in    std_logic;
            RXPHYERR   : in    std_logic;
            RXOFERR    : in    std_logic;
+           TXMEMCRCERR : in std_logic;
+           RXMEMCRCERR : in std_logic;
+           TXIOCRCERR : in std_logic; 
            RXCRCERR   : in    std_logic;
            RXBCAST    : out   std_logic;
            RXMCAST    : out   std_logic;
            RXUCAST    : out   std_logic;
            RXALLF     : out   std_logic;
-           TXMEMCRCERR : in std_logic;
-           RXMEMCRCERR : in std_logic;
-           
            MACADDR    : out   std_logic_vector(47 downto 0);
            MDIO       : inout std_logic;
            MDC        : out   std_logic;
@@ -478,6 +479,7 @@ begin
     RXALLF     => rxallf,
     RXMEMCRCERR => rxmemcrcerr,
     TXMEMCRCERR => txmemcrcerr,
+    TXIOCRCERR => txiocrcerr,
     MACADDR    => macaddr,
     MDIO       => MDIO,
     MDC        => MDC,

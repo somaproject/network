@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import sys
-sys.path.append("../../code")
+sys.path.append("../../crc/code")
 import frame
 import struct
 import random

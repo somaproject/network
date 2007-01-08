@@ -1,7 +1,7 @@
 import struct
 import random
 import sys
-sys.path.append("../../code/")
+sys.path.append("../../crc/code/")
 import crcmod
 
 class RamWrite:

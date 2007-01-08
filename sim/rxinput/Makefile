@@ -4,23 +4,23 @@ WORKDIR=work.sym
 all: hw comp sim
 
 $(WORKDIR)/rxvalid/_behavioral.var: ../../vhdl/rxvalid.vhd
-	$(VHDLC) ../../vhdl/rxvalid.vhd
+	$(VHDLC) -vital2000 ../../vhdl/rxvalid.vhd
 
-$(WORKDIR)/crc_combinational/_behavioral.var: ../../vhdl/rxvalid.vhd ../../vhdl/crc_combinational.vhd
-	$(VHDLC) ../../vhdl/crc_combinational.vhd
+$(WORKDIR)/crc_combinational/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd
+	$(VHDLC) -vital2000 ../../crc/vhdl/crc_combinational.vhd
 
-$(WORKDIR)/rxinput/_behavioral.var: ../../vhdl/rxvalid.vhd ../../vhdl/crc_combinational.vhd ../../vhdl/rxinput.vhd
-	$(VHDLC) ../../vhdl/rxinput.vhd
+$(WORKDIR)/rxinput/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd ../../vhdl/rxinput.vhd
+	$(VHDLC) -vital2000 ../../vhdl/rxinput.vhd
 
 hw: $(WORKDIR)/rxvalid/_behavioral.var $(WORKDIR)/crc_combinational/_behavioral.var $(WORKDIR)/rxinput/_behavioral.var 
 
 $(WORKDIR)/gmiiinsim/_behavioral.var: GMIIinsim.vhd
-	$(VHDLC) GMIIinsim.vhd
+	$(VHDLC) -vital2000 GMIIinsim.vhd
 
 comp: $(WORKDIR)/gmiiinsim/_behavioral.var 
 
 $(WORKDIR)/rxinputtest/_behavior.var: GMIIinsim.vhd rxinputtest.vhd
-	$(VHDLC) rxinputtest.vhd
+	$(VHDLC) -vital2000 rxinputtest.vhd
 
 sim: $(WORKDIR)/rxinputtest/_behavior.var 
 runsim: all
@@ -28,5 +28,5 @@ runsim: all
 
 
 clean:
-	rm -Rf $(WORKDIR)$
+	rm -Rf *.sym
 

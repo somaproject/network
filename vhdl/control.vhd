@@ -4,49 +4,51 @@ use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity control is
-  port ( CLK         : in    std_logic;
-         CLKLO       : in    std_logic;
-         RESET       : in    std_logic;
-         SCLK        : in    std_logic;
-         SCS         : in    std_logic;
-         SIN         : in    std_logic;
-         SOUT        : out   std_logic;
-         LEDACT      : out   std_logic;
-         LEDTX       : out   std_logic;
-         LEDRX       : out   std_logic;
-         LED100      : out   std_logic;
-         LED1000     : out   std_logic;
-         LEDDPX      : out   std_logic;
-         PHYRESET    : out   std_logic;
-         TXF         : in    std_logic;
-         RXF         : in    std_logic;
-         TXFIFOWERR  : in    std_logic;
-         RXFIFOWERR  : in    std_logic;
-         RXPHYERR    : in    std_logic;
-         RXOFERR     : in    std_logic;
-         RXMEMCRCERR : in    std_logic;
-         TXMEMCRCERR : in    std_logic;
-         RXCRCERR    : in    std_logic;
-         RXBCAST     : out   std_logic;
-         RXMCAST     : out   std_logic;
-         RXUCAST     : out   std_logic;
-         RXALLF      : out   std_logic;
-         MACADDR     : out   std_logic_vector(47 downto 0);
-         MDIO        : inout std_logic;
-         MDC         : out   std_logic;
-         MDEBUGADDR  : out   std_logic_vector(16 downto 0);
-         MDEBUGDATA  : in    std_logic_vector(31 downto 0);
-         RXBP        : in    std_logic_vector(15 downto 0);
-         RXFBBP      : in    std_logic_vector(15 downto 0);
-         TXBP        : in    std_logic_vector(15 downto 0);
-         TXFBBP      : in    std_logic_vector(15 downto 0));
+  port (
+    CLK         : in    std_logic;
+    CLKLO       : in    std_logic;
+    RESET       : in    std_logic;
+    SCLK        : in    std_logic;
+    SCS         : in    std_logic;
+    SIN         : in    std_logic;
+    SOUT        : out   std_logic;
+    LEDACT      : out   std_logic;
+    LEDTX       : out   std_logic;
+    LEDRX       : out   std_logic;
+    LED100      : out   std_logic;
+    LED1000     : out   std_logic;
+    LEDDPX      : out   std_logic;
+    PHYRESET    : out   std_logic;
+    TXF         : in    std_logic;
+    RXF         : in    std_logic;
+    TXFIFOWERR  : in    std_logic;
+    RXFIFOWERR  : in    std_logic;
+    RXPHYERR    : in    std_logic;
+    RXOFERR     : in    std_logic;
+    RXMEMCRCERR : in    std_logic;
+    TXMEMCRCERR : in    std_logic;
+    TXIOCRCERR : in std_logic; 
+    RXCRCERR    : in    std_logic;
+    RXBCAST     : out   std_logic;
+    RXMCAST     : out   std_logic;
+    RXUCAST     : out   std_logic;
+    RXALLF      : out   std_logic;
+    MACADDR     : out   std_logic_vector(47 downto 0);
+    MDIO        : inout std_logic;
+    MDC         : out   std_logic;
+    MDEBUGADDR  : out   std_logic_vector(16 downto 0);
+    MDEBUGDATA  : in    std_logic_vector(31 downto 0);
+    RXBP        : in    std_logic_vector(15 downto 0);
+    RXFBBP      : in    std_logic_vector(15 downto 0);
+    TXBP        : in    std_logic_vector(15 downto 0);
+    TXFBBP      : in    std_logic_vector(15 downto 0));
 
 end control;
 
 architecture Behavioral of control is
 
   -- input control signals
-  signal addr      : std_logic_vector(5 downto 0)  := (others => '0');
+  signal addr      : std_logic_vector(7 downto 0)  := (others => '0');
   signal rw        : std_logic                     := '0';
   signal din, dout : std_logic_vector(31 downto 0) := (others => '0');
   signal newcmd    : std_logic                     := '0';
@@ -68,6 +70,7 @@ architecture Behavioral of control is
   signal RXOFERRR     : std_logic := '0';
   signal RXCRCERRR    : std_logic := '0';
   signal TXMEMCRCERRR : std_logic := '0';
+  signal TXIOCRCERRR : std_logic := '0';
   signal RXMEMCRCERRR : std_logic := '0';
 
   signal ALLFW    : std_logic := '0';
@@ -113,6 +116,7 @@ architecture Behavioral of control is
   signal rxcrcerrcnt    : std_logic_vector(31 downto 0) := (others => '0');
   signal rxmemcrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
   signal txmemcrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
+  signal txiocrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
 
   signal txcnt : integer range 0 to 100000 := 0;
 
@@ -192,7 +196,7 @@ begin
       SOUT      => SOUT,
       NEWCMD    => newcmd,
       DOUTENOUT => douten,
-      ADDR      => addr,
+      ADDR      => addr(5 downto 0),
       RW        => rw,
       DOUT      => dout,
       DIN       => din);
@@ -228,57 +232,61 @@ begin
   phyaddrr <= '1' when addr = "01000" and rw = '0' and douten = '1' else '0';
 
   -- write command assertion table
-  phyresetw   <= '1' when addr = "00001" and newcmdw = '1' else '0';
-  phyaddrw    <= '1' when addr = "01000" and newcmdw = '1' else '0';
-  phydiw      <= '1' when addr = "01001" and newcmdw = '1' else '0';
-  txfr        <= '1' when addr = "10001" and newcmdw = '1' else '0';
-  rxfr        <= '1' when addr = "10010" and newcmdw = '1' else '0';
-  txfifowerrr <= '1' when addr = "10011" and newcmdw = '1' else '0';
-  rxfifowerrr <= '1' when addr = "10100" and newcmdw = '1' else '0';
-  rxphyerrr   <= '1' when addr = "10101" and newcmdw = '1' else '0';
-  rxoferrr    <= '1' when addr = "10110" and newcmdw = '1' else '0';
-  rxcrcerrr   <= '1' when addr = "10111" and newcmdw = '1' else '0';
+  phyresetw    <= '1' when addr = X"01" and newcmdw = '1' else '0';
+  phyaddrw     <= '1' when addr = X"08" and newcmdw = '1' else '0';
+  phydiw       <= '1' when addr = X"09" and newcmdw = '1' else '0';
+  rxmemcrcerrr <= '1' when addr = X"0E" and newcmdw = '1' else '0';
+  txiocrcerrr  <= '1' when addr = X"0F" and newcmdw = '1' else '0';
+  txmemcrcerrr <= '1' when addr = X"10" and newcmdw = '1' else '0';
 
-  allfw    <= '1' when addr = "11001" and newcmdw = '1' else '0';
-  rxbcastw <= '1' when addr = "11010" and newcmdw = '1' else '0';
-  rxmcastw <= '1' when addr = "11011" and newcmdw = '1' else '0';
-  rxucastw <= '1' when addr = "11100" and newcmdw = '1' else '0';
-  maclw    <= '1' when addr = "11101" and newcmdw = '1' else '0';
-  macmw    <= '1' when addr = "11110" and newcmdw = '1' else '0';
-  machw    <= '1' when addr = "11111" and newcmdw = '1' else '0';
+  txfr        <= '1' when addr = X"11" and newcmdw = '1' else '0';
+  rxfr        <= '1' when addr = X"12" and newcmdw = '1' else '0';
+  txfifowerrr <= '1' when addr = X"13" and newcmdw = '1' else '0';
+  rxfifowerrr <= '1' when addr = X"14" and newcmdw = '1' else '0';
+  rxphyerrr   <= '1' when addr = X"15" and newcmdw = '1' else '0';
+  rxoferrr    <= '1' when addr = X"16" and newcmdw = '1' else '0';
+  rxcrcerrr   <= '1' when addr = X"17" and newcmdw = '1' else '0';
+
+  allfw    <= '1' when addr = X"19" and newcmdw = '1' else '0';
+  rxbcastw <= '1' when addr = X"1A" and newcmdw = '1' else '0';
+  rxmcastw <= '1' when addr = X"1B" and newcmdw = '1' else '0';
+  rxucastw <= '1' when addr = X"1C" and newcmdw = '1' else '0';
+  maclw    <= '1' when addr = X"1D" and newcmdw = '1' else '0';
+  macmw    <= '1' when addr = X"1E" and newcmdw = '1' else '0';
+  machw    <= '1' when addr = X"1F" and newcmdw = '1' else '0';
 
 
-  din <= X"01234567"                       when addr = "00000" else
-         X"0000000" & "000" & lphyreset    when addr = "00001" else
-         phystat                           when addr = "00010" else
-         X"89ABCDEF"                       when addr = "00011" else
-         X"00000000"                       when addr = "00100" else
-         X"DEADBEEF"                       when addr = "00101" else
-         rxbpl & rxfbbpl                   when addr = "00110" else
-         txbpl & txfbbpl                   when addr = "00111" else
-         PHYADDR                           when addr = "01000" else
-         PHYDI                             when addr = "01001" else
-         PHYDO                             when addr = "01010" else
-         X"00000000"                       when addr = "01011" else
-         X"00000000"                       when addr = "01100" else
-         X"00000000"                       when addr = "01101" else
-         X"00000000"                       when addr = "01110" else
-         txmemcrcerrcnt                    when addr = "01111" else
-         rxmemcrcerrcnt                    when addr = "10000" else
-         txfcnt                            when addr = "10001" else
-         rxfcnt                            when addr = "10010" else
-         txfifowerrcnt                     when addr = "10011" else
-         rxfifowerrcnt                     when addr = "10100" else
-         rxphyerrcnt                       when addr = "10101" else
-         rxoferrcnt                        when addr = "10110" else
-         rxcrcerrcnt                       when addr = "10111" else
-         X"00000000"                       when addr = "11000" else
-         X"0000000" & "000" & lrxallf      when addr = "11001" else
-         X"0000000" & "000" & lrxbcast     when addr = "11010" else
-         X"0000000" & "000" & lrxmcast     when addr = "11011" else
-         X"0000000" & "000" & lrxucast     when addr = "11100" else
-         X"0000" & lmacaddr(15 downto 0 )  when addr = "11101" else
-         X"0000" & lmacaddr(31 downto 16 ) when addr = "11110" else
+  din <= X"01234567"                       when addr = X"00" else
+         X"0000000" & "000" & lphyreset    when addr = X"01" else
+         phystat                           when addr = X"02" else
+         X"89ABCDEF"                       when addr = X"03" else
+         X"00000000"                       when addr = X"04" else
+         X"DEADBEEF"                       when addr = X"05" else
+         rxbpl & rxfbbpl                   when addr = X"06" else
+         txbpl & txfbbpl                   when addr = X"07" else
+         PHYADDR                           when addr = X"08" else
+         PHYDI                             when addr = X"09" else
+         PHYDO                             when addr = X"0A" else
+         X"00000000"                       when addr = X"0B" else
+         X"00000000"                       when addr = X"0C" else
+         X"00000000"                       when addr = X"0D" else
+         rxmemcrcerrcnt                    when addr = X"0E" else
+         txiocrcerrcnt                     when addr = X"0F" else
+         txmemcrcerrcnt                    when addr = X"10" else
+         txfcnt                            when addr = X"11" else
+         rxfcnt                            when addr = X"12" else
+         txfifowerrcnt                     when addr = X"13" else
+         rxfifowerrcnt                     when addr = X"14" else
+         rxphyerrcnt                       when addr = X"15" else
+         rxoferrcnt                        when addr = X"16" else
+         rxcrcerrcnt                       when addr = X"17" else
+         X"00000000"                       when addr = X"18" else
+         X"0000000" & "000" & lrxallf      when addr = X"19" else
+         X"0000000" & "000" & lrxbcast     when addr = X"1A" else
+         X"0000000" & "000" & lrxmcast     when addr = X"1B" else
+         X"0000000" & "000" & lrxucast     when addr = X"1C" else
+         X"0000" & lmacaddr(15 downto 0 )  when addr = X"1D" else
+         X"0000" & lmacaddr(31 downto 16 ) when addr = X"1E" else
          X"0000" & lmacaddr(47 downto 32);
 
   -----------------------------------------------------------------------------
@@ -339,6 +347,13 @@ begin
       INC    => TXMEMCRCERR,
       CNTRST => txmemcrcerrr,
       CNT    => txmemcrcerrcnt);
+
+  txiocrcerr_counter : counter
+    port map (
+      CLK    => CLK,
+      INC    => TXIOCRCERR,
+      CNTRST => txiocrcerrr,
+      CNT    => txiocrcerrcnt);
 
   rxmemcrcerr_counter : counter
     port map (
