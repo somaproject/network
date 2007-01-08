@@ -1,21 +1,17 @@
 #!/usr/bin/python
 import random
 import sys
-sys.path.append("../../code/")
-import crcmod
+sys.path.append("../../crc/code/")
+import frame
 import struct
 import numpy as n
 
 def packageData(data):
     """ Takes in a data string and appends the CRC to it
     """
-    fcscrc = crcmod.Crc(0x104C11DB7)
-    fcscrc.update(data)
-    
-    i = struct.unpack('i', fcscrc.digest())[0]
-    invcrc = struct.pack('I', ~i)
-    outdata = data + invcrc[3] + invcrc[2] + invcrc[1] + invcrc[0]
-    return outdata
+    crc = frame.generateFCS(data)
+
+    return data + crc
 
 class Ramout:
 

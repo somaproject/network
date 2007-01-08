@@ -21,6 +21,8 @@ architecture behavior of txoutputtest is
       TXEN    : out std_logic;
       TXF     : out std_logic;
       FBBP    : out std_logic_vector(15 downto 0);
+      MEMCRCERR : out std_logic; 
+
       GTX_CLK : out std_logic
       );
   end component;
@@ -30,12 +32,14 @@ architecture behavior of txoutputtest is
   signal MQ    : std_logic_vector(31 downto 0);
   signal MA    : std_logic_vector(15 downto 0);
   signal BPIN  : std_logic_vector(15 downto 0);
+  signal INERROR : integer := 0; 
   signal TXD   : std_logic_vector(7 downto 0);
   signal TXEN  : std_logic;
   signal TXF   : std_logic;
   signal FBBP  : std_logic_vector(15 downto 0);
   signal CLKEN : std_logic;
-
+  signal MEMCRCERR : std_logic := '0';
+  
 
   signal GTX_CLK : std_logic;
 
@@ -60,6 +64,9 @@ architecture behavior of txoutputtest is
   signal gmii_verify_ack : std_logic := '0';
   signal expected_txd    : std_logic_vector(7 downto 0);
   signal gmii_rx_error   : std_logic := '0';
+
+  signal memcrcerrcnt : integer := 0;
+  
 begin
 
   uut : txoutput port map(
@@ -73,7 +80,8 @@ begin
     TXF     => TXF,
     FBBP    => FBBP,
     CLKEN   => CLKEN,
-    GTX_CLK => GTX_CLK
+    GTX_CLK => GTX_CLK,
+    MEMCRCERr => MEMCRCERR
     );
 
   bufram : simpleram generic map(
@@ -160,6 +168,7 @@ begin
       wait until rising_edge(clk) and CLKEN = '1';
       BPIN   <= std_logic_vector(
         to_unsigned(currentbp + (currentlen + 3)/4 + 1, 16));
+
       if not endfile(bpfile) then
         readline(bpfile, L);
         read(L, currentbp);
@@ -172,6 +181,7 @@ begin
         readline(bpfile, L);
         read(L, currentbp);
         read(L, currentlen);
+
         wait until rising_edge(clk) and CLKEN = '1';
         BPIN <= std_logic_vector(
           to_unsigned(currentbp + (currentlen + 3)/4 + 1, 16));
@@ -191,16 +201,29 @@ begin
   -- gmii output simulation
   gmii_verify         : process(GTX_CLK, RESET)
     file gmiifile     : text;
-    variable L        : line;
+    file bpfile         : text;
+    variable L          : line;
+
+    variable L2        : line;
     variable indata   : std_logic_vector(7 downto 0) := (others => '0');
     variable txenl    : std_logic                    := '0';
     variable txerrors : integer                      := 0;
+    variable currenterror : integer := 0;
   begin
     if falling_edge(RESET) then
       file_open(gmiifile, "basic.gmii.dat", read_mode);
+      file_open(bpfile, "basic.bp.dat", read_mode);
+
     else
       if rising_edge(GTX_CLK) then
         if txenl = '0' and txen = '1' then  -- rising edge
+          readline(bpfile, L);
+
+          read(L, currenterror); 
+          read(L, currenterror); 
+          read(L, currenterror);
+          INERROR <= currenterror; 
+          
           txerrors                                   := 0;
           readline(gmiifile, L);
           hread(L, indata);
@@ -213,13 +236,17 @@ begin
           end if;
           gmii_verify_ack <= '0';
         elsif txenl = '1' and txen = '0' then
-          assert txerrors = 0
-            report "There was an error reading this frame"
-            severity error;
+          if inerror = 0 then
+
+            assert  txerrors = 0
+              report "There was an error reading this frame"
+              severity error;
+          end if;
           gmii_verify_ack <= '1';
 
           if endfile(gmiifile) then
             file_close(gmiifile);
+            file_close(bpfile); 
           end if;
         elsif txenl = '1' and txen = '1' then
           hread(L, indata);
@@ -240,4 +267,13 @@ begin
   end process gmii_verify;
 
 
+  -- error count
+  process(CLK)
+    begin
+      if rising_edge(CLK) then
+        if memcrcerr ='1' then
+          memcrcerrcnt <= memcrcerrcnt + 1; 
+        end if;
+      end if;
+    end process; 
 end;

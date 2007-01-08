@@ -6,6 +6,7 @@ What happens when we write frames where the length word is :
 1. Correct
 2. too big
 3. too small
+4. has a CRC error
 
 what happens when the NEWFRAME signal goes low mid-transmit? 
 
@@ -27,6 +28,4 @@ BPs.writes.dat : base pointers
 RAM.writes.dat : list of expected ram writes
 din.dat : input DIN and NEWFRAME sequence
 
-Things we don't test but should: 
-handling for 0-byte packets
-FIFOERROR
+

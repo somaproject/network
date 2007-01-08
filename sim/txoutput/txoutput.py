@@ -2,28 +2,25 @@
 
 
 import sys
-sys.path.append("../../code/")
+sys.path.append("../../crc/code/")
 import frame
 import random
 import struct
 import numpy
-import crcmod
+
 
 def generateCRC(data):
     """ Takes in data and appends the crc
 
     """
-    fcscrc = crcmod.Crc(0x104C11DB7)
     # create the string:
     d = ""
     for i in data:
         d += chr(i)
         
-    fcscrc.update(d)
+    fcs = frame.generateFCS(d)
     
-    i = struct.unpack('i', fcscrc.digest())[0]
-    invcrc = struct.pack('I', ~i)
-    return [ord(invcrc[3]),  ord(invcrc[2]), ord(invcrc[1]), ord(invcrc[0])]
+    return [ord(fcs[0]),  ord(fcs[1]), ord(fcs[2]), ord(fcs[3])]
 
 filename = "basic"
 
@@ -34,7 +31,11 @@ gmiifile = file("%s.gmii.dat" % filename, 'w')
 ramaddr = 0; 
 
 for i in range(256):
+    crcerror = False
+    if random.random() > 0.85:
+        crcerror = True
     framedatalen = i + 56
+        
     framedata = range(framedatalen)
 
     for i in range(framedatalen):
@@ -54,10 +55,12 @@ for i in range(256):
     totaldata = totaldata + crc
     totallen = len(totaldata)
     totaldata += [0, 0, 0, 0] # extra padding so ram write has enough to add
-    
+    if crcerror:
+        print "generating a CRC error"
+        totaldata[5] += 1
     
     # write the current ram address as a bp
-    bpfile.write("%d %d \n" % (ramaddr, totallen))
+    bpfile.write("%d %d %d\n" % (ramaddr, totallen, crcerror))
 
 
     # write the ram :
