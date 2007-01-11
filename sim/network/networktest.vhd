@@ -49,13 +49,13 @@ architecture behavior of networktest is
   end component;
 
   component NoBLSRAM
-    generic ( FILEIN       :       string  := "SRAM_in.dat";
-              FILEOUT      :       string  := "SRAM_out.dat";
-              physical_sim :       integer := 0;
-              TSU          :       time;
-              THD          :       time;
-              TKQ          :       time;
-              TKQX         :       time);
+--     generic ( FILEIN       :       string  := "SRAM_in.dat";
+--               FILEOUT      :       string  := "SRAM_out.dat";
+--               physical_sim :       integer := 0;
+--               TSU          :       time;
+--               THD          :       time;
+--               TKQ          :       time;
+--               TKQX         :       time);
     port ( CLK             : in    std_logic;
            DQ              : inout std_logic_vector(31 downto 0);
            ADDR            : in    std_logic_vector(16 downto 0);
@@ -144,11 +144,12 @@ begin
     SCS       => SCS
     );
 
-  ram : NoBLSRAM generic map (
-    TSU     => 0 ns,
-    THD     => 0 ns,
-    TKQ     => 0 ns,
-    TKQX    => 0 ns)
+  ram : NoBLSRAM
+--     generic map (
+--     TSU     => 0 ns,
+--     THD     => 0 ns,
+--     TKQ     => 0 ns,
+--     TKQX    => 0 ns)
     port map (
       CLK   => MCLK,
       DQ    => MD,

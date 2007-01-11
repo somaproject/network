@@ -204,7 +204,8 @@ ENTITY idt71v3556 IS
         CE2             : IN    std_logic := 'U';
         CLK             : IN    std_logic := 'U';
         LBONeg          : IN    std_logic := '1';
-        OENeg           : IN    std_logic := 'U'
+        OENeg           : IN    std_logic := 'U';
+        LoadMem            : in boolean := false
     );
     ATTRIBUTE VITAL_LEVEL0 of idt71v3556 : ENTITY IS TRUE;
 END idt71v3556;
@@ -216,7 +217,6 @@ ARCHITECTURE vhdl_behavioral of idt71v3556 IS
     ATTRIBUTE VITAL_LEVEL0 of vhdl_behavioral : ARCHITECTURE IS TRUE;
 
     CONSTANT partID           : STRING := "idt71v3556";
-    SIGNAL LoadMem            : boolean := false;
 
     SIGNAL A0_ipd              : std_ulogic := 'U';
     SIGNAL A1_ipd              : std_ulogic := 'U';
@@ -285,7 +285,20 @@ ARCHITECTURE vhdl_behavioral of idt71v3556 IS
     SIGNAL LBONeg_ipd          : std_ulogic := '1';
     SIGNAL OENeg_ipd           : std_ulogic := 'U';
 
-    
+
+    SIGNAL BWDNIn_nvw          : std_ulogic := 'U'; 
+    SIGNAL BWCNIn_nvw           : std_ulogic := 'U';
+    SIGNAL BWBNIn_nvw           : std_ulogic := 'U';
+    SIGNAL BWANIn_nvw           : std_ulogic := 'U';
+    SIGNAL CKENIn_nvw           : std_ulogic := 'U';
+    SIGNAL OENegIn_nvw          : std_ulogic := 'U';
+    SIGNAL RIn_nvw          : std_ulogic := 'U';
+    SIGNAL ADVIn_nvw           : std_ulogic := 'U';
+    SIGNAL CE2In_nvw           : std_ulogic := 'U';
+    SIGNAL LBONegIn_nvw           : std_ulogic := 'U';
+    SIGNAL CE1NegIn_nvw           : std_ulogic := 'U';
+    SIGNAL CE2NegIn_nvw           : std_ulogic := 'U';
+
 BEGIN
 
     ----------------------------------------------------------------------------
@@ -366,6 +379,20 @@ BEGIN
     ----------------------------------------------------------------------------
     -- Main Behavior Block
     ----------------------------------------------------------------------------
+    
+    BWDNIn_nvw <= To_UX01(BWDNeg_ipd);
+    BWCNIn_nvw <= To_UX01(BWCNeg_ipd);
+    BWBNIn_nvw <= To_UX01(BWBNeg_ipd);
+    BWANIn_nvw <= To_UX01(BWANeg_ipd);
+    CKENIn_nvw <= To_UX01(CLKENNeg_ipd);
+    OENegIn_nvw <= To_UX01(OENeg_ipd);
+    RIn_nvw <= To_UX01(R_ipd);
+    ADVIn_nvw <= To_UX01(ADV_ipd);
+    CE2In_nvw <= To_UX01(CE2_ipd);
+    LBONegIn_nvw <= To_UX01(LBONeg_ipd);
+    CE1NegIn_nvw <= To_UX01(CE1Neg_ipd);
+    CE2NegIn_nvw <= To_UX01(CE2Neg_ipd);
+
     Behavior: BLOCK
 
         PORT (
@@ -391,19 +418,19 @@ BEGIN
             CE2NegIn        : IN    std_ulogic := 'U'
         );
         PORT MAP (
-            BWDNIn => To_UX01(BWDNeg_ipd),
-            BWCNIn => To_UX01(BWCNeg_ipd),
-            BWBNIn => To_UX01(BWBNeg_ipd),
-            BWANIn => To_UX01(BWANeg_ipd),
+            BWDNIn => BWDNIn_nvw, 
+            BWCNIn => BWCNIn_nvw, 
+            BWBNIn => BWBNIn_nvw,
+            BWANIn => BWANIN_nvw, 
             CLKIn => CLK_ipd,
-            CKENIn => To_UX01(CLKENNeg_ipd),
-            OENegIn => To_UX01(OENeg_ipd),
-            RIn => To_UX01(R_ipd),
-            ADVIn => To_UX01(ADV_ipd),
-            CE2In => To_UX01(CE2_ipd),
-            LBONegIn => To_UX01(LBONeg_ipd),
-            CE1NegIn => To_UX01(CE1Neg_ipd),
-            CE2NegIn => To_UX01(CE2Neg_ipd),
+            CKENIn => CKENIn_nvw, 
+            OENegIn => OENegIn_nvw, 
+            RIn => RIn_nvw, 
+            ADVIn => ADVIn_nvw, 
+            CE2In => CE2In_nvw,
+            LBONegIn => LBONegIn_nvw, 
+            CE1NegIn => CE1NegIn_nvw,
+            CE2NegIn => CE2NegIn_nvw,
             DataOut(0) =>  DQA0,
             DataOut(1) =>  DQA1,
             DataOut(2) =>  DQA2,
@@ -544,7 +571,8 @@ BEGIN
     ----------------------------------------------------------------------------
         Behavior : PROCESS (BWDNIn, BWCNIn, BWBNIn, BWANIn, DatDIn, DatCIn,
                             DatBIn, DatAIn, CLKIn, CKENIn, AddressIn, RIn,
-                            OENegIn, ADVIn, CE2In, CE1NegIn, CE2NegIn)
+                            OENegIn, ADVIn, CE2In, CE1NegIn, CE2NegIn,
+                            LoadMem)
 
             -- Type definition for commands
             TYPE command_type is (ds,
@@ -975,6 +1003,7 @@ BEGIN
         IF ((ADVIn = '0') AND (CE1NegIn = '1' OR CE2NegIn = '1' OR
                 CE2In = '0')) THEN
             command := ds;
+            report "Setting command ds";
         ELSIF (CE1NegIn = '0' AND CE2NegIn = '0' AND CE2In = '1' AND
                 ADVIn = '0') THEN
             IF (RIn = '1') THEN
@@ -997,6 +1026,9 @@ BEGIN
         wr1 := false;
 
         IF (wr3) THEN
+      -- write
+          report "Writing addr = " & integer'image(MemAddr1) &
+            " DatAIn:" & integer'image(to_nat(DatAIn));
             IF (BWA2 = '0') THEN
                 IF Violation = 'X' THEN
                     MemDataA(MemAddr1) := -1;
@@ -1404,6 +1436,7 @@ BEGIN
     -- Memory loads whenever LoadMem toggles.
     IF LoadMem'EVENT and (mem_file_name /= "none") THEN
         ind := 0;
+        report "Reading file";
         WHILE (not ENDFILE (mem_file)) LOOP
             READLINE (mem_file, buf);
             IF buf(1) = '#' THEN  -- comment line
