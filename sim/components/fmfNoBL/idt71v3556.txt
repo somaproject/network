@@ -1,0 +1,124 @@
+
+________________________________________________________________________________
+
+MODEL:  idt71v3556.vhd                                           VERSION:    1.2
+DESCRIPTION:  Pipelined ZBT SRAM 128K x 36                       DATE: 03 MAR 01
+TIMING FILE:  idt71v3556.vhd                                     VERSION:    1.0
+                                                                 DATE: 01 OCT 26
+LOCATION:  http://www.FreeModelFoundry.com/fmf_models/ram/idt71v3556.vhd
+LOCATION:  http://www.FreeModelFoundry.com/fmf_models/ram/idt71v3556.vhd
+
+LIBRARY:  RAM
+
+GENERIC PART NUMBERS COVERED:  CY7C1350B, IDT71V3556, MT55L128L36P1
+
+________________________________________________________________________________
+
+SUPPORTED PART NUMBERS
+    ____________________________________________________________________________
+
+                   Cypress Semiconductor   
+
+    Part Number                       Data Source
+    ____________________________________________________________________________
+
+    CY7C1350B-80AC                         1
+
+    CY7C1350B-100AC                        1
+
+    CY7C1350B-133AC                        1
+
+    CY7C1350B-143AC                        1
+
+    CY7C1350B-150AC                        1
+
+    CY7C1350B-166AC                        1
+
+    ____________________________________________________________________________
+
+                   Integrated Device Technology
+
+    Part Number                       Data Source
+    ____________________________________________________________________________
+
+    IDT71V3556S100BG                       2
+
+    IDT71V3556S100BQ                       2
+
+    IDT71V3556S100PF                       2
+
+    IDT71V3556S133BG                       2
+
+    IDT71V3556S133BQ                       2
+
+    IDT71V3556S133PF                       2
+
+    IDT71V3556S166BG                       2
+
+    IDT71V3556S166BQ                       2
+
+    IDT71V3556S166PF                       2
+
+    IDT71V3556S200BG                       2
+
+    IDT71V3556S200BQ                       2
+
+    IDT71V3556S200PF                       2
+
+    ____________________________________________________________________________
+
+                   Micron Technology       
+
+    Part Number                       Data Source
+    ____________________________________________________________________________
+
+    MT55L128L36P1B-10                      3
+
+    MT55L128L36P1F-10                      3
+
+    MT55L128L36P1T-10                      3
+
+    MT55L128V36P1B-10                      3
+
+    MT55L128V36P1F-10                      3
+
+    MT55L128V36P1T-10                      3
+
+    MT55L128L36P1B-7.5                     3
+
+    MT55L128L36P1F-7.5                     3
+
+    MT55L128L36P1T-7.5                     3
+
+    MT55L128V36P1B-7.5                     3
+
+    MT55L128V36P1F-7.5                     3
+
+    MT55L128V36P1T-7.5                     3
+
+    MT55L128L36P1B-6                       3
+
+    MT55L128L36P1F-6                       3
+
+    MT55L128L36P1T-6                       3
+
+    MT55L128V36P1B-6                       3
+
+    MT55L128V36P1F-6                       3
+
+    MT55L128V36P1T-6                       3
+
+
+________________________________________________________________________________
+
+DATA SOURCES
+
+    These are the primary sources of data used in determining behaviour and 
+    timing of the components represented by this model.
+
+    1.   Cypress Semiconductor Preliminary Datasheet March 11, 2001
+
+    2.   IDT Datasheet DSC-5281/06 October 2000
+
+    3.   Micron Technology MT55L128L18P1_C.p65 Rev. 6/01
+

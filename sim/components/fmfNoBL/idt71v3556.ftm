@@ -1,0 +1,410 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for idt71v3556 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    01 Oct 26   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>idt71v3556
+<FMFTIME>
+CY7C1350B-80AC<SOURCE>Cypress Semiconductor Preliminary Datasheet March 11, 2001</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:4:7) (1.5:4:7) (1.5:3:5) (1.5:4:7) (1.5:3:5) (1.5:4:7))
+    (IOPATH OENeg DQA0 () () (1.5:4:7) (0:4:7) (1.5:4:7) (0:4:7))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (2.5:2.5:2.5))
+    (SETUP A0 CLK (2.5:2.5:2.5))
+    (SETUP DQA0 CLK (2.5:2.5:2.5))
+    (SETUP R CLK (2.5:2.5:2.5))
+    (SETUP ADV CLK (2.5:2.5:2.5))
+    (SETUP CE2 CLK (2.5:2.5:2.5))
+    (SETUP BWANeg CLK (2.5:2.5:2.5))
+    (HOLD CLKENNeg CLK (1:1:1))
+    (HOLD A0 CLK (1:1:1))
+    (HOLD DQA0 CLK (1.5:1.5:1.5))
+    (HOLD R CLK (1:1:1))
+    (HOLD ADV CLK (1:1:1))
+    (HOLD CE2 CLK (1:1:1))
+    (HOLD BWANeg CLK (1:1:1))
+    (WIDTH (posedge CLK) (4:4:4))
+    (WIDTH (negedge CLK) (4:4:4))
+    (PERIOD (posedge CLK) (12.5:12.5:12.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY7C1350B-100AC<SOURCE>Cypress Semiconductor Preliminary Datasheet March 11, 2001></SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:3:5) (1.5:3:5) (1.5:2.3:3.5) (1.5:3:5) (1.5:2.3:3.5) (1.5:3:5))
+    (IOPATH OENeg DQA0 () () (1.5:3:5) (0:2.3:3.5) (1.5:3:5) (0:2.3:3.5))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (2.2:2.2:2.2))
+    (SETUP A0 CLK (2.2:2.2:2.2))
+    (SETUP DQA0 CLK (2:2:2))
+    (SETUP R CLK (2.2:2.2:2.2))
+    (SETUP ADV CLK (2.2:2.2:2.2))
+    (SETUP CE2 CLK (2.2:2.2:2.2))
+    (SETUP BWANeg CLK (2.2:2.2:2.2))
+    (HOLD CLKENNeg CLK (.5:.5:.5))
+    (HOLD A0 CLK (.5:.5:.5))
+    (HOLD DQA0 CLK (.5))
+    (HOLD R CLK (.5:.5:.5))
+    (HOLD ADV CLK (.5:.5:.5))
+    (HOLD CE2 CLK (.5:.5:.5))
+    (HOLD BWANeg CLK (.5:.5:.5))
+    (WIDTH (posedge CLK) (4:4:4))
+    (WIDTH (negedge CLK) (4:4:4))
+    (PERIOD (posedge CLK) (10:10:10))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY7C1350B-133AC<SOURCE>Cypress Semiconductor Preliminary Datasheet March 11, 2001</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:2.9:4.2) (1.5:2.9:4.2) (1.5:2.3:3.5) (1.5:2.9:4.2) (1.5:2.3:3.5) (1.5:2.9:4.2))
+    (IOPATH OENeg DQA0 () () (1.5:2.9:4.2) (0:2.9:4.2) (1.5:2.9:4.2) (0:2.9:4.2))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (2:2:2))
+    (SETUP A0 CLK (2:2:2))
+    (SETUP DQA0 CLK (1.7:1.7:1.7))
+    (SETUP R CLK (2:2:2))
+    (SETUP ADV CLK (2:2:2))
+    (SETUP CE2 CLK (2:2:2))
+    (SETUP BWANeg CLK (2:2:2))
+    (HOLD CLKENNeg CLK (.5:.5:.5))
+    (HOLD A0 CLK (.5:.5:.5))
+    (HOLD DQA0 CLK (.5:.5:.5))
+    (HOLD R CLK (.5:.5:.5))
+    (HOLD ADV CLK (.5:.5:.5))
+    (HOLD CE2 CLK (.5:.5:.5))
+    (HOLD BWANeg CLK (.5:.5:.5))
+    (WIDTH (posedge CLK) (3:3:3))
+    (WIDTH (negedge CLK) (3:3:3))
+    (PERIOD (posedge CLK) (7.5:7.5:7.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY7C1350B-143AC<SOURCE>Cypress Semiconductor Preliminary Datasheet March 11, 2001</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:2.8:4) (1.5:2.8:4) (1.5:2.3:3.5) (1.5:2.8:4) (1.5:2.3:3.5) (1.5:2.8:4))
+    (IOPATH OENeg DQA0 () () (1.5:2.8:4) (0:2.8:4) (1.5:2.8:4) (0:2.8:4))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (2:2:2))
+    (SETUP A0 CLK (2:2:2))
+    (SETUP DQA0 CLK (1.7:1.7:1.7))
+    (SETUP R CLK (2:2:2))
+    (SETUP ADV CLK (2:2:2))
+    (SETUP CE2 CLK (2:2:2))
+    (SETUP BWANeg CLK (2:2:2))
+    (HOLD CLKENNeg CLK (.5:.5:.5))
+    (HOLD A0 CLK (.5:.5:.5))
+    (HOLD DQA0 CLK (.5:.5:.5))
+    (HOLD R CLK (.5:.5:.5))
+    (HOLD ADV CLK (.5:.5:.5))
+    (HOLD CE2 CLK (.5:.5:.5))
+    (HOLD BWANeg CLK (.5:.5:.5))
+    (WIDTH (posedge CLK) (2.8:2.8:2.8))
+    (WIDTH (negedge CLK) (2.8:2.8:2.8))
+    (PERIOD (posedge CLK) (7:7:7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY7C1350B-150AC<SOURCE>Cypress Semiconductor Preliminary Datasheet March 11, 2001</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:2.7:3.8) (1.5:2.7:3.8) (1.5:2.3:3.2) (1.5:2.7:3.8) (1.5:2.3:3.2) (1.5:2.7:3.8))
+    (IOPATH OENeg DQA0 () () (1:2:3) (0:2.7:3.8) (1:2:3) (0:2.7:3.8))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (1.5:1.5:1.5))
+    (SETUP A0 CLK (1.5:1.5:1.5))
+    (SETUP DQA0 CLK (1.5:1.5:1.5))
+    (SETUP R CLK (1.5:1.5:1.5))
+    (SETUP ADV CLK (1.5:1.5:1.5))
+    (SETUP CE2 CLK (1.5:1.5:1.5))
+    (SETUP BWANeg CLK (1.5:1.5:1.5))
+    (HOLD CLKENNeg CLK (.5:.5:.5))
+    (HOLD A0 CLK (.5:.5:.5))
+    (HOLD DQA0 CLK (.5:.5:.5))
+    (HOLD R CLK (.5:.5:.5))
+    (HOLD ADV CLK (.5:.5:.5))
+    (HOLD CE2 CLK (.5:.5:.5))
+    (HOLD BWANeg CLK (.5:.5:.5))
+    (WIDTH (posedge CLK) (2.5:2.5:2.5))
+    (WIDTH (negedge CLK) (2.5:2.5:2.5))
+    (PERIOD (posedge CLK) (6.6:6.6:6.6))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY7C1350B-166AC<SOURCE>Cypress Semiconductor Preliminary Datasheet March 11, 2001</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:2.5:3.5) (1.5:2.5:3.5) (1.5:2.3:3.2) (1.5:2.5:3.5) (1.5:2.3:3.2) (1.5:2.5:3.5))
+    (IOPATH OENeg DQA0 () () (1:2:3) (0:2.3:3.2) (1:2:3) (0:2.3:3.2))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (1.5:1.5:1.5))
+    (SETUP A0 CLK (1.5:1.5:1.5))
+    (SETUP DQA0 CLK (1.5:1.5:1.5))
+    (SETUP R CLK (1.5:1.5:1.5))
+    (SETUP ADV CLK (1.5:1.5:1.5))
+    (SETUP CE2 CLK (1.5:1.5:1.5))
+    (SETUP BWANeg CLK (1.5:1.5:1.5))
+    (HOLD CLKENNeg CLK (.5:.5:.5))
+    (HOLD A0 CLK (.5:.5:.5))
+    (HOLD DQA0 CLK (.5:.5:.5))
+    (HOLD R CLK (.5:.5:.5))
+    (HOLD ADV CLK (.5:.5:.5))
+    (HOLD CE2 CLK (.5:.5:.5))
+    (HOLD BWANeg CLK (.5:.5:.5))
+    (WIDTH (posedge CLK) (1.4:1.4:1.4))
+    (WIDTH (negedge CLK) (1.4:1.4:1.4))
+    (PERIOD (posedge CLK) (5:5:5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT71V3556S100BG<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+IDT71V3556S100BQ<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+IDT71V3556S100PF<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1:3.5:5) (1:3.5:5) (1:2.2:3.3) (1:3.5:5) (1:2.2:3.3) (1:3.5:5))
+    (IOPATH OENeg DQA0 () () (1:3.5:5) (0:3.5:5) (1:3.5:5) (0:3.5:5))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (2:2:2)) 
+    (SETUP A0 CLK (2:2:2)) 
+    (SETUP DQA0 CLK (2:2:2)) 
+    (SETUP R CLK (2:2:2)) 
+    (SETUP ADV CLK (2:2:2)) 
+    (SETUP CE2 CLK (2:2:2)) 
+    (SETUP BWANeg CLK (2:2:2)) 
+    (HOLD CLKENNeg CLK (.5:.5:.5)) 
+    (HOLD A0 CLK (.5:.5:.5)) 
+    (HOLD DQA0 CLK (.5:.5:.5)) 
+    (HOLD R CLK (.5:.5:.5)) 
+    (HOLD ADV CLK (.5:.5:.5)) 
+    (HOLD CE2 CLK (.5:.5:.5)) 
+    (HOLD BWANeg CLK (.5:.5:.5)) 
+    (WIDTH (posedge CLK) (3.2:3.2:3.2)) 
+    (WIDTH (negedge CLK) (3.2:3.2:3.2)) 
+    (PERIOD (posedge CLK) (10:10:10)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT71V3556S133BG<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+IDT71V3556S133BQ<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+IDT71V3556S133PF<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1:2.6:4.2) (1:2.6:4.2) (1:2:3) (1:2.6:4.2) (1:2:3) (1:2.6:4.2))
+    (IOPATH OENeg DQA0 () () (1:2.6:4.2) (0:2.6:4.2) (1:2.6:4.2) (0:2.6:4.2))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (1.7:1.7:1.7)) 
+    (SETUP A0 CLK (1.7:1.7:1.7)) 
+    (SETUP DQA0 CLK (1.7:1.7:1.7)) 
+    (SETUP R CLK (1.7:1.7:1.7)) 
+    (SETUP ADV CLK (1.7:1.7:1.7)) 
+    (SETUP CE2 CLK (1.7:1.7:1.7)) 
+    (SETUP BWANeg CLK (1.7:1.7:1.7)) 
+    (HOLD CLKENNeg CLK (.5:.5:.5)) 
+    (HOLD A0 CLK (.5:.5:.5)) 
+    (HOLD DQA0 CLK (.5:.5:.5)) 
+    (HOLD R CLK (.5:.5:.5)) 
+    (HOLD ADV CLK (.5:.5:.5)) 
+    (HOLD CE2 CLK (.5:.5:.5)) 
+    (HOLD BWANeg CLK (.5:.5:.5)) 
+    (WIDTH (posedge CLK) (2.2:2.2:2.2)) 
+    (WIDTH (negedge CLK) (2.2:2.2:2.2)) 
+    (PERIOD (posedge CLK) (7.5:7.5:7.5)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT71V3556S166BG<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+IDT71V3556S166BQ<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+IDT71V3556S166PF<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1:2.2:3.5) (1:2.2:3.5) (1:2:3) (1:2.2:3.5) (1:2:3) (1:2.2:3.5))
+    (IOPATH OENeg DQA0 () () (1:2.2:3.5) (0:2.2:3.5) (1:2.2:3.5) (0:2.2:3.5))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (1.5:1.5:1.5)) 
+    (SETUP A0 CLK (1.5:1.5:1.5)) 
+    (SETUP DQA0 CLK (1.5:1.5:1.5)) 
+    (SETUP R CLK (1.5:1.5:1.5)) 
+    (SETUP ADV CLK (1.5:1.5:1.5)) 
+    (SETUP CE2 CLK (1.5:1.5:1.5)) 
+    (SETUP BWANeg CLK (1.5:1.5:1.5)) 
+    (HOLD CLKENNeg CLK (.5:.5:.5)) 
+    (HOLD A0 CLK (.5:.5:.5)) 
+    (HOLD DQA0 CLK (.5:.5:.5)) 
+    (HOLD R CLK (.5:.5:.5)) 
+    (HOLD ADV CLK (.5:.5:.5)) 
+    (HOLD CE2 CLK (.5:.5:.5)) 
+    (HOLD BWANeg CLK (.5:.5:.5)) 
+    (WIDTH (posedge CLK) (1.8:1.8:1.8)) 
+    (WIDTH (negedge CLK) (1.8:1.8:1.8)) 
+    (PERIOD (posedge CLK) (6:6:6)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT71V3556S200BG<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+IDT71V3556S200BQ<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+IDT71V3556S200PF<SOURCE>IDT Datasheet DSC-5281/06 October 2000</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1:2.1:3.2) (1:2.1:3.2) (1:2:3) (1:2.1:3.2) (1:2:3) (1:2.1:3.2))
+    (IOPATH OENeg DQA0 () () (1:2.3:3.5) (0:2.1:3.2) (1:2.3:3.5) (0:2.1:3.2))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (1.5:1.5:1.5)) 
+    (SETUP A0 CLK (1.5:1.5:1.5)) 
+    (SETUP DQA0 CLK (1.5:1.5:1.5)) 
+    (SETUP R CLK (1.5:1.5:1.5)) 
+    (SETUP ADV CLK (1.5:1.5:1.5)) 
+    (SETUP CE2 CLK (1.5:1.5:1.5)) 
+    (SETUP BWANeg CLK (1.5:1.5:1.5)) 
+    (HOLD CLKENNeg CLK (1.5:1.5:1.5)) 
+    (HOLD A0 CLK (.5:.5:.5)) 
+    (HOLD DQA0 CLK (.5:.5:.5)) 
+    (HOLD R CLK (.5:.5:.5)) 
+    (HOLD ADV CLK (.5:.5:.5)) 
+    (HOLD CE2 CLK (.5:.5:.5)) 
+    (HOLD BWANeg CLK (.5:.5:.5)) 
+    (WIDTH (posedge CLK) (1.8:1.8:1.8)) 
+    (WIDTH (negedge CLK) (1.8:1.8:1.8)) 
+    (PERIOD (posedge CLK) (5:5:5)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MT55L128L36P1B-10<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36P1F-10<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36P1T-10<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1B-10<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1F-10<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1T-10<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:3.3:5) (1.5:3.3:5) (1.5:2.5:3.5) (1.5:3.3:5) (1.5:2.5:3.5) (1.5:3.3:5))
+    (IOPATH OENeg DQA0 () () (1.5:3.3:5) (0:3.3:5) (1.5:3.3:5) (0:3.3:5))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (2:2:2)) 
+    (SETUP A0 CLK (2:2:2)) 
+    (SETUP DQA0 CLK (2:2:2)) 
+    (SETUP R CLK (2:2:2)) 
+    (SETUP ADV CLK (2:2:2)) 
+    (SETUP CE2 CLK (2:2:2)) 
+    (SETUP BWANeg CLK (2:2:2)) 
+    (HOLD CLKENNeg CLK (.5:.5:.5)) 
+    (HOLD A0 CLK (.5:.5:.5)) 
+    (HOLD DQA0 CLK (.5:.5:.5)) 
+    (HOLD R CLK (.5:.5:.5)) 
+    (HOLD ADV CLK (.5:.5:.5)) 
+    (HOLD CE2 CLK (.5:.5:.5)) 
+    (HOLD BWANeg CLK (.5:.5:.5)) 
+    (WIDTH (posedge CLK) (3.2:3.2:3.2)) 
+    (WIDTH (negedge CLK) (3.2:3.2:3.2)) 
+    (PERIOD (posedge CLK) (10:10:10)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MT55L128L36P1B-7.5<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36P1F-7.5<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36P1T-7.5<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1B-7.5<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1F-7.5<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1T-7.5<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:2.9:4.2) (1.5:2.9:4.2) (1.5:2.5:3.5) (1.5:2.9:4.2) (1.5:2.5:3.5) (1.5:2.9:4.2))
+    (IOPATH OENeg DQA0 () () (1.5:2.9:4.2) (0:2.9:4.2) (1.5:2.9:4.2) (0:2.9:4.2))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (1.7:1.7:1.7)) 
+    (SETUP A0 CLK (1.7:1.7:1.7)) 
+    (SETUP DQA0 CLK (1.7:1.7:1.7)) 
+    (SETUP R CLK (1.7:1.7:1.7)) 
+    (SETUP ADV CLK (1.7:1.7:1.7)) 
+    (SETUP CE2 CLK (1.7:1.7:1.7)) 
+    (SETUP BWANeg CLK (1.7:1.7:1.7)) 
+    (HOLD CLKENNeg CLK (.5:.5:.5)) 
+    (HOLD A0 CLK (.5:.5:.5)) 
+    (HOLD DQA0 CLK (.5:.5:.5)) 
+    (HOLD R CLK (.5:.5:.5)) 
+    (HOLD ADV CLK (.5:.5:.5)) 
+    (HOLD CE2 CLK (.5:.5:.5)) 
+    (HOLD BWANeg CLK (.5:.5:.5)) 
+    (WIDTH (posedge CLK) (2:2:2)) 
+    (WIDTH (negedge CLK) (2:2:2)) 
+    (PERIOD (posedge CLK) (7.5:7.5:7.5)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MT55L128L36P1B-6<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36P1F-6<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36P1T-6<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1B-6<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1F-6<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+MT55L128L36V1T-6<SOURCE>Micron Technology MT55L128L18P1_C.p65 Rev. 6/01</SOURCE>
+<COMMENT>The values listed are for VCC=3.3V, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>parameters missing from the datasheet were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK DQA0 (1.5:2.5:3.5) (1.5:2.5:3.5) (1.5:2.5:3.5) (1.5:2.5:3.5) (1.5:2.5:3.5) (1.5:2.5:3.5))
+    (IOPATH OENeg DQA0 () () (1.5:2.5:3.5) (0:2.5:3.5) (1.5:2.5:3.5) (0:2.5:3.5))
+  ))
+  (TIMINGCHECK
+    (SETUP CLKENNeg CLK (1.5:1.5:1.5)) 
+    (SETUP A0 CLK (1.5:1.5:1.5)) 
+    (SETUP DQA0 CLK (1.5:1.5:1.5)) 
+    (SETUP R CLK (1.5:1.5:1.5)) 
+    (SETUP ADV CLK (1.5:1.5:1.5)) 
+    (SETUP CE2 CLK (1.5:1.5:1.5)) 
+    (SETUP BWANeg CLK (1.5:1.5:1.5)) 
+    (HOLD CLKENNeg CLK (.5:.5:.5)) 
+    (HOLD A0 CLK (.5:.5:.5)) 
+    (HOLD DQA0 CLK (.5:.5:.5)) 
+    (HOLD R CLK (.5:.5:.5)) 
+    (HOLD ADV CLK (.5:.5:.5)) 
+    (HOLD CE2 CLK (.5:.5:.5)) 
+    (HOLD BWANeg CLK (.5:.5:.5)) 
+    (WIDTH (posedge CLK) (1.7:1.7:1.7)) 
+    (WIDTH (negedge CLK) (1.7:1.7:1.7)) 
+    (PERIOD (posedge CLK) (6:6:6)) 
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>
