@@ -66,17 +66,17 @@ architecture behavior of networktest is
 
   signal CLKIN     : std_logic := '0';
   signal RESET     : std_logic := '1';
-  signal RX_DV     : std_logic;
-  signal RX_ER     : std_logic;
+  signal RX_DV     : std_logic := '0';
+  signal RX_ER     : std_logic := '0';
   signal RXD       : std_logic_vector(7 downto 0);
   signal RX_CLK    : std_logic := '0';
   signal TXD       : std_logic_vector(7 downto 0);
-  signal TX_EN     : std_logic;
-  signal GTX_CLK   : std_logic;
+  signal TX_EN     : std_logic := '0';
+  signal GTX_CLK   : std_logic := '0';
   signal MA        : std_logic_vector(16 downto 0);
   signal MD        : std_logic_vector(31 downto 0);
-  signal MCLK      : std_logic;
-  signal MWE       : std_logic;
+  signal MCLK      : std_logic := '0';
+  signal MWE       : std_logic := '1';
   signal CLKIOIN   : std_logic := '0';
   signal NEXTFRAME : std_logic := '0';
   signal DOUT      : std_logic_vector(15 downto 0)
@@ -175,6 +175,7 @@ begin
 
   begin
     file_open(gmiifile, "gmiiin.0.dat", read_mode);
+    wait for 1 us;
     while not endfile(gmiifile) loop
       wait until rising_edge(RX_CLK) and RESET = '0';
       readline(gmiifile, L);
@@ -237,7 +238,7 @@ begin
         end if;
         if ((bytelen mod 2 = 0) and (rdata /= DOUT)) or
           ((bytelen mod 2 = 1) and
-           (rdata(7 downto 0) /= DOUT(7 downto 0)))then
+           (rdata(15 downto 8) /= DOUT(15 downto 8)))then
           assert false
             report "RXOUTPUT : error reading data"
             severity error;
@@ -262,7 +263,7 @@ begin
   begin
     wait until falling_edge(RESET);
 
-    wait for 400 ns;
+    wait for 1 us;
     file_open(dinfile, "din.0.dat", read_mode);
     while not endfile(dinfile) loop
       wait until rising_edge(CLKIOin);

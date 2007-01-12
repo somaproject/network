@@ -60,7 +60,8 @@ architecture Behavioral of RXoutput is
   component RAMB16_S18_S18
     generic (
       INIT_B    :     bit_vector := X"00000";
-      SRVAL_B   :     bit_vector := X"00000");
+      SRVAL_B   :     bit_vector := X"00000";
+      SIM_COLLISION_CHECK : string);
     port (DIA   : in  std_logic_vector (15 downto 0);
           DIB   : in  std_logic_vector (15 downto 0);
           DIPA  : in  std_logic_vector (1 downto 0);
@@ -108,7 +109,10 @@ begin
       DONE     => crcdone); 
 
   -- ram instantiation
-  fifo : RAMB16_S18_S18 port map (
+  fifo : RAMB16_S18_S18
+    generic map (
+      SIM_COLLISION_CHECK => "NONE")
+    port map (
     DIA   => di,
     DIB   => X"0000",
     DIPA  => "00",

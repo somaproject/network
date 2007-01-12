@@ -167,8 +167,8 @@ begin
         end if;
 
 
-        if mwen = '1' and               -- fd = '1' then
-          rd = '1' and dv = '1' then
+        if (mwen = '1' and               -- fd = '1' then
+          rd = '1' and dv = '1') or (mwen = '1' and cs = checkf)  then
           lml <= lm;
         end if;
 

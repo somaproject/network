@@ -1003,7 +1003,6 @@ BEGIN
         IF ((ADVIn = '0') AND (CE1NegIn = '1' OR CE2NegIn = '1' OR
                 CE2In = '0')) THEN
             command := ds;
-            report "Setting command ds";
         ELSIF (CE1NegIn = '0' AND CE2NegIn = '0' AND CE2In = '1' AND
                 ADVIn = '0') THEN
             IF (RIn = '1') THEN
@@ -1027,8 +1026,6 @@ BEGIN
 
         IF (wr3) THEN
       -- write
-          report "Writing addr = " & integer'image(MemAddr1) &
-            " DatAIn:" & integer'image(to_nat(DatAIn));
             IF (BWA2 = '0') THEN
                 IF Violation = 'X' THEN
                     MemDataA(MemAddr1) := -1;

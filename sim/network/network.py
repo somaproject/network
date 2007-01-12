@@ -102,7 +102,7 @@ class RXsystem:
 
         data = ""
         for i in range(length):
-            data += struct.pack("B", random.randint(0, 255))
+            data += struct.pack("B", i% 256)
 
         srcMAC = "%02X:%02X:%02X:%02X:%02X:%02X" % \
                  (random.randint(0,255), random.randint(0,255),
