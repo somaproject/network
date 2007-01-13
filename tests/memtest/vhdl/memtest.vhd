@@ -59,7 +59,7 @@ architecture Behavioral of memtest is
   signal we3    : std_logic;
   signal clken3 : std_logic                     := '0';
 
-  signal addr4  : std_logic_vector(16 downto 0) := '1' & X"0000";
+  signal addr4  : std_logic_vector(16 downto 0) := '1' & X"FFE0";
   signal d4     : std_logic_vector(31 downto 0) := (others => '0');
   signal q4     : std_logic_vector(31 downto 0) := (others => '0');
   signal we4    : std_logic;
@@ -69,8 +69,13 @@ architecture Behavioral of memtest is
 
   signal addr2readen : std_logic := '0';
   signal addr2error  : std_logic := '0';
+  signal addr4readen : std_logic := '0';
+  signal addr4error  : std_logic := '0';
   signal locked : std_logic_vector(5 downto 0) := (others =>  '0');
   signal dcmreset : std_logic := '1';
+
+  signal cyclecnt : std_logic_vector(7 downto 0) := (others => '0');
+  
   
   component memory
     port ( CLK     : in  std_logic;
@@ -99,6 +104,23 @@ architecture Behavioral of memtest is
            CLKEN4  : out std_logic);
   end component;
 
+  signal err2cnt : std_logic_vector(7 downto 0) := (others => '0');
+  signal err4cnt : std_logic_vector(7 downto 0) := (others => '0');
+
+  signal jtagout : std_logic_vector(39 downto 0) := (others => '0');
+  
+    signal jtagcapture : std_logic := '0';
+  signal jtagdrck1   : std_logic := '0';
+  signal jtagdrck2   : std_logic := '0';
+  signal jtagsel1    : std_logic := '0';
+  signal jtagsel2    : std_logic := '0';
+  signal jtagshift   : std_logic := '0';
+  signal jtagtdi     : std_logic := '0';
+  signal jtagtdo1    : std_logic := '0';
+  signal jtagtdo2    : std_logic := '0';
+  signal jtagupdate  : std_logic := '0';
+
+  signal outpos : integer range 0 to 39 := 0;
 
 begin  -- Behavioral
 
@@ -190,7 +212,7 @@ begin  -- Behavioral
 
   WE1 <= '1';
   WE2 <= '0';
-  WE3 <= '0';
+  WE3 <= '1';
   WE4 <= '0';
 
   dcmshift:  process (clkf)
@@ -204,23 +226,23 @@ begin  -- Behavioral
   begin
     if rising_edge(clk) then
 
+      -- writing 1
       if clken1 = '1' then
         addr1(15 downto 0) <= addr1(15 downto 0) + 1;
         d1                 <= addr1(15 downto 0) & addr1(15 downto 0);
       end if;
 
+      -- Reading 1
       if clken2 = '1' then
         addr2(15 downto 0) <= addr2(15 downto 0) + 1;
-        if addr2(15 downto 0) = X"FFFF" then
+        if addr2(15 downto 0) = X"0003" then
           addr2readen      <= '1';
         end if;
-
-
       end if;
 
       if addr2readen = '1' then
         if clken2 = '1' then
-          if d2 /= (addr2(15 downto 0) - 1) & (addr2(15 downto 0) - 1) then
+          if q2 /= (addr2(15 downto 0) - 3) & (addr2(15 downto 0) - 3) then
             addr2error <= '1';
           else
             addr2error <= '0';
@@ -229,6 +251,44 @@ begin  -- Behavioral
           addr2error   <= '0';
         end if;
       end if;
+
+
+      -- writing 2
+      if clken3 = '1' then
+        addr3(15 downto 0) <= addr3(15 downto 0) + 1;
+        d3                 <= addr3(15 downto 0) & addr3(15 downto 0);
+      end if;
+
+      -- Reading 2
+      if clken4 = '1' then
+        addr4(15 downto 0) <= addr4(15 downto 0) + 1;
+        if addr4(15 downto 0) = X"0003" then
+          addr4readen      <= '1';
+        end if;
+      end if;
+
+      if addr4readen = '1' then
+        if clken4 = '1' then
+          if q4 /= (addr4(15 downto 0) - 3) & (addr4(15 downto 0) - 3) then
+            addr4error <= '1';
+          else
+            addr4error <= '0';
+          end if;
+        else
+          addr4error   <= '0';
+        end if;
+      end if;
+
+      if addr2error = '1' then
+        err2cnt <= err2cnt + 1; 
+      end if;
+
+      if addr4error = '1' then
+        err4cnt <= err4cnt + 1; 
+      end if;
+
+      cyclecnt <= cyclecnt + 1; 
+
     end if;
   end process main;
 
@@ -239,6 +299,43 @@ begin  -- Behavioral
   LEDACT   <= valid;
 
   MOE <= '0';
+
+  -- JTAG interface
+  --
+  --
+
+
+    BSCAN_SPARTAN3_inst : BSCAN_SPARTAN3
+    port map (
+      CAPTURE => jtagcapture,           -- CAPTURE output from TAP controller
+      DRCK1   => jtagdrck1,             -- Data register output for USER1 functions
+      DRCK2   => jtagDRCK2,             -- Data register output for USER2 functions
+      SEL1    => jtagSEL1,              -- USER1 active output
+      SEL2    => jtagSEL2,              -- USER2 active output
+      SHIFT   => jtagSHIFT,             -- SHIFT output from TAP controller
+      TDI     => jtagTDI,               -- TDI output from TAP controller
+      UPDATE  => jtagUPDATE,            -- UPDATE output from TAP controller
+      TDO1    => jtagtdo1,              -- Data input for USER1 function
+      TDO2    => jtagtdo2               -- Data input for USER2 function
+      );
+
+
+  jtagout <= X"AB" & cyclecnt & err2cnt & err4cnt & X"CD"; 
+
+    process(jtagdrck2)
+  begin
+    if jtagUPDATE = '1' then
+      outpos <= 0;
+    else
+
+      if rising_edge(jtagdrck2) then
+        jtagtdo2 <= jtagout(outpos);
+
+        outpos <= outpos + 1;
+      end if;
+    end if;
+  end process;
+
 
 end Behavioral;
 
