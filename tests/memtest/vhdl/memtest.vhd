@@ -205,7 +205,7 @@ begin  -- Behavioral
       CLKEN4  => clken4);
 
 
-  MCLK <= clk270;
+  MCLK <= clk;
 
 
   PHYRESET <= '0';
