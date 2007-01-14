@@ -47,7 +47,7 @@ architecture Behavioral of memtest is
   signal clken1 : std_logic                     := '0';
 
   signal addr2                          : std_logic_vector(16 downto 0) := '0' & X"FFF0";
-  signal expected, expected2, expected3 : std_logic_vector(31 downto 0) := (others => '0');
+  signal expected, expected2_3, expected3 : std_logic_vector(31 downto 0) := (others => '0');
   signal d2                             : std_logic_vector(31 downto 0) := (others => '0');
   signal q2                             : std_logic_vector(31 downto 0) := (others => '0');
   signal we2                            : std_logic;
@@ -68,7 +68,7 @@ architecture Behavioral of memtest is
   signal valid : std_logic := '0';
 
   signal addr2readen : std_logic := '0';
-  signal addr2error  : std_logic := '0';
+  signal addr2error2, addr2error3, addr2error4  : std_logic := '0';
   signal addr4readen : std_logic := '0';
   signal addr4error  : std_logic := '0';
   signal locked : std_logic_vector(5 downto 0) := (others =>  '0');
@@ -205,7 +205,7 @@ begin  -- Behavioral
       CLKEN4  => clken4);
 
 
-  MCLK <= clk;
+  MCLK <= clk270;
 
 
   PHYRESET <= '0';
@@ -221,6 +221,8 @@ begin  -- Behavioral
         locked(5 downto 1) <= locked(4 downto 0); 
       end if;
     end process dcmshift;
+
+    expected2_3 <= (addr2(15 downto 0) - 3) & (addr2(15 downto 0) - 3);
     
   main : process(clk)
   begin
@@ -235,23 +237,23 @@ begin  -- Behavioral
       -- Reading 1
       if clken2 = '1' then
         addr2(15 downto 0) <= addr2(15 downto 0) + 1;
-        if addr2(15 downto 0) = X"0003" then
+        if addr2(15 downto 0) = X"001F" then
           addr2readen      <= '1';
         end if;
       end if;
 
       if addr2readen = '1' then
         if clken2 = '1' then
-          if q2 /= (addr2(15 downto 0) - 3) & (addr2(15 downto 0) - 3) then
-            addr2error <= '1';
+          if (q2(31 downto 26) & q2(25 downto 0))
+            /= (expected2_3(31 downto 26) & expected2_3(25 downto 0)) then
+            addr2error3 <= '1';
           else
-            addr2error <= '0';
+            addr2error3 <= '0';
           end if;
         else
-          addr2error   <= '0';
+          addr2error3   <= '0';
         end if;
       end if;
-
 
       -- writing 2
       if clken3 = '1' then
@@ -262,7 +264,7 @@ begin  -- Behavioral
       -- Reading 2
       if clken4 = '1' then
         addr4(15 downto 0) <= addr4(15 downto 0) + 1;
-        if addr4(15 downto 0) = X"0003" then
+        if addr4(15 downto 0) = X"001F" then
           addr4readen      <= '1';
         end if;
       end if;
@@ -279,7 +281,7 @@ begin  -- Behavioral
         end if;
       end if;
 
-      if addr2error = '1' then
+      if addr2error3 = '1' then
         err2cnt <= err2cnt + 1; 
       end if;
 
