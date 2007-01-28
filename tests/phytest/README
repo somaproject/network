@@ -18,15 +18,15 @@ phyparse.py:
 * to test: 
 1. bring phy out of reset: 
 
-[jonas@shannon phytest]$ sudo python phyparse.py write 1 1
+[jonas@shannon phytest]$ python phyparse.py write 1 1
 ~/XC3Sprog/xc3sprog 0 0x02 "01 00 00 00 82"
 
 2. write "phy dout word":
-[jonas@shannon phytest]$ sudo python phyparse.py write 9 1140
+[jonas@shannon phytest]$ python phyparse.py write 9 1140
 ~/XC3Sprog/xc3sprog 0 0x02 "40 11 00 00 89"
 
 3. write the "phy addr register" to start the command: 
-[jonas@shannon phytest]$ sudo python phyparse.py write 8 20
+[jonas@shannon phytest]$ python phyparse.py write 8 20
 ~/XC3Sprog/xc3sprog 0 0x02 "20 00 00 00 88"
 
 and then check for packets!

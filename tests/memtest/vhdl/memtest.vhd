@@ -205,7 +205,7 @@ begin  -- Behavioral
       CLKEN4  => clken4);
 
 
-  MCLK <= clk270;
+  MCLK <= clk90;
 
 
   PHYRESET <= '0';
@@ -295,10 +295,10 @@ begin  -- Behavioral
   end process main;
 
 
-  LEDPOWER <= valid;
-  LED100   <= '0';
-  LED1000  <= '0';
-  LEDACT   <= valid;
+  LEDPOWER <= '1';
+  LED100   <= '1';
+  LED1000  <= '1';
+  LEDACT   <= '1'; 
 
   MOE <= '0';
 

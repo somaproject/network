@@ -90,7 +90,7 @@ architecture Behavioral of memorytest is
 begin  -- Behavioral
 
   CLK    <= not CLK       after 4 ns;
-  MEMCLK <= transport CLK after 1 ns;
+  MEMCLK <= transport CLK after 6 ns;   -- clk270
 
   ram : NoBLSRAM
 -- generic map (

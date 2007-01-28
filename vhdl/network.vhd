@@ -329,7 +329,7 @@ begin
     I => clk270int,
     O => clk270 );
 
-  MCLK <= clk270;
+  MCLK <= clk90;
 
   U2 : OBUF port map (I => clk270, O => GTX_CLK);
 
