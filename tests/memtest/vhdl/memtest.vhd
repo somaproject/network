@@ -38,6 +38,8 @@ architecture Behavioral of memtest is
   signal clk180, clk180int : std_logic := '0';
   signal clk270, clk270int : std_logic := '0';
 
+  signal mclk_int, mclk_fb : std_logic := '0';
+  
 
 
   signal addr1  : std_logic_vector(16 downto 0) := '0' & X"0000";
@@ -46,12 +48,12 @@ architecture Behavioral of memtest is
   signal we1    : std_logic;
   signal clken1 : std_logic                     := '0';
 
-  signal addr2                          : std_logic_vector(16 downto 0) := '0' & X"FFF0";
+  signal addr2                            : std_logic_vector(16 downto 0) := '0' & X"FFF0";
   signal expected, expected2_3, expected3 : std_logic_vector(31 downto 0) := (others => '0');
-  signal d2                             : std_logic_vector(31 downto 0) := (others => '0');
-  signal q2                             : std_logic_vector(31 downto 0) := (others => '0');
-  signal we2                            : std_logic;
-  signal clken2                         : std_logic                     := '0';
+  signal d2                               : std_logic_vector(31 downto 0) := (others => '0');
+  signal q2                               : std_logic_vector(31 downto 0) := (others => '0');
+  signal we2                              : std_logic;
+  signal clken2                           : std_logic                     := '0';
 
   signal addr3  : std_logic_vector(16 downto 0) := '1' & X"0000";
   signal d3     : std_logic_vector(31 downto 0) := (others => '0');
@@ -67,16 +69,16 @@ architecture Behavioral of memtest is
 
   signal valid : std_logic := '0';
 
-  signal addr2readen : std_logic := '0';
-  signal addr2error2, addr2error3, addr2error4  : std_logic := '0';
-  signal addr4readen : std_logic := '0';
-  signal addr4error  : std_logic := '0';
-  signal locked : std_logic_vector(5 downto 0) := (others =>  '0');
-  signal dcmreset : std_logic := '1';
+  signal addr2readen                           : std_logic                    := '0';
+  signal addr2error2, addr2error3, addr2error4 : std_logic                    := '0';
+  signal addr4readen                           : std_logic                    := '0';
+  signal addr4error                            : std_logic                    := '0';
+  signal locked                                : std_logic_vector(5 downto 0) := (others => '0');
+  signal dcmreset                              : std_logic                    := '1';
 
   signal cyclecnt : std_logic_vector(7 downto 0) := (others => '0');
-  
-  
+
+
   component memory
     port ( CLK     : in  std_logic;
            RESET   : in  std_logic; DQEXT : inout std_logic_vector(31 downto 0);
@@ -108,8 +110,8 @@ architecture Behavioral of memtest is
   signal err4cnt : std_logic_vector(7 downto 0) := (others => '0');
 
   signal jtagout : std_logic_vector(39 downto 0) := (others => '0');
-  
-    signal jtagcapture : std_logic := '0';
+
+  signal jtagcapture : std_logic := '0';
   signal jtagdrck1   : std_logic := '0';
   signal jtagdrck2   : std_logic := '0';
   signal jtagsel1    : std_logic := '0';
@@ -122,6 +124,8 @@ architecture Behavioral of memtest is
 
   signal outpos : integer range 0 to 39 := 0;
 
+  signal stage2reset, stage2lock : std_logic := '0';
+  
 begin  -- Behavioral
 
   clk_dcm : DCM
@@ -135,11 +139,11 @@ begin  -- Behavioral
       CLKIN          => CLKIN,
       CLKFX          => clkfint,        -- 125 Mhz generated clock
       RST            => RESET,
-      LOCKED => locked(0)
+      LOCKED         => locked(0)
       );
 
   dcmreset <= not locked(4);
-  
+
   clkhi_dcm : DCM
     port map (
       CLK0   => clkint,                 -- 0 degree DCM CLK ouptput
@@ -148,9 +152,11 @@ begin  -- Behavioral
       CLK90  => clk90int,
       CLK270 => clk270int,
       CLKIN  => clkf,
-      RST    => dcmreset
+      RST    => dcmreset,
+      LOCKED => stage2lock
       );
-
+  stage2reset <= not stage2lock;
+  
   clkf_bufg : BUFG port map (
     I => clkfint,
     O => clkf);
@@ -204,8 +210,22 @@ begin  -- Behavioral
       CLKEN3  => clken3,
       CLKEN4  => clken4);
 
+  memclk_dcm : DCM
+     generic map (
+       CLKOUT_PHASE_SHIFT    => "FIXED",
+       PHASE_SHIFT           => -50)
+    port map (
+      CLK0                  => mclk_fb,    -- 0 degree DCM CLK ouptput
+      CLKFB                 => mclk_int,   -- DCM clock feedback
+      CLKIN                 => clk,   -- Clock input (from IBUFG, BUFG or DCM)
+      RST                   => stage2reset
+      );
 
-  MCLK <= clk90;
+  mclk_bufg : BUFG port map (
+    I => mclk_fb,
+    O => mclk_int );
+
+  MCLK <= mclk_int;
 
 
   PHYRESET <= '0';
@@ -215,15 +235,15 @@ begin  -- Behavioral
   WE3 <= '1';
   WE4 <= '0';
 
-  dcmshift:  process (clkf)
-    begin
-      if rising_edge(clkf) then
-        locked(5 downto 1) <= locked(4 downto 0); 
-      end if;
-    end process dcmshift;
+  dcmshift : process (clkf)
+  begin
+    if rising_edge(clkf) then
+      locked(5 downto 1) <= locked(4 downto 0);
+    end if;
+  end process dcmshift;
 
-    expected2_3 <= (addr2(15 downto 0) - 3) & (addr2(15 downto 0) - 3);
-    
+  expected2_3 <= (addr2(15 downto 0) - 3) & (addr2(15 downto 0) - 3);
+
   main : process(clk)
   begin
     if rising_edge(clk) then
@@ -282,23 +302,28 @@ begin  -- Behavioral
       end if;
 
       if addr2error3 = '1' then
-        err2cnt <= err2cnt + 1; 
+        err2cnt <= err2cnt + 1;
       end if;
 
       if addr4error = '1' then
-        err4cnt <= err4cnt + 1; 
+        err4cnt <= err4cnt + 1;
       end if;
 
-      cyclecnt <= cyclecnt + 1; 
+      LEDACT <= addr2error3;
+      LEDPOWER <= addr4error;
+      
+
+
+      
+      cyclecnt <= cyclecnt + 1;
 
     end if;
   end process main;
 
 
-  LEDPOWER <= '1';
   LED100   <= '1';
   LED1000  <= '1';
-  LEDACT   <= '1'; 
+
 
   MOE <= '0';
 
@@ -307,7 +332,7 @@ begin  -- Behavioral
   --
 
 
-    BSCAN_SPARTAN3_inst : BSCAN_SPARTAN3
+  BSCAN_SPARTAN3_inst : BSCAN_SPARTAN3
     port map (
       CAPTURE => jtagcapture,           -- CAPTURE output from TAP controller
       DRCK1   => jtagdrck1,             -- Data register output for USER1 functions
@@ -322,9 +347,9 @@ begin  -- Behavioral
       );
 
 
-  jtagout <= X"AB" & cyclecnt & err2cnt & err4cnt & X"CD"; 
+  jtagout <= X"AB" & cyclecnt & err2cnt & err4cnt & X"CD";
 
-    process(jtagdrck2)
+  process(jtagdrck2)
   begin
     if jtagUPDATE = '1' then
       outpos <= 0;

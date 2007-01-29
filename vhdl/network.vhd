@@ -55,7 +55,8 @@ architecture Behavioral of network is
   signal clk180, clk180int : std_logic := '0';
   signal clk270, clk270int : std_logic := '0';
 
-
+  signal mclkint, mclkintfb : std_logic := '0';
+  
   signal clken1, clken2, clken3, clken4 : std_logic := '0';
 
   -- data
@@ -329,24 +330,39 @@ begin
     I => clk270int,
     O => clk270 );
 
-  MCLK <= clk90;
 
   U2 : OBUF port map (I => clk270, O => GTX_CLK);
 
 
-  rxclk_dcm : DCM
-    port map (
-      CLK0  => clkrxint,                -- 0 degree DCM CLK ouptput
-      CLKFB => clkrx,                   -- DCM clock feedback
-      CLKIN => RX_CLK,
-      RST   => RESET
-      );
-
+--   rxclk_dcm : DCM
+--     port map (
+--       CLK0  => clkrxint,                -- 0 degree DCM CLK ouptput
+--       CLKFB => clkrx,                   -- DCM clock feedback
+--       CLKIN => RX_CLK,
+--       RST   => RESET
+--       );
+  --clkrx <= RX_CLK; 
 
   clkrx_bufg : BUFG port map (
-    I => clkrxint,
+    I => RX_CLK,
     O => clkrx);
 
+  clkmem_dcm : DCM
+     generic map (
+       CLKOUT_PHASE_SHIFT    => "FIXED",
+       PHASE_SHIFT           => 170)
+    port map (
+      CLK0   => mclkintfb,      
+      CLKFB  => mclkint,         
+      CLKIN  => clk,
+      RST    => RESET
+      );
+
+  clkmem_bufg : BUFG port map (
+    I => mclkintfb,
+    O => mclkint);
+
+  MCLK <= mclkint;
 
   memcontroller : memory port map (
     CLK     => clk,
