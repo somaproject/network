@@ -347,23 +347,24 @@ begin
     I => RX_CLK,
     O => clkrx);
 
-  clkmem_dcm : DCM
-     generic map (
-       CLKOUT_PHASE_SHIFT    => "FIXED",
-       PHASE_SHIFT           => 170)
-    port map (
-      CLK0   => mclkintfb,      
-      CLKFB  => mclkint,         
-      CLKIN  => clk,
-      RST    => RESET
-      );
+--   clkmem_dcm : DCM
+--      generic map (
+--        CLKOUT_PHASE_SHIFT    => "FIXED",
+--         PHASE_SHIFT           => -250 )
+--      port map (
+--        CLK0   => mclkintfb,      
+--        CLKFB  => mclkint,         
+--        CLKIN  => clk,
+--        RST    => RESET
+--        );
 
-  clkmem_bufg : BUFG port map (
-    I => mclkintfb,
-    O => mclkint);
+--   clkmem_bufg : BUFG port map (
+--     I => mclkintfb,
+--     O => mclkint);
 
-  MCLK <= mclkint;
-
+  --MCLK <= mclkint;
+  MCLK <= clk90;
+  
   memcontroller : memory port map (
     CLK     => clk,
     RESET   => RESET,

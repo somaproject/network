@@ -213,7 +213,7 @@ begin  -- Behavioral
   memclk_dcm : DCM
      generic map (
        CLKOUT_PHASE_SHIFT    => "FIXED",
-       PHASE_SHIFT           => -50)
+       PHASE_SHIFT           => 100)
     port map (
       CLK0                  => mclk_fb,    -- 0 degree DCM CLK ouptput
       CLKFB                 => mclk_int,   -- DCM clock feedback
@@ -225,7 +225,7 @@ begin  -- Behavioral
     I => mclk_fb,
     O => mclk_int );
 
-  MCLK <= mclk_int;
+  MCLK <= mclk_int; 
 
 
   PHYRESET <= '0';
@@ -246,7 +246,7 @@ begin  -- Behavioral
 
   main : process(clk)
   begin
-    if rising_edge(clk) then
+    if rising_edge(clk) and stage2reset = '0' then
 
       -- writing 1
       if clken1 = '1' then
@@ -257,7 +257,7 @@ begin  -- Behavioral
       -- Reading 1
       if clken2 = '1' then
         addr2(15 downto 0) <= addr2(15 downto 0) + 1;
-        if addr2(15 downto 0) = X"001F" then
+        if addr2(15 downto 0) = X"0F1F" then
           addr2readen      <= '1';
         end if;
       end if;
@@ -284,7 +284,7 @@ begin  -- Behavioral
       -- Reading 2
       if clken4 = '1' then
         addr4(15 downto 0) <= addr4(15 downto 0) + 1;
-        if addr4(15 downto 0) = X"001F" then
+        if addr4(15 downto 0) = X"0F1F" then
           addr4readen      <= '1';
         end if;
       end if;
