@@ -56,7 +56,7 @@ architecture Behavioral of network is
   signal clk270, clk270int : std_logic := '0';
 
   signal mclkint, mclkintfb : std_logic := '0';
-  
+
   signal clken1, clken2, clken3, clken4 : std_logic := '0';
 
   -- data
@@ -91,8 +91,8 @@ architecture Behavioral of network is
 
   -- memory read/write error
   signal rxmemcrcerr, txmemcrcerr : std_logic := '0';
-  signal txiocrcerr : std_logic := '0';
-  
+  signal txiocrcerr               : std_logic := '0';
+
   -- debugging
   signal debugaddr  : std_logic_vector(16 downto 0) := (others => '0');
   signal debugdata  : std_logic_vector(31 downto 0) := (others => '0');
@@ -163,26 +163,26 @@ architecture Behavioral of network is
            MA        : out std_logic_vector(15 downto 0);
            MQ        : in  std_logic_vector(31 downto 0);
            CLKIO     : in  std_logic;
-         MEMCRCERR : out std_logic; 
-           
+           MEMCRCERR : out std_logic;
+
            NEXTFRAME : in  std_logic;
            DOUT      : out std_logic_vector(15 downto 0);
            DOUTEN    : out std_logic);
   end component;
 
   component TXoutput
-    port ( CLK     : in  std_logic;
-           RESET   : in  std_logic;
-           MQ      : in  std_logic_vector(31 downto 0);
-           MA      : out std_logic_vector(15 downto 0);
-           BPIN    : in  std_logic_vector(15 downto 0);
-           TXD     : out std_logic_vector(7 downto 0);
-           TXEN    : out std_logic;
-           TXF     : out std_logic;
-           MEMCRCERR : out std_logic; 
-           FBBP    : out std_logic_vector(15 downto 0);
-           CLKEN   : in  std_logic;
-           GTX_CLK : out std_logic);
+    port ( CLK       : in  std_logic;
+           RESET     : in  std_logic;
+           MQ        : in  std_logic_vector(31 downto 0);
+           MA        : out std_logic_vector(15 downto 0);
+           BPIN      : in  std_logic_vector(15 downto 0);
+           TXD       : out std_logic_vector(7 downto 0);
+           TXEN      : out std_logic;
+           TXF       : out std_logic;
+           MEMCRCERR : out std_logic;
+           FBBP      : out std_logic_vector(15 downto 0);
+           CLKEN     : in  std_logic;
+           GTX_CLK   : out std_logic);
   end component;
 
   component TXinput
@@ -208,51 +208,75 @@ architecture Behavioral of network is
   end component;
 
   component control
-    port ( CLK        : in    std_logic;
-           CLKLO      : in    std_logic;
-           RESET      : in    std_logic;
-           SCLK       : in    std_logic;
-           SCS        : in    std_logic;
-           SIN        : in    std_logic;
-           SOUT       : out   std_logic;
-           LEDACT     : out   std_logic;
-           LEDTX      : out   std_logic;
-           LEDRX      : out   std_logic;
-           LED100     : out   std_logic;
-           LED1000    : out   std_logic;
-           LEDDPX     : out   std_logic;
-           PHYRESET   : out   std_logic;
-           TXF        : in    std_logic;
-           RXF        : in    std_logic;
-           TXFIFOWERR : in    std_logic;
-           RXFIFOWERR : in    std_logic;
-           RXPHYERR   : in    std_logic;
-           RXOFERR    : in    std_logic;
-           TXMEMCRCERR : in std_logic;
-           RXMEMCRCERR : in std_logic;
-           TXIOCRCERR : in std_logic; 
-           RXCRCERR   : in    std_logic;
-           RXBCAST    : out   std_logic;
-           RXMCAST    : out   std_logic;
-           RXUCAST    : out   std_logic;
-           RXALLF     : out   std_logic;
-           MACADDR    : out   std_logic_vector(47 downto 0);
-           MDIO       : inout std_logic;
-           MDC        : out   std_logic;
-           MDEBUGADDR : out   std_logic_vector(16 downto 0);
-           MDEBUGDATA : in    std_logic_vector(31 downto 0);
-           RXBP       : in    std_logic_vector(15 downto 0);
-           TXBP       : in    std_logic_vector(15 downto 0);
-           RXFBBP     : in    std_logic_vector(15 downto 0);
-           TXFBBP     : in    std_logic_vector(15 downto 0));
+    port ( CLK         : in    std_logic;
+           CLKLO       : in    std_logic;
+           RESET       : in    std_logic;
+           SCLK        : in    std_logic;
+           SCS         : in    std_logic;
+           SIN         : in    std_logic;
+           SOUT        : out   std_logic;
+           LEDACT      : out   std_logic;
+           LEDTX       : out   std_logic;
+           LEDRX       : out   std_logic;
+           LED100      : out   std_logic;
+           LED1000     : out   std_logic;
+           LEDDPX      : out   std_logic;
+           PHYRESET    : out   std_logic;
+           TXF         : in    std_logic;
+           RXF         : in    std_logic;
+           TXFIFOWERR  : in    std_logic;
+           RXFIFOWERR  : in    std_logic;
+           RXPHYERR    : in    std_logic;
+           RXOFERR     : in    std_logic;
+           TXMEMCRCERR : in    std_logic;
+           RXMEMCRCERR : in    std_logic;
+           TXIOCRCERR  : in    std_logic;
+           RXCRCERR    : in    std_logic;
+           RXBCAST     : out   std_logic;
+           RXMCAST     : out   std_logic;
+           RXUCAST     : out   std_logic;
+           RXALLF      : out   std_logic;
+           MACADDR     : out   std_logic_vector(47 downto 0);
+           MDIO        : inout std_logic;
+           MDC         : out   std_logic;
+           MDEBUGADDR  : out   std_logic_vector(16 downto 0);
+           MDEBUGDATA  : in    std_logic_vector(31 downto 0);
+           RXBP        : in    std_logic_vector(15 downto 0);
+           TXBP        : in    std_logic_vector(15 downto 0);
+           RXFBBP      : in    std_logic_vector(15 downto 0);
+           TXFBBP      : in    std_logic_vector(15 downto 0));
   end component;
 
 
   -- debugging :
   signal doutensig : std_logic := '0';
-
+  signal debugdouten : std_logic := '0';
+  signal debugnextframe : std_logic := '0';
+  signal debugdout : std_logic_vector(15 downto 0) := (others => '0');
+  
+  component datagen
+    port (
+      CLK       : in  std_logic;
+      NEXTFRAME : in  std_logic;
+      DOUTEN    : out std_logic;
+      DOUT      : out std_logic_vector(15 downto 0)
+      );
+  end component;
 
 begin
+
+  datagen_inst: datagen
+    port map (
+      CLK       => clkio,
+      NEXTFRAME => debugnextframe,
+      DOUTEN    => debugdouten,
+      DOUT => debugdout);
+
+  DOUTEN <= doutensig; 
+--   DOUTEN <= debugdouten; -- doutensig;                  -- DEBUGGING!!!
+--   DOUT <= debugdout;                    -- DEBUGGING
+--   debugnextframe <= NEXTFRAME;          -- DEBUGGING
+  
   LEDPOWER <= '1';
 
   addr1ext <= ('1' & addr1);
@@ -260,7 +284,7 @@ begin
   addr3ext <= ('1' & addr3);
   addr4ext <= ('0' & addr4);
 
-  DOUTEN <= doutensig;                  -- DEBUGGING!!!
+
 
   clkio_dcm : DCM
     port map (
@@ -334,10 +358,10 @@ begin
   U2 : OBUF port map (I => clk270, O => GTX_CLK);
 
 
---   rxclk_dcm : DCM
---     port map (
---       CLK0  => clkrxint,                -- 0 degree DCM CLK ouptput
---       CLKFB => clkrx,                   -- DCM clock feedback
+-- rxclk_dcm : DCM
+-- port map (
+-- CLK0 => clkrxint,                    -- 0 degree DCM CLK ouptput
+--       CLKFB => clkrx,                -- DCM clock feedback
 --       CLKIN => RX_CLK,
 --       RST   => RESET
 --       );
@@ -347,24 +371,24 @@ begin
     I => RX_CLK,
     O => clkrx);
 
---   clkmem_dcm : DCM
---      generic map (
---        CLKOUT_PHASE_SHIFT    => "FIXED",
---         PHASE_SHIFT           => -250 )
---      port map (
---        CLK0   => mclkintfb,      
---        CLKFB  => mclkint,         
---        CLKIN  => clk,
---        RST    => RESET
---        );
+-- clkmem_dcm : DCM
+-- generic map (
+-- CLKOUT_PHASE_SHIFT => "FIXED",
+-- PHASE_SHIFT => -250 )
+-- port map (
+-- CLK0 => mclkintfb,
+-- CLKFB => mclkint,
+-- CLKIN => clk,
+-- RST => RESET
+-- );
 
---   clkmem_bufg : BUFG port map (
---     I => mclkintfb,
---     O => mclkint);
+-- clkmem_bufg : BUFG port map (
+-- I => mclkintfb,
+-- O => mclkint);
 
   --MCLK <= mclkint;
   MCLK <= clk90;
-  
+
   memcontroller : memory port map (
     CLK     => clk,
     RESET   => RESET,
@@ -422,25 +446,25 @@ begin
     FBBP      => rxfbbp,
     MA        => addr3,
     MQ        => q3,
-    MEMCRCERR => rxmemcrcerr, 
+    MEMCRCERR => rxmemcrcerr,
     CLKIO     => clkio,
     NEXTFRAME => NEXTFRAME,
     DOUT      => DOUT,
-    DOUTEN    => doutensig);           
+    DOUTEN    => doutensig);
 
   tx_output : txoutput port map (
-    CLK     => clk,
-    RESET   => reset,
-    MQ      => q2,
-    MA      => addr2,
-    BPIN    => txbp,
-    TXD     => TXD,
-    TXEN    => TX_EN,
-    TXF     => txf,
-    MEMCRCERR => txmemcrcerr, 
-    FBBP    => txfbbp,
-    CLKEN   => clken2,
-    GTX_CLK => open);
+    CLK       => clk,
+    RESET     => reset,
+    MQ        => q2,
+    MA        => addr2,
+    BPIN      => txbp,
+    TXD       => TXD,
+    TXEN      => TX_EN,
+    TXF       => txf,
+    MEMCRCERR => txmemcrcerr,
+    FBBP      => txfbbp,
+    CLKEN     => clken2,
+    GTX_CLK   => open);
 
   tx_input : txinput port map (
     CLK        => clk,
@@ -469,42 +493,45 @@ begin
     FBBP     => rxfbbp);
 
   maccontrol : control port map (
-    CLK        => clk,
-    CLKLO      => clklo,
-    RESET      => RESET,
-    SCLK       => SCLK,
-    SCS        => SCS,
-    SIN        => SIN,
-    SOUT       => SOUT,
-    LEDACT     => LEDACT,
-    LEDTX      => LEDTX,
-    LEDRX      => LEDRX,
-    LED100     => LED100,
-    LED1000    => LED1000,
-    LEDDPX     => LEDDPX,
-    PHYRESET   => PHYRESET,
-    TXF        => txf,
-    RXF        => rxf,
-    TXFIFOWERR => txfifowerr,
-    RXFIFOWERR => rxfifowerr,
-    RXPHYERR   => rxphyerr,
-    RXOFERR    => rxoferr,
-    RXCRCERR   => rxcrcerr,
-    RXBCAST    => rxbcast,
-    RXMCAST    => rxmcast,
-    RXUCAST    => rxucast,
-    RXALLF     => rxallf,
+    CLK         => clk,
+    CLKLO       => clklo,
+    RESET       => RESET,
+    SCLK        => SCLK,
+    SCS         => SCS,
+    SIN         => SIN,
+    SOUT        => SOUT,
+    LEDACT      => LEDACT,
+    LEDTX       => LEDTX,
+    LEDRX       => LEDRX,
+    LED100      => LED100,
+    LED1000     => LED1000,
+    LEDDPX      => LEDDPX,
+    PHYRESET    => PHYRESET,
+    TXF         => txf,
+    RXF         => rxf,
+    TXFIFOWERR  => txfifowerr,
+    RXFIFOWERR  => rxfifowerr,
+    RXPHYERR    => rxphyerr,
+    RXOFERR     => rxoferr,
+    RXCRCERR    => rxcrcerr,
+    RXBCAST     => rxbcast,
+    RXMCAST     => rxmcast,
+    RXUCAST     => rxucast,
+    RXALLF      => rxallf,
     RXMEMCRCERR => rxmemcrcerr,
     TXMEMCRCERR => txmemcrcerr,
-    TXIOCRCERR => txiocrcerr,
-    MACADDR    => macaddr,
-    MDIO       => MDIO,
-    MDC        => MDC,
-    MDEBUGADDR => debugaddr,
-    MDEBUGDATA => debugdata,
-    RXBP       => rxbp,
-    TXBP       => txbp,
-    RXFBBP     => rxfbbp,
-    TXFBBP     => txfbbp);
+    TXIOCRCERR  => txiocrcerr,
+    MACADDR     => macaddr,
+    MDIO        => MDIO,
+    MDC         => MDC,
+    MDEBUGADDR  => debugaddr,
+    MDEBUGDATA  => debugdata,
+    RXBP        => rxbp,
+    TXBP        => txbp,
+    RXFBBP      => rxfbbp,
+    TXFBBP      => txfbbp);
+
+
+
 
 end Behavioral;
