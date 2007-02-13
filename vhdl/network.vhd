@@ -197,7 +197,9 @@ architecture Behavioral of network is
            BPOUT      : out std_logic_vector(15 downto 0);
            FIFOFULL   : in  std_logic;
            TXFIFOWERR : out std_logic;
-           DONE       : out std_logic);
+           TXIOCRCERR : out std_logic;
+
+           DONE : out std_logic);
   end component;
 
   component FIFOcheck
@@ -249,11 +251,11 @@ architecture Behavioral of network is
 
 
   -- debugging :
-  signal doutensig : std_logic := '0';
-  signal debugdouten : std_logic := '0';
-  signal debugnextframe : std_logic := '0';
-  signal debugdout : std_logic_vector(15 downto 0) := (others => '0');
-  
+  signal doutensig      : std_logic                     := '0';
+  signal debugdouten    : std_logic                     := '0';
+  signal debugnextframe : std_logic                     := '0';
+  signal debugdout      : std_logic_vector(15 downto 0) := (others => '0');
+
   component datagen
     port (
       CLK       : in  std_logic;
@@ -265,18 +267,18 @@ architecture Behavioral of network is
 
 begin
 
-  datagen_inst: datagen
+  datagen_inst : datagen
     port map (
       CLK       => clkio,
       NEXTFRAME => debugnextframe,
       DOUTEN    => debugdouten,
-      DOUT => debugdout);
+      DOUT      => debugdout);
 
-  DOUTEN <= doutensig; 
---   DOUTEN <= debugdouten; -- doutensig;                  -- DEBUGGING!!!
---   DOUT <= debugdout;                    -- DEBUGGING
---   debugnextframe <= NEXTFRAME;          -- DEBUGGING
-  
+  DOUTEN <= doutensig;
+-- DOUTEN <= debugdouten;  -- doutensig;  -- DEBUGGING!!!
+--   DOUT <= debugdout;                   -- DEBUGGING
+--   debugnextframe <= NEXTFRAME;         -- DEBUGGING
+
   LEDPOWER <= '1';
 
   addr1ext <= ('1' & addr1);
@@ -371,20 +373,20 @@ begin
     I => RX_CLK,
     O => clkrx);
 
--- clkmem_dcm : DCM
--- generic map (
--- CLKOUT_PHASE_SHIFT => "FIXED",
--- PHASE_SHIFT => -250 )
--- port map (
--- CLK0 => mclkintfb,
--- CLKFB => mclkint,
--- CLKIN => clk,
--- RST => RESET
--- );
+   clkmem_dcm : DCM
+     generic map (
+       CLKOUT_PHASE_SHIFT => "FIXED",
+       PHASE_SHIFT        => -74 )
+     port map (
+       CLK0               => mclkintfb,
+       CLKFB              => mclkint,
+       CLKIN              => clk,
+       RST                => RESET
+       );
 
--- clkmem_bufg : BUFG port map (
--- I => mclkintfb,
--- O => mclkint);
+   clkmem_bufg : BUFG port map (
+     I => mclkintfb,
+     O => mclkint);
 
   --MCLK <= mclkint;
   MCLK <= clk90;
@@ -478,6 +480,7 @@ begin
     BPOUT      => txbp,
     FIFOFULL   => txfifofull,
     TXFIFOWERR => txfifowerr,
+    TXIOCRCERR => txiocrcerr,
     DONE       => open);
 
   tx_fifocheck : FIFOcheck port map(

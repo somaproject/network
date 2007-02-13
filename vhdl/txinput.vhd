@@ -153,8 +153,6 @@ begin
       if rising_edge(CLK) then
         dinl <= DIN;
 
-        TXIOCRCERR <= ltxiocrcerr;
-        
         newframel <= NEWFRAME;
         cs        <= ns;
 
