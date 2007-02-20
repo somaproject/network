@@ -3,7 +3,6 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
-
 library UNISIM;
 use UNISIM.VComponents.all;
 
@@ -100,7 +99,11 @@ architecture Behavioral of network is
   signal debugwdata : std_logic_vector(31 downto 0) := (others => '0');
 
 
-  signal reset : std_logic := '0';
+  signal reset      : std_logic := '0';
+  signal hilocked   : std_logic := '0';
+  signal hireset    : std_logic := '1';
+  signal multlocked : std_logic := '0';
+  signal multreset  : std_logic := '1';
 
 
   component memory
@@ -313,9 +316,10 @@ begin
       CLKIN          => CLKIN,
       CLKDV          => clkloint,
       CLKFX          => clkfint,        -- 125 Mhz generated clock
-      RST            => RESET
+      RST            => RESET,
+      LOCKED         => multlocked
       );
-
+  multreset <= not multlocked;
 
   clkhi_dcm : DCM
     port map (
@@ -325,9 +329,11 @@ begin
       CLK90  => clk90int,
       CLK270 => clk270int,
       CLKIN  => clkf,
-      RST    => RESET
+      RST    => multreset,
+      LOCKED => hilocked
       );
 
+  hireset <= not hilocked;
   clkf_bufg : BUFG port map (
     I => clkfint,
     O => clkf);
@@ -344,13 +350,13 @@ begin
     I => clkloint,
     O => clklo);
 
-  clk90_bufg : BUFG port map (
-    I => clk90int,
-    O => clk90 );
+-- clk90_bufg : BUFG port map (
+-- I => clk90int,
+-- O => clk90 );
 
-  clk180_bufg : BUFG port map (
-    I => clk180int,
-    O => clk180 );
+-- clk180_bufg : BUFG port map (
+-- I => clk180int,
+-- O => clk180 );
 
   clk270_bufg : BUFG port map (
     I => clk270int,
@@ -359,37 +365,27 @@ begin
 
   U2 : OBUF port map (I => clk270, O => GTX_CLK);
 
-
--- rxclk_dcm : DCM
--- port map (
--- CLK0 => clkrxint,                    -- 0 degree DCM CLK ouptput
---       CLKFB => clkrx,                -- DCM clock feedback
---       CLKIN => RX_CLK,
---       RST   => RESET
---       );
-  --clkrx <= RX_CLK; 
-
   clkrx_bufg : BUFG port map (
     I => RX_CLK,
     O => clkrx);
 
-   clkmem_dcm : DCM
-     generic map (
-       CLKOUT_PHASE_SHIFT => "FIXED",
-       PHASE_SHIFT        => -74 )
-     port map (
-       CLK0               => mclkintfb,
-       CLKFB              => mclkint,
-       CLKIN              => clk,
-       RST                => RESET
-       );
+  clkmem_dcm : DCM
+    generic map (
+      CLKOUT_PHASE_SHIFT => "FIXED",
+      PHASE_SHIFT        => 100 )
+    port map (
+      CLK0               => mclkintfb,
+      CLKFB              => mclkint,
+      CLKIN              => clk,
+      RST                => hireset
+      );
 
-   clkmem_bufg : BUFG port map (
-     I => mclkintfb,
-     O => mclkint);
+  clkmem_bufg : BUFG port map (
+    I => mclkintfb,
+    O => mclkint);
 
-  --MCLK <= mclkint;
-  MCLK <= clk90;
+  MCLK <= mclkint;
+  --MCLK <= clk90;
 
   memcontroller : memory port map (
     CLK     => clk,

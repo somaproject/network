@@ -285,7 +285,7 @@ begin
 
 
   fsm : process (cs, ns, dv, data, endf, FIFOFULL,
-                 crcvalid)
+                 crcvalid, erl, ofl, destok)
   begin
     case cs is
       when none    =>

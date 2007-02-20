@@ -283,7 +283,8 @@ begin
                '1' when addrmsbs = "1110" else
                '0';
 
-  fsm : process(CS, nfll, bpinl, bp, clken, nearfull, halffull)
+  fsm : process(CS, nfll, lbp, macnt,
+                bpinl, bp, clken, nearfull, halffull)
   begin
     case cs is
       when none      =>

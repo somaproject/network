@@ -159,7 +159,8 @@ begin
           "01010101" when outselll = 1 else
           "11010101";
 
-  fsm : process(cs, ns, CLKEN, addr, bpl, bcnt, addrl, bcntl)
+  fsm : process(cs, ns, CLKEN, addr, bpl, bcnt, addrl, bcntl,
+                bcntlgt10)
   begin
     case cs is
       when none =>

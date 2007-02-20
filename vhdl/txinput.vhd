@@ -44,9 +44,9 @@ architecture Behavioral of txinput is
   -- signals for clock-boundary-crossing logic
   signal nenable, enable, enableint, enableintl, den, lden :
     std_logic                                     := '0';
-  signal dinl, dinint, ldinint        : std_logic_vector(15 downto 0)
+  signal dinl, dinio, dinint, ldinint        : std_logic_vector(15 downto 0)
                                                   := (others => '0');
-  signal newframel, newfint, lnewfint : std_logic := '0';
+  signal newframel, newfint, newframeio, lnewfint : std_logic := '0';
 
   -- fifo control
   signal fifofulll : std_logic := '0';
@@ -103,9 +103,9 @@ begin
     if rising_edge(CLKIO) then
       enable <= not enable;
 
-      --dinl <= DIN;
+      dinio <= DIN;
 
-      --newframel <= NEWFRAME;
+      newframeio <= NEWFRAME;
     end if;
   end process clock_external;
 
@@ -151,9 +151,9 @@ begin
       MA     <= (others => '0');
     else
       if rising_edge(CLK) then
-        dinl <= DIN;
+        dinl <= DINio;
 
-        newframel <= NEWFRAME;
+        newframel <= NEWFRAMEio;
         cs        <= ns;
 
         -- enable code
