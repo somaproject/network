@@ -45,36 +45,6 @@ architecture Behavioral of gmiiin is
 
   signal rx_clkint : std_logic := '0';
 
-  component RAMB16_S18_S18
-    generic (
-      WRITE_MODE_A : string     := "WRITE_FIRST";
-      WRITE_MODE_B : string     := "WRITE_FIRST";
-      INIT_A       : bit_vector := X"00000";
-      SRVAL_A      : bit_vector := X"00000";
-
-      INIT_B      :     bit_vector := X"00000";
-      SRVAL_B     :     bit_vector := X"00000"); 
-      port (DIA   : in  std_logic_vector (15 downto 0);
-            DIB   : in  std_logic_vector (15 downto 0);
-            DIPA  : in  std_logic_vector (1 downto 0);
-            DIPB  : in  std_logic_vector (1 downto 0);
-            ENA   : in  std_logic;
-            ENB   : in  std_logic;
-            WEA   : in  std_logic;
-            WEB   : in  std_logic;
-            SSRA  : in  std_logic;
-            SSRB  : in  std_logic;
-            CLKA  : in  std_logic;
-            CLKB  : in  std_logic;
-            ADDRA : in  std_logic_vector (9 downto 0);
-            ADDRB : in  std_logic_vector (9 downto 0);
-            DOA   : out std_logic_vector (15 downto 0);
-            DOB   : out std_logic_vector (15 downto 0);
-            DOPA  : out std_logic_vector (1 downto 0);
-            DOPB  : out std_logic_vector (1 downto 0)
-            );
-  end component;
-
 
 begin
 
@@ -120,25 +90,30 @@ begin
   end process rxclk_domain;
 
 
-  fifo : RAMB16_S18_S18 port map (
-    DIA   => di,
-    DIB   => X"0000",
-    DIPA  => "00",
-    DIPB  => "00",
-    ENA   => '1',
-    ENB   => '1',
-    WEA   => wein,
-    WEB   => '0',
-    SSRA  => '0',
-    SSRB  => '0',
-    CLKA  => RX_CLKint,
-    CLKB  => CLK,
-    ADDRA => ain,
-    ADDRB => ao,
-    DOA   => open,
-    DOB   => do,
-    DOPA  => open,
-    DOPB  => open);
+  fifo : RAMB16_S18_S18
+    generic map
+    ( WRITE_MODE_A => "READ_FIRST",
+      WRITE_MODE_B => "READ_FIRST"
+      )
+    port map (
+      DIA        => di,
+      DIB        => X"0000",
+      DIPA       => "00",
+      DIPB       => "00",
+      ENA        => '1',
+      ENB        => '1',
+      WEA        => wein,
+      WEB        => '0',
+      SSRA       => '0',
+      SSRB       => '0',
+      CLKA       => RX_CLKint,
+      CLKB       => CLK,
+      ADDRA      => ain,
+      ADDRB      => ao,
+      DOA        => open,
+      DOB        => do,
+      DOPA       => open,
+      DOPB       => open);
 
   EROUT <= do(14);
   DOUT  <= do(7 downto 0);

@@ -1,13 +1,3 @@
-
--- VHDL Test Bench Created from source file gmiiin.vhd  -- 19:39:01 10/26/2004
---
--- Notes: 
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends 
--- that these types always be used for the top-level I/O of a design in order 
--- to guarantee that the testbench will bind correctly to the post-implementation 
--- simulation model.
---
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use ieee.std_logic_textio.all;
@@ -69,8 +59,8 @@ begin
     DOUT    => DOUT
     );
 
-  CLK    <= not CLK    after 4 ns;
-  RX_CLK <= not RX_CLK after 3.98 ns;   -- slightly faster
+  CLK    <= not CLK    after 3.98 ns;   -- slightly faster
+  RX_CLK <= not RX_CLK after 4.0 ns;
 
 
   -- input data:
@@ -94,7 +84,7 @@ begin
         NEXTF <= '0';
         wait until rising_edge(CLK);
         if VALID = '1' then
-          if ENDFOUT = '0' then
+          if ENDFOUT = '0' and OFOUT = '0' and EROUT = '0' then
                                         -- normal data read
             bcnt                                       := bcnt + 1;
             assert DOUT(7 downto 0) = data
@@ -144,14 +134,15 @@ begin
     wait;
   end process;
 
-  datain                                   :    process
+  datain : process
+
     procedure writeFIFO(constant len       : in integer;
-                        constant startdata :    in
-                        std_logic_vector(7 downto 0);
+                        constant startdata : in std_logic_vector(7 downto 0);
                         constant errloc    : in integer := -1 ) is
-      variable                   data      :    std_logic_vector(7 downto 0);
+
+      variable data : std_logic_vector(7 downto 0);
     begin
-      data                                              := startdata;
+      data   := startdata;
       for i in 1 to len loop
         RX_DV   <= '1';
         RXD     <= data;
@@ -161,12 +152,13 @@ begin
           RX_ER <= '0';
         end if;
         wait until rising_edge(RX_CLK);
-        data                                            := (data(6 downto 0) & data(7));
+        data := (data(6 downto 0) & data(7));
       end loop;
       RX_DV     <= '0';
       wait until rising_edge(RX_CLK);
 
     end procedure writeFIFO;
+
   begin
     wait for 100 ns;
     instate <= 1;
