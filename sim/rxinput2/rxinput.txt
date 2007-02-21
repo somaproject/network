@@ -1,0 +1,35 @@
+Unit tests for RXinput.
+
+We have created a fake GMIIin module, GMIIinsim.vhd which contains an entity named GMIIin such that we can include it from the .do file and use it instead. Alas, this means that we can't have any differences in instantiation, i.e. no passing of filenames or anything like that. 
+
+Our input format is a series of 16-bit hex words per line. Each is a single NEXTF transaction; thus every time we get NEXTF high for a cycle, the next clock tick we begin outputting these in sequence. 
+
+The bits are:
+
+7:0 DOUT
+8 VALID
+9 ENDF
+10 EROUT
+11 OFOUT
+
+We stop a read when we get the ENDF signal. Alas, because the ram-writing is different here, we will instead adopt a different ram-writing strategy:
+   Whenever the base pointer changes, compare the ram data values to those written in ram.dat. And we only write values into our ram array if they have been constant for at least four ticks. 
+
+
+
+gmii.0.dat / ram.0.dat checks:
+
+We currently check for (in this order)
+
+1. nomal frame
+2. frame with invalid CRC (reject)
+3. frames with all mod 4 lengths
+4. long long frames
+5. frames with random DV lows
+6. ER frame
+7. OF frame
+8. Lots of random-sized frames
+
+
+gmii.1.dat / ram.1.dat checks:
+we set RXUCAST high, our mac address to C0FFEECOFFEE, 
