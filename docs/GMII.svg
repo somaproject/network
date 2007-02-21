@@ -923,16 +923,16 @@
        y="129.02371">DI[14]</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
+     style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="391.00723"
      y="129.02371"
      id="text6909"
      sodipodi:linespacing="100%"
-     transform="translate(93.29745,30.31430)"><tspan
+     transform="translate(93.29745,30.3143)"><tspan
        sodipodi:role="line"
        id="tspan6910"
        x="391.00723"
-       y="129.02371">AI[7:0]</tspan></text>
+       y="129.02371">AI[9:0]</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
      d="M 434.37500,155.62512 L 481.25000,155.62512"
@@ -1125,16 +1125,16 @@
      id="path6962" />
   <text
      xml:space="preserve"
-     style="font-size:9.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:end;writing-mode:lr;"
+     style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="391.00723"
      y="129.02371"
      id="text6966"
      sodipodi:linespacing="100%"
-     transform="translate(162.8956,30.31430)"><tspan
+     transform="translate(162.8956,30.3143)"><tspan
        sodipodi:role="line"
        id="tspan6967"
        x="391.00723"
-       y="129.02371">AO[7:0]</tspan></text>
+       y="129.02371">AO[9:0]</tspan></text>
   <g
      id="g6969"
      transform="translate(508.8794,-262.5000)">

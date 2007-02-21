@@ -17,7 +17,8 @@ entity gmiiin is
          EROUT   : out std_logic;
          OFOUT   : out std_logic;
          VALID   : out std_logic;
-         DOUT    : out std_logic_vector(7 downto 0));
+         DOUT    : out std_logic_vector(7 downto 0);
+         DEBUGOUT : out std_logic_vector(15 downto 0));
 end gmiiin;
 
 architecture Behavioral of gmiiin is
@@ -47,6 +48,7 @@ architecture Behavioral of gmiiin is
 
 
 begin
+
 
   we     <= (not erin) and (dvll) and (not ff);
   endfin <= wel and (not we);
@@ -143,11 +145,15 @@ begin
          '0' when al2l(9 downto 8) = "11" and ao(9 downto 8) = "11" else
          '0' when al2l(9 downto 8) = "00" and ao(9 downto 8) = "11" else
          '0' when al2l(9 downto 8) = "01" and ao(9 downto 8) = "11" else
-         '1' when al2l(9 downto 8) = "10" and ao(9 downto 8) = "11";
+         '1' when al2l(9 downto 8) = "10" and ao(9 downto 8) = "11" else
+         '0';
 
   clk_domain : process(CLK)
   begin
     if rising_edge(CLK) then
+
+      DEBUGOUT <= do(15 downto 13) & val & efv & lvalid & aeq & nfl & do(7 downto 0); -- "000000" & al2l;
+  
       val <= lvalid;
 
       al2  <= al;

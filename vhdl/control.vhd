@@ -27,7 +27,7 @@ entity control is
     RXOFERR     : in    std_logic;
     RXMEMCRCERR : in    std_logic;
     TXMEMCRCERR : in    std_logic;
-    TXIOCRCERR : in std_logic; 
+    TXIOCRCERR  : in    std_logic;
     RXCRCERR    : in    std_logic;
     RXBCAST     : out   std_logic;
     RXMCAST     : out   std_logic;
@@ -70,7 +70,7 @@ architecture Behavioral of control is
   signal RXOFERRR     : std_logic := '0';
   signal RXCRCERRR    : std_logic := '0';
   signal TXMEMCRCERRR : std_logic := '0';
-  signal TXIOCRCERRR : std_logic := '0';
+  signal TXIOCRCERRR  : std_logic := '0';
   signal RXMEMCRCERRR : std_logic := '0';
 
   signal ALLFW    : std_logic := '0';
@@ -116,7 +116,7 @@ architecture Behavioral of control is
   signal rxcrcerrcnt    : std_logic_vector(31 downto 0) := (others => '0');
   signal rxmemcrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
   signal txmemcrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
-  signal txiocrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
+  signal txiocrcerrcnt  : std_logic_vector(31 downto 0) := (others => '0');
 
   signal txcnt : integer range 0 to 100000 := 0;
 
@@ -261,7 +261,7 @@ begin
          phystat                           when addr = X"02" else
          X"89ABCDEF"                       when addr = X"03" else
          X"00000000"                       when addr = X"04" else
-         X"DEADBEEF"                       when addr = X"05" else
+         MDEBUGDATA                        when addr = X"05" else
          rxbpl & rxfbbpl                   when addr = X"06" else
          txbpl & txfbbpl                   when addr = X"07" else
          PHYADDR                           when addr = X"08" else
@@ -289,9 +289,9 @@ begin
          X"0000" & lmacaddr(31 downto 16 ) when addr = X"1E" else
          X"0000" & lmacaddr(47 downto 32);
 
-  -----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------
   -- Counters
-  -----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------
   txf_counter : counter
     port map (
       CLK    => CLK,

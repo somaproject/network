@@ -97,7 +97,8 @@ architecture Behavioral of network is
   signal debugdata  : std_logic_vector(31 downto 0) := (others => '0');
   signal debugwaddr : std_logic_vector(16 downto 0) := (others => '0');
   signal debugwdata : std_logic_vector(31 downto 0) := (others => '0');
-
+  signal debugstates : std_logic_vector(31 downto 0)  := (others => '0');
+  
 
   signal reset      : std_logic := '0';
   signal hilocked   : std_logic := '0';
@@ -154,7 +155,8 @@ architecture Behavioral of network is
            RXBCAST    : in  std_logic;
            RXMCAST    : in  std_logic;
            RXUCAST    : in  std_logic;
-           RXALLF     : in  std_logic);
+           RXALLF     : in  std_logic;
+           DEBUGSTATES : out std_logic_vector(31 downto 0));
   end component;
 
   component RXoutput
@@ -289,6 +291,7 @@ begin
   addr3ext <= ('1' & addr3);
   addr4ext <= ('0' & addr4);
 
+  debugdata <= debugstates; 
 
 
   clkio_dcm : DCM
@@ -434,7 +437,8 @@ begin
     RXBCAST    => rxbcast,
     RXMCAST    => rxmcast,
     RXUCAST    => rxucast,
-    RXALLF     => rxallf);
+    RXALLF     => rxallf,
+    DEBUGSTATES => debugstates);
 
   rx_output : rxoutput port map (
     CLK       => clk,
