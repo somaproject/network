@@ -89,7 +89,7 @@ begin
 
   --TXF goes high when a packet is being sent, and
   -- is used both for TX LED and the indicator counter
-  TXF <= ltxen3 and not ltxen2;
+
 
   crcreset <= '1' when cs = incaddr else '0';
 
@@ -143,6 +143,13 @@ begin
 
         datal    <= data;
         outselll <= outsell;
+
+        if ltxen3 = '1' and ltxen2 = '0' then
+          TXF <= '1';
+        else
+          TXF <= '0'; 
+        end if;
+
       end if;
     end if;
   end process clock;

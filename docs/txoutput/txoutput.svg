@@ -10,7 +10,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="txoutput.svg"
    sodipodi:docbase="/home/jonas/soma/network/docs/txoutput"
-   inkscape:version="0.44.1"
+   inkscape:version="0.43+0.44pre2"
    sodipodi:version="0.32"
    id="svg1996"
    height="792.00000pt"
@@ -49,8 +49,8 @@
   <sodipodi:namedview
      inkscape:window-y="25"
      inkscape:window-x="0"
-     inkscape:window-height="977"
-     inkscape:window-width="1277"
+     inkscape:window-height="693"
+     inkscape:window-width="1014"
      guidetolerance="2.5000000pt"
      inkscape:grid-bbox="false"
      gridtolerance="10000"
@@ -62,9 +62,9 @@
      showgrid="true"
      inkscape:current-layer="layer1"
      inkscape:document-units="pt"
-     inkscape:cy="318.81027"
-     inkscape:cx="593.60428"
-     inkscape:zoom="2.8284271"
+     inkscape:cy="256.7633"
+     inkscape:cx="655.80249"
+     inkscape:zoom="4"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -925,14 +925,14 @@
     <text
        xml:space="preserve"
        style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="643.75"
-       y="727.5"
+       x="715.625"
+       y="730.625"
        id="text3319"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3321"
-         x="643.75"
-         y="727.5">TXF</tspan></text>
+         x="715.625"
+         y="730.625">TXF</tspan></text>
     <g
        id="g3347"
        transform="matrix(-0.5,0,0,0.5,368.75,316.875)">
@@ -1589,5 +1589,38 @@
          id="tspan8480"
          x="312.5"
          y="518.125">[31:16]</tspan></text>
+    <g
+       transform="translate(543.75,365.625)"
+       id="g2178">
+      <rect
+         y="343.125"
+         x="124.77421"
+         height="50.096931"
+         width="28.350792"
+         id="rect2180"
+         style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:1.17443275" />
+      <text
+         transform="scale(3.384064,3.384064)"
+         sodipodi:linespacing="100%"
+         id="text2182"
+         y="106.56477"
+         x="37.261852"
+         style="font-size:4px;line-height:100%;stroke-width:0.36937839;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           id="tspan2184">D</tspan></text>
+      <text
+         transform="scale(3.384064,3.384064)"
+         sodipodi:linespacing="100%"
+         id="text2186"
+         y="106.58193"
+         x="44.623661"
+         style="font-size:4px;line-height:100%;text-anchor:end;stroke-width:0.36937839;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           id="tspan2188">Q</tspan></text>
+      <path
+         id="path2190"
+         d="M 125,393.125 L 131.25,386.875 L 125,380.625"
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1pt" />
+    </g>
   </g>
 </svg>
