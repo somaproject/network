@@ -12,14 +12,14 @@ $(WORKDIR)/crc_combinational/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/v
 $(WORKDIR)/rxinput/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd ../../vhdl/rxinput.vhd
 	$(VHDLC) -vital2000 ../../vhdl/rxinput.vhd
 
-hw: $(WORKDIR)/rxvalid/_behavioral.var $(WORKDIR)/crc_combinational/_behavioral.var $(WORKDIR)/rxinput/_behavioral.var 
+$(WORKDIR)/gmiiin/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd ../../vhdl/rxinput.vhd ../../vhdl/gmiiin.vhd
+	$(VHDLC) -vital2000 ../../vhdl/gmiiin.vhd
 
-$(WORKDIR)/gmiiinsim/_behavioral.var: GMIIinsim.vhd
-	$(VHDLC) -vital2000 GMIIinsim.vhd
+hw: $(WORKDIR)/rxvalid/_behavioral.var $(WORKDIR)/crc_combinational/_behavioral.var $(WORKDIR)/rxinput/_behavioral.var $(WORKDIR)/gmiiin/_behavioral.var 
 
-comp: $(WORKDIR)/gmiiinsim/_behavioral.var 
+comp: 
 
-$(WORKDIR)/rxinputtest/_behavior.var: GMIIinsim.vhd rxinputtest.vhd
+$(WORKDIR)/rxinputtest/_behavior.var: rxinputtest.vhd
 	$(VHDLC) -vital2000 rxinputtest.vhd
 
 sim: $(WORKDIR)/rxinputtest/_behavior.var 

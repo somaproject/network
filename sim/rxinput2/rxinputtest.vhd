@@ -60,125 +60,77 @@ architecture behavior of RXinputtest is
 
 begin
 
+
+  MACADDR <= X"00003F000100";
+  RXALLF  <= '1';
+
   uut : rxinput
     port map(
-    RX_CLK     => RX_CLK,
-    CLK        => CLK,
-    RESET      => RESET,
-    RX_DV      => RX_DV,
-    RX_ER      => RX_ER,
-    RXD        => RXD,
-    MD         => MD,
-    MA         => MA,
-    BPOUT      => BPOUT,
-    RXCRCERR   => RXCRCERR,
-    RXOFERR    => RXOFERR,
-    RXPHYERR   => RXPHYERR,
-    RXFIFOWERR => RXFIFOWERR,
-    FIFOFULL   => FIFOFULL,
-    RXF        => RXF,
-    MACADDR    => MACADDR,
-    RXBCAST    => RXBCAST,
-    RXMCAST    => RXMCAST,
-    RXUCAST    => RXUCAST,
-    RXALLF     => RXALLF
-    );
+      RX_CLK     => RX_CLK,
+      CLK        => CLK,
+      RESET      => RESET,
+      RX_DV      => RX_DV,
+      RX_ER      => RX_ER,
+      RXD        => RXD,
+      MD         => MD,
+      MA         => MA,
+      BPOUT      => BPOUT,
+      RXCRCERR   => RXCRCERR,
+      RXOFERR    => RXOFERR,
+      RXPHYERR   => RXPHYERR,
+      RXFIFOWERR => RXFIFOWERR,
+      FIFOFULL   => FIFOFULL,
+      RXF        => RXF,
+      MACADDR    => MACADDR,
+      RXBCAST    => RXBCAST,
+      RXMCAST    => RXMCAST,
+      RXUCAST    => RXUCAST,
+      RXALLF     => RXALLF
+      );
 
   RX_CLK <= not RX_CLK after 3.98 ns;
   CLK    <= not CLK    after 4 ns;
 
-
-  process (CLK)
+  process
   begin
-    if rising_edge(CLK) then
-      ma3 <= ma2;
-      ma2 <= ma1;
-      ma1 <= ma;
+    wait until rising_edge(RXOFERR);
+    report "RXOFERR!!!" severity failure;
 
-      md3 <= md2;
-      md2 <= md1;
-      md1 <= md;
-
-    end if;
   end process;
-  -- memory data checking:
 
-  memdata            : process
-    file memfile     : text;
-    variable L       : line;
-    variable bpl     : std_logic_vector(15 downto 0)
-                                    := (others => '0');
-    type ramtype is array(2**16-1 downto 0) of integer;
-    variable ram     : ramtype      := (others => 0);
-    variable memdata : std_logic_vector(31 downto 0)
-                                    := (others => '0');
+
+  process
+    file gmiifile       : text;
+    variable L          : line;
+    variable rxdv, rxer : integer                      := 0;
+    variable din        : std_logic_vector(7 downto 0) := (others => '0');
+
   begin
-    RESET  <= '0' after 40 ns;
-    RXALLF <= '1';
-    file_open(memfile, "ram.0.dat", read_mode);
-    while not endfile(memfile) loop
-      wait until rising_edge(CLK);
-      while MD /= md1 or md1 /= md2 or md2 /= md3
-        or MA /= ma1 or ma1 /= ma2 or ma2 /= ma3 loop
-        wait until rising_edge(CLK);
-      end loop;
-      -- write the data
-      ram(to_integer(unsigned(MA))) := to_integer(signed(MD));
-      if bpl /= BPOUT then              -- there's been a write; let's check!
-        readline(memfile, L);
-        while bpl /= BPOUT loop
-          hread(L, memdata);
-          assert memdata = std_logic_vector(to_signed(ram(to_integer(unsigned(bpl))), 32))
-            report "Error in ram data"
-            severity error;
+    RESET <= '0' after 40 ns;
+    wait for 200 ns;
 
-                                        -- yea, this is ugly, but it works
-          bpl := std_logic_vector(to_unsigned(
-            ((to_integer(unsigned(bpl)) + 1) mod 65536), 16));
 
-        end loop;
+    file_open(gmiifile, "gmiiin.0.dat", read_mode);
+    while not endfile(gmiifile) loop
+      readline(gmiifile, L);
+      wait until rising_edge(RX_CLK);
+      read(L, rxer);
+      read(L, rxdv);
+      hread(L, din);
+      if rxdv = 1 then
+        RX_DV <= '1';
+      else
+        RX_DV <= '0';
       end if;
-    end loop;
-    file_close(memfile);
 
-    RESET   <= '1';
-    wait for 40 ns;
-    RXALLF  <= '0';
-    RXUCAST <= '1';
-    RXBCAST <= '1';
-    RXMCAST <= '1';
-    MACADDR <= X"C0FFEEC0FFEE";
-    RESET   <= '0';
-    file_open(memfile, "ram.1.dat", read_mode);
-    while not endfile(memfile) loop
-      wait until rising_edge(CLK);
-      while MD /= md1 or md1 /= md2 or md2 /= md3
-        or MA /= ma1 or ma1 /= ma2 or ma2 /= ma3 loop
-        wait until rising_edge(CLK);
-      end loop;
-      -- write the data
-      ram(to_integer(unsigned(MA))) := to_integer(signed(MD));
-      if bpl /= BPOUT then              -- there's been a write; let's check!
-        readline(memfile, L);
-        while bpl /= BPOUT loop
-          hread(L, memdata);
-          assert memdata = std_logic_vector(to_signed(ram(to_integer(unsigned(bpl))), 32))
-            report "Error in ram data"
-            severity error;
-
-                                        -- yea, this is ugly, but it works
-          bpl := std_logic_vector(to_unsigned(
-            ((to_integer(unsigned(bpl)) + 1) mod 65536), 16));
-
-        end loop;
+      if rxER = 1 then
+        RX_ER <= '1';
+      else
+        RX_ER <= '0';
       end if;
+
+      RXD <= din;
     end loop;
-    file_close(memfile);
-
-    assert false
-      report "End of simulation"
-      severity failure;
-  end process memdata;
-
+  end process;
 
 END;
