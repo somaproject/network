@@ -174,9 +174,11 @@ begin
     writeFIFO(1500, X"70");             -- huge fifo
     instate <= 4;
     wait until outstate = 2;
+    
     -- can we write to the fifo again without problems?
     writeFIFO(500, X"48");
     wait until outstate = 3;
+    
     -- now, we write a good frame followed by an overflow
     writeFIFO(400, X"A7");
     writeFIFO(800, X"75");

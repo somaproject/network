@@ -95,7 +95,8 @@ begin
   fifo : RAMB16_S18_S18
     generic map
     ( WRITE_MODE_A => "READ_FIRST",
-      WRITE_MODE_B => "READ_FIRST"
+      WRITE_MODE_B => "READ_FIRST",
+      SIM_COLLISION_CHECK => "GENERATE_X_ONLY"
       )
     port map (
       DIA        => di,

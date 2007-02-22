@@ -8,26 +8,26 @@ library UNISIM;
 use UNISIM.VComponents.all;
 
 entity RXinput is
-  port ( RX_CLK     : in  std_logic;
-         CLK        : in  std_logic;
-         RESET      : in  std_logic;
-         RX_DV      : in  std_logic;
-         RX_ER      : in  std_logic;
-         RXD        : in  std_logic_vector(7 downto 0);
-         MD         : out std_logic_vector(31 downto 0);
-         MA         : out std_logic_vector(15 downto 0);
-         BPOUT      : out std_logic_vector(15 downto 0);
-         RXCRCERR   : out std_logic;
-         RXOFERR    : out std_logic;
-         RXPHYERR   : out std_logic;
-         RXFIFOWERR : out std_logic;
-         FIFOFULL   : in  std_logic;
-         RXF        : out std_logic;
-         MACADDR    : in  std_logic_vector(47 downto 0);
-         RXBCAST    : in  std_logic;
-         RXMCAST    : in  std_logic;
-         RXUCAST    : in  std_logic;
-         RXALLF     : in  std_logic;
+  port ( RX_CLK      : in  std_logic;
+         CLK         : in  std_logic;
+         RESET       : in  std_logic;
+         RX_DV       : in  std_logic;
+         RX_ER       : in  std_logic;
+         RXD         : in  std_logic_vector(7 downto 0);
+         MD          : out std_logic_vector(31 downto 0);
+         MA          : out std_logic_vector(15 downto 0);
+         BPOUT       : out std_logic_vector(15 downto 0);
+         RXCRCERR    : out std_logic;
+         RXOFERR     : out std_logic;
+         RXPHYERR    : out std_logic;
+         RXFIFOWERR  : out std_logic;
+         FIFOFULL    : in  std_logic;
+         RXF         : out std_logic;
+         MACADDR     : in  std_logic_vector(47 downto 0);
+         RXBCAST     : in  std_logic;
+         RXMCAST     : in  std_logic;
+         RXUCAST     : in  std_logic;
+         RXALLF      : in  std_logic;
          DEBUGSTATES : out std_logic_vector(31 downto 0));
 end RXinput;
 
@@ -35,7 +35,7 @@ architecture Behavioral of RXinput is
 
   -- debugging
   signal ldebugstates : std_logic_vector(7 downto 0) := (others => '0');
-  
+
   -- signals to interface with the GMII
   signal endf, dv, er, ovf, nextf : std_logic := '0';
   signal erl, ofl                 : std_logic := '0';
@@ -82,17 +82,17 @@ architecture Behavioral of RXinput is
   end component;
 
   component GMIIin
-    port ( CLK     : in  std_logic;
-           RX_CLK  : in  std_logic;
-           RX_ER   : in  std_logic;
-           RX_DV   : in  std_logic;
-           RXD     : in  std_logic_vector(7 downto 0);
-           NEXTF   : in  std_logic;
-           ENDFOUT : out std_logic;
-           EROUT   : out std_logic;
-           OFOUT   : out std_logic;
-           VALID   : out std_logic;
-           DOUT    : out std_logic_vector(7 downto 0);
+    port ( CLK      : in  std_logic;
+           RX_CLK   : in  std_logic;
+           RX_ER    : in  std_logic;
+           RX_DV    : in  std_logic;
+           RXD      : in  std_logic_vector(7 downto 0);
+           NEXTF    : in  std_logic;
+           ENDFOUT  : out std_logic;
+           EROUT    : out std_logic;
+           OFOUT    : out std_logic;
+           VALID    : out std_logic;
+           DOUT     : out std_logic_vector(7 downto 0);
            DEBUGOUT : out std_logic_vector(15 downto 0));
   end component;
 
@@ -120,17 +120,17 @@ begin
 
   gmii : GMIIin
     port map (
-      CLK     => CLK,
-      RX_CLK  => RX_CLK,
-      RX_ER   => RX_ER,
-      RX_DV   => RX_DV,
-      RXD     => RXD,
-      NEXTF   => nextf,
-      ENDFOUT => endf,
-      EROUT   => er,
-      OFOUT   => ovf,
-      VALID   => dv,
-      DOUT    => data,
+      CLK      => CLK,
+      RX_CLK   => RX_CLK,
+      RX_ER    => RX_ER,
+      RX_DV    => RX_DV,
+      RXD      => RXD,
+      NEXTF    => nextf,
+      ENDFOUT  => endf,
+      EROUT    => er,
+      OFOUT    => ovf,
+      VALID    => dv,
+      DOUT     => data,
       DEBUGOUT => gmiidebug
       );
 
@@ -154,23 +154,23 @@ begin
   main : process(RESET, CLK)
   begin
     if RESET = '1' then
-      cs   <= none;
+      cs <= none;
     else
       if rising_edge(CLK) then
 
         -- debugging
         --
-        DEBUGSTATES(7 downto 0) <= ldebugstates;
-        DEBUGSTATES(31 downto 16) <= gmiidebug; 
+        DEBUGSTATES(7 downto 0)   <= ldebugstates;
+        DEBUGSTATES(31 downto 16) <= gmiidebug;
 
         cs <= ns;
 
         -- data latching
         if cs = b0wr and fd = '1' then
-          lm(15 downto 8)   <= data;
+          lm(15 downto 8)  <= data;
         end if;
         if cs = b1wr and fd = '1' then
-          lm(7 downto 0)  <= data;
+          lm(7 downto 0)   <= data;
         end if;
         if cs = b2wr and fd = '1' then
           lm(31 downto 24) <= data;
@@ -180,8 +180,8 @@ begin
         end if;
 
 
-        if (mwen = '1' and               -- fd = '1' then
-          rd = '1' and dv = '1') or (mwen = '1' and cs = checkf)  then
+        if (mwen = '1' and              -- fd = '1' then
+            rd = '1' and dv = '1') or (mwen = '1' and cs = checkf) then
           lml <= lm;
         end if;
 
@@ -301,116 +301,119 @@ begin
                  crcvalid, erl, ofl, destok)
   begin
     case cs is
-      when none    =>
-        ldebugstates <= X"00"; 
-        rd     <= '0';
-        mwen   <= '0';
-        nextf  <= '1';
-        bpwen  <= '0';
-        ns     <= waitsfd;
-        
+      when none =>
+        ldebugstates <= X"00";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '1';
+        bpwen        <= '0';
+        ns           <= waitsfd;
+
       when waitsfd =>
-        ldebugstates <= X"3F"; 
-        rd     <= '0';
-        mwen   <= '0';
-        nextf  <= '1';                  -- MAJOR POSSIBLE DEBUG ERROR
-        bpwen  <= '0';
-        if dv = '1' and data = "11010101" then
-          ns   <= b0wr;
+        ldebugstates <= X"3F";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
+        if endf = '1' and dv = '1' then
+          ns         <= none;
         else
-          ns   <= waitsfd;
+          if dv = '1' and data = "11010101" then
+            ns       <= b0wr;
+          else
+            ns       <= waitsfd;
+          end if;
         end if;
-        
       when b0wr    =>
-        ldebugstates <= X"02"; 
-        rd     <= '1';
-        mwen   <= '1';
-        nextf  <= '0';
-        bpwen  <= '0';
+        ldebugstates <= X"02";
+        rd           <= '1';
+        mwen         <= '1';
+        nextf        <= '0';
+        bpwen        <= '0';
         if dv = '1' then
           if endf = '0' then
-            ns <= b1wr;
+            ns       <= b1wr;
           else
-            ns <= wwait0;
+            ns       <= wwait0;
           end if;
         else
-          ns   <= b0wr;
+          ns         <= b0wr;
         end if;
-        
-      when b1wr    =>
-        ldebugstates <= X"03"; 
-        rd     <= '1';
-        mwen   <= '0';
-        nextf  <= '0';
-        bpwen  <= '0';
+
+      when b1wr =>
+        ldebugstates <= X"03";
+        rd           <= '1';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
         if dv = '1' then
           if endf = '0' then
-            ns <= b2wr;
+            ns       <= b2wr;
           else
-            ns <= wwait1;
+            ns       <= wwait1;
           end if;
         else
-          ns   <= b1wr;
+          ns         <= b1wr;
         end if;
-        
-      when b2wr    =>
-        ldebugstates <= X"04"; 
-        rd     <= '1';
-        mwen   <= '0';
-        nextf  <= '0';
-        bpwen  <= '0';
+
+      when b2wr =>
+        ldebugstates <= X"04";
+        rd           <= '1';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
         if dv = '1' then
           if endf = '0' then
-            ns <= b3wr;
+            ns       <= b3wr;
           else
-            ns <= wwait2;
+            ns       <= wwait2;
           end if;
         else
-          ns   <= b2wr;
+          ns         <= b2wr;
         end if;
 
-      when b3wr    =>
-        ldebugstates <= X"05"; 
-        rd     <= '1';
-        mwen   <= '0';
-        nextf  <= '0';
-        bpwen  <= '0';
+      when b3wr =>
+        ldebugstates <= X"05";
+        rd           <= '1';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
         if dv = '1' then
           if endf = '0' then
-            ns <= b0wr;
+            ns       <= b0wr;
           else
-            ns <= checkf;
+            ns       <= checkf;
           end if;
         else
-          ns   <= b3wr;
+          ns         <= b3wr;
         end if;
 
-      when wwait0  =>
-        ldebugstates <= X"06"; 
-        rd     <= '0';
-        mwen   <= '0';
-        nextf  <= '0';
-        bpwen  <= '0';
-        ns     <= wwait1;
+      when wwait0 =>
+        ldebugstates <= X"06";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
+        ns           <= wwait1;
 
-      when wwait1  =>
-        ldebugstates <= X"07"; 
-        rd     <= '0';
-        mwen   <= '0';
-        nextf  <= '0';
-        bpwen  <= '0';
-        ns     <= wwait2;
+      when wwait1 =>
+        ldebugstates <= X"07";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
+        ns           <= wwait2;
 
-      when wwait2  =>
-        ldebugstates <= X"08"; 
-        rd     <= '0';
-        mwen   <= '0';
-        nextf  <= '0';
-        bpwen  <= '0';
-        ns     <= checkf;
+      when wwait2 =>
+        ldebugstates <= X"08";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
+        ns           <= checkf;
 
-      when checkf  =>
-        ldebugstates <= X"09"; 
+      when checkf =>
+        ldebugstates <= X"09";
 
         rd    <= '1';
         mwen  <= '1';
@@ -425,80 +428,80 @@ begin
         end if;
 
       when lastwait0 =>
-        ldebugstates <= X"0A"; 
-        rd <= '0';
-        mwen <= '0';
-        nextf <= '0';
-        bpwen <= '0';
-        ns <= lastwait1;
-        
+        ldebugstates <= X"0A";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
+        ns           <= lastwait1;
+
       when lastwait1 =>
-        ldebugstates <= X"0B"; 
-        rd <= '0';
-        mwen <= '0';
-        nextf <= '0';
-        bpwen <= '0';
-        ns <= lastwait2;
-        
+        ldebugstates <= X"0B";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
+        ns           <= lastwait2;
+
       when lastwait2 =>
-        ldebugstates <= X"0C"; 
-        rd <= '0';
-        mwen <= '0';
-        nextf <= '0';
-        bpwen <= '0';
-        ns <= bpwait0; 
-        
+        ldebugstates <= X"0C";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
+        ns           <= bpwait0;
+
       when bpwait0 =>
-        ldebugstates <= X"0D"; 
-        rd    <= '0';
-        mwen  <= '1';
-        nextf <= '0';
-        bpwen <= '1';
-        ns    <= bpwait1;
-        
+        ldebugstates <= X"0D";
+        rd           <= '0';
+        mwen         <= '1';
+        nextf        <= '0';
+        bpwen        <= '1';
+        ns           <= bpwait1;
+
       when bpwait1 =>
-        ldebugstates <= X"0E"; 
-        rd    <= '0';
-        mwen  <= '0';
-        nextf <= '0';
-        bpwen <= '1';
-        ns    <= bpwait2;
-        
+        ldebugstates <= X"0E";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '1';
+        ns           <= bpwait2;
+
       when bpwait2 =>
-        ldebugstates <= X"0F"; 
-        rd    <= '0';
-        mwen  <= '0';
-        nextf <= '0';
-        bpwen <= '1';
-        ns    <= bpwait3;
-        
+        ldebugstates <= X"0F";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '1';
+        ns           <= bpwait3;
+
       when bpwait3 =>
-        ldebugstates <= X"10"; 
-        rd    <= '0';
-        mwen  <= '1';
-        nextf <= '0';
-        bpwen <= '1';
+        ldebugstates <= X"10";
+        rd           <= '0';
+        mwen         <= '1';
+        nextf        <= '0';
+        bpwen        <= '1';
         if crcvalid = '0' then
-          ns  <= none;
+          ns         <= none;
         else
-          ns  <= validf;
+          ns         <= validf;
         end if;
 
       when validf =>
-        ldebugstates <= X"11"; 
-        rd    <= '0';
-        mwen  <= '1';
-        nextf <= '0';
-        bpwen <= '0';
-        ns    <= none;
+        ldebugstates <= X"11";
+        rd           <= '0';
+        mwen         <= '1';
+        nextf        <= '0';
+        bpwen        <= '0';
+        ns           <= none;
 
       when others =>
-        ldebugstates <= X"12"; 
-        rd    <= '0';
-        mwen  <= '0';
-        nextf <= '0';
-        bpwen <= '0';
-        ns    <= none;
+        ldebugstates <= X"12";
+        rd           <= '0';
+        mwen         <= '0';
+        nextf        <= '0';
+        bpwen        <= '0';
+        ns           <= none;
     end case;
   end process;
 
