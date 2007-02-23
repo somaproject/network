@@ -8,13 +8,13 @@ run
 -p xc3s200-4-pq208
 -top network
 -opt_mode Speed
--opt_level 2
+-opt_level 1
 -iuc NO
 -keep_hierarchy NO
 -glob_opt AllClockNets
 -rtlview Yes
 -read_cores YES
--write_timing_constraints NO
+-write_timing_constraints no
 -cross_clock_analysis YES
 -hierarchy_separator _
 -bus_delimiter <>
@@ -23,7 +23,7 @@ run
 -verilog2001 YES
 -fsm_extract YES 
 -fsm_encoding One-Hot
--safe_implementation No
+-safe_implementation NO
 -fsm_style lut
 -ram_extract Yes
 -ram_style Auto
@@ -40,9 +40,9 @@ run
 -iobuf YES
 -max_fanout 500
 -bufg 8
--register_duplication NO
+-register_duplication No
 -equivalent_register_removal YES
--register_balancing YES
+-register_balancing NO
 -slice_packing YES
 -optimize_primitives NO
 -use_clock_enable Yes

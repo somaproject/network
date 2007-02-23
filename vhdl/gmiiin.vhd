@@ -30,7 +30,7 @@ architecture Behavioral of gmiiin is
   signal rxdl, din : std_logic_vector(7 downto 0)
  := (others => '0');
 
-  signal ain, al : std_logic_vector(9 downto 0)
+  signal ain, al, al2 : std_logic_vector(9 downto 0)
  := (others => '0');
 
   signal di : std_logic_vector(15 downto 0)
@@ -39,7 +39,7 @@ architecture Behavioral of gmiiin is
   -- CLK domain signals:
   signal aeq, endfo, val, lvalid, nfl, ffs, efv :
     std_logic := '0';
-  signal ao, aol, al2, al2l : std_logic_vector(9 downto 0)
+  signal ao, aol, al3, al3l : std_logic_vector(9 downto 0)
               := (others => '0');
   signal do                 : std_logic_vector(15 downto 0)
               := (others => '0');
@@ -82,12 +82,13 @@ begin
           ff <= '1';
         end if;
       end if;
+
       if wein = '1' then
         ain  <= ain + 1;
       end if;
 
       al <= ain;
-
+      al2 <= al; 
     end if;
   end process rxclk_domain;
 
@@ -124,29 +125,29 @@ begin
 
   endfo <= do(15);
 
-  aeq <= '1' when al2 = ao else '0';
+  aeq <= '1' when al3l = ao else '0';
 
   efv     <= val and endfo;
   lvalid  <= nfl and (not aeq) and (not efv);
   VALID   <= val;
   ENDFOUT <= endfo;
 
-  ffs <= '0' when al2l(9 downto 8) = "00" and ao(9 downto 8) = "00" else
-         '0' when al2l(9 downto 8) = "01" and ao(9 downto 8) = "00" else
-         '0' when al2l(9 downto 8) = "10" and ao(9 downto 8) = "00" else
-         '1' when al2l(9 downto 8) = "11" and ao(9 downto 8) = "00" else
-         '0' when al2l(9 downto 8) = "01" and ao(9 downto 8) = "01" else
-         '0' when al2l(9 downto 8) = "10" and ao(9 downto 8) = "01" else
-         '0' when al2l(9 downto 8) = "11" and ao(9 downto 8) = "01" else
-         '1' when al2l(9 downto 8) = "00" and ao(9 downto 8) = "01" else
-         '0' when al2l(9 downto 8) = "10" and ao(9 downto 8) = "10" else
-         '0' when al2l(9 downto 8) = "11" and ao(9 downto 8) = "10" else
-         '0' when al2l(9 downto 8) = "00" and ao(9 downto 8) = "10" else
-         '1' when al2l(9 downto 8) = "01" and ao(9 downto 8) = "10" else
-         '0' when al2l(9 downto 8) = "11" and ao(9 downto 8) = "11" else
-         '0' when al2l(9 downto 8) = "00" and ao(9 downto 8) = "11" else
-         '0' when al2l(9 downto 8) = "01" and ao(9 downto 8) = "11" else
-         '1' when al2l(9 downto 8) = "10" and ao(9 downto 8) = "11" else
+  ffs <= '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "00" else
+         '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "00" else
+         '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "00" else
+         '1' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "00" else
+         '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "01" else
+         '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "01" else
+         '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "01" else
+         '1' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "01" else
+         '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "10" else
+         '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "10" else
+         '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "10" else
+         '1' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "10" else
+         '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "11" else
+         '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "11" else
+         '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "11" else
+         '1' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "11" else
          '0';
 
   clk_domain : process(CLK)
@@ -157,8 +158,8 @@ begin
   
       val <= lvalid;
 
-      al2  <= al;
-      al2l <= al2;
+      al3  <= al2;
+      al3l <= al3;
       if lvalid = '1' then
         ao <= ao + 1;
       end if;

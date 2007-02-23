@@ -41,7 +41,7 @@ architecture Behavioral of RXoutput is
     lhalffull, lnearfull, mdsel, mdsell, lenen : std_logic := '0';
 
   -- macaddr
-  signal bpinl, len, lenr, llbp, lbp, bp, macnt :
+  signal bpinl, bpinl1, len, lenr, llbp, lbp, bp, macnt :
     std_logic_vector(15 downto 0)
                                  := (others => '0');
   signal mainc, bpen : std_logic := '0';
@@ -181,7 +181,8 @@ begin
         cs <= ns;
 
         -- input latching
-        bpinl <= BPIN;
+        bpinl <= BPIN; 
+        
         mdl   <= MQ;
         -- addresses
         if lenen = '1' then

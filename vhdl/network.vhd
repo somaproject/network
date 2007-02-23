@@ -93,12 +93,12 @@ architecture Behavioral of network is
   signal txiocrcerr               : std_logic := '0';
 
   -- debugging
-  signal debugaddr  : std_logic_vector(16 downto 0) := (others => '0');
-  signal debugdata  : std_logic_vector(31 downto 0) := (others => '0');
-  signal debugwaddr : std_logic_vector(16 downto 0) := (others => '0');
-  signal debugwdata : std_logic_vector(31 downto 0) := (others => '0');
-  signal debugstates : std_logic_vector(31 downto 0)  := (others => '0');
-  
+  signal debugaddr   : std_logic_vector(16 downto 0) := (others => '0');
+  signal debugdata   : std_logic_vector(31 downto 0) := (others => '0');
+  signal debugwaddr  : std_logic_vector(16 downto 0) := (others => '0');
+  signal debugwdata  : std_logic_vector(31 downto 0) := (others => '0');
+  signal debugstates : std_logic_vector(31 downto 0) := (others => '0');
+
 
   signal reset      : std_logic := '0';
   signal hilocked   : std_logic := '0';
@@ -136,26 +136,26 @@ architecture Behavioral of network is
   end component;
 
   component RXinput
-    port ( RX_CLK     : in  std_logic;
-           CLK        : in  std_logic;
-           RESET      : in  std_logic;
-           RX_DV      : in  std_logic;
-           RX_ER      : in  std_logic;
-           RXD        : in  std_logic_vector(7 downto 0);
-           MD         : out std_logic_vector(31 downto 0);
-           MA         : out std_logic_vector(15 downto 0);
-           BPOUT      : out std_logic_vector(15 downto 0);
-           RXCRCERR   : out std_logic;
-           RXOFERR    : out std_logic;
-           RXPHYERR   : out std_logic;
-           RXFIFOWERR : out std_logic;
-           FIFOFULL   : in  std_logic;
-           RXF        : out std_logic;
-           MACADDR    : in  std_logic_vector(47 downto 0);
-           RXBCAST    : in  std_logic;
-           RXMCAST    : in  std_logic;
-           RXUCAST    : in  std_logic;
-           RXALLF     : in  std_logic;
+    port ( RX_CLK      : in  std_logic;
+           CLK         : in  std_logic;
+           RESET       : in  std_logic;
+           RX_DV       : in  std_logic;
+           RX_ER       : in  std_logic;
+           RXD         : in  std_logic_vector(7 downto 0);
+           MD          : out std_logic_vector(31 downto 0);
+           MA          : out std_logic_vector(15 downto 0);
+           BPOUT       : out std_logic_vector(15 downto 0);
+           RXCRCERR    : out std_logic;
+           RXOFERR     : out std_logic;
+           RXPHYERR    : out std_logic;
+           RXFIFOWERR  : out std_logic;
+           FIFOFULL    : in  std_logic;
+           RXF         : out std_logic;
+           MACADDR     : in  std_logic_vector(47 downto 0);
+           RXBCAST     : in  std_logic;
+           RXMCAST     : in  std_logic;
+           RXUCAST     : in  std_logic;
+           RXALLF      : in  std_logic;
            DEBUGSTATES : out std_logic_vector(31 downto 0));
   end component;
 
@@ -203,8 +203,8 @@ architecture Behavioral of network is
            FIFOFULL   : in  std_logic;
            TXFIFOWERR : out std_logic;
            TXIOCRCERR : out std_logic;
-
-           DONE : out std_logic);
+           DONE : out std_logic;
+           DEBUGOUT : out std_logic_vector);
   end component;
 
   component FIFOcheck
@@ -272,13 +272,6 @@ architecture Behavioral of network is
 
 begin
 
-  datagen_inst : datagen
-    port map (
-      CLK       => clkio,
-      NEXTFRAME => debugnextframe,
-      DOUTEN    => debugdouten,
-      DOUT      => debugdout);
-
   DOUTEN <= doutensig;
 -- DOUTEN <= debugdouten;  -- doutensig;  -- DEBUGGING!!!
 --   DOUT <= debugdout;                   -- DEBUGGING
@@ -291,7 +284,7 @@ begin
   addr3ext <= ('1' & addr3);
   addr4ext <= ('0' & addr4);
 
-  debugdata <= debugstates; 
+
 
 
   clkio_dcm : DCM
@@ -319,9 +312,10 @@ begin
       CLKIN          => CLKIN,
       CLKDV          => clkloint,
       CLKFX          => clkfint,        -- 125 Mhz generated clock
-      RST            => RESET,
+      RST            => '0', 
       LOCKED         => multlocked
       );
+  
   multreset <= not multlocked;
 
   clkhi_dcm : DCM
@@ -337,6 +331,8 @@ begin
       );
 
   hireset <= not hilocked;
+  RESET <= hireset;
+  
   clkf_bufg : BUFG port map (
     I => clkfint,
     O => clkf);
@@ -357,16 +353,16 @@ begin
 -- I => clk90int,
 -- O => clk90 );
 
--- clk180_bufg : BUFG port map (
--- I => clk180int,
--- O => clk180 );
+  clk180_bufg : BUFG port map (
+    I => clk180int,
+    O => clk180 );
 
-  clk270_bufg : BUFG port map (
-    I => clk270int,
-    O => clk270 );
+-- clk270_bufg : BUFG port map (
+-- I => clk270int,
+-- O => clk270 );
 
 
-  U2 : OBUF port map (I => clk270, O => GTX_CLK);
+  U2 : OBUF port map (I => clk180, O => GTX_CLK);
 
   clkrx_bufg : BUFG port map (
     I => RX_CLK,
@@ -418,26 +414,26 @@ begin
     CLKEN4  => clken4);
 
   rx_input : rxinput port map (
-    RX_CLK     => clkrx,
-    CLK        => clk,
-    RESET      => RESET,
-    RX_DV      => RX_DV,
-    RX_ER      => RX_ER,
-    RXD        => RXD,
-    MD         => d1,
-    MA         => addr1,
-    BPOUT      => rxbp,
-    RXCRCERR   => rxcrcerr,
-    RXOFERR    => rxoferr,
-    RXPHYERR   => rxphyerr,
-    FIFOFULL   => rxfifofull,
-    RXFIFOWERR => rxfifowerr,
-    RXF        => rxf,
-    MACADDR    => macaddr,
-    RXBCAST    => rxbcast,
-    RXMCAST    => rxmcast,
-    RXUCAST    => rxucast,
-    RXALLF     => rxallf,
+    RX_CLK      => clkrx,
+    CLK         => clk,
+    RESET       => RESET,
+    RX_DV       => RX_DV,
+    RX_ER       => RX_ER,
+    RXD         => RXD,
+    MD          => d1,
+    MA          => addr1,
+    BPOUT       => rxbp,
+    RXCRCERR    => rxcrcerr,
+    RXOFERR     => rxoferr,
+    RXPHYERR    => rxphyerr,
+    FIFOFULL    => rxfifofull,
+    RXFIFOWERR  => rxfifowerr,
+    RXF         => rxf,
+    MACADDR     => macaddr,
+    RXBCAST     => rxbcast,
+    RXMCAST     => rxmcast,
+    RXUCAST     => rxucast,
+    RXALLF      => rxallf,
     DEBUGSTATES => debugstates);
 
   rx_output : rxoutput port map (
@@ -454,7 +450,8 @@ begin
     DOUT      => DOUT,
     DOUTEN    => doutensig);
 
-  tx_output : txoutput port map (
+  tx_output : txoutput
+    port map (
     CLK       => clk,
     RESET     => reset,
     MQ        => q2,
@@ -468,20 +465,22 @@ begin
     CLKEN     => clken2,
     GTX_CLK   => open);
 
-  tx_input : txinput port map (
-    CLK        => clk,
-    CLKIO      => clkio,
-    RESET      => reset,
-    DIN        => DIN,
-    NEWFRAME   => NEWFRAME,
-    MWEN       => txinmwen,
-    MA         => addr4,
-    MD         => d4,
-    BPOUT      => txbp,
-    FIFOFULL   => txfifofull,
-    TXFIFOWERR => txfifowerr,
-    TXIOCRCERR => txiocrcerr,
-    DONE       => open);
+  tx_input : txinput
+    port map (
+      CLK        => clk,
+      CLKIO      => clkio,
+      RESET      => reset,
+      DIN        => DIN,
+      NEWFRAME   => NEWFRAME,
+      MWEN       => txinmwen,
+      MA         => addr4,
+      MD         => d4,
+      BPOUT      => txbp,
+      FIFOFULL   => txfifofull,
+      TXFIFOWERR => txfifowerr,
+      TXIOCRCERR => txiocrcerr,
+      DONE       => open,
+      DEBUGOUT => debugdata);
 
   tx_fifocheck : FIFOcheck port map(
     CLK      => clk,

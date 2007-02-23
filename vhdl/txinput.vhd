@@ -19,7 +19,8 @@ entity txinput is
          BPOUT      : out std_logic_vector(15 downto 0);
          TXFIFOWERR : out std_logic;
          TXIOCRCERR : out std_logic;
-         DONE       : out std_logic);
+         DONE       : out std_logic;
+         DEBUGOUT : out std_logic_vector(31 downto 0));
 end txinput;
 
 architecture Behavioral of txinput is
@@ -79,7 +80,8 @@ architecture Behavioral of txinput is
       DONE     : out std_logic);
   end component;
 
-
+  signal newframeiol1, newframeiol2 : std_logic := '0';
+  signal newframecnt : std_logic_vector(31 downto 0) := (others => '0');
 begin
 
   lmd   <= dh & dl;
@@ -99,6 +101,7 @@ begin
 
   -- clocks to outside:
   clock_external : process(CLKIO)
+
   begin
     if rising_edge(CLKIO) then
       enable <= not enable;
@@ -106,6 +109,15 @@ begin
       dinio <= DIN;
 
       newframeio <= NEWFRAME;
+       newframeiol1 <= NEWFRAME;
+       newframeiol2 <= newframeiol1;
+
+       if newframeiol1 = '1' and newframeiol2 = '0' then
+         newframecnt <= newframecnt + 1; 
+       end if;
+      
+      DEBUGOUT <= newframecnt;
+      
     end if;
   end process clock_external;
 
@@ -401,7 +413,7 @@ begin
         cpen       <= '0';
         DONE       <= '0';
         if newfint = '1' then
-          ns       <= pktdone3;
+           ns       <= pktdone3;
         else
           ns       <= none;
         end if;
