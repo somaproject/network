@@ -10,11 +10,13 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="txinput.fsm.svg"
    sodipodi:docbase="/home/jonas/soma/network/docs/txinput"
-   inkscape:version="0.43+0.44pre2"
+   inkscape:version="0.45"
    sodipodi:version="0.32"
    id="svg1996"
    height="792.00000pt"
-   width="612.00000pt">
+   width="612.00000pt"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:modified="true">
   <defs
      id="defs3">
     <marker
@@ -926,7 +928,7 @@
          y="475">FIFOFULLL=1</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="111.88477"
        y="90"
        id="text2657"
@@ -934,7 +936,7 @@
          sodipodi:role="line"
          x="111.88477"
          y="90"
-         id="tspan2661">NEWFINT=1</tspan></text>
+         id="tspan2661">NEWFINT=0</tspan></text>
     <g
        id="g2685"
        transform="translate(234.375,284.375)">
