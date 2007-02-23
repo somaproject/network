@@ -313,7 +313,7 @@ begin
         ldebugstates <= X"3F";
         rd           <= '0';
         mwen         <= '0';
-        nextf        <= '1';
+        nextf        <= '0';
         bpwen        <= '0';
         if endf = '1' and dv = '1' then
           ns         <= none;

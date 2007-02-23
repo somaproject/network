@@ -24,7 +24,7 @@ end gmiiin;
 architecture Behavioral of gmiiin is
 
   --RX_CLK domain signals 
-  signal erl, dvl, dvll, erin, endfin, wein, ff,
+  signal erl, dvl, dvll, erin, endfin, wein, ff, ffsll, 
     we, wel : std_logic := '0';
 
   signal rxdl, din : std_logic_vector(7 downto 0)
@@ -37,7 +37,7 @@ architecture Behavioral of gmiiin is
  := (others => '0');
 
   -- CLK domain signals:
-  signal aeq, endfo, val, lvalid, nfl, ffs, efv :
+  signal aeq, endfo, val, lvalid, nfl, ffs, ffsl,  efv :
     std_logic := '0';
   signal ao, aol, al3, al3l : std_logic_vector(9 downto 0)
               := (others => '0');
@@ -75,10 +75,12 @@ begin
         end if;
       end if;
 
+      ffsll <= ffsl;
+      
       if dvl = '0' then
         ff   <= '0';
       else
-        if ffs = '1' then
+        if ffsll = '1' then
           ff <= '1';
         end if;
       end if;
@@ -157,7 +159,8 @@ begin
       DEBUGOUT <= do(15 downto 13) & val & efv & lvalid & aeq & nfl & do(7 downto 0); -- "000000" & al2l;
   
       val <= lvalid;
-
+      ffsl <= ffs;
+      
       al3  <= al2;
       al3l <= al3;
       if lvalid = '1' then
