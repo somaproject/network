@@ -1,0 +1,19 @@
+GMIIin test suite
+
+Variables to check: 
+
+Minimum frame size
+
+Minimum distance between frames
+
+does RX_ER on the last byte in a frame get detected? what about first byte? 
+
+check overflow: write n bytes with other interface stalled. 
+
+random testing? 
+
+Our input vector is a list of RX_ERR, RX_DV, RXD of the form
+RXD RX_DV RX_ER
+
+Our verify form is just a series of two-byte words expected to match.
+

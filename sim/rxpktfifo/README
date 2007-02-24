@@ -1,0 +1,7 @@
+Here we test all possible combinations of the GMIIin interface. 
+
+What do we want to guarantee? 
+
+1. In the RX_CLK is slower context, we never drop any packets, ever. 
+2. In the RX_CLK is faster context, we don't drop very many packets. 
+
