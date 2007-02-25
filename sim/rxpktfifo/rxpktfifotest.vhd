@@ -157,6 +157,8 @@ begin
       end if;
 
       assert ENDFOUT = '1' report "error with end of frame" severity error;
+      wait for 1 us;
+
     end loop;
 
     file_close(pktfile);

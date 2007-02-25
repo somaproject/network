@@ -10,16 +10,14 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg1"
    sodipodi:version="0.32"
-   inkscape:version="0.45"
+   inkscape:version="0.43+0.44pre2"
    width="612.00000pt"
    height="792.00000pt"
    sodipodi:docbase="/home/jonas/soma/network/docs/rxinput"
    sodipodi:docname="rxpktfifo.svg"
    inkscape:export-filename="/home/jonas/gmii.png"
    inkscape:export-xdpi="150.00000"
-   inkscape:export-ydpi="150.00000"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="true">
+   inkscape:export-ydpi="150.00000">
   <defs
      id="defs3">
     <marker
@@ -2520,4 +2518,9 @@
        sodipodi:ry="3.125"
        d="M 221.875 202.5 A 3.125 3.125 0 1 1  215.625,202.5 A 3.125 3.125 0 1 1  221.875 202.5 z" />
   </g>
+  <path
+     id="path2343"
+     style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:1.25000012"
+     d="M 318.75,265.0038 C 318.75,265.0038 344.46885,265.08179 353.125,252.5 C 344.46885,239.91822 318.75,240.0038 318.75,240.0038 C 318.75,240.0038 327.40616,252.422 318.75,265.0038 z "
+     sodipodi:nodetypes="cccc" />
 </svg>
