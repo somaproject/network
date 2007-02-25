@@ -92,7 +92,8 @@ begin
       RXD     <= din;
     end loop;
     wait until rising_edge(RX_CLK);
-    RX_DV <= '0'; 
+    RX_DV <= '0';
+    
     wait;
   end process;
 
@@ -126,6 +127,8 @@ begin
       assert ENDFOUT = '1' report "error with end of frame" severity Error;
     end loop;
 
+
+    
     wait;
   end process dataverify;
 

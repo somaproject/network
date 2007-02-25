@@ -76,3 +76,10 @@ pipelined subsystem that checks if the DESTADDR is of the correct type
 and if we are accepting frames of that type. RXALLF=1 implies we pass
 all frames, i.e. promiscuous mode.
 
+---------------------------------------------------------------------------
+
+Take the input and if VALID write it to the fifo
+
+if FIFOFULL then
+  on the next DV, write endframe, fifoof, and then wait
+for the real ENDFRAME
