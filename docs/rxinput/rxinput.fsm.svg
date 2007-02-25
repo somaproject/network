@@ -10,11 +10,13 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg1"
    sodipodi:version="0.32"
-   inkscape:version="0.43+0.44pre2"
+   inkscape:version="0.45"
    width="612.00000pt"
    height="792.00000pt"
-   sodipodi:docbase="/home/jonas/soma/network/docs"
-   sodipodi:docname="rxinput.fsm.svg">
+   sodipodi:docbase="/home/jonas/soma/network/docs/rxinput"
+   sodipodi:docname="rxinput.fsm.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:modified="true">
   <defs
      id="defs3">
     <marker
@@ -941,20 +943,19 @@
      sodipodi:nodetypes="cc" />
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
-     x="473.77094"
-     y="685.26587"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="403.125"
+     y="746.25"
      id="text3361"
-     sodipodi:linespacing="100%"
-     transform="translate(-42.96234,60.67163)"><tspan
+     sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan3362"
-       x="473.77094"
-       y="685.26587">ERL=1 or OFL=1</tspan><tspan
+       x="403.125"
+       y="746.25">ERL=1 or OFL=1 or GOFL=1</tspan><tspan
        sodipodi:role="line"
        id="tspan3434"
-       x="473.77094"
-       y="693.26587">or FIFOFULL = 1</tspan></text>
+       x="403.125"
+       y="754.25">or FIFOFULL = 1</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"

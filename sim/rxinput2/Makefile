@@ -9,13 +9,16 @@ $(WORKDIR)/rxvalid/_behavioral.var: ../../vhdl/rxvalid.vhd
 $(WORKDIR)/crc_combinational/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd
 	$(VHDLC) -vital2000 ../../crc/vhdl/crc_combinational.vhd
 
-$(WORKDIR)/rxinput/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd ../../vhdl/rxinput.vhd
-	$(VHDLC) -vital2000 ../../vhdl/rxinput.vhd
-
-$(WORKDIR)/gmiiin/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd ../../vhdl/rxinput.vhd ../../vhdl/gmiiin.vhd
+$(WORKDIR)/gmiiin/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd ../../vhdl/gmiiin.vhd
 	$(VHDLC) -vital2000 ../../vhdl/gmiiin.vhd
 
-hw: $(WORKDIR)/rxvalid/_behavioral.var $(WORKDIR)/crc_combinational/_behavioral.var $(WORKDIR)/rxinput/_behavioral.var $(WORKDIR)/gmiiin/_behavioral.var 
+$(WORKDIR)/rxpktfifo/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd ../../vhdl/gmiiin.vhd ../../vhdl/rxpktfifo.vhd
+	$(VHDLC) -vital2000 ../../vhdl/rxpktfifo.vhd
+
+$(WORKDIR)/rxinput/_behavioral.var: ../../vhdl/rxvalid.vhd ../../crc/vhdl/crc_combinational.vhd ../../vhdl/gmiiin.vhd ../../vhdl/rxpktfifo.vhd ../../vhdl/rxinput.vhd
+	$(VHDLC) -vital2000 ../../vhdl/rxinput.vhd
+
+hw: $(WORKDIR)/rxvalid/_behavioral.var $(WORKDIR)/crc_combinational/_behavioral.var $(WORKDIR)/gmiiin/_behavioral.var $(WORKDIR)/rxpktfifo/_behavioral.var $(WORKDIR)/rxinput/_behavioral.var 
 
 comp: 
 

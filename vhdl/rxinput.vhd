@@ -7,7 +7,7 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 library UNISIM;
 use UNISIM.VComponents.all;
 
-entity RXinput is
+entity rxinput is
   port ( RX_CLK      : in  std_logic;
          CLK         : in  std_logic;
          RESET       : in  std_logic;
@@ -21,6 +21,7 @@ entity RXinput is
          RXOFERR     : out std_logic;
          RXPHYERR    : out std_logic;
          RXFIFOWERR  : out std_logic;
+         RXGOFERR    : out std_logic;
          FIFOFULL    : in  std_logic;
          RXF         : out std_logic;
          MACADDR     : in  std_logic_vector(47 downto 0);
@@ -31,7 +32,7 @@ entity RXinput is
          DEBUGSTATES : out std_logic_vector(31 downto 0));
 end RXinput;
 
-architecture Behavioral of RXinput is
+architecture Behavioral of rxinput is
 
   -- debugging
   signal ldebugstates : std_logic_vector(7 downto 0) := (others => '0');
@@ -52,6 +53,16 @@ architecture Behavioral of RXinput is
   -- byte counter
   signal bcnt : std_logic_vector(15 downto 0)
  := (others => '0');
+
+  -- GMII Interface
+  signal gmiivalid : std_logic                    := '0';
+  signal gmiiendf  : std_logic                    := '0';
+  signal gmiier    : std_logic                    := '0';
+  signal gmiidout  : std_logic_vector(7 downto 0) := (others => '0');
+  signal gmiiof    : std_logic                    := '0';
+
+  signal govf, gofl    : std_logic                    := '0';
+
 
   -- addr count and register
   signal lbp, lma, macnt : std_logic_vector(15 downto 0)
@@ -81,20 +92,38 @@ architecture Behavioral of RXinput is
            CO : out std_logic_vector(31 downto 0));
   end component;
 
-  component GMIIin
-    port ( CLK      : in  std_logic;
-           RX_CLK   : in  std_logic;
-           RX_ER    : in  std_logic;
-           RX_DV    : in  std_logic;
-           RXD      : in  std_logic_vector(7 downto 0);
-           NEXTF    : in  std_logic;
-           ENDFOUT  : out std_logic;
-           EROUT    : out std_logic;
-           OFOUT    : out std_logic;
-           VALID    : out std_logic;
-           DOUT     : out std_logic_vector(7 downto 0);
-           DEBUGOUT : out std_logic_vector(15 downto 0));
+  component gmiiin
+    port ( CLK     : in  std_logic;
+           RX_CLK  : in  std_logic;
+           RX_ER   : in  std_logic;
+           RX_DV   : in  std_logic;
+           RXD     : in  std_logic_vector(7 downto 0);
+           ENDFOUT : out std_logic;
+           EROUT   : out std_logic;
+           OFOUT   : out std_logic;
+           VALID   : out std_logic;
+           DOUT    : out std_logic_vector(7 downto 0));
   end component;
+
+  component rxpktfifo
+    port (
+      CLK       : in  std_logic;
+      -- Input interface
+      DIN       : in  std_logic_vector(7 downto 0);
+      OFIN      : in  std_logic;
+      ERIN      : in  std_logic;
+      ENDFIN    : in  std_logic;
+      VALIDIN   : in  std_logic;
+      -- output interface
+      NEXTF     : in  std_logic;
+      DOUT      : out std_logic_vector(7 downto 0);
+      GMIIOFOUT : out std_logic;
+      EROUT     : out std_logic;
+      ENDFOUT   : out std_logic;
+      OFOUT     : out std_logic;
+      VALID     : out std_logic);
+  end component;
+
 
   component RXValid
     port ( CLK     : in  std_logic;
@@ -120,19 +149,34 @@ begin
 
   gmii : GMIIin
     port map (
-      CLK      => CLK,
-      RX_CLK   => RX_CLK,
-      RX_ER    => RX_ER,
-      RX_DV    => RX_DV,
-      RXD      => RXD,
-      NEXTF    => nextf,
-      ENDFOUT  => endf,
-      EROUT    => er,
-      OFOUT    => ovf,
-      VALID    => dv,
-      DOUT     => data,
-      DEBUGOUT => gmiidebug
+      CLK     => CLK,
+      RX_CLK  => RX_CLK,
+      RX_ER   => RX_ER,
+      RX_DV   => RX_DV,
+      RXD     => RXD,
+      ENDFOUT => gmiiendf,
+      EROUT   => gmiier,
+      OFOUT   => gmiiof,
+      VALID   => gmiivalid,
+      DOUT    => gmiidout
       );
+
+  rxpktfifo_inst : rxpktfifo
+    port map (
+      CLK       => CLK,
+      DIN       => gmiidout,
+      OFIN      => gmiiof,
+      VALIDIN   => gmiivalid,
+      ENDFIN    => gmiiendf,
+      ERIN      => gmiier,
+      EROUT     => er,
+      OFOUT     => ovf,
+      GMIIOFOUT => govf,
+      ENDFOUT   => endf,
+      VALID     => dv,
+      DOUT      => data,
+      NEXTF     => nextf);
+
 
   maccheck : RXValid
     port map (
@@ -202,21 +246,25 @@ begin
         end if;
 
         if cs = none then
-          ofl   <= '0';
+          ofl  <= '0';
+          erl  <= '0';
+          gofl <= '0';
+
         else
-          if endf = '1' and dv = '1' then
-            ofl <= ovf;
+          if dv = '1' then
+            if govf = '1' then
+              gofl <= '1';
+            end if;
+
+            if ovf = '1' then
+              ofl <= '1';
+            end if;
+
+            if er = '1' then
+              erl <= '1';
+            end if;
           end if;
         end if;
-
-        if cs = none then
-          erl   <= '0';
-        else
-          if endf = '1' and dv = '1' then
-            erl <= er;
-          end if;
-        end if;
-
 
 
         -- memory address
@@ -273,11 +321,19 @@ begin
           RXOFERR <= '0';
         end if;
 
+        if cs = checkf and gofl = '1' then
+          RXGOFERR <= '1';
+        else
+          RXGOFERR <= '0';
+        end if;
+
         if cs = checkf and fifofull = '1' then
           RXFIFOWERR <= '1';
         else
           RXFIFOWERR <= '0';
         end if;
+
+
 
         if cs = bpwait3 and crcvalid = '0' then
           RXCRCERR <= '1';
@@ -324,8 +380,8 @@ begin
             ns       <= waitsfd;
           end if;
         end if;
-        
-      when b0wr    =>
+
+      when b0wr =>
         ldebugstates <= X"02";
         rd           <= '1';
         mwen         <= '1';

@@ -28,6 +28,7 @@ architecture behavior of RXinputtest is
       BPOUT      : out std_logic_vector(15 downto 0);
       RXCRCERR   : out std_logic;
       RXOFERR    : out std_logic;
+      RXGOFERR    : out std_logic;
       RXPHYERR   : out std_logic;
       RXFIFOWERR : out std_logic;
       RXF        : out std_logic
@@ -47,6 +48,7 @@ architecture behavior of RXinputtest is
   signal BPOUT             : std_logic_vector(15 downto 0);
   signal RXCRCERR          : std_logic := '0';
   signal RXOFERR           : std_logic := '0';
+  signal RXGOFERR           : std_logic := '0';
   signal RXPHYERR          : std_logic := '0';
   signal RXFIFOWERR        : std_logic := '0';
   signal FIFOFULL          : std_logic := '0';
@@ -79,6 +81,7 @@ begin
       RXOFERR    => RXOFERR,
       RXPHYERR   => RXPHYERR,
       RXFIFOWERR => RXFIFOWERR,
+      RXGOFERR => RXGOFERR, 
       FIFOFULL   => FIFOFULL,
       RXF        => RXF,
       MACADDR    => MACADDR,

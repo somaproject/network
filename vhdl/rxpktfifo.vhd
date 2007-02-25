@@ -40,7 +40,7 @@ architecture Behavioral of rxpktfifo is
 
   signal di : std_logic_vector(15 downto 0) := (others => '0');
 
-  signal ff, ffl                : std_logic                    := '0';
+  signal ff, ffl, ffll        : std_logic                    := '0';
   signal ai, ail, ai2, ai3 : std_logic_vector(9 downto 0) := (others => '0');
 
   -- output side
@@ -55,7 +55,7 @@ architecture Behavioral of rxpktfifo is
 begin  -- Behavioral
 
   endfll <= endfl or ffl;
-  we     <= validl and (not ffl);
+  we     <= (validl and (not ffll)) or (ffl and not ffll);
   neq    <= '0' when ai3 = ao else '1';
 
 
@@ -117,6 +117,8 @@ begin  -- Behavioral
       endfl  <= ENDFIN;
       validl <= VALIDIN;
 
+      ffll <= ffl;
+      
       if endfl = '1' and validl = '1' then
         ffl   <= '0';
       else
