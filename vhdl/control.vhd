@@ -25,6 +25,7 @@ entity control is
     RXFIFOWERR  : in    std_logic;
     RXPHYERR    : in    std_logic;
     RXOFERR     : in    std_logic;
+    RXGOFERR     : in    std_logic;
     RXMEMCRCERR : in    std_logic;
     TXMEMCRCERR : in    std_logic;
     TXIOCRCERR  : in    std_logic;
@@ -68,6 +69,7 @@ architecture Behavioral of control is
   signal RXFIFOWERRR  : std_logic := '0';
   signal RXPHYERRR    : std_logic := '0';
   signal RXOFERRR     : std_logic := '0';
+  signal RXGOFERRR     : std_logic := '0';
   signal RXCRCERRR    : std_logic := '0';
   signal TXMEMCRCERRR : std_logic := '0';
   signal TXIOCRCERRR  : std_logic := '0';
@@ -113,6 +115,7 @@ architecture Behavioral of control is
   signal rxfifowerrcnt  : std_logic_vector(31 downto 0) := (others => '0');
   signal rxphyerrcnt    : std_logic_vector(31 downto 0) := (others => '0');
   signal rxoferrcnt     : std_logic_vector(31 downto 0) := (others => '0');
+  signal rxgoferrcnt     : std_logic_vector(31 downto 0) := (others => '0');
   signal rxcrcerrcnt    : std_logic_vector(31 downto 0) := (others => '0');
   signal rxmemcrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
   signal txmemcrcerrcnt : std_logic_vector(31 downto 0) := (others => '0');
@@ -245,6 +248,7 @@ begin
   rxfifowerrr <= '1' when addr = X"14" and newcmdw = '1' else '0';
   rxphyerrr   <= '1' when addr = X"15" and newcmdw = '1' else '0';
   rxoferrr    <= '1' when addr = X"16" and newcmdw = '1' else '0';
+  rxgoferrr    <= '1' when addr = X"03" and newcmdw = '1' else '0';
   rxcrcerrr   <= '1' when addr = X"17" and newcmdw = '1' else '0';
 
   allfw    <= '1' when addr = X"19" and newcmdw = '1' else '0';
@@ -259,7 +263,7 @@ begin
   din <= X"01234567"                       when addr = X"00" else
          X"0000000" & "000" & lphyreset    when addr = X"01" else
          phystat                           when addr = X"02" else
-         X"89ABCDEF"                       when addr = X"03" else
+         rxgoferrcnt                       when addr = X"03" else
          X"00000000"                       when addr = X"04" else
          MDEBUGDATA                        when addr = X"05" else
          rxbpl & rxfbbpl                   when addr = X"06" else
@@ -333,6 +337,13 @@ begin
       INC    => RXOFERR,
       CNTRST => rxoferrr,
       CNT    => rxoferrcnt);
+
+  rxgoferr_counter : counter
+    port map (
+      CLK    => CLK,
+      INC    => RXGOFERR,
+      CNTRST => rxgoferrr,
+      CNT    => rxgoferrcnt);
 
   rxcrcerr_counter : counter
     port map (

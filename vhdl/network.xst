@@ -42,8 +42,8 @@ run
 -bufg 8
 -register_duplication YES
 -equivalent_register_removal YES
--register_balancing YES
--slice_packing YES
+-register_balancing NO
+-slice_packing NO
 -optimize_primitives NO
 -use_clock_enable Yes
 -use_sync_set Yes
