@@ -117,14 +117,16 @@ begin  -- Behavioral
       endfl  <= ENDFIN;
       validl <= VALIDIN;
 
-      ffll <= ffl;
       
       if endfl = '1' and validl = '1' then
         ffl   <= '0';
+
+        ffll <= '0';
       else
         if ff = '1' then
           ffl <= '1';
         end if;
+        ffll <= ffl; 
       end if;
 
       wel <= we;

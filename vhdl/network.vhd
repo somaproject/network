@@ -204,8 +204,8 @@ architecture Behavioral of network is
            FIFOFULL   : in  std_logic;
            TXFIFOWERR : out std_logic;
            TXIOCRCERR : out std_logic;
-           DONE : out std_logic;
-           DEBUGOUT : out std_logic_vector);
+           DONE       : out std_logic;
+           DEBUGOUT   : out std_logic_vector);
   end component;
 
   component FIFOcheck
@@ -236,7 +236,7 @@ architecture Behavioral of network is
            RXFIFOWERR  : in    std_logic;
            RXPHYERR    : in    std_logic;
            RXOFERR     : in    std_logic;
-           RXGOFERR     : in    std_logic;
+           RXGOFERR    : in    std_logic;
            TXMEMCRCERR : in    std_logic;
            RXMEMCRCERR : in    std_logic;
            TXIOCRCERR  : in    std_logic;
@@ -256,6 +256,7 @@ architecture Behavioral of network is
            TXFBBP      : in    std_logic_vector(15 downto 0));
   end component;
 
+  signal memlocked, memreset : std_logic := '0';
 
   -- debugging :
   signal doutensig      : std_logic                     := '0';
@@ -314,10 +315,10 @@ begin
       CLKIN          => CLKIN,
       CLKDV          => clkloint,
       CLKFX          => clkfint,        -- 125 Mhz generated clock
-      RST            => '0', 
+      RST            => '0',
       LOCKED         => multlocked
       );
-  
+
   multreset <= not multlocked;
 
   clkhi_dcm : DCM
@@ -333,8 +334,8 @@ begin
       );
 
   hireset <= not hilocked;
-  RESET <= hireset;
-  
+
+
   clkf_bufg : BUFG port map (
     I => clkfint,
     O => clkf);
@@ -370,7 +371,7 @@ begin
     I => RX_CLK,
     O => clkrx);
 
-  clkmem_dcm : DCM
+  clkmem_dcm  : DCM
     generic map (
       CLKOUT_PHASE_SHIFT => "FIXED",
       PHASE_SHIFT        => 100 )
@@ -378,12 +379,15 @@ begin
       CLK0               => mclkintfb,
       CLKFB              => mclkint,
       CLKIN              => clk,
-      RST                => hireset
+      RST                => hireset,
+      locked             => memlocked
       );
-
+  memreset <= not memlocked;
+  RESET    <= memreset;
+  
   clkmem_bufg : BUFG port map (
-    I => mclkintfb,
-    O => mclkint);
+    I                    => mclkintfb,
+    O                    => mclkint);
 
   MCLK <= mclkint;
   --MCLK <= clk90;
@@ -427,6 +431,7 @@ begin
     BPOUT       => rxbp,
     RXCRCERR    => rxcrcerr,
     RXOFERR     => rxoferr,
+    RXGOFERR    => rxgoferr,
     RXPHYERR    => rxphyerr,
     FIFOFULL    => rxfifofull,
     RXFIFOWERR  => rxfifowerr,
@@ -454,18 +459,18 @@ begin
 
   tx_output : txoutput
     port map (
-    CLK       => clk,
-    RESET     => reset,
-    MQ        => q2,
-    MA        => addr2,
-    BPIN      => txbp,
-    TXD       => TXD,
-    TXEN      => TX_EN,
-    TXF       => txf,
-    MEMCRCERR => txmemcrcerr,
-    FBBP      => txfbbp,
-    CLKEN     => clken2,
-    GTX_CLK   => open);
+      CLK       => clk,
+      RESET     => reset,
+      MQ        => q2,
+      MA        => addr2,
+      BPIN      => txbp,
+      TXD       => TXD,
+      TXEN      => TX_EN,
+      TXF       => txf,
+      MEMCRCERR => txmemcrcerr,
+      FBBP      => txfbbp,
+      CLKEN     => clken2,
+      GTX_CLK   => open);
 
   tx_input : txinput
     port map (
@@ -482,7 +487,7 @@ begin
       TXFIFOWERR => txfifowerr,
       TXIOCRCERR => txiocrcerr,
       DONE       => open,
-      DEBUGOUT => debugdata);
+      DEBUGOUT   => debugdata);
 
   tx_fifocheck : FIFOcheck port map(
     CLK      => clk,
@@ -517,7 +522,7 @@ begin
     RXFIFOWERR  => rxfifowerr,
     RXPHYERR    => rxphyerr,
     RXOFERR     => rxoferr,
-    RXGOFERR => rxgoferr, 
+    RXGOFERR    => rxgoferr,
     RXCRCERR    => rxcrcerr,
     RXBCAST     => rxbcast,
     RXMCAST     => rxmcast,

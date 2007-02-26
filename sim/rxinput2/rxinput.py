@@ -138,8 +138,8 @@ def macdesttest():
     
 
 def pingoftest():
-    g = GMIIin("gmiiin.2.dat")
-    rf = ramfile("ram.2.dat")
+    g = GMIIin("gmiiin.3.dat")
+    rf = ramfile("ram.3.dat")
 
     # we generate random length frames and randomly select among mac addresses
 
@@ -147,7 +147,7 @@ def pingoftest():
                 "FF:FF:FF:FF:FF:FF", "AB:CD:EF:12:34:56"]
 
     # and finally, perhaps, a ton of random crap:
-    for j in range(1000):
+    for j in range(5000):
         dmac = random.randint(0, 3)
         
         d = ""

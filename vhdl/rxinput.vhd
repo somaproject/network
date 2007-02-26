@@ -321,12 +321,18 @@ begin
           RXOFERR <= '0';
         end if;
 
-        if cs = checkf and gofl = '1' then
+--         if cs = checkf and gofl = '1' then
+--           RXGOFERR <= '1';
+--         else
+--           RXGOFERR <= '0';
+--         end if;
+        -- test replacement
+        if gmiivalid = '1' and gmiiof = '1'   then
           RXGOFERR <= '1';
         else
-          RXGOFERR <= '0';
+          RXGOFERR <= '0'; 
         end if;
-
+        
         if cs = checkf and fifofull = '1' then
           RXFIFOWERR <= '1';
         else
@@ -477,7 +483,7 @@ begin
         nextf <= '0';
         bpwen <= '0';
         if erl = '1' or ofl = '1'
-          or fifofull = '1'
+          or fifofull = '1' or gofl = '1' 
           or destok = '0' then
           ns  <= none;
         else

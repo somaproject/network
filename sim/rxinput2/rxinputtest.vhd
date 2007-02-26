@@ -91,13 +91,13 @@ begin
       RXALLF     => RXALLF
       );
 
-  RX_CLK <= not RX_CLK after 3.8 ns;
+  RX_CLK <= not RX_CLK after 3.5 ns;
   CLK    <= not CLK    after 4 ns;
 
   process
   begin
-    wait until rising_edge(RXOFERR);
-    report "RXOFERR!!!" severity error;
+    wait until rising_edge(RXCRCERR);
+    report "RXCRCERR!!!" severity error;
 
   end process;
 
@@ -113,7 +113,7 @@ begin
     wait for 200 ns;
 
 
-    file_open(gmiifile, "gmiiin.2.dat", read_mode);
+    file_open(gmiifile, "gmiiin.3.dat", read_mode);
     while not endfile(gmiifile) loop
       readline(gmiifile, L);
       wait until rising_edge(RX_CLK);

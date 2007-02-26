@@ -53,19 +53,27 @@ begin
   di <= endfin & erin & ff & "00000" & din;
 
 
+  rxacquire: process(RX_CLK)
+    begin
+      if falling_edge(RX_CLK) then
+        erl  <= RX_ER;
+        dvl  <= RX_DV;
+        rxdl <= RXD;
+
+      end if;
+    end process;
+    
   rxclk_domain : process (RX_CLK)
   begin
     if rising_edge(RX_CLK) then
 
-      erl  <= RX_ER;
-      dvl  <= RX_DV;
-      rxdl <= RXD;
 
       din  <= rxdl;
       dvll <= dvl;
-      wel  <= we;
       erin <= erl;
 
+
+      wel  <= we;
       ffsll <= ffsl;
 
       if dvl = '0' then
