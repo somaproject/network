@@ -16,7 +16,9 @@ The most significant byte, \signal{DIN[15:8]}, is transmitted on the
 wire first.
 
 Along with each packet, we also transmit a 32-bit CRC at the end,
-ethernet frame style.
+ethernet frame style. This CRC is included in the packet length header. 
+
+
 
 \subsection{Possible errors}
 \begin{enumerate}
@@ -34,5 +36,6 @@ There are three signals which govern frame reception:
 \signal{DOUTEN}
 \signal{DOUT[15:0]}
 
-Assert NEXTFRAME for the duration of a frame you want out. 
+Assert NEXTFRAME for the duration of a frame you want out. The first 16-bit word is the total frame length, not including the frame length header. The packet is suffixed by a 32-bit crc (same as TX). DOUTEN is the data valid line. 
 
+We had originally wanted the DOUTEN line to be continuous, but for some reason our current implementation doesn't allow that, so we've discarded it as a requirement for the time being. 

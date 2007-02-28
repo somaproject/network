@@ -1,10 +1,12 @@
-----------------------------------------------------------------------
-TX INPUT
-----------------------------------------------------------------------
-NEWFRAME is kept high for the entire transmission duration of a frame, which is prefaced with the length in bytes. 
+\section{TX Input}
 
-We read in n bytes, based on what the header says, and we stop reading
-once we've received  that many bytes.
+TXinput takes packets from the \signal{CLKIO}-domain interface framed
+by \signal{NEWFRAME} and stores them in the master memory FIFO. The
+\signal{CLKIO}-domain interface accepts packets as described by the
+interface doc.
+
+\subsection{Interface}
+\signal{NEWFRAME} is continuously asserted for the duration of a frame. 
 
 That is, for a signal Data[15:0], the byte DATA[7:0] was transmitted
 AFTER the byte DATA[15:8] The resulting memory address mapping places
