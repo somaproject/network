@@ -21,9 +21,7 @@ architecture behavior of txoutputtest is
       TXEN    : out std_logic;
       TXF     : out std_logic;
       FBBP    : out std_logic_vector(15 downto 0);
-      MEMCRCERR : out std_logic; 
-
-      GTX_CLK : out std_logic
+      MEMCRCERR : out std_logic
       );
   end component;
 
@@ -69,6 +67,8 @@ architecture behavior of txoutputtest is
   
 begin
 
+  GTX_CLK <= clk;
+  
   uut : txoutput port map(
     CLK     => CLK,
     RESET   => RESET,
@@ -80,7 +80,6 @@ begin
     TXF     => TXF,
     FBBP    => FBBP,
     CLKEN   => CLKEN,
-    GTX_CLK => GTX_CLK,
     MEMCRCERr => MEMCRCERR
     );
 

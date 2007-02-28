@@ -30,7 +30,7 @@ gmiifile = file("%s.gmii.dat" % filename, 'w')
 
 ramaddr = 0; 
 
-for i in range(256):
+for i in range(255):
     crcerror = False
     if random.random() > 0.85:
         crcerror = True
