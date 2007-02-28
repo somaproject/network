@@ -12,22 +12,10 @@ That is, for a signal Data[15:0], the byte DATA[7:0] was transmitted
 AFTER the byte DATA[15:8] The resulting memory address mapping places
 the first word at the lower portion of the memory address space.
 
-Since the input clock is on the order of 60 MHz or less, we use a
-system like that outlined to work across async boundaries. WE use
-SLE16s to prevent the register logic from being huge, and to elimate potential metastability issues. 
-
-We synchronize the incoming data using a clock locking scheme. The
-incoming data stream is at least 2x slower than us, which means that
-we can use the enable system to detect rising edges and uniquely
-demarcate new data words with the resulting DEN. We want this bus to
-work at any speed, including unusual clock speeds, etc. That is, we
-want no esoteric timing relationships between the input and the output
-side.
-
 Now, there are two potential byte count states:
-1. The correct number of bytes are read
-2. the sender sends too many bytes
-3. the sender sends too few bytes
+1. The correct number of bytes are read [packet is placed in fifo]
+2. the sender sends too many bytes [packet is placed in fifo]
+3. the sender sends too few bytes [packet is aborted]
 
 The first two can be handled by simply stopping once we've recevied
 sufficient data, but the second requires a proper abort sequence.
@@ -38,6 +26,22 @@ To write memory we have the following invariants:
 
 2. MA and MD must remain constant for at least 4 clock cycles such
    that the correct clken has latched their values.
+
+
+\subsection{Implementation}
+
+
+Since the input clock is on the order of 60 MHz or less, our 125 MHz
+core clock is always at least 2x faster. We synchronize the incoming
+data using a clock locking scheme. The incoming data stream is at
+least 2x slower than the core, which means that we can use the enable system
+to detect rising edges and uniquely demarcate new data words with the
+resulting DEN. We want this bus to work at any speed, including
+unusual clock speeds, etc. That is, we want no esoteric timing
+relationships between the input and the output side.
+
+SLE16s to prevent the register logic from being huge, and to elimate
+potential metastability issues.
 
 
 FSM cycle operation:

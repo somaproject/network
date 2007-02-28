@@ -170,9 +170,8 @@ begin
           hread(L, data);
           correctma <= addr;
           if MA /= addr then
-            --assert false
-            --      report "memory address write error"
-            --      severity failure;   
+            report "memory address write error"
+              severity failure;   
           end if;
 
           assert MD = data

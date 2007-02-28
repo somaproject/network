@@ -14,7 +14,12 @@ def packageData(data):
     return data + crc
 
 class Ramout:
+    """
+    The RAM fifo sim modle tries to model all writes to the RAM,
+    even those for aborted packets. 
 
+    """
+    
     # ram FIFO simulation
     def __init__(self):
         self.ramfile = file("RAM.writes.dat", 'w')

@@ -4,14 +4,12 @@ use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
 entity counter is
-  
-  port (
+    port (
     CLK : in std_logic;
     CNTRST : in std_logic;
     INC: in std_logic;
     CNT : out std_logic_vector(31 downto 0)
     ) ;
-
 end counter;
 
 architecture Behavioral of counter is
@@ -20,7 +18,6 @@ architecture Behavioral of counter is
   signal incl : std_logic := '0';
 
   signal lcnt : std_logic_vector(31 downto 0) := (others => '0');
-
   
 begin  -- Behavioral
 
@@ -45,5 +42,4 @@ begin  -- Behavioral
 
     end process main; 
   
-
 end Behavioral;

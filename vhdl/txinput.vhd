@@ -19,8 +19,7 @@ entity txinput is
          BPOUT      : out std_logic_vector(15 downto 0);
          TXFIFOWERR : out std_logic;
          TXIOCRCERR : out std_logic;
-         DONE       : out std_logic;
-         DEBUGOUT : out std_logic_vector(31 downto 0));
+         DONE       : out std_logic); 
 end txinput;
 
 architecture Behavioral of txinput is
@@ -109,15 +108,7 @@ begin
       dinio <= DIN;
 
       newframeio <= NEWFRAME;
-       newframeiol1 <= NEWFRAME;
-       newframeiol2 <= newframeiol1;
 
-       if newframeiol1 = '1' and newframeiol2 = '0' then
-         newframecnt <= newframecnt + 1; 
-       end if;
-      
-      DEBUGOUT <= newframecnt;
-      
     end if;
   end process clock_external;
 
@@ -412,10 +403,10 @@ begin
         bpen       <= '0';
         cpen       <= '0';
         DONE       <= '0';
-        if newfint = '1' then
-           ns       <= pktdone3;
+        if newfint = '0' then
+           ns       <= none;
         else
-          ns       <= none;
+          ns       <= pktdone3;
         end if;
 
       when others =>

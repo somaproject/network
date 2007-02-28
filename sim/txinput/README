@@ -1,4 +1,5 @@
-A simulation to test the TXinput capability. 
+A simulation to test the TXinput capability. We attempt to modle all possible ram operations, not just those that are successful. 
+
 
 Things to check:
 
@@ -21,11 +22,21 @@ Base pointers are a bit more tricky -- we'll tie these to 4 real
 cycles after new-frame going low. Thus we have a list of "expected
 base pointers"
 
+
+
 The resulting python model will be a virtually complete model of the
 entire subsystem.
+
+Code organization: 
+  Ramout: simple model that turns frames into ram writes. 
+  txinput: total tx sim. Most of the work happens in the writeframe member func
+
+Generated test venctors: 
 
 BPs.writes.dat : base pointers
 RAM.writes.dat : list of expected ram writes
 din.dat : input DIN and NEWFRAME sequence
 
+crcerrcnt.txt: how many CRC errors do we expect to receive? 
+framecnt.txt : how many frames do we expect to receive? 
 
