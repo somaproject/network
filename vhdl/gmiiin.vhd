@@ -154,7 +154,7 @@ begin
       lvalid   <= aneq;
       VALID <= lvalid;
       
-      --ffsl <= ffs;  DISABLED OVERFLOW DETECTION CODE
+      --ffsl <= ffs;
 
       al3  <= al2;
       al3l <= al3;

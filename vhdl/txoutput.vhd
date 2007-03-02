@@ -16,8 +16,7 @@ entity txoutput is
          TXF     : out std_logic;
          FBBP    : out std_logic_vector(15 downto 0);
          MEMCRCERR : out std_logic; 
-         CLKEN   : in  std_logic;
-         GTX_CLK : out std_logic);
+         CLKEN   : in  std_logic);
 end txoutput;
 
 architecture Behavioral of txoutput is
@@ -73,8 +72,6 @@ architecture Behavioral of txoutput is
 begin
 
   MA <= addr;
-
-  GTX_CLK <= clk;
 
   MEMCRCERR <= crcdone and (not crcvalid );
   

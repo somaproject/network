@@ -40,7 +40,7 @@ run
 -iobuf YES
 -max_fanout 500
 -bufg 8
--register_duplication NO
+-register_duplication YES
 -equivalent_register_removal YES
 -register_balancing NO
 -slice_packing NO

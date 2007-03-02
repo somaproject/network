@@ -156,8 +156,7 @@ architecture Behavioral of network is
            RXBCAST     : in  std_logic;
            RXMCAST     : in  std_logic;
            RXUCAST     : in  std_logic;
-           RXALLF      : in  std_logic;
-           DEBUGSTATES : out std_logic_vector(31 downto 0));
+           RXALLF      : in  std_logic); 
   end component;
 
   component RXoutput
@@ -187,8 +186,7 @@ architecture Behavioral of network is
            TXF       : out std_logic;
            MEMCRCERR : out std_logic;
            FBBP      : out std_logic_vector(15 downto 0);
-           CLKEN     : in  std_logic;
-           GTX_CLK   : out std_logic);
+           CLKEN     : in  std_logic);
   end component;
 
   component TXinput
@@ -204,8 +202,7 @@ architecture Behavioral of network is
            FIFOFULL   : in  std_logic;
            TXFIFOWERR : out std_logic;
            TXIOCRCERR : out std_logic;
-           DONE       : out std_logic;
-           DEBUGOUT   : out std_logic_vector);
+           DONE       : out std_logic);
   end component;
 
   component FIFOcheck
@@ -276,9 +273,6 @@ architecture Behavioral of network is
 begin
 
   DOUTEN <= doutensig;
--- DOUTEN <= debugdouten;  -- doutensig;  -- DEBUGGING!!!
---   DOUT <= debugdout;                   -- DEBUGGING
---   debugnextframe <= NEXTFRAME;         -- DEBUGGING
 
   LEDPOWER <= '1';
 
@@ -352,18 +346,10 @@ begin
     I => clkloint,
     O => clklo);
 
--- clk90_bufg : BUFG port map (
--- I => clk90int,
--- O => clk90 );
 
   clk180_bufg : BUFG port map (
     I => clk180int,
     O => clk180 );
-
--- clk270_bufg : BUFG port map (
--- I => clk270int,
--- O => clk270 );
-
 
   U2 : OBUF port map (I => clk180, O => GTX_CLK);
 
@@ -440,8 +426,7 @@ begin
     RXBCAST     => rxbcast,
     RXMCAST     => rxmcast,
     RXUCAST     => rxucast,
-    RXALLF      => rxallf,
-    DEBUGSTATES => debugstates);
+    RXALLF      => rxallf); 
 
   rx_output : rxoutput port map (
     CLK       => clk,
@@ -469,8 +454,7 @@ begin
       TXF       => txf,
       MEMCRCERR => txmemcrcerr,
       FBBP      => txfbbp,
-      CLKEN     => clken2,
-      GTX_CLK   => open);
+      CLKEN     => clken2);
 
   tx_input : txinput
     port map (
@@ -486,8 +470,7 @@ begin
       FIFOFULL   => txfifofull,
       TXFIFOWERR => txfifowerr,
       TXIOCRCERR => txiocrcerr,
-      DONE       => open,
-      DEBUGOUT   => debugdata);
+      DONE       => open); 
 
   tx_fifocheck : FIFOcheck port map(
     CLK      => clk,
