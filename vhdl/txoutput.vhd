@@ -75,16 +75,16 @@ begin
 
   MEMCRCERR <= crcdone and (not crcvalid );
   
---   crcverify_inst : crcverify
---     port map (
---       CLK      => CLK,
---       DIN      => crcdin,
---       DINEN    => crcen,
---       RESET    => crcreset,
---       CRCVALID => crcvalid,
---       DONE     => crcdone);
-  crcvalid <= '1';
-  crcdone <= '1';
+   crcverify_inst : crcverify
+     port map (
+       CLK      => CLK,
+       DIN      => crcdin,
+       DINEN    => crcen,
+       RESET    => crcreset,
+       CRCVALID => crcvalid,
+       DONE     => crcdone);
+--  crcvalid <= '0';
+--  crcdone <= '0';
   
   --TXF goes high when a packet is being sent, and
   -- is used both for TX LED and the indicator counter
