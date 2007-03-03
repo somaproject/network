@@ -4,30 +4,25 @@ use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
 use ieee.numeric_std.all;
--- Uncomment the following lines to use the declarations that are
--- provided for instantiating Xilinx primitive components.
+
 library UNISIM;
 use UNISIM.VComponents.all;
 
 entity MII is
-  port ( CLK     : in    std_logic;
-         RESET   : in    std_logic;
-         MDIO    : inout std_logic;
-         MDC     : out   std_logic;
-         DIN     : in    std_logic_vector(15 downto 0);
-         DOUT    : out   std_logic_vector(15 downto 0);
-         ADDR    : in    std_logic_vector(4 downto 0);
-         START   : in    std_logic;
-         RW      : in    std_logic;
-         DONE    : out   std_logic);
+  port ( CLK   : in    std_logic;
+         RESET : in    std_logic;
+         MDIO  : inout std_logic;
+         MDC   : out   std_logic;
+         DIN   : in    std_logic_vector(15 downto 0);
+         DOUT  : out   std_logic_vector(15 downto 0);
+         ADDR  : in    std_logic_vector(4 downto 0);
+         START : in    std_logic;
+         RW    : in    std_logic;
+         DONE  : out   std_logic);
 end MII;
 
 architecture Behavioral of MII is
--- MII.VHD  : control the MII management interface. Kind
--- of a hack job, but I really don't care about elegance with this
--- part :)
 
-  
   signal mdcint, clken, shiften : std_logic                    := '0';
   signal mdccnt                 : std_logic_vector(5 downto 0) :=
     (others => '0');
@@ -44,46 +39,46 @@ architecture Behavioral of MII is
           O    : out   std_logic;
           IO   : inout std_logic);
   end component;
-  
+
 begin
 
   clock : process(RESET, CLK)
   begin
     if RESET = '1' then
-      cs     <= none;
+      cs   <= none;
     else
       if rising_edge(CLK) then
-          cs <= ns;
+        cs <= ns;
 
-          if cs = resetcnt then
-            mdccnt   <= (others => '0');
-          else
-            if cs = waiting or cs = firstinc then
-              mdccnt <= mdccnt + 1;
+        if cs = resetcnt then
+          mdccnt   <= (others => '0');
+        else
+          if cs = waiting or cs = firstinc then
+            mdccnt <= mdccnt + 1;
+          end if;
+        end if;
+
+        if cs = resetcnt then
+          statecnt     <= 0;
+        else
+          if clken = '1' then
+            if statecnt = 63 then
+              statecnt <= 0;
+            else
+              statecnt <= statecnt + 1;
             end if;
           end if;
+        end if;
 
-          if cs = resetcnt then
-            statecnt     <= 0;
-          else
-            if clken = '1' then
-              if statecnt = 63 then
-                statecnt <= 0;
-              else
-                statecnt <= statecnt + 1;
-              end if;
-            end if;
-          end if;
+        mdcint <= mdccnt(5);
 
-          mdcint <= mdccnt(5);
+        if (cs = waiting or cs = firstinc) and mdccnt = "100000" then
+          dreg <= dreg(14 downto 0) & SIN;
+        end if;
 
-          if (cs = waiting or cs = firstinc) and mdccnt = "100000" then
-            dreg <= dreg(14 downto 0) & SIN;
-          end if;
-
-          if cs = ldout then
-            DOUT <= dreg;
-          end if;
+        if cs = ldout then
+          DOUT <= dreg;
+        end if;
       end if;
     end if;
   end process clock;
@@ -155,9 +150,11 @@ begin
         else
           ns <= none;
         end if;
+        
       when resetcnt =>
         DONE <= '0';
         ns   <= firstinc;
+        
       when firstinc =>
         DONE <= '0';
         if clken = '1' then
@@ -165,27 +162,28 @@ begin
         else
           ns <= firstinc;
         end if;
+        
       when waiting  =>
         DONE <= '0';
         if statecnt = 0 then
           ns <= ldout;
         else
-          ns <= waiting; 
-        end if; 
-      when ldout => 
+          ns <= waiting;
+        end if;
+        
+      when ldout    =>
         DONE <= '0';
-        ns <= setdone;
-      when setdone => 
+        ns   <= setdone;
+        
+      when setdone  =>
         DONE <= '1';
-        ns <= none;
-      when others => 
+        ns   <= none;
+        
+      when others   =>
         DONE <= '0';
-        ns <= none;
-    end case; 	    	
-  end process fsm; 
-
-
-
+        ns   <= none;
+    end case;
+  end process fsm;
 
 
 end Behavioral;

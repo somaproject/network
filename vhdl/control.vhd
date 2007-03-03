@@ -8,17 +8,19 @@ entity control is
     CLK         : in    std_logic;
     CLKLO       : in    std_logic;
     RESET       : in    std_logic;
+    -- Serial interface
     SCLK        : in    std_logic;
     SCS         : in    std_logic;
     SIN         : in    std_logic;
     SOUT        : out   std_logic;
+    -- status LEDs
     LEDACT      : out   std_logic;
     LEDTX       : out   std_logic;
     LEDRX       : out   std_logic;
     LED100      : out   std_logic;
     LED1000     : out   std_logic;
     LEDDPX      : out   std_logic;
-    PHYRESET    : out   std_logic;
+    -- counter registers
     TXF         : in    std_logic;
     RXF         : in    std_logic;
     TXFIFOWERR  : in    std_logic;
@@ -30,15 +32,17 @@ entity control is
     TXMEMCRCERR : in    std_logic;
     TXIOCRCERR  : in    std_logic;
     RXCRCERR    : in    std_logic;
+    -- system RX status bits
     RXBCAST     : out   std_logic;
     RXMCAST     : out   std_logic;
     RXUCAST     : out   std_logic;
     RXALLF      : out   std_logic;
     MACADDR     : out   std_logic_vector(47 downto 0);
+    -- PHY INTERFACE
+    PHYRESET    : out   std_logic;
     MDIO        : inout std_logic;
     MDC         : out   std_logic;
-    MDEBUGADDR  : out   std_logic_vector(16 downto 0);
-    MDEBUGDATA  : in    std_logic_vector(31 downto 0);
+    -- RAM FIFO CONTROL
     RXBP        : in    std_logic_vector(15 downto 0);
     RXFBBP      : in    std_logic_vector(15 downto 0);
     TXBP        : in    std_logic_vector(15 downto 0);
@@ -265,7 +269,7 @@ begin
          phystat                           when addr = X"02" else
          rxgoferrcnt                       when addr = X"03" else
          X"00000000"                       when addr = X"04" else
-         MDEBUGDATA                        when addr = X"05" else
+         X"00000000"                        when addr = X"05" else
          rxbpl & rxfbbpl                   when addr = X"06" else
          txbpl & txfbbpl                   when addr = X"07" else
          PHYADDR                           when addr = X"08" else

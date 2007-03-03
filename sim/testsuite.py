@@ -19,6 +19,7 @@ else:
     # core components
     
     suite.addTest(vhdlTestCase("txinput"))
+    suite.addTest(vhdlTestCase("mii"))
     suite.addTest(vhdlTestCase("txoutput"))
     
 runner = unittest.TextTestRunner()

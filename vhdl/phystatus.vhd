@@ -91,16 +91,17 @@ begin
           addrl   <= PHYADDR(4 downto 0);
           rwl     <= PHYADDR(5);
         end if;
+        
         if cs = miiio_done then
           PHYDOUT <= dout;
         end if;
 
-                                        -- din and dout latches
+        -- din and dout latches
         if cs = phyl then
           din <= PHYDIN;
         end if;
 
-                                        -- phy addr write set                           
+        -- phy addr write set                           
         if phyaddrdone = '1' then
           phyaddrws   <= '0';
         else
@@ -124,7 +125,7 @@ begin
         if done = '1' and miisel = 0 then
           reglinkan <= dout;
         end if;
-        
+
       end if;
     end if;
   end process clock;
@@ -143,12 +144,13 @@ begin
   fsm : process(cs, ns, done, phyaddrws)
   begin
     case cs is
-      when read1k     =>
+      when read1k =>
         start       <= '1';
         miisel      <= 0;
         phyaddrdone <= '0';
         ns          <= read1kw;
-      when read1kw    =>
+
+      when read1kw =>
         start       <= '0';
         miisel      <= 0;
         phyaddrdone <= '0';
@@ -157,12 +159,14 @@ begin
         else
           ns        <= read1kw;
         end if;
-      when readlink   =>
+
+      when readlink =>
         start       <= '1';
         miisel      <= 1;
         phyaddrdone <= '0';
         ns          <= readlinkw;
-      when readlinkw  =>
+
+      when readlinkw =>
         start       <= '0';
         miisel      <= 1;
         phyaddrdone <= '0';
@@ -171,7 +175,8 @@ begin
         else
           ns        <= readlinkw;
         end if;
-      when phyl       =>
+
+      when phyl =>
         start       <= '0';
         miisel      <= 2;
         phyaddrdone <= '0';
@@ -180,12 +185,14 @@ begin
         else
           ns        <= read1k;
         end if;
-      when miiio      =>
+
+      when miiio =>
         start       <= '1';
         miisel      <= 2;
         phyaddrdone <= '0';
         ns          <= miiiow;
-      when miiiow     =>
+
+      when miiiow =>
         start       <= '0';
         miisel      <= 2;
         phyaddrdone <= '0';
@@ -194,12 +201,14 @@ begin
         else
           ns        <= miiiow;
         end if;
+
       when miiio_done =>
         start       <= '0';
         miisel      <= 0;
         phyaddrdone <= '1';
         ns          <= read1k;
-      when others     =>
+
+      when others =>
         start       <= '0';
         miisel      <= 0;
         phyaddrdone <= '0';

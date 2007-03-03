@@ -37,11 +37,6 @@ The various 32-bit counters employ a similar stategey to the LEDS, and cross clo
 --------------------------------------------------------------------------
 PHY CONTROL INTERFACE
 --------------------------------------------------------------------------
-The PHY status registers can be read/written over the MII interface, a sad stressful I2C-like IO. Described in 22.2.4 of the 802.3 Ethernet standard (make sure you have the GIG-E one)
-
-
-MII_interface.vhdl:
-Creats  5-bit ADDR and 16-bit parallel input(DIN) and output(DOUT), and RW  interface for the MII interface on the phy. A bit of a hack, uses a very crude lookup-table FSM. But it works. START high starts it, DONE signals that it's done. 
 
 PHY Status continually loops over the following PHY addresses:
 1. 0x11 read (vendor-specific Link and Auto-negotiate LINK_AN (vendor-specifc))
