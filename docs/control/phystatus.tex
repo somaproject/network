@@ -1,0 +1,25 @@
+\section{PHY STATUS}
+Phy status is a higher-level register interface to the low-level phy status interface. It continually reads from the following PHY registers:
+\begin{enumerate}
+\item 0x11 read (vendor-specific Link and Auto-negotiate LINK_AN (vendor-specifc))
+\item 0x0F read (extended-status 1KSCR)
+\item PHYADDR (for read and write): user-selected
+\end{enumerate}
+
+\subsection{Interface}
+
+Thus we are continually reading the above-listed values and sticking them in PHYSTATUS along with DOUT. PHYSTATUS=[1KSCR : LINK_AN]
+
+The interface here is primarially designed to interface with the control interface for the MAC. 
+
+\signal{PHYADDR[4:0]} is the address of the user address read/write register. 
+\signal{PHYADDR[5]} indicates if this is a read (0) or write(1)
+\signal{PHYDIN[15:0]} the input phy value to write. 
+\signal{PHYDOUT[15:0]} the output value of the most recent PHY txn
+\signal{PHYADDRW} write (commit) the current value to PHYADDR
+
+Uppon completeion of the custom PHY read/write operation PHYADDRSTATUS is asserted until the next assertion of \signal{PHYADDRR}. 
+
+\subsection{Implementation}
+
+The state machine begins by reading PHY status registerrs, and then if PHYARDDRWS is high (ie.. the PHYADDR registers have been written recently) we go to the MIIIO section of the FSM where we read the relevant data.

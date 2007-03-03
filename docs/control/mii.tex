@@ -1,0 +1,15 @@
+\subsection{MII Interface} 
+
+The MII interface is a simple serializer/deserializer to the PHY I2C management interface. Described in 22.2.4 of the 802.3 Ethernet standard (make sure you have the GIG-E one)
+
+ 
+\subsubsection{Interface} 
+The assertion of \signal{START} triggers an I2C bus transaction with the register indicated by \signal{ADDR[5:0} being the target. Upon assertion of \signal{DONE} either \signal{DIN[15:0]} will have been written or the output of the read transaction will be available on \signal{DOUT[15:0]}. 
+
+\subsection{implementation}
+
+Creats 5-bit ADDR and 16-bit parallel input(DIN) and output(DOUT), and
+RW interface for the MII interface on the phy. A bit of a hack, uses a
+very crude lookup-table FSM. But it works. START high starts it, DONE
+signals that it's done. 
+
