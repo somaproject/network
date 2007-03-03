@@ -92,14 +92,6 @@ architecture Behavioral of network is
   signal rxmemcrcerr, txmemcrcerr : std_logic := '0';
   signal txiocrcerr               : std_logic := '0';
 
-  -- debugging
-  signal debugaddr   : std_logic_vector(16 downto 0) := (others => '0');
-  signal debugdata   : std_logic_vector(31 downto 0) := (others => '0');
-  signal debugwaddr  : std_logic_vector(16 downto 0) := (others => '0');
-  signal debugwdata  : std_logic_vector(31 downto 0) := (others => '0');
-  signal debugstates : std_logic_vector(31 downto 0) := (others => '0');
-
-
   signal reset      : std_logic := '0';
   signal hilocked   : std_logic := '0';
   signal hireset    : std_logic := '1';
@@ -245,8 +237,6 @@ architecture Behavioral of network is
            MACADDR     : out   std_logic_vector(47 downto 0);
            MDIO        : inout std_logic;
            MDC         : out   std_logic;
-           MDEBUGADDR  : out   std_logic_vector(16 downto 0);
-           MDEBUGDATA  : in    std_logic_vector(31 downto 0);
            RXBP        : in    std_logic_vector(15 downto 0);
            TXBP        : in    std_logic_vector(15 downto 0);
            RXFBBP      : in    std_logic_vector(15 downto 0);
@@ -517,8 +507,6 @@ begin
     MACADDR     => macaddr,
     MDIO        => MDIO,
     MDC         => MDC,
-    MDEBUGADDR  => debugaddr,
-    MDEBUGDATA  => debugdata,
     RXBP        => rxbp,
     TXBP        => txbp,
     RXFBBP      => rxfbbp,
