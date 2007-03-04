@@ -21,7 +21,6 @@ entity rxinput is
          RXOFERR     : out std_logic;
          RXPHYERR    : out std_logic;
          RXFIFOWERR  : out std_logic;
-         RXGOFERR    : out std_logic;
          FIFOFULL    : in  std_logic;
          RXF         : out std_logic;
          MACADDR     : in  std_logic_vector(47 downto 0);
@@ -100,7 +99,6 @@ architecture Behavioral of rxinput is
            RXD     : in  std_logic_vector(7 downto 0);
            ENDFOUT : out std_logic;
            EROUT   : out std_logic;
-           OFOUT   : out std_logic;
            VALID   : out std_logic;
            DOUT    : out std_logic_vector(7 downto 0));
   end component;
@@ -110,14 +108,12 @@ architecture Behavioral of rxinput is
       CLK       : in  std_logic;
       -- Input interface
       DIN       : in  std_logic_vector(7 downto 0);
-      OFIN      : in  std_logic;
       ERIN      : in  std_logic;
       ENDFIN    : in  std_logic;
       VALIDIN   : in  std_logic;
       -- output interface
       NEXTF     : in  std_logic;
       DOUT      : out std_logic_vector(7 downto 0);
-      GMIIOFOUT : out std_logic;
       EROUT     : out std_logic;
       ENDFOUT   : out std_logic;
       OFOUT     : out std_logic;
@@ -156,7 +152,6 @@ begin
       RXD     => RXD,
       ENDFOUT => gmiiendf,
       EROUT   => gmiier,
-      OFOUT   => gmiiof,
       VALID   => gmiivalid,
       DOUT    => gmiidout
       );
@@ -165,13 +160,11 @@ begin
     port map (
       CLK       => CLK,
       DIN       => gmiidout,
-      OFIN      => gmiiof,
       VALIDIN   => gmiivalid,
       ENDFIN    => gmiiendf,
       ERIN      => gmiier,
       EROUT     => er,
       OFOUT     => ovf,
-      GMIIOFOUT => govf,
       ENDFOUT   => endf,
       VALID     => dv,
       DOUT      => data,
@@ -203,7 +196,7 @@ begin
       if rising_edge(CLK) then
 
         -- debugging
-        --
+
         DEBUGSTATES(7 downto 0)   <= ldebugstates;
         DEBUGSTATES(31 downto 16) <= gmiidebug;
 
@@ -321,17 +314,6 @@ begin
           RXOFERR <= '0';
         end if;
 
---         if cs = checkf and gofl = '1' then
---           RXGOFERR <= '1';
---         else
---           RXGOFERR <= '0';
---         end if;
-        -- test replacement
-        if gmiivalid = '1' and gmiiof = '1'   then
-          RXGOFERR <= '1';
-        else
-          RXGOFERR <= '0'; 
-        end if;
         
         if cs = checkf and fifofull = '1' then
           RXFIFOWERR <= '1';

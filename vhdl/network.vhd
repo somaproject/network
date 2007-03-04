@@ -69,7 +69,7 @@ architecture Behavioral of network is
     std_logic_vector(16 downto 0)                                   := (others => '0');
 
   -- error and status signals
-  signal rxcrcerr, rxoferr, rxgoferr, rxphyerr, rxf, txf,
+  signal rxcrcerr, rxoferr,  rxphyerr, rxf, txf,
     txi_mwen, txfifowerr, rxfifowerr :
     std_logic := '0';
 
@@ -141,7 +141,6 @@ architecture Behavioral of network is
            RXOFERR     : out std_logic;
            RXPHYERR    : out std_logic;
            RXFIFOWERR  : out std_logic;
-           RXGOFERR    : out std_logic;
            FIFOFULL    : in  std_logic;
            RXF         : out std_logic;
            MACADDR     : in  std_logic_vector(47 downto 0);
@@ -225,7 +224,6 @@ architecture Behavioral of network is
            RXFIFOWERR  : in    std_logic;
            RXPHYERR    : in    std_logic;
            RXOFERR     : in    std_logic;
-           RXGOFERR    : in    std_logic;
            TXMEMCRCERR : in    std_logic;
            RXMEMCRCERR : in    std_logic;
            TXIOCRCERR  : in    std_logic;
@@ -407,7 +405,6 @@ begin
     BPOUT       => rxbp,
     RXCRCERR    => rxcrcerr,
     RXOFERR     => rxoferr,
-    RXGOFERR    => rxgoferr,
     RXPHYERR    => rxphyerr,
     FIFOFULL    => rxfifofull,
     RXFIFOWERR  => rxfifowerr,
@@ -495,7 +492,6 @@ begin
     RXFIFOWERR  => rxfifowerr,
     RXPHYERR    => rxphyerr,
     RXOFERR     => rxoferr,
-    RXGOFERR    => rxgoferr,
     RXCRCERR    => rxcrcerr,
     RXBCAST     => rxbcast,
     RXMCAST     => rxmcast,
