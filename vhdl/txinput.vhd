@@ -42,7 +42,7 @@ architecture Behavioral of txinput is
   signal cs, ns : states := none;
 
   -- signals for clock-boundary-crossing logic
-  signal nenable, enable, enableint, enableintl, den, lden :
+  signal nenable, enable, enablel, enableint, enableintl, den, lden :
     std_logic                                     := '0';
   signal dinl, dinio, dinint, ldinint        : std_logic_vector(15 downto 0)
                                                   := (others => '0');
@@ -104,7 +104,7 @@ begin
   begin
     if rising_edge(CLKIO) then
       enable <= not enable;
-
+      enablel <= enable; 
       dinio <= DIN;
 
       newframeio <= NEWFRAME;
