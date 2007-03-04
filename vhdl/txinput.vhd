@@ -81,8 +81,15 @@ architecture Behavioral of txinput is
 
   signal newframeiol1, newframeiol2 : std_logic := '0';
   signal newframecnt : std_logic_vector(31 downto 0) := (others => '0');
+
+  --attribute maxskew : string;
+
+  --attribute maxskew of dinl : signal is "1 ns";  
 begin
 
+
+  
+  
   lmd   <= dh & dl;
   BPOUT <= bp;
 

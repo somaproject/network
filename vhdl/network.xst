@@ -16,7 +16,6 @@ run
 -read_cores YES
 -write_timing_constraints no
 -cross_clock_analysis YES
--hierarchy_separator _
 -bus_delimiter <>
 -case maintain
 -slice_utilization_ratio 100

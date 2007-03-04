@@ -21,7 +21,7 @@ SOURCES = *.vhd
 OPTIMIZE = high
 PART = xc3s200-pq208-4
 SPEED = 4
-PLACEMENTCOSTSTART=4
+PLACEMENTCOSTSTART=2
 
 $(PROJECT): build/$(PROJECT).ncd
 
@@ -70,7 +70,7 @@ build/$(PROJECT).pcf: build/$(PROJECT)_map.ncd
 
 
 build/$(PROJECT).ncd: build/$(PROJECT).pcf
-	par -w -pl $(OPTIMIZE) -rl $(OPTIMIZE)  build/$(PROJECT)_map.ncd build/$(PROJECT).ncd build/$(PROJECT).pcf -t $(PLACEMENTCOSTSTART)
+	par -w -pl $(OPTIMIZE) -rl $(OPTIMIZE) -xe n build/$(PROJECT)_map.ncd build/$(PROJECT).ncd build/$(PROJECT).pcf -t $(PLACEMENTCOSTSTART)
 
 build/$(PROJECT).bit: build/$(PROJECT).pcf build/$(PROJECT).ncd
 	bitgen -w build/$(PROJECT).ncd build/$(PROJECT).bit build/$(PROJECT).pcf

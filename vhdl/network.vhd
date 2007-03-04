@@ -443,7 +443,7 @@ begin
       FBBP      => txfbbp,
       CLKEN     => clken2);
 
-  tx_input : txinput
+  txinput_inst : txinput
     port map (
       CLK        => clk,
       CLKIO      => clkio,
