@@ -46,11 +46,12 @@ architecture Behavioral of gmiiin is
 begin
 
 
-  we     <= dvll and (not ff);
+  we     <= dvll; -- and (not ff);
   endfin <= wel and (not we);
   wein   <= we or wel;
 
-  di <= endfin & erin & ff & "00000" & din;
+--  di <= endfin & erin & ff & "00000" & din;
+  di <= endfin & erin & '0' & "00000" & din;
 
 
   rxacquire: process(RX_CLK)
@@ -74,15 +75,15 @@ begin
 
 
       wel  <= we;
-      ffsll <= ffsl;
+--       ffsll <= ffsl;
 
-      if dvl = '0' then
-        ff   <= '0';
-      else
-        if ffsll = '1' then
-          ff <= '1';
-        end if;
-      end if;
+--       if dvl = '0' then
+--         ff   <= '0';
+--       else
+--         if ffsll = '1' then
+--           ff <= '1';
+--         end if;
+--       end if;
 
       if wein = '1' then
         ain <= ain + 1;
@@ -123,23 +124,23 @@ begin
 
   aneq <= '1' when al3 /= ao else '0';
 
-  ffs <= '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "00" else
-         '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "00" else
-         '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "00" else
-         '1' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "00" else
-         '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "01" else
-         '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "01" else
-         '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "01" else
-         '1' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "01" else
-         '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "10" else
-         '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "10" else
-         '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "10" else
-         '1' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "10" else
-         '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "11" else
-         '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "11" else
-         '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "11" else
-         '1' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "11" else
-         '0';
+--   ffs <= '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "00" else
+--          '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "00" else
+--          '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "00" else
+--          '1' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "00" else
+--          '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "01" else
+--          '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "01" else
+--          '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "01" else
+--          '1' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "01" else
+--          '0' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "10" else
+--          '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "10" else
+--          '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "10" else
+--          '1' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "10" else
+--          '0' when al3l(9 downto 8) = "11" and ao(9 downto 8) = "11" else
+--          '0' when al3l(9 downto 8) = "00" and ao(9 downto 8) = "11" else
+--          '0' when al3l(9 downto 8) = "01" and ao(9 downto 8) = "11" else
+--          '1' when al3l(9 downto 8) = "10" and ao(9 downto 8) = "11" else
+--          '0';
 
   clk_domain : process(CLK)
   begin
