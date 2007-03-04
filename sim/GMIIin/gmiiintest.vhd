@@ -18,7 +18,6 @@ architecture behavior of GMIIintest is
       RXD     : in  std_logic_vector(7 downto 0);
       ENDFOUT : out std_logic;
       EROUT   : out std_logic;
-      OFOUT   : out std_logic;
       VALID   : out std_logic;
       DOUT    : out std_logic_vector(7 downto 0)
       );
@@ -33,7 +32,6 @@ architecture behavior of GMIIintest is
   signal RXD     : std_logic_vector(7 downto 0) := (others => '0');
   signal ENDFOUT : std_logic;
   signal EROUT   : std_logic;
-  signal OFOUT   : std_logic;
   signal VALID   : std_logic;
   signal DOUT    : std_logic_vector(7 downto 0);
 
@@ -51,7 +49,6 @@ begin
     RXD     => RXD,
     ENDFOUT => ENDFOUT,
     EROUT   => EROUT,
-    OFOUT   => OFOUT,
     VALID   => VALID,
     DOUT    => DOUT
     );
@@ -115,12 +112,10 @@ begin
       read(L, len);
       dloop: for i in 1 to len loop
         wait until rising_edge(CLK) and VALID = '1';
-        exit dloop when OFOUT='1';
-          
         hread(L, din);
         assert DOUT = din report "Error reading dout data" severity error;
       end loop;  -- i
-      if ENDFOUT = '0' and OFOUT = '0'  then
+      if ENDFOUT = '0' then
         wait until rising_edge(CLK) and VALID = '1';        
       end if;
 
@@ -128,6 +123,7 @@ begin
     end loop;
 
 
+    report "End of Simulation" severity Failure;
     
     wait;
   end process dataverify;
