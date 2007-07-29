@@ -10,13 +10,11 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg1"
    sodipodi:version="0.32"
-   inkscape:version="0.45"
+   inkscape:version="0.43+0.44pre2"
    width="612.00000pt"
    height="792.00000pt"
-   sodipodi:docbase="/home/jonas/soma/network/docs/rxinput"
-   sodipodi:docname="rxinput.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="true">
+   sodipodi:docbase="/home/jonas/soma/network/docs/rx"
+   sodipodi:docname="rxinput.svg">
   <defs
      id="defs3">
     <marker
@@ -438,89 +436,6 @@
        x="59.375000"
        y="415.00000" />
   </g>
-  <rect
-     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.2499994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
-     id="rect1252"
-     width="81.249977"
-     height="87.499962"
-     x="-400.08511"
-     y="290.16995" />
-  <text
-     xml:space="preserve"
-     style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-400.75891"
-     y="286.875"
-     id="text1955"><tspan
-       sodipodi:role="line"
-       id="tspan1956"
-       x="-400.75891"
-       y="286.875">GMII In</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-321.48749"
-     y="371.41989"
-     id="text7069"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan7070"
-       x="-321.48749"
-       y="371.41989">NEXTF</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-321.13205"
-     y="333.91992"
-     id="text7109"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan7110"
-       x="-321.13205"
-       y="333.91992">VALID</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-321.02655"
-     y="349.37302"
-     id="text7112"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan7113"
-       x="-321.02655"
-       y="349.37302">DOUT[7:0]</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-322.21014"
-     y="308.60739"
-     id="text7115"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan7116"
-       x="-322.21014"
-       y="308.60739">EROUT</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-322.58121"
-     y="299.31836"
-     id="text7118"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan7119"
-       x="-322.58121"
-       y="299.31836">OFOUT</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-321.97964"
-     y="324.23239"
-     id="text7159"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan7160"
-       x="-321.97964"
-       y="324.23239">ENDFOUT</tspan></text>
   <g
      id="g2437"
      transform="translate(146.8750,-87.49990)">
@@ -1040,17 +955,6 @@
        id="tspan3360"
        x="128.125"
        y="190">DV</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="146.875"
-     y="49.375"
-     id="text3363"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan3364"
-       x="146.875"
-       y="49.375">GOVF</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
      d="M 109.375,174.375 L 125,174.375"
@@ -2219,54 +2123,6 @@
        id="tspan3345"
        x="424.54852"
        y="128.49529">CS=VALIDF</tspan></text>
-  <g
-     id="g3366"
-     transform="translate(106.2500,-303.1249)">
-    <rect
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.1744326;"
-       id="rect3367"
-       width="28.125006"
-       height="49.999992"
-       x="71.875023"
-       y="343.12491" />
-    <text
-       xml:space="preserve"
-       style="font-size:10px;line-height:100%;text-anchor:middle;stroke-width:1pt;font-family:Bitstream Vera Sans"
-       x="96.335358"
-       y="390.89999"
-       id="text3368"
-       sodipodi:linespacing="100%"
-       transform="translate(-6.0242,-9.693146e-2)"><tspan
-         id="tspan3369">R</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:4px;line-height:100%;stroke-width:0.36937839;font-family:Bitstream Vera Sans"
-       x="23.410166"
-       y="106.56478"
-       id="text3372"
-       sodipodi:linespacing="100%"
-       transform="matrix(3.384064,0,0,3.384064,-6.0242,-9.693146e-2)"><tspan
-         id="tspan3373">S</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:4.0000000;stroke-width:0.36937839;font-family:Bitstream Vera Sans;text-anchor:end;"
-       x="30.771975"
-       y="106.58192"
-       id="text3375"
-       sodipodi:linespacing="100%"
-       transform="matrix(3.384064,0.000000,0.000000,3.384064,-6.024200,-9.693146e-2)"><tspan
-         id="tspan3376">Q</tspan></text>
-    <path
-       style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000pt;"
-       d="M 78.125000,393.12500 L 84.375000,386.87500 L 78.125000,380.62500"
-       id="path3378"
-       transform="translate(-6.024200,-9.693146e-2)" />
-  </g>
-  <path
-     style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
-     d="M 196.87497,89.999905 L 196.87500,99.375001 L 190.62500,99.375001"
-     id="path3379"
-     sodipodi:nodetypes="ccc" />
   <text
      xml:space="preserve"
      style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:end;writing-mode:lr;"
@@ -2331,22 +2187,6 @@
      d="M 259.37494,89.999905 L 259.37497,99.375001 L 196.87500,99.375001"
      id="path3408"
      sodipodi:nodetypes="ccc" />
-  <text
-     xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="123.04256"
-     y="21.789482"
-     id="text3416"
-     sodipodi:linespacing="100%"
-     transform="translate(90.04338,33.41755)"><tspan
-       sodipodi:role="line"
-       id="tspan3417"
-       x="123.04256"
-       y="21.789482">GOFL</tspan></text>
-  <path
-     style="color:#000000;fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.2500000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.0000000;stroke-dashoffset:0.0000000;stroke-opacity:1.0000000;marker:none;marker-start:none;marker-mid:none;marker-end:none;"
-     d="M 206.25000,52.500001 L 212.50000,52.500001"
-     id="path3419" />
   <text
      xml:space="preserve"
      style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -3027,17 +2867,6 @@
      xml:space="preserve"
      style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:125%;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-77.363281"
-     y="194.01637"
-     id="text3550"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan3552"
-       x="-77.363281"
-       y="194.01637">OFOUT</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:125%;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-77.363281"
      y="147.14137"
      id="text3554"
      sodipodi:linespacing="125%"><tspan
@@ -3133,17 +2962,6 @@
      xml:space="preserve"
      style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
      x="-15.625"
-     y="194.01637"
-     id="text2547"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan2549"
-       x="-15.625"
-       y="194.01637">OFIN</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-15.625"
      y="147.14137"
      id="text3415"
      sodipodi:linespacing="100%"><tspan
@@ -3222,11 +3040,6 @@
      d="M -75,175.26638 L -18.75,175.26638"
      id="path5801"
      sodipodi:nodetypes="cc" />
-  <path
-     style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     d="M -75,190.89138 L -18.75,190.89138"
-     id="path5803"
-     sodipodi:nodetypes="cc" />
   <g
      id="g5832"
      transform="translate(237.49998,-303.1249)">
@@ -3287,12 +3100,9 @@
      id="path5854" />
   <path
      style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     d="M 109.375,158.75 L 140.625,158.75 L 140.625,52.5 L 178.125,52.5"
-     id="path5856" />
-  <path
-     style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     d="M 109.375,143.125 L 128.125,143.125 L 128.125,24.375 L 237.5,24.375 L 237.5,52.5 L 240.625,52.5"
-     id="path5858" />
+     d="M 109.375,143.125 L 128.125,143.125 L 128.125,52.5 L 218.75,52.5 L 237.5,52.5 L 240.625,52.5"
+     id="path5858"
+     sodipodi:nodetypes="cccccc" />
   <path
      style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      d="M 109.375,127.5 L 118.75,127.5 L 118.75,11.875 L 296.875,11.875 L 296.875,52.5 L 309.375,52.5"
@@ -3401,17 +3211,6 @@
        id="tspan5944"
        x="-65.625"
        y="171.25">GMIIDOUT</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="-65.448227"
-     y="186.69823"
-     id="text5946"
-     sodipodi:linespacing="100%"><tspan
-       sodipodi:role="line"
-       id="tspan5948"
-       x="-65.448227"
-       y="186.69823">GMIIOF</tspan></text>
   <path
      style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      d="M 259.375,99.375 L 328.125,99.375 L 328.125,90"
@@ -3440,15 +3239,15 @@
        y="115">RX PKT FIFO</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-     x="159.375"
-     y="21.25"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="156.25"
+     y="49.375"
      id="text5960"
      sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan5962"
-       x="159.375"
-       y="21.25">OVF</tspan></text>
+       x="156.25"
+       y="49.375">OVF</tspan></text>
   <path
      style="color:#000000;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
      d="M 381.25,783.75 L 390.62489,783.74994"
