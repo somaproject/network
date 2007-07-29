@@ -1,0 +1,8 @@
+\subsection{Counter}
+
+The counter module is a simple pipelined 32-bit counter for keeping
+track of system counters and status. The pipelining should allow it to operate at the full system clock rate of 125 MHz. 
+
+\subsubsection{interface}
+The \signal{CNT[31:0]} output increments for each clock-cycyle during which \signal{INC} is asserted. An assertion of \signal{CNTRST} results in \signal{CNT} being reset to zero on the following cycle. 
+
