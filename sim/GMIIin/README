@@ -1,4 +1,8 @@
-Currently we only test to make sure we don't get any overflows or packet RX errors when the internal CLK clock is running faster than the RX_CLK. 
+A simple test of the GMII interface, with two phases:
 
+Internal clock faster than external clock (CLKPERIOD = 7.98 ns)
+External clock faster than internal clock (CLKPERIOD = 8.02 ns)
 
-WE DO NOT TEST for errors when RX_CLK is faster than CLK. 
+We generate fake test data with the included python script
+and verify the correct packets are read at the output. 
+

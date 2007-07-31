@@ -3,8 +3,6 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_ARITH.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;
 
-
-
 entity txoutput is
   port ( CLK     : in  std_logic;
          RESET   : in  std_logic;
@@ -20,7 +18,9 @@ entity txoutput is
 end txoutput;
 
 architecture Behavioral of txoutput is
-
+  -- TxOutput : Output interface between the TX Fifo and the GMII interface.
+  --
+  
   -- mux counters:
   signal dsel, outsel, outsell, outselll :
     integer range 0 to 3 := 0;
@@ -107,7 +107,7 @@ begin
 
         --byte count
         if ldbcnt = '1' then
-          bcnt <= MQ(15 downto 0);      -- - X"0004";
+          bcnt <= MQ(15 downto 0);      
         elsif decbcnt = '1' then
           bcnt <= bcnt - 1;
         end if;

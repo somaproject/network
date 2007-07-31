@@ -6,22 +6,21 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 library UNISIM;
 use UNISIM.VComponents.all;
 
-entity gmiiin is
+entity txifin is
   port ( CLK     : in  std_logic;
-         RX_CLK  : in  std_logic;
-         RX_ER   : in  std_logic;
-         RX_DV   : in  std_logic;
-         RXD     : in  std_logic_vector(7 downto 0);
+         CLKIO  : in  std_logic;
+         DIN   : in  std_logic;
+         DIN     : in  std_logic_vector(15 downto 0);
          ENDFOUT : out std_logic;
          EROUT   : out std_logic;
          VALID   : out std_logic;
-         DOUT    : out std_logic_vector(7 downto 0));
+         DOUT    : out std_logic_vector(15 downto 0));
 
-end gmiiin;
+end txifin;
 
-architecture Behavioral of gmiiin is
+architecture Behavioral of txifin is
 
-  --RX_CLK domain signals 
+  --CLKIO domain signals 
   signal erl, dvl, dvll, erin, endfin, wein, ff, ffsll,
     we, wel : std_logic := '0';
 
@@ -32,11 +31,11 @@ architecture Behavioral of gmiiin is
   signal di : std_logic_vector(15 downto 0) := (others => '0');
 
   -- CLK domain signals:
-  signal aneq, endfo, val, lvalid, nfl, efv :
+  signal aneq, endfo, val, lvalid, nfl,  efv :
     std_logic := '0';
   signal ao, al3, al3l : std_logic_vector(9 downto 0)
               := (others => '0');
-  signal do            : std_logic_vector(15 downto 0)
+  signal do      : std_logic_vector(15 downto 0)
               := (others => '0');
 
   signal rx_clkint : std_logic := '0';
@@ -49,21 +48,30 @@ begin
   endfin <= wel and (not we);
   wein   <= we or wel;
 
-  di <= endfin & erin & "000000" & din;
+  di <= endfin & erin &  "000000" & din;
 
 
-  rxclk_domain : process(RX_CLK)
+  rxacquire: process(CLKIO)
+    begin
+      if falling_edge(CLKIO) then
+        erl  <= RX_ER;
+        dvl  <= DIN;
+        rxdl <= DIN;
+
+      end if;
+    end process;
+    
+  rxclk_domain : process (CLKIO)
   begin
-    if falling_edge(RX_CLK) then
-      erl  <= RX_ER;
-      dvl  <= RX_DV;
-      rxdl <= RXD;
+    if rising_edge(CLKIO) then
+
 
       din  <= rxdl;
       dvll <= dvl;
       erin <= erl;
 
-      wel <= we;
+
+      wel  <= we;
 
       if wein = '1' then
         ain <= ain + 1;
@@ -92,7 +100,7 @@ begin
       WEB                 => '0',
       SSRA                => '0',
       SSRB                => '0',
-      CLKA                => RX_CLK,
+      CLKA                => CLKIO,
       CLKB                => CLK,
       ADDRA               => ain,
       ADDRB               => ao,
@@ -113,9 +121,9 @@ begin
       DOUT  <= do(7 downto 0);
 
       ENDFOUT <= do(15);
-      lvalid  <= aneq;
-      VALID   <= lvalid;
-
+      lvalid   <= aneq;
+      VALID <= lvalid;
+      
 
       al3  <= al2;
       al3l <= al3;

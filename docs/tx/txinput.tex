@@ -1,7 +1,7 @@
 \section{TX Input}
 
 TXinput takes packets from the \signal{CLKIO}-domain interface framed
-by \signal{NEWFRAME} and stores them in the master memory FIFO. The
+by \signal{NEWFRAME} and stores them in the TX memory FIFO. The
 \signal{CLKIO}-domain interface accepts packets as described by the
 interface doc.
 
@@ -13,47 +13,56 @@ AFTER the byte DATA[15:8] The resulting memory address mapping places
 the first word at the lower portion of the memory address space.
 
 Now, there are two potential byte count states:
-1. The correct number of bytes are read [packet is placed in fifo]
-2. the sender sends too many bytes [packet is placed in fifo]
-3. the sender sends too few bytes [packet is aborted]
+\begin{enumerate}
+\item The correct number of bytes are sent [packet is placed in fifo]
+\item The sender sends too many bytes [packet is placed in fifo]
+\item The sender sends too few bytes [packet is aborted]
+\end{enumerate}
 
 The first two can be handled by simply stopping once we've recevied
-sufficient data, but the second requires a proper abort sequence.
+sufficient data, but the third requires a proper abort sequence.
 
-To write memory we have the following invariants:
-
-1. MA and MD must always change together
-
-2. MA and MD must remain constant for at least 4 clock cycles such
-   that the correct clken has latched their values.
+To write memory we must obey the memory write interface invariants: 1.
+MA and MD must always change together and 2. MA and MD must remain
+constant for at least 4 clock cycles such that the correct
+\signal{CLKEN} has latched their values.
 
 
 \subsection{Implementation}
+\begin{figure}
+\label{txinputfsm}
+\includegraphics[scale=0.7]{txinput.fsm.svg}
+\caption{Controlling FSM for packet TX FIFO input.}
+\end{figure}
 
+\begin{figure}
+\label{txinput}
+\includegraphics[scale=0.7]{txinput.svg}
+\caption{Interface for packet TX FIFO input.}
+\end{figure}
 
 Since the input clock is on the order of 60 MHz or less, our 125 MHz
-core clock is always at least 2x faster. We synchronize the incoming
-data using a clock locking scheme. The incoming data stream is at
-least 2x slower than the core, which means that we can use the enable system
-to detect rising edges and uniquely demarcate new data words with the
-resulting DEN. We want this bus to work at any speed, including
-unusual clock speeds, etc. That is, we want no esoteric timing
-relationships between the input and the output side.
+core clock is always at least 2x faster. Thus we can oversample and
+use a data enable scheme to detect rising edges and uniquely demarcate
+new data words with the resulting DEN. We want this bus to work at any
+speed, including unusual clock speeds, etc. That is, we want no
+esoteric timing relationships between the input and the output side.
 
 SLE16s to prevent the register logic from being huge, and to elimate
 potential metastability issues.
 
+When \signal{NEWFINIT} =1 and \signal{DEN} = 1 the current frame
+length is on the the data internal line DINIT. Thus DL is latched
+continually during the \state{NONE} state; similarly \signal{CNT} is
+continually reloaded with the value present during the none state.
 
-FSM cycle operation:
-
-When NEWFINIT =1 and DEN = 1 the current frame length is on the the data internal line DINIT. Thus DL is latched continually during the NONE state; similarly CNT is continually reloaded with the value present during the none state. 
-
-The transition to the NEWF (new frame state) places the frame size (DL output) and base address of the BP on the memory bus.
+The transition to the \state{NEWF} (new frame state) places the frame
+size (DL output) and base address of the BP on the memory bus.
 
 Then we enter the main data writing section of the bus. This is highly
 dependent on the IO bus being > 2x slower than the internal clock, as
-there are two cycles for each input word. LOW_W latches the low word,
-and then LOW increments the ADDR. HIGH_W operates similarly on the
+there are two cycles for each input word. LOWW latches the low word,
+and then LOW increments the ADDR. HIGHW operates similarly on the
 high word input. The HIGH state enables the memory write and latches
 current values of ADDR and LMD onto the address bus.
 
@@ -65,11 +74,12 @@ HIGH, and the most recent write is committed. PKTDONE1 increments CPEN
 to point to the next address in memory, that is ONE PAST the end of
 the current frame.
 
-If the input FIFOFULL signal is high, then the current packet is
-discarded via the PKTABORT state, and TXFIFOWERROR is
-signalled. Similarlly, we assert the IO CRC ERRROR if the read CRC value is invalid. 
+If the input \signal{FIFOFULL} signal is high, then the current packet
+is discarded via the \state{PKTABORT} state, and \signal{TXFIFOWERROR}
+is asserted.  Similarlly, we assert \signal{TXIOCRCERR} if the read
+CRC value is invalid.
 
-Otherwise, state PKTDONE2 latches the current value of ADDR
+Otherwise, \state{PKTDONE2} latches the current value of ADDR
 (again, the address that's one past the end of the current frame) as
 the base pointer BP.
 
@@ -77,5 +87,5 @@ To accomodate excess data at the end of a frame, PKTDONE3 eats any
 remaining time during whcih NEWFINT is high.
 
 That said, the extra cycles we take up result in us needing at least
-four ticks of NEWFRAME low between frames, giving us a worst-case 95%
-tx efficiency (and a best-case (MTU=1500) 99.8%!)
+four ticks of NEWFRAME low between frames, giving us a worst-case 95\%
+tx efficiency (and a best-case (MTU=1500) 99.8\%!)

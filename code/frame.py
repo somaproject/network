@@ -12,6 +12,7 @@ note MAC addresses are strings of the form "AA:BB:CC:DD:EE:FF"
 import re
 import struct
 import crcmod
+import scipy
 
 PROTO_IP = 0x0800
 PROTO_ARP = 0x0806

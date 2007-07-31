@@ -14,8 +14,28 @@ def writeframe(gmiifid, pktfid, len, prespace = 0, erpos = -1):
         pktfid.write("%2.2X " % (i % 256))
     pktfid.write('\n')
 
+
+# the internal-faster-than-external test
+
 gmiifid = file("gmii.0.dat", 'w')
 pktfid = file("pkt.0.dat", "w")
+
+for s in range(1, 5) :
+    for l in range(1, 30):
+        writeframe(gmiifid, pktfid, l, s, 17)
+    for l in range(1, 1000, 47):
+        writeframe(gmiifid, pktfid, l, s, 17)
+    
+for s in range(10, 50, 17) :
+    for l in range(1, 1000, s):
+        writeframe(gmiifid, pktfid, l, s, 17)
+    
+
+
+# the external-faster-than-external test
+
+gmiifid = file("gmii.1.dat", 'w')
+pktfid = file("pkt.1.dat", "w")
 
 for s in range(1, 5) :
     for l in range(1, 30):

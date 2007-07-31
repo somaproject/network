@@ -1,0 +1,12 @@
+Unit tests for RXinput.
+
+gmii.0.dat / ram.0.dat checks:
+
+We currently check for (in this order)
+
+1. nomal frame
+2. frame with invalid CRC (reject)
+3. A frame with len mod 4 = 0 
+4. A frame with len mod 4 = 1
+5. A frame with len mod 4 = 2 
+6. A frame with len mod 4 = 3

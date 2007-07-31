@@ -63,13 +63,18 @@ architecture Behavioral of network is
     std_logic_vector(31 downto 0) := (others => '0');
 
   -- addresses
-  signal addr1, addr2, addr3, addr4 : std_logic_vector(15 downto 0) :=
-    (others                                                                    => '0');
-  signal addr1ext, addr2ext, addr3ext, addr4ext :
-    std_logic_vector(16 downto 0)                                   := (others => '0');
+  signal addr1 : std_logic_vector(15 downto 0) := (others => '0');
+  signal addr2 : std_logic_vector(15 downto 0) := (others => '0');
+  signal addr3 : std_logic_vector(15 downto 0) := (others => '0');
+  signal addr4 : std_logic_vector(15 downto 0) := (others => '0');
+
+  signal addr1ext : std_logic_vector(16 downto 0) := (others => '0');
+  signal addr2ext : std_logic_vector(16 downto 0) := (others => '0');
+  signal addr3ext : std_logic_vector(16 downto 0) := (others => '0');
+  signal addr4ext : std_logic_vector(16 downto 0) := (others => '0');
 
   -- error and status signals
-  signal rxcrcerr, rxoferr,  rxphyerr, rxf, txf,
+  signal rxcrcerr, rxoferr, rxphyerr, rxf, txf,
     txi_mwen, txfifowerr, rxfifowerr :
     std_logic := '0';
 
@@ -85,8 +90,9 @@ architecture Behavioral of network is
   signal txfifofull, rxfifofull : std_logic := '0';
 
   -- mac address filtering
-  signal rxmcast, rxbcast, rxucast, rxallf : std_logic                     := '0';
-  signal macaddr                           : std_logic_vector(47 downto 0) := (others => '0');
+  signal rxmcast, rxbcast, rxucast, rxallf : std_logic := '0';
+
+  signal macaddr : std_logic_vector(47 downto 0) := (others => '0');
 
   -- memory read/write error
   signal rxmemcrcerr, txmemcrcerr : std_logic := '0';
@@ -128,26 +134,26 @@ architecture Behavioral of network is
   end component;
 
   component RXinput
-    port ( RX_CLK      : in  std_logic;
-           CLK         : in  std_logic;
-           RESET       : in  std_logic;
-           RX_DV       : in  std_logic;
-           RX_ER       : in  std_logic;
-           RXD         : in  std_logic_vector(7 downto 0);
-           MD          : out std_logic_vector(31 downto 0);
-           MA          : out std_logic_vector(15 downto 0);
-           BPOUT       : out std_logic_vector(15 downto 0);
-           RXCRCERR    : out std_logic;
-           RXOFERR     : out std_logic;
-           RXPHYERR    : out std_logic;
-           RXFIFOWERR  : out std_logic;
-           FIFOFULL    : in  std_logic;
-           RXF         : out std_logic;
-           MACADDR     : in  std_logic_vector(47 downto 0);
-           RXBCAST     : in  std_logic;
-           RXMCAST     : in  std_logic;
-           RXUCAST     : in  std_logic;
-           RXALLF      : in  std_logic); 
+    port ( RX_CLK     : in  std_logic;
+           CLK        : in  std_logic;
+           RESET      : in  std_logic;
+           RX_DV      : in  std_logic;
+           RX_ER      : in  std_logic;
+           RXD        : in  std_logic_vector(7 downto 0);
+           MD         : out std_logic_vector(31 downto 0);
+           MA         : out std_logic_vector(15 downto 0);
+           BPOUT      : out std_logic_vector(15 downto 0);
+           RXCRCERR   : out std_logic;
+           RXOFERR    : out std_logic;
+           RXPHYERR   : out std_logic;
+           RXFIFOWERR : out std_logic;
+           FIFOFULL   : in  std_logic;
+           RXF        : out std_logic;
+           MACADDR    : in  std_logic_vector(47 downto 0);
+           RXBCAST    : in  std_logic;
+           RXMCAST    : in  std_logic;
+           RXUCAST    : in  std_logic;
+           RXALLF     : in  std_logic);
   end component;
 
   component RXoutput
@@ -345,7 +351,7 @@ begin
     I => RX_CLK,
     O => clkrx);
 
-  clkmem_dcm  : DCM
+  clkmem_dcm : DCM
     generic map (
       CLKOUT_PHASE_SHIFT => "FIXED",
       PHASE_SHIFT        => 100 )
@@ -358,13 +364,12 @@ begin
       );
   memreset <= not memlocked;
   RESET    <= memreset;
-  
+
   clkmem_bufg : BUFG port map (
-    I                    => mclkintfb,
-    O                    => mclkint);
+    I => mclkintfb,
+    O => mclkint);
 
   MCLK <= mclkint;
-  --MCLK <= clk90;
 
   memcontroller : memory port map (
     CLK     => clk,
@@ -394,26 +399,26 @@ begin
     CLKEN4  => clken4);
 
   rx_input : rxinput port map (
-    RX_CLK      => clkrx,
-    CLK         => clk,
-    RESET       => RESET,
-    RX_DV       => RX_DV,
-    RX_ER       => RX_ER,
-    RXD         => RXD,
-    MD          => d1,
-    MA          => addr1,
-    BPOUT       => rxbp,
-    RXCRCERR    => rxcrcerr,
-    RXOFERR     => rxoferr,
-    RXPHYERR    => rxphyerr,
-    FIFOFULL    => rxfifofull,
-    RXFIFOWERR  => rxfifowerr,
-    RXF         => rxf,
-    MACADDR     => macaddr,
-    RXBCAST     => rxbcast,
-    RXMCAST     => rxmcast,
-    RXUCAST     => rxucast,
-    RXALLF      => rxallf); 
+    RX_CLK     => clkrx,
+    CLK        => clk,
+    RESET      => RESET,
+    RX_DV      => RX_DV,
+    RX_ER      => RX_ER,
+    RXD        => RXD,
+    MD         => d1,
+    MA         => addr1,
+    BPOUT      => rxbp,
+    RXCRCERR   => rxcrcerr,
+    RXOFERR    => rxoferr,
+    RXPHYERR   => rxphyerr,
+    FIFOFULL   => rxfifofull,
+    RXFIFOWERR => rxfifowerr,
+    RXF        => rxf,
+    MACADDR    => macaddr,
+    RXBCAST    => rxbcast,
+    RXMCAST    => rxmcast,
+    RXUCAST    => rxucast,
+    RXALLF     => rxallf);
 
   rx_output : rxoutput port map (
     CLK       => clk,
@@ -457,7 +462,7 @@ begin
       FIFOFULL   => txfifofull,
       TXFIFOWERR => txfifowerr,
       TXIOCRCERR => txiocrcerr,
-      DONE       => open); 
+      DONE       => open);
 
   tx_fifocheck : FIFOcheck port map(
     CLK      => clk,

@@ -8,10 +8,15 @@ The receive input interface takes packets from the receive interface of the GMII
 
 There are three additional submodules that comprise the receive interface. 
 
-GMIIin: clock-domain conversion from the RX_CLK domain. 
-RXPKTFIFO : temporary fifo to deal with the fact that we have some per-packet overhead in writing to the MEMORY fifo. Handles atomic packet operations
+GMIIin: clock-domain conversion from the RX_CLK domain.
 
-RXVALID: compares dest MAC to the itnernal set of mac settings to verify that this is a packet targeted for us. 
+RXPKTFIFO : temporary fifo to deal with the fact that we have some
+per-packet overhead in writing to the MEMORY fifo. Handles atomic
+packet operations
+
+RXVALID: compares dest MAC to the itnernal set of mac settings to
+verify that this is a packet targeted for us.
+
 
 
 ---------------------------------------------------------------------------
@@ -23,7 +28,7 @@ We created FD (Frame Data) to be a signal indicating that the data on DATA is va
 We have taken to writing the FCS into memory as well as computing it
 internally for the purposes of verifying correct RX. 
 
-CRCvalid is checked in BPWAIT3 because it has a long propagation delay. 
+CRCvalid is checked in BPWAIT3 because it has a long proagation delay. 
 
 FD is an anding of RD, DV, and not ENDF. FD is high ==> DATA contains valid in-frame data(not SFD nor ENDF). FD is only high for a single cycle while this data is valid, preventing double-latchings and the like. 
 

@@ -10,14 +10,15 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg1"
    sodipodi:version="0.32"
-   inkscape:version="0.43+0.44pre2"
+   inkscape:version="0.45.1"
    width="612.00000pt"
    height="792.00000pt"
    sodipodi:docbase="/home/jonas/soma/network/docs/rx"
    sodipodi:docname="gmii.svg"
    inkscape:export-filename="/home/jonas/gmii.png"
    inkscape:export-xdpi="150.00000"
-   inkscape:export-ydpi="150.00000">
+   inkscape:export-ydpi="150.00000"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs3">
     <marker
@@ -253,18 +254,18 @@
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="Clock domain"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <rect
        style="fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;display:inline"
        id="rect7215"
-       width="487.5"
-       height="471.875"
+       width="546.875"
+       height="468.75"
        x="31.25"
-       y="36.875" />
+       y="36.875"
+       ry="0" />
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Bitstream Vera Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline;font-family:Bitstream Vera Sans"
        x="379.88098"
        y="368.99698"
        id="text7039"
@@ -281,19 +282,15 @@
      style="display:inline">
     <text
        xml:space="preserve"
-       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="237.22658"
-       y="211.87512"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="234.375"
+       y="215"
        id="text3674"
        sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
          id="tspan3676"
-         x="237.22658"
-         y="211.87512">ERLL</tspan></text>
-    <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 283,351.00012 L 283,351.00012"
-       id="path2861" />
+         x="234.375"
+         y="215">ERIN</tspan></text>
     <path
        id="OR"
        style="fill:white;fill-rule:evenodd;stroke:black;stroke-width:1.25000012"
@@ -546,39 +543,17 @@
        style="color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
        d="M 124.99999,336.87512 L 181.25,336.87512"
        id="path6717" />
-    <g
-       id="g6723"
-       transform="matrix(0.5,0,0,0.5,107.8125,132.5)">
-      <path
-         sodipodi:type="arc"
-         style="fill:black;fill-opacity:1;stroke:none;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
-         id="path6721"
-         sodipodi:cx="82.8125"
-         sodipodi:cy="290"
-         sodipodi:rx="1.5625"
-         sodipodi:ry="3.125"
-         d="M 84.375 290 A 1.5625 3.125 0 1 1  81.25,290 A 1.5625 3.125 0 1 1  84.375 290 z"
-         transform="matrix(2,0,0,1,-81.25,0)" />
-      <rect
-         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
-         id="rect6722"
-         width="12.5"
-         height="12.5"
-         x="78.125"
-         y="283.75" />
-    </g>
     <text
        xml:space="preserve"
-       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="-31.43272"
-       y="250.29709"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="137.5"
+       y="274.375"
        id="text6726"
-       sodipodi:linespacing="100%"
-       transform="translate(161.8976,24.07803)"><tspan
+       sodipodi:linespacing="100%"><tspan
          sodipodi:role="line"
          id="tspan6727"
-         x="-31.43272"
-         y="250.29709">DVL</tspan></text>
+         x="137.5"
+         y="274.375">DVL</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1659,7 +1634,7 @@
          y="77.18766">AL</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        x="-271.25"
        y="228.125"
        id="text3656"
@@ -1668,7 +1643,7 @@
          sodipodi:role="line"
          id="tspan3658"
          x="-271.25"
-         y="228.125">DVL</tspan></text>
+         y="228.125">DVLL</tspan></text>
     <g
        id="g3660"
        transform="translate(96.87495,-137.5001)">

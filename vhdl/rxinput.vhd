@@ -60,7 +60,7 @@ architecture Behavioral of rxinput is
   signal gmiidout  : std_logic_vector(7 downto 0) := (others => '0');
   signal gmiiof    : std_logic                    := '0';
 
-  signal govf, gofl    : std_logic                    := '0';
+  signal govf, gofl : std_logic := '0';
 
 
   -- addr count and register
@@ -105,19 +105,20 @@ architecture Behavioral of rxinput is
 
   component rxpktfifo
     port (
-      CLK       : in  std_logic;
+      CLK     : in  std_logic;
       -- Input interface
-      DIN       : in  std_logic_vector(7 downto 0);
-      ERIN      : in  std_logic;
-      ENDFIN    : in  std_logic;
-      VALIDIN   : in  std_logic;
+      DIN     : in  std_logic_vector(7 downto 0);
+      ERIN    : in  std_logic;
+      ENDFIN  : in  std_logic;
+      VALIDIN : in  std_logic;
+      OFIN    : in  std_logic;
       -- output interface
-      NEXTF     : in  std_logic;
-      DOUT      : out std_logic_vector(7 downto 0);
-      EROUT     : out std_logic;
-      ENDFOUT   : out std_logic;
-      OFOUT     : out std_logic;
-      VALID     : out std_logic);
+      NEXTF   : in  std_logic;
+      DOUT    : out std_logic_vector(7 downto 0);
+      EROUT   : out std_logic;
+      ENDFOUT : out std_logic;
+      OFOUT   : out std_logic;
+      VALID   : out std_logic);
   end component;
 
 
@@ -158,17 +159,18 @@ begin
 
   rxpktfifo_inst : rxpktfifo
     port map (
-      CLK       => CLK,
-      DIN       => gmiidout,
-      VALIDIN   => gmiivalid,
-      ENDFIN    => gmiiendf,
-      ERIN      => gmiier,
-      EROUT     => er,
-      OFOUT     => ovf,
-      ENDFOUT   => endf,
-      VALID     => dv,
-      DOUT      => data,
-      NEXTF     => nextf);
+      CLK     => CLK,
+      DIN     => gmiidout,
+      VALIDIN => gmiivalid,
+      ENDFIN  => gmiiendf,
+      ERIN    => gmiier,
+      EROUT   => er,
+      OFIN    => '0',
+      OFOUT   => ovf,
+      ENDFOUT => endf,
+      VALID   => dv,
+      DOUT    => data,
+      NEXTF   => nextf);
 
 
   maccheck : RXValid
@@ -314,7 +316,7 @@ begin
           RXOFERR <= '0';
         end if;
 
-        
+
         if cs = checkf and fifofull = '1' then
           RXFIFOWERR <= '1';
         else
@@ -465,7 +467,7 @@ begin
         nextf <= '0';
         bpwen <= '0';
         if erl = '1' or ofl = '1'
-          or fifofull = '1' or gofl = '1' 
+          or fifofull = '1' or gofl = '1'
           or destok = '0' then
           ns  <= none;
         else

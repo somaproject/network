@@ -5,7 +5,6 @@ success for differing frame sizes
 success for fifo wrap-around
 what happens when BP is more than one frame ahead?
 
-
 For each test we have the following sets of files:
 
 testname.ram.dat : a ram map of the form (addr, data)

@@ -1,5 +1,4 @@
 
-
 \section{Data Transmission}
 
 There are two signals which govern frame transmission: 
@@ -16,9 +15,21 @@ The most significant byte, \signal{DIN[15:8]}, is transmitted on the
 wire first.
 
 Along with each packet, we also transmit a 32-bit CRC at the end,
-ethernet frame style. This CRC is included in the packet length header. 
+ethernet frame style. This CRC is included in the packet length
+header. In the end, this means that all packets have a length of at
+least four. 
 
-
+\begin{figure}
+\begin{timing}{datatx}
+C: IOCLK     :  |  |  |   |   |   |   // |       |   |   | 
+S: NEWFRAME  :  L  L  H   H   H   H   // H       H   H   L
+B: DIN[15:0] :  Z  Z  LEN 0   2   4   // n-2     CRC CRC Z
+BC:          :  0  0  2   1   1   1   // 1       2   2   0 
+\end{timing}
+\caption{Example data transmission to the NIC. Note the length of the
+  packet in bytes, including the trailing CRC but not including the
+  LEN header, is sent first.} 
+\end{figure}
 
 \subsection{Possible errors}
 \begin{enumerate}
@@ -27,15 +38,31 @@ ethernet frame style. This CRC is included in the packet length header.
 \item If \signal{NEWFRAME} is deasserted prior to the transmission of the correct number of words, the packet is not committed to the fifo
 \end{enumerate}
 
-
 \section{Data Reception}
 
 There are three signals which govern frame reception: 
 
-\signal{NEXTFRAME}
-\signal{DOUTEN}
+\signal{NEXTFRAME}: asserted by the host to the NIC to indicate that the host is ready to receive a frame. 
+
+\signal{DOUTEN}: Asserted by the NIC to indicate valid data on the data out lines. 
+
 \signal{DOUT[15:0]}
 
-Assert NEXTFRAME for the duration of a frame you want out. The first 16-bit word is the total frame length, not including the frame length header. The packet is suffixed by a 32-bit crc (same as TX). DOUTEN is the data valid line. 
+\begin{figure}
+\begin{timing}{datarx}
+C: IOCLK      :  |  |   //   |  |   |  |  |  // |   |   |   | |   
+S: NEXTFRAME  :  L  H   //   H  H   H  H  H  // H   H   H   H L 
+S: DOUTEN     :  L  L   //   L  H   H  H  H  // H   H   H   L L 
+B: DOUT[15:0] :  Z  Z   //   Z  LEN 0  2  4  // n-2 CRC CRC Z Z
+BC:           :  0  0   //   Z  2   1  1  1  // 1   2   2   0 0
+\end{timing}
+\caption{Example data reception from the NIC. Note the length of the
+  packet in bytes, including the trailing CRC but not including the
+  LEN header, is sent first.} 
+\end{figure}
 
-We had originally wanted the DOUTEN line to be continuous, but for some reason our current implementation doesn't allow that, so we've discarded it as a requirement for the time being. 
+The first 16-bit word is the total frame length, not including the
+frame length header. The packet is suffixed by a 32-bit crc (same as
+TX).
+
+\import{.}{control.tex}

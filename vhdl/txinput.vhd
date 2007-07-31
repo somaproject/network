@@ -14,12 +14,12 @@ entity txinput is
          NEWFRAME   : in  std_logic;
          MD         : out std_logic_vector(31 downto 0) := (others => '0');
          MWEN       : out std_logic;
-         MA         : out std_logic_vector(15 downto 0) := (others => '0'); 
+         MA         : out std_logic_vector(15 downto 0) := (others => '0');
          FIFOFULL   : in  std_logic;
          BPOUT      : out std_logic_vector(15 downto 0);
          TXFIFOWERR : out std_logic;
          TXIOCRCERR : out std_logic;
-         DONE       : out std_logic); 
+         DONE       : out std_logic);
 end txinput;
 
 architecture Behavioral of txinput is
@@ -38,14 +38,16 @@ architecture Behavioral of txinput is
   type states is (none, newf, low_w, low, high_w, high, waitlow,
                   lowmemw, pktdone1, pktdone2, crcinchk, pktdone3,
                   abortfifo, abortcrc);
-  
+
   signal cs, ns : states := none;
 
   -- signals for clock-boundary-crossing logic
   signal nenable, enable, enablel, enableint, enableintl, den, lden :
-    std_logic                                     := '0';
-  signal dinl, dinio, dinint, ldinint        : std_logic_vector(15 downto 0)
-                                                  := (others => '0');
+    std_logic := '0';
+
+  signal dinl, dinio, dinint, ldinint : std_logic_vector(15 downto 0)
+ := (others => '0');
+
   signal newframel, newfint, newframeio, lnewfint : std_logic := '0';
 
   -- fifo control
@@ -56,7 +58,7 @@ architecture Behavioral of txinput is
 
   -- error signals
   signal ltxiocrcerr, ltxfifowerr : std_logic := '0';
-  
+
   component SRL16
     generic (
       INIT    :     bit_vector := X"0000");
@@ -80,22 +82,21 @@ architecture Behavioral of txinput is
   end component;
 
   signal newframeiol1, newframeiol2 : std_logic := '0';
+
   signal newframecnt : std_logic_vector(31 downto 0) := (others => '0');
 
-  --attribute maxskew : string;
 
-  --attribute maxskew of dinl : signal is "1 ns";  
 begin
 
 
-  
-  
+
+
   lmd   <= dh & dl;
   BPOUT <= bp;
 
   crcreset <= '1' when newfint = '0' else '0';
-  crcen <= (dhen or dlen) and den; 
-  
+  crcen    <= (dhen or dlen) and den;
+
   crcverify_inst : crcverify
     port map (
       CLK      => CLK,
@@ -110,9 +111,9 @@ begin
 
   begin
     if rising_edge(CLKIO) then
-      enable <= not enable;
-      enablel <= enable; 
-      dinio <= DIN;
+      enable  <= not enable;
+      enablel <= enable;
+      dinio   <= DIN;
 
       newframeio <= NEWFRAME;
 
@@ -148,9 +149,9 @@ begin
 
   lden <= enableintl xor enableint;
 
-  ltxiocrcerr <= '1' when cs = abortcrc else '0';
+  ltxiocrcerr <= '1' when cs = abortcrc  else '0';
   ltxfifowerr <= '1' when cs = abortfifo else '0';
-  
+
 
   clock : process(CLK, RESET)
   begin
@@ -217,7 +218,7 @@ begin
 
         -- error signals
         TXIOCRCERR <= ltxiocrcerr;
-        TXFIFOWERR <= ltxfifowerr; 
+        TXFIFOWERR <= ltxfifowerr;
       end if;
     end if;
   end process clock;
@@ -228,91 +229,91 @@ begin
   begin
     case cs is
       when none =>
-        dlen       <= '1';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
+        dlen <= '1';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
         if den = '1' and newfint = '1' then
-          ns       <= newf;
+          ns <= newf;
         else
-          ns       <= none;
+          ns <= none;
         end if;
 
-      when newf  =>
-        dlen       <= '1';
-        dhen       <= '0';
-        mrw        <= '1';
-        men        <= '1';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
+      when newf =>
+        dlen <= '1';
+        dhen <= '0';
+        mrw  <= '1';
+        men  <= '1';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
         if newfint = '0' then
-          ns       <= none;
+          ns <= none;
         else
-          ns       <= low_w;
+          ns <= low_w;
         end if;
 
       when low_w =>
-        dlen       <= '1';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
+        dlen   <= '1';
+        dhen   <= '0';
+        mrw    <= '0';
+        men    <= '0';
+        bpen   <= '0';
+        cpen   <= '0';
+        DONE   <= '0';
         if newfint = '0' then
-          ns       <= none;
+          ns   <= none;
         else
           if den = '1' then
-            ns     <= low;
+            ns <= low;
           else
-            ns     <= low_w;
+            ns <= low_w;
           end if;
         end if;
 
       when low =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '1';
-        DONE       <= '0';
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '0';
+        cpen <= '1';
+        DONE <= '0';
         if cnt = 0 or cnt = 65535 then  --i.e. 0 or -1
-          ns       <= waitlow;
+          ns <= waitlow;
         else
-          ns       <= high_w;
+          ns <= high_w;
         end if;
 
       when high_w =>
-        dlen       <= '0';
-        dhen       <= '1';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
+        dlen   <= '0';
+        dhen   <= '1';
+        mrw    <= '0';
+        men    <= '0';
+        bpen   <= '0';
+        cpen   <= '0';
+        DONE   <= '0';
         if newfint = '0' then
-          ns       <= none;
+          ns   <= none;
         else
           if den = '1' then
-            ns     <= high;
+            ns <= high;
           else
-            ns     <= high_w;
+            ns <= high_w;
           end if;
         end if;
 
       when high =>
-        dlen       <= '0';
-        dhen       <= '1';
-        mrw        <= '1';
-        men        <= '1';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
+        dlen <= '0';
+        dhen <= '1';
+        mrw  <= '1';
+        men  <= '1';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
 
         if cnt = 0 or cnt = 65535 then  --i.e. 0 or -1
           ns <= pktdone1;
@@ -321,110 +322,110 @@ begin
         end if;
 
       when waitlow =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
-        ns         <= lowmemw;
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
+        ns   <= lowmemw;
 
       when lowmemw =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '1';
-        men        <= '1';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
-        ns         <= pktdone1;
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '1';
+        men  <= '1';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
+        ns   <= pktdone1;
 
       when pktdone1 =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '1';
-        DONE       <= '0';
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '0';
+        cpen <= '1';
+        DONE <= '0';
         if fifofulll = '1' then
-          ns       <= abortfifo;
+          ns <= abortfifo;
         else
-          ns       <= crcinchk;
+          ns <= crcinchk;
         end if;
 
       when crcinchk =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
+        dlen   <= '0';
+        dhen   <= '0';
+        mrw    <= '0';
+        men    <= '0';
+        bpen   <= '0';
+        cpen   <= '0';
+        DONE   <= '0';
         if crcdone = '1' then
           if crcvalid = '1' then
             ns <= pktdone2;
           else
-            ns <= abortcrc; 
+            ns <= abortcrc;
           end if;
         else
-          ns <= crcinchk; 
+          ns   <= crcinchk;
         end if;
 
       when pktdone2 =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '1';
-        cpen       <= '0';
-        DONE       <= '1';
-        ns         <= pktdone3;
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '1';
+        cpen <= '0';
+        DONE <= '1';
+        ns   <= pktdone3;
 
       when abortfifo =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
-        ns         <= none;
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
+        ns   <= none;
 
       when abortcrc =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
-        ns         <= none;
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
+        ns   <= none;
 
       when pktdone3 =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
         if newfint = '0' then
-           ns       <= none;
+          ns <= none;
         else
-          ns       <= pktdone3;
+          ns <= pktdone3;
         end if;
 
       when others =>
-        dlen       <= '0';
-        dhen       <= '0';
-        mrw        <= '0';
-        men        <= '0';
-        bpen       <= '0';
-        cpen       <= '0';
-        DONE       <= '0';
-        ns         <= none;
+        dlen <= '0';
+        dhen <= '0';
+        mrw  <= '0';
+        men  <= '0';
+        bpen <= '0';
+        cpen <= '0';
+        DONE <= '0';
+        ns   <= none;
     end case;
 
 

@@ -5,6 +5,7 @@ sys.path.append("../../crc/code")
 import frame
 import struct
 import random
+import math
 
 class ramfile:
     def __init__(self, filename):
@@ -19,7 +20,11 @@ class ramfile:
         tdata = data + crc # total data
         l = len(tdata)
         
+        wlen = math.floor(l/4)
+        if (l % 4 != 0):
+            wlen += 1
         
+        self.fid.write("%d " % (wlen + 1,))
         self.fid.write("%08X " % (l,))
         for i in range(l / 4):
             val = struct.unpack("BBBB", tdata[(i*4):((i+1)*4)])
@@ -70,38 +75,49 @@ class GMIIin:
             
         for s in range(space):
             self.fid.write("0 0 00\n")
-        
-def basictest():
+
+def simpleTest():
+
     g = GMIIin("gmiiin.0.dat")
     rf = ramfile("ram.0.dat")
 
+    destaddr = "C0:FF:EE:C0:FF:EE"
+    srcaddr = "12:00:3F:00:00:04"
 
+    prelen = 7
+    space = 10
 
+    # 1. Nominal frame
+    data = "01234567"
+    f = frame.frame(destaddr, srcaddr, 
+                    0x0101, data)
 
-    # and finally, perhaps, a ton of random crap:
-    for j in range(10000):
-        d = ""
-        div = []
-        for i in range(random.randint(50, 100)):
-            r = random.randint(0, 255)
-            d += struct.pack("B", r)
-            if random.randint(0, 10) < 2 :
-                div.append((i, i+random.randint(0,2)))
+    g.addFrame(f.getWire(preamble=prelen), space=space)
 
-        s = random.randint(2, 500);
-        abortpos = random.randint(-100, 6)
-        
-        f = frame.frame("AB:00:3F:00:01:00",
-                        "12:00:3F:00:00:04",
-                        0x0101, d)
+    fdata = f.getWire(preamble=0, SFD=False) # just the raw data
+    rf.addFrame(fdata[:-4], fdata[-4:])
 
-        g.addFrame(f.getWire(), space=s,  abortn=abortpos)
-        
-        fdata = f.getWire(preamble=0, SFD=False)
-        # just the raw data
+    # 2. Invalid CRC
+    data = "0123456789AB"
+    f = frame.frame(destaddr, srcaddr, 
+                    0x0101, data)
+    outdata = f.getWire(preamble=prelen)
+    outdata= outdata[:-5] + 'Z' + outdata[-4:]
+    g.addFrame(outdata, space=space)
+
+    # frames of various lengths
+    data = "01234567"
+    for i in range(20, 24):
+        data += chr(i)
+        f = frame.frame(destaddr, srcaddr, 
+                        0x0101, data)
+
+        g.addFrame(f.getWire(preamble=prelen), space=space)
+
+        fdata = f.getWire(preamble=0, SFD=False) # just the raw data
         rf.addFrame(fdata[:-4], fdata[-4:])
 
-
+    
 def macdesttest():
     g = GMIIin("gmiiin.1.dat")
     rf = ramfile("ram.1.dat")
@@ -173,5 +189,7 @@ def pingoftest():
 
 
 if __name__ == "__main__":
-    pingoftest()
+    simpleTest()
+    #macdesttest()
+    #pingoftest()
     
