@@ -1,0 +1,5 @@
+The RX Packet FIFO is a single clock-domain interface between the GMII
+interface and the rest of the RXInput hardware. It allows the RX Input
+module to operate on entire packets at a time. This is also necessary
+as we have some per-packet overhead when interfacing with memory, and
+we'd like to keep that controlled. 
