@@ -3,3 +3,9 @@ interface and the rest of the RXInput hardware. It allows the RX Input
 module to operate on entire packets at a time. This is also necessary
 as we have some per-packet overhead when interfacing with memory, and
 we'd like to keep that controlled. 
+
+\begin{figure}
+\label{rxpktfifo}
+\includegraphics[scale=0.7]{rxpktfifo.svg}
+\caption{The RX Packet FIFO, allowing atomic operations on received frames.}
+\end{figure}

@@ -1,59 +1,56 @@
 \section{Receive Input}
 
-The receive input interface takes packets from the receive interface of the GMII and places them into the FIFO, checking for both RX fifo overflow and verifying the FCS. 
+The receive input interface takes packets from the receive interface
+of the GMII and places them into the FIFO, checking for both RX fifo
+overflow and verifying the FCS.
 
 \subsection{Interface}
+The input here is the GMII interface from the Ethernet PHY. The output
+data is written to the RX FIFO by setting \signal{MA[15:0]} and
+\signal{MD[31:0]} for four cycles to guarantee latching. The
+\signal{BPOUT[15:0]} points to the base of the
+next-packet-to-be-written.
+
+The module takes in a series of signals from the control interface to
+evaluate whether or not we are the intended recipient for a given
+frame. See the implementation the RX Valid module for further details. 
+
+If the received frame has a valid CRC, that frame and its FCS are
+written into the RX FIFO. Thus we again suffix every RAM FIFO write
+with a CRC.
+
 
 \subsection{Implementation}
 
 There are three additional submodules that comprise the receive interface. 
 
-GMIIin: clock-domain conversion from the RX_CLK domain.
+\subsubsection{GMIIin}
+\import{.}{gmiiin.tex}
 
-RXPKTFIFO : temporary fifo to deal with the fact that we have some
-per-packet overhead in writing to the MEMORY fifo. Handles atomic
-packet operations
+\subsubsection{RX Packet FIFO} 
+\import{.}{rxpktfifo.tex}
 
-RXVALID: compares dest MAC to the itnernal set of mac settings to
-verify that this is a packet targeted for us.
-
-
-
----------------------------------------------------------------------------
-RXINPUT.VHD
----------------------------------------------------------------------------
-
-We created FD (Frame Data) to be a signal indicating that the data on DATA is valid frame data, i.e. ENDF is not asserted nor is the data SFD data, -and- the DV line is asserted. This is necessary as any of the BnWR registers can stick for multiple states (due to VALID delays in the GMII system, i.e. there's no data to read out of the FIFO yet). 
-
-We have taken to writing the FCS into memory as well as computing it
-internally for the purposes of verifying correct RX. 
-
-CRCvalid is checked in BPWAIT3 because it has a long proagation delay. 
-
-FD is an anding of RD, DV, and not ENDF. FD is high ==> DATA contains valid in-frame data(not SFD nor ENDF). FD is only high for a single cycle while this data is valid, preventing double-latchings and the like. 
-
-RXInput can be viewed as having four parts:
-   * input data latching: the appropriate states of the FSM latch the output of data onto LM. This is latched onto LML once a word, and is written to the memory buffer via MD. 
-   * Byte counting: bcnt counts the number of FDs that come in, i.e. the number of bytes. We reset this to -4, because FD-highs end up counting the FCS as well. Resetting to -4 is much faster than having a subtract-by-4 component. 
+\subsubsection{RX Valid}
+\import{.}{rxvalid.tex}
 
 
-   * CRC checking: Heavily pipelined CRC checking using previous
-     CRC_combinational code. We reload CRCL with 0xFFFFFFF to start
-     the CRC; again, each FD-signaled byte is latched, and we
-     eventually check to see if we arrive at the correct value -- this
-     causes the assertion of CRCVALID.
+\subsubsection{Combining it all}
+The included FSM reads a single packet at a time out of the RX Packet
+FIFO by asserting \signal{NEXTF}. After verifying and discarding the
+preamble, we acquire each byte and selectively write it to the
+\signal{LM[31:0]} word.
 
-    * memory address writing: this manages the base pointer. Each new
-      cycle, we load the BP into the MACNT counter, which is
-      eventually written out to MA; thus we sequentially write the
-      frames. Note that we skip over writing the BP and actually write
-      the first valid word at BP+1; the BPWEN mux lets us go back to
-      the BP and write the BCNT value.
 
-    We only update LPB (thus bpout) -after- the complete, total successful reception of a valid frame. This is the only mechanism we have to commit data to the fifo. 
+\begin{figure}
+\label{rxinput}
+\includegraphics[scale=0.7]{rxinput.svg}
+\caption{The RX Input, verifying correct packets}
 
-There is also the address valid part -- this is just a heavily
-pipelined subsystem that checks if the DESTADDR is of the correct type
-and if we are accepting frames of that type. RXALLF=1 implies we pass
-all frames, i.e. promiscuous mode.
+\end{figure}
+
+\begin{figure}
+\label{rxinputfsm}
+\includegraphics[scale=0.7]{rxinput.fsm.svg}
+\caption{The RX Input FSM, verifying correct packets}
+\end{figure}
 

@@ -10,12 +10,11 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg1"
    sodipodi:version="0.32"
-   inkscape:version="0.45.1"
+   inkscape:version="0.44"
    width="612.00000pt"
    height="792.00000pt"
    sodipodi:docname="Overview.svg"
-   sodipodi:docbase="/home/jonas/soma/network/docs"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+   sodipodi:docbase="/home/jonas/soma/network/docs">
   <defs
      id="defs3">
     <marker
@@ -752,7 +751,7 @@
        y="302.20245">TX Input</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans Mono;text-anchor:end;writing-mode:lr;"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans Mono"
      x="357.13361"
      y="427.72653"
      id="text1947"
@@ -761,7 +760,7 @@
        sodipodi:role="line"
        id="tspan1948"
        x="357.13361"
-       y="427.72653">RXoutput.vhd</tspan></text>
+       y="427.72653">txinput.vhd</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
@@ -1082,16 +1081,16 @@
        y="302.20245">RX Input</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans Mono;text-anchor:end;writing-mode:lr;"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans Mono"
      x="357.13361"
      y="427.72653"
      id="text2055"
      sodipodi:linespacing="100%"
-     transform="translate(-174.9422,55.85160)"><tspan
+     transform="translate(-174.9422,55.8516)"><tspan
        sodipodi:role="line"
        id="tspan2056"
        x="357.13361"
-       y="427.72653">RXoutput.vhd</tspan></text>
+       y="427.72653">rxinput.vhd</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
@@ -1382,16 +1381,16 @@
        y="302.20245">FIFO Check</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans Mono;text-anchor:end;writing-mode:lr;"
+     style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:end;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans Mono"
      x="357.13361"
      y="427.72653"
      id="text2149"
      sodipodi:linespacing="100%"
-     transform="translate(78.18280,293.3516)"><tspan
+     transform="translate(78.1828,293.3516)"><tspan
        sodipodi:role="line"
        id="tspan2150"
        x="357.13361"
-       y="427.72653">RXoutput.vhd</tspan></text>
+       y="427.72653">fifocheck.vhd</tspan></text>
   <text
      xml:space="preserve"
      style="font-size:8.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
@@ -2536,16 +2535,15 @@
        y="665">TXBP</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:7.0000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1.0000000;stroke:none;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;font-family:Bitstream Vera Sans;text-anchor:start;writing-mode:lr;"
-     x="471.89551"
-     y="501.44531"
+     style="font-size:7px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:none;stroke-width:1pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+     x="475"
+     y="680.625"
      id="text1606"
-     sodipodi:linespacing="100%"
-     transform="translate(0.000000,181.2500)"><tspan
+     sodipodi:linespacing="100%"><tspan
        sodipodi:role="line"
        id="tspan1607"
-       x="471.89551"
-       y="501.44531">TXFIFOFULL</tspan></text>
+       x="475"
+       y="680.625">TXFIFOFULL</tspan></text>
   <path
      style="fill:none;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000;"
      d="M 65.625000,249.37500 L 78.125000,249.37500"
@@ -2715,26 +2713,68 @@
          x="15.625"
          y="146.25">Unit test / Clean Code</tspan></text>
     <rect
-       style="fill:#ff0000;fill-opacity:0.2751323;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.24999964;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       style="fill:red;fill-opacity:0.2751323;fill-rule:evenodd;stroke:red;stroke-width:1.2499994;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
        id="rect3648"
        width="109.375"
-       height="131.25"
+       height="30.625135"
        x="75"
-       y="568.125" />
+       y="615.37311" />
     <rect
-       style="fill:#00ff00;fill-opacity:0.2751323;fill-rule:evenodd;stroke:#00ff00;stroke-width:1.2500006;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
-       id="rect3650"
-       width="109.375"
-       height="131.25"
-       x="75"
-       y="568.125" />
-    <rect
-       style="fill:#0000ff;fill-opacity:0.2751323;fill-rule:evenodd;stroke:#0000ff;stroke-width:1.24999928;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       style="fill:blue;fill-opacity:0.2751323;fill-rule:evenodd;stroke:blue;stroke-width:1.24999893;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
        id="rect3652"
        width="109.31478"
-       height="130.76961"
+       height="52.75444"
        x="74.849548"
-       y="568.125" />
+       y="646.14026" />
+    <rect
+       style="fill:lime;fill-opacity:0.2751323;fill-rule:evenodd;stroke:lime;stroke-width:1.24999976;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       id="rect3650"
+       width="109.375"
+       height="47.195267"
+       x="75"
+       y="568.12476" />
+    <rect
+       style="fill:red;fill-opacity:0.2751323;fill-rule:evenodd;stroke:red;stroke-width:1.2499994;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       id="rect2443"
+       width="109.375"
+       height="30.625135"
+       x="522.97784"
+       y="640.85339" />
+    <rect
+       style="fill:blue;fill-opacity:0.2751323;fill-rule:evenodd;stroke:blue;stroke-width:1.24999893;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       id="rect2445"
+       width="109.31478"
+       height="52.75444"
+       x="522.82739"
+       y="671.62054" />
+    <rect
+       style="fill:lime;fill-opacity:0.2751323;fill-rule:evenodd;stroke:lime;stroke-width:1.24999976;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       id="rect2447"
+       width="109.375"
+       height="47.195267"
+       x="522.97784"
+       y="593.60504" />
+    <rect
+       style="fill:red;fill-opacity:0.2751323;fill-rule:evenodd;stroke:red;stroke-width:1.24999952;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       id="rect2449"
+       width="109.375"
+       height="63.71489"
+       x="73.963364"
+       y="316.90424" />
+    <rect
+       style="fill:blue;fill-opacity:0.2751323;fill-rule:evenodd;stroke:blue;stroke-width:1.24999905;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       id="rect2451"
+       width="109.31478"
+       height="109.7544"
+       x="73.81292"
+       y="380.91458" />
+    <rect
+       style="fill:lime;fill-opacity:0.2751323;fill-rule:evenodd;stroke:lime;stroke-width:1.24999988;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.38095242"
+       id="rect2453"
+       width="109.375"
+       height="98.188667"
+       x="73.963364"
+       y="218.60509" />
   </g>
   <text
      xml:space="preserve"
