@@ -1,6 +1,6 @@
 This is the interface to the GMII subsystem, and runs almost entirely
-on the RX_CLK clock. The FIFO herein is only for conversion between
-the potentially-different clock domains present external (RX_CLK) and
+on the RX\_CLK clock. The FIFO herein is only for conversion between
+the potentially-different clock domains present external (RX\_CLK) and
 internal to the FPGA. There is no overflow-detection logic because the
 output of the FIFO is free-running, that is it is always outputting
 data as rapidly as it is put-in.
@@ -11,7 +11,7 @@ data as rapidly as it is put-in.
 \caption{Interface for GMII/PHY}
 \end{figure}
 
-We register the input RXD, RX_DV and RX_ER signals and then place them
+We register the input RXD, RX\_DV and RX\_ER signals and then place them
 into a fifo. The FIFO is actually 16-bits wide, with the lower [7:0]
 being the registerd DV and the top bits being
 \begin{itemize}
