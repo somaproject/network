@@ -34,20 +34,20 @@ From  : PCB Document [NIC.PCBDOC]
 Output: BOM.html
 Type  : ReportComponents
 From  : Project [Network Interface.PRJPCB]
-   Generated File[Pro21EE.htm]
+   Generated File[Pro831.htm]
 
 Output: BOM.text
 Type  : ReportComponents
 From  : Project [Network Interface.PRJPCB]
-   Generated File[Pro21F0.txt]
+   Generated File[Pro833.txt]
 
 Output: BOM.xls
 Type  : ReportComponents
 From  : Project [Network Interface.PRJPCB]
-   Generated File[Pro21F1.xls]
+   Generated File[Pro834.xls]
 
 
 Files Generated   : 24
 Documents Printed : 0
 
-Finished Output Generation At 2:01:43 PM On 11/8/2006
+Finished Output Generation At 8:45:55 AM On 9/21/2007

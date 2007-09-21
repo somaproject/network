@@ -66,10 +66,10 @@ Generating : MidLayer1
 
 Used DCodes :
     D38
-    D40
+    D39
     D41
     D42
-    D47
+    D43
     D49
     D50
 *************************************************************
@@ -84,7 +84,7 @@ Generating : MidLayer2
 
 
 Used DCodes :
-    D40
+    D38
     D49
     D50
 *************************************************************
@@ -152,7 +152,7 @@ Generating : Bottom Overlay
 
 
 Used DCodes :
-    D40
+    D38
     D53
     D54
 *************************************************************
@@ -305,9 +305,9 @@ Generating : Internal Plane 1
 
 
 Used DCodes :
-    D40
-    D44
-    D47
+    D38
+    D43
+    D45
     D99
     D100
     D101
@@ -331,14 +331,14 @@ Generating : Internal Plane 2
 
 
 Used DCodes :
-    D39
+    D38
     D40
-    D44
-    D47
+    D43
+    D45
     D100
     D101
+    D102
     D103
-    D104
     D105
     D106
     D107

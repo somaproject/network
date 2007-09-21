@@ -19,7 +19,7 @@ Description	Designator	Footprint	LibRef	Quantity	Value
 "Resistor"	"R10"	"0603"	"Res1"	"1"	"9.67k"
 "Standard Passive Resistor"	"R18, R23, R24, R28, R29, R30, R31"	"0603"	"RESISTOR"	"7"	"2k"
 "Resistor"	"R19, R20, R21, R22"	"0603"	"Res1"	"4"	"75"
-"Resistor"	"R25, R26, R35, R36"	"0603"	"Res1"	"4"	"RPULL"
+"Resistor"	"R25, R26, R35, R36, R?"	"0603"	"Res1"	"8"	"RPULL"
 "Resistor"	"R27, R32, R33, R34"	"0603"	"Res1"	"4"	"384"
 "Standard Passive Resistor"	"R37, R40, R41, R42, R43, R44"	"0603"	"RESISTOR"	"6"	"400"
 "Resistor"	"R39"	"0603"	"Res1"	"1"	"10K"

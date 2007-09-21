@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_UNSIGNED.all;
 library UNISIM;
 use UNISIM.VComponents.all;
 
-entity RXoutput is
+entity rxoutput is
   port ( CLK       : in  std_logic;
          CLKEN     : in  std_logic;
          RESET     : in  std_logic;
@@ -19,9 +19,9 @@ entity RXoutput is
          NEXTFRAME : in  std_logic;
          DOUT      : out std_logic_vector(15 downto 0);
          DOUTEN    : out std_logic);
-end RXoutput;
+end rxoutput;
 
-architecture Behavioral of RXoutput is
+architecture Behavioral of rxoutput is
 
   -- output side
   signal do : std_logic_vector(15 downto 0)
@@ -299,6 +299,7 @@ begin
         else
           ns   <= none;
         end if;
+
       when waitclken =>
         lenen  <= '0';
         mainc  <= '0';
@@ -310,6 +311,7 @@ begin
         else
           ns   <= waitclken;
         end if;
+
       when swait0    =>
         lenen  <= '0';
         mainc  <= '1';
@@ -317,6 +319,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= swait1;
+
       when swait1    =>
         lenen  <= '0';
         mainc  <= '0';
@@ -324,6 +327,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= swait2;
+
       when swait2    =>
         lenen  <= '0';
         mainc  <= '0';
@@ -331,6 +335,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= swait3;
+
       when swait3    =>
         lenen  <= '0';
         mainc  <= '0';
@@ -338,6 +343,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= swait4;
+
       when swait4    =>
         lenen  <= '0';
         mainc  <= '0';
@@ -345,6 +351,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= latchlen;
+
       when latchlen  =>
         lenen  <= '1';
         mainc  <= '0';
@@ -352,6 +359,7 @@ begin
         fifowe <= '1';
         bpen   <= '0';
         ns     <= wait0;
+
       when wait0     =>
         lenen  <= '0';
         mainc  <= '1';
@@ -359,6 +367,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= startw;
+
       when startw    =>
         lenen  <= '0';
         mainc  <= '0';
@@ -366,6 +375,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= loww;
+
       when loww      =>
         lenen  <= '0';
         mainc  <= '0';
@@ -373,6 +383,7 @@ begin
         fifowe <= '1';
         bpen   <= '0';
         ns     <= highw;
+
       when highw     =>
         lenen  <= '0';
         mainc  <= '0';
@@ -384,6 +395,7 @@ begin
         else
           ns   <= nextw;
         end if;
+
       when nextw     =>
         lenen  <= '0';
         mainc  <= '1';
@@ -396,6 +408,7 @@ begin
           ns   <= startw;
         end if;
         -- now the detour states
+
       when fifonop   =>
         lenen  <= '0';
         mainc  <= '0';
@@ -416,6 +429,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= rewait1;
+
       when rewait1  =>
         lenen  <= '0';
         mainc  <= '0';
@@ -423,6 +437,7 @@ begin
         fifowe <= '0';
         bpen   <= '0';
         ns     <= reincmac;
+
       when reincmac =>
         lenen  <= '0';
         mainc  <= '1';
@@ -447,6 +462,7 @@ begin
         else
           ns   <= waitdone;
         end if;
+
       when latchbp  =>
         lenen  <= '0';
         mainc  <= '0';
@@ -454,6 +470,7 @@ begin
         fifowe <= '0';
         bpen   <= '1';
         ns     <= none;
+
       when others   =>
         lenen  <= '0';
         mainc  <= '0';

@@ -21,6 +21,7 @@ else:
     suite.addTest(vhdlTestCase("txinput"))
     suite.addTest(vhdlTestCase("mii"))
     suite.addTest(vhdlTestCase("txoutput"))
+    suite.addTest(vhdlTestCase("rxinput"))
     
 runner = unittest.TextTestRunner()
 runner.run(suite)
