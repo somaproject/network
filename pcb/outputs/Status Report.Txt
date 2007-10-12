@@ -1,53 +1,5 @@
-Output: Generates pick and place files
-Type  : Pick Place
-From  : PCB Document [NIC.PCBDOC]
-   Generated File[Pick Place for NIC.txt]
 
-Output: Gerber Files
-Type  : Gerber
-From  : PCB Document [NIC.PCBDOC]
-   Generated File[NIC.GTL]
-   Generated File[NIC.G1]
-   Generated File[NIC.G2]
-   Generated File[NIC.GBL]
-   Generated File[NIC.GTO]
-   Generated File[NIC.GBO]
-   Generated File[NIC.GTP]
-   Generated File[NIC.GBP]
-   Generated File[NIC.GTS]
-   Generated File[NIC.GBS]
-   Generated File[NIC.GP1]
-   Generated File[NIC.GP2]
-   Generated File[NIC.GM5]
-   Generated File[NIC.RUL]
-   Generated File[NIC.EXTREP]
-   Generated File[NIC.REP]
-
-Output: NC Drill Files
-Type  : NC Drill
-From  : PCB Document [NIC.PCBDOC]
-   Generated File[NIC.TXT]
-   Generated File[NIC.DRL]
-   Generated File[NIC.LDP]
-   Generated File[NIC.DRR]
-
-Output: BOM.html
-Type  : ReportComponents
-From  : Project [Network Interface.PRJPCB]
-   Generated File[Pro8DC.htm]
-
-Output: BOM.text
-Type  : ReportComponents
-From  : Project [Network Interface.PRJPCB]
-   Generated File[Pro8DD.txt]
-
-Output: BOM.xls
-Type  : ReportComponents
-From  : Project [Network Interface.PRJPCB]
-   Generated File[Pro8DE.xls]
-
-
-Files Generated   : 24
+Files Generated   : 0
 Documents Printed : 0
 
-Finished Output Generation At 11:15:47 AM On 9/21/2007
+Finished Output Generation At 9:41:45 AM On 10/11/2007
