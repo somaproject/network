@@ -221,6 +221,20 @@ Configuration28_Name3=SortOrder
 Configuration28_Item3=Designator=Up|Comment=Up|Footprint=Up
 Configuration28_Name4=VisibleOrder
 Configuration28_Item4=Description=100|Designator=100|Footprint=100|LibRef=100|Quantity=100|Value=100
+OutputType29=BOM_PartType
+OutputName29=CSVBOM
+OutputDocumentPath29=
+OutputVariantName29=
+OutputEnabled29=1
+OutputDefault29=0
+Configuration29_Name1=General
+Configuration29_Item1=OpenExported=False|ForceFit=False|TemplateFilename=|BatchMode=0|FormWidth=875|FormHeight=657
+Configuration29_Name2=GroupOrder
+Configuration29_Item2=
+Configuration29_Name3=SortOrder
+Configuration29_Item3=Description=Down
+Configuration29_Name4=VisibleOrder
+Configuration29_Item4=Designator=114|Description=181|Footprint=100|LibRef=100|Quantity=100|Value=100|Comment=114|Tolerance=100
 
 [CAMtasticOutputs]
 OpenODBOutput=False
