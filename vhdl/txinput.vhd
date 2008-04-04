@@ -19,6 +19,7 @@ entity txinput is
          BPOUT      : out std_logic_vector(15 downto 0);
          TXFIFOWERR : out std_logic;
          TXIOCRCERR : out std_logic;
+         TXIOCRCERRPOS : out std_logic_vector(15 downto 0); 
          DONE       : out std_logic);
 end txinput;
 
@@ -85,7 +86,8 @@ architecture Behavioral of txinput is
 
   signal newframecnt : std_logic_vector(31 downto 0) := (others => '0');
 
-
+  signal ltxiocrcerrpos : std_logic_vector(15 downto 0) := (others => '0');
+  
 begin
 
 
@@ -219,6 +221,15 @@ begin
         -- error signals
         TXIOCRCERR <= ltxiocrcerr;
         TXFIFOWERR <= ltxfifowerr;
+
+        if cs = none then
+          ltxiocrcerrpos <= (others => '0');
+        else
+          ltxiocrcerrpos <= ltxiocrcerrpos + 1; 
+          if ltxiocrcerr = '1' then
+            TXIOCRCERRPOS <= ltxiocrcerrpos; 
+          end if;
+        end if;
       end if;
     end if;
   end process clock;

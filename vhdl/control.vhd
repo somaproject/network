@@ -30,6 +30,7 @@ entity control is
     RXMEMCRCERR : in    std_logic;
     TXMEMCRCERR : in    std_logic;
     TXIOCRCERR  : in    std_logic;
+    TXIOCRCERRPOS : in std_logic_vector(15 downto 0); 
     RXCRCERR    : in    std_logic;
     -- system RX status bits
     RXBCAST     : out   std_logic;
@@ -284,7 +285,7 @@ begin
          rxphyerrcnt                       when addr = X"15" else
          rxoferrcnt                        when addr = X"16" else
          rxcrcerrcnt                       when addr = X"17" else
-         X"00000000"                       when addr = X"18" else
+         X"0000" & TXIOCRCERRPOS         when addr = X"18" else
          X"0000000" & "000" & lrxallf      when addr = X"19" else
          X"0000000" & "000" & lrxbcast     when addr = X"1A" else
          X"0000000" & "000" & lrxmcast     when addr = X"1B" else

@@ -97,6 +97,8 @@ architecture Behavioral of network is
   -- memory read/write error
   signal rxmemcrcerr, txmemcrcerr : std_logic := '0';
   signal txiocrcerr               : std_logic := '0';
+  signal txiocrcerrpos : std_logic_vector(15 downto 0) := (others => '0');
+  
 
   signal reset      : std_logic := '0';
   signal hilocked   : std_logic := '0';
@@ -199,6 +201,7 @@ architecture Behavioral of network is
            FIFOFULL   : in  std_logic;
            TXFIFOWERR : out std_logic;
            TXIOCRCERR : out std_logic;
+           TXIOCRCERRPOS : out std_Logic_vector(15 downto 0); 
            DONE       : out std_logic);
   end component;
 
@@ -233,6 +236,7 @@ architecture Behavioral of network is
            TXMEMCRCERR : in    std_logic;
            RXMEMCRCERR : in    std_logic;
            TXIOCRCERR  : in    std_logic;
+           TXIOCRCERRPOS : in std_logic_vector(15 downto 0); 
            RXCRCERR    : in    std_logic;
            RXBCAST     : out   std_logic;
            RXMCAST     : out   std_logic;
@@ -462,6 +466,7 @@ begin
       FIFOFULL   => txfifofull,
       TXFIFOWERR => txfifowerr,
       TXIOCRCERR => txiocrcerr,
+      TXIOCRCERRPOS => txiocrcerrpos, 
       DONE       => open);
 
   tx_fifocheck : FIFOcheck port map(
@@ -505,6 +510,7 @@ begin
     RXMEMCRCERR => rxmemcrcerr,
     TXMEMCRCERR => txmemcrcerr,
     TXIOCRCERR  => txiocrcerr,
+    TXIOCRCERRPOS => txiocrcerrpos, 
     MACADDR     => macaddr,
     MDIO        => MDIO,
     MDC         => MDC,
