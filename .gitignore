@@ -1,0 +1,6 @@
+xst/
+vhdl/xlnx_auto_0.ise
+*.xrpt
+*.ngr
+*.lso
+*.srp
