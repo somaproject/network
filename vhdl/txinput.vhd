@@ -19,7 +19,7 @@ entity txinput is
          BPOUT      : out std_logic_vector(15 downto 0);
          TXFIFOWERR : out std_logic;
          TXIOCRCERR : out std_logic;
-         TXIOCRCERRPOS : out std_logic_vector(15 downto 0); 
+         TXIOCRCERRPOS : out std_logic_vector(15 downto 0);
          DONE       : out std_logic);
 end txinput;
 
